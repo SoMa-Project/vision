@@ -4,10 +4,11 @@ ROS packages providing various ecto cells and plasms for perception.
 
 ## How to test
 
-Install ros-indigo-ecto*
-compile the package
+INSTALLATION:
+- Install any packages that start with 'ros-indigo-ecto', as well as with 'openni2'
+- Compile this package
 
-PROCESS:
+RUNNING:
 - roscore
 - roslaunch openni2_launch openni2.launch depth_registration:=true  
 - rosrun rqt_reconfigure rqt_reconfigure [go to camera, driver, and choose 8]
