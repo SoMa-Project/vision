@@ -16,6 +16,10 @@ RUNNING:
 - rosrun ecto_rbo_yaml plasm_yaml_ros_node.py demo_vision.yaml --debug
 - rosrun ecto_rbo_yaml ecto_yaml_to_pdf.py ecto_rbo_yaml/data/demo_vision.yaml (not necessary for test but can help understanding)
 
+EXPECTED OUTCOME:
+- Clear a table, place an apple on it, and a wall (a rectangular prism object with height > 15 cm).
+- You should see frames in the centroids of the table, wall, and the object.
+
 ## How to create documentation
 
 You can generate documentation for each package using sphinx:
