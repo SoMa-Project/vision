@@ -1,0 +1,40 @@
+crop_box:
+  type: ecto_rbo_pcl::PCDReader
+  inputs:
+    {}
+  # baseball
+  #filename: /home/clemens/code/hybrid-automaton-tools-py/experiments/wall_grasps/2016Sep06_19-02-46_before.pcd
+  # pringles
+  #filename: /home/clemens/code/hybrid-automaton-tools-py/experiments/wall_grasps/2016Sep06_19-15-59_before.pcd
+  # tissue
+  filename: /home/clemens/code/hybrid-automaton-tools-py/experiments/wall_grasps/2016Sep06_19-06-36_before.pcd
+normal_estimation:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::NormalEstimationIntegral>
+  inputs:
+    input: crop_box/output
+  $estimation_method: 0
+  $max_depth_change_factor: 0.00999999977648258
+  $smoothing_size: 15
+
+principal_curvature:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::PrincipalCurvature>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+  $k_search: 10
+  $radius_search: 0.0
+
+#colorize:
+#  type: ecto::pcl::PclCell<ecto::pcl::ColorizeClusters>
+#  inputs:
+#    input: crop_box/output
+#    clusters: principal_curvature/output
+#publish_segmentation:
+#  type: ecto_rbo_pcl::PointCloud2Message
+#  inputs:
+#    input: colorize/output
+#publish_pcd_as_pointcloud_now:
+#  type: ecto_sensor_msgs::Publisher_PointCloud2
+#  topic_name: /rgb_region_growing
+#  inputs:
+#    input: publish_segmentation/output

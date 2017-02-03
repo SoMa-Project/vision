@@ -1,0 +1,46 @@
+ros_pc_subscriber:
+  type: ecto_sensor_msgs::Subscriber_PointCloud2
+  inputs:
+    {}
+  queue_size: 2
+  topic_name: /camera/depth_registered/points
+Message2PointCloud:
+  type: ecto_rbo_pcl::Message2PointCloud
+  inputs:
+    input: ros_pc_subscriber/output
+#  $format: 0
+crop_box:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::PassThroughOrganized>
+  inputs:
+    input: Message2PointCloud/output
+  filter_field_name: z
+  filter_limit_min: 0
+  filter_limit_max: 2.2
+
+help_remove_nans:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::RemoveNaNFromPointCloud>
+  inputs:
+    input: crop_box/output
+region_growing_rgb:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::RegionGrowingRGB>
+  inputs:
+    input: help_remove_nans/output
+  $min_cluster_size: 80
+  $distance_threshold: 1000
+  $point_color_threshold: 7.0
+  $region_color_threshold: 40.0
+
+colorize:
+  type: ecto::pcl::PclCell<ecto::pcl::ColorizeClusters>
+  inputs:
+    input: help_remove_nans/output
+    clusters: region_growing_rgb/output
+publish_segmentation:
+  type: ecto_rbo_pcl::PointCloud2Message
+  inputs:
+    input: colorize/output
+publish_pcd_as_pointcloud_now:
+  type: ecto_sensor_msgs::Publisher_PointCloud2
+  topic_name: /rgb_region_growing
+  inputs:
+    input: publish_segmentation/output

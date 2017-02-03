@@ -1,0 +1,23 @@
+ros_pc_subscriber:
+  type: ecto_sensor_msgs::Subscriber_PointCloud2
+  inputs:
+    {}
+  $queue_size: 2
+  $topic_name: /camera/depth_registered/points_throttle
+pointcloud:
+  type: ecto_rbo_pcl::Message2PointCloud
+  inputs:
+    input: ros_pc_subscriber/output
+normal_estimation:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::NormalEstimationIntegral>
+  inputs:
+    input: pointcloud/output
+  $estimation_method: 0
+  $max_depth_change_factor: 0.00999999977648258
+  $smoothing_size: 15
+range_surface:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::RangeSurface>
+  inputs:
+    input: pointcloud/output
+    normals: normal_estimation/output
+  connectivity_threshold: 0.05

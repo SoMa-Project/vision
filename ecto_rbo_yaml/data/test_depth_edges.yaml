@@ -1,0 +1,42 @@
+ros_pc_subscriber:
+  type: ecto_sensor_msgs::Subscriber_PointCloud2
+  inputs:
+    {}
+  $queue_size: 2
+  $topic_name: /camera/depth_registered/points_throttle
+#  $topic_name: /camera_depth_optical_frame/pointcloud
+Message2PointCloud:
+  type: ecto_rbo_pcl::Message2PointCloud
+  inputs:
+    input: ros_pc_subscriber/output
+  $format: 0
+depthimage_converter:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::SegmentedImage>
+  inputs:
+    input: Message2PointCloud/output
+#depthimage_converter:
+#  type: ecto_ros::PointCloud22DepthImage
+#  inputs:
+#    cloud: ros_pc_subscriber/output
+#image_converter:
+#  type: ecto_ros::Image2Mat
+#  inputs:
+#    image: depthimage_converter/image
+mat_converter:
+  type: ecto_ros::Mat2Image
+  encoding: mono8
+  inputs:
+    image: scharr/image
+scharr:
+  type: imgproc::Filter_<imgproc::Canny>
+  inputs:
+    image: depthimage_converter/image
+  $L2gradient: False
+  $apertureSize: 3
+  $threshold1: 60.0
+  $threshold2: 90.0
+publish_image:
+  type: ecto_sensor_msgs::Publisher_Image
+  topic_name: haha
+  inputs:
+    input: mat_converter/image

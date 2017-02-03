@@ -1,0 +1,135 @@
+ros_pc_subscriber:
+  type: ecto_sensor_msgs::Subscriber_PointCloud2
+  inputs:
+    {}
+  queue_size: 2
+  topic_name: /camera/depth_registered/points_throttle
+#  topic_name: /camera_depth_optical_frame/pointcloud
+m_2_p:
+  type: ecto_rbo_pcl::Message2PointCloud
+  inputs:
+    input: ros_pc_subscriber/output
+  format: 0
+crop_box:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::PassThroughOrganized>
+  inputs:
+    input: m_2_p/output
+  $filter_field_name: z
+  $filter_limit_min: 0
+  $filter_limit_max: 1.5
+normal_estimation:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::NormalEstimationIntegral>
+  inputs:
+    input: crop_box/output
+  $estimation_method: 0
+  $max_depth_change_factor: 0.00999999977648258
+  $smoothing_size: 15
+#principal_curvature:
+#  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::PrincipalCurvature>
+#  inputs:
+#    input: crop_box/output
+#    normals: normal_estimation/output
+#  $k_search: 10
+#  $radius_search: 0.0
+create_image:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::CreateNormalImage>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+  $filter_width: 5
+edge_detection:
+  type: imgproc::Filter_<imgproc::Scharr>
+#  type: imgproc::Sobel
+  inputs:
+    image: create_image/image
+  $x: 0 
+  $y: 1 
+edge_detection2:
+  type: imgproc::Filter_<imgproc::Scharr>
+#  type: imgproc::Sobel
+  inputs:
+    image: edge_detection/image
+  $x: 0 
+  $y: 1 
+segment_edges:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::FloodFill>
+  inputs:
+    input: concavities/output
+    normals: normal_estimation/output
+  $angular_threshold: 0.02359879
+  $curvature_distance_threshold: 0.15
+  $curvature_threshold: 0.15
+  $distance_threshold: 0.05
+  $min_inliers: 50
+  $normal_distance_threshold: 0.12
+  $comparator_type: 3
+  $rviz_prefix: edge_segmentation
+edge_fits:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::StickFits>
+  inputs:
+    input: crop_box/output
+    clusters: segment_edges/clusters
+    normals: normal_estimation/output
+  $distance_threshold: 0.01
+  $normal_threshold: 0.785398163
+  $normal_distance_weight: 0.0
+  $max_radius: 0.05
+  $min_height: 0.09
+  min_length: 0.05
+  max_length: 3.00
+  $min_inlier_ratio: 0.7
+  $max_iterations: 100
+  $probability: 0.1
+#normal_clustering:
+#  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::NormalClustering>
+#  inputs:
+#    input: crop_box/output
+##    clusters: segment_edges/clusters
+#    normals: normal_estimation/output
+#  k: 6
+planes:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::MultiPlaneSegmentation>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+plane_fits:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::PlaneFits>
+  inputs:
+    input: crop_box/output
+    clusters: planes/planes
+    normals: normal_estimation/output
+  $distance_threshold: 10.05
+  $max_size: 10.24
+  $min_boxness: 0.0
+  $min_inlier_ratio: 0.0
+  $min_size: 0.00
+  $weight_contour: 0.0
+planar_manifolds:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::ManifoldsPlanar>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+    bounded_planes: plane_fits/bounded_models
+concavities:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::ConcavityMeasure>
+  inputs:
+    input: crop_box/output
+#    clusters: segment_edges/clusters
+    normals: normal_estimation/output
+  $neighborhood: 5
+threshold:
+  type: ecto_rbo_pcl::Filter_<ecto_rbo_pcl::ThresholdImage>
+  inputs:
+    image: create_image/image
+  $operation: 0
+  $threshold: 0.0
+  $max_value: 1.0
+mat_2_image:
+  type: ecto_ros::Mat2Image
+  inputs:
+    image: create_image/image
+image_publisher:
+  type: ecto_sensor_msgs::Publisher_Image
+  inputs:
+    input: mat_2_image/image
+  topic_name: /my_fancy_image

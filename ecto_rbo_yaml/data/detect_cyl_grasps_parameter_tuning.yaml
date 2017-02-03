@@ -1,0 +1,138 @@
+ros_pc_subscriber:
+  type: ecto_sensor_msgs::Subscriber_PointCloud2
+  inputs:
+    {}
+  queue_size: 2
+  topic_name: /cloud_pcd
+#  topic_name: /camera/depth_registered/points
+#  topic_name: /camera/depth_registered/points_throttle
+#  topic_name: /camera_depth_optical_frame/pointcloud
+plane_fits:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::PlaneFits>
+  inputs:
+    clusters: flood_fill1/clusters
+    input: crop_box/output
+    normals: normal_estimation/output
+  distance_threshold: 0.05
+  max_size: 0.24
+  min_boxness: 0.8
+  min_inlier_ratio: 0.5
+  min_size: 0.08
+  weight_contour: 0
+normal_estimation:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::NormalEstimationIntegral>
+  inputs:
+    input: crop_box/output
+  estimation_method: 0
+  max_depth_change_factor: 0.00999999977648258
+  smoothing_size: 15
+#flood_fill:
+#  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::FloodFill>
+#  inputs:
+#    input: crop_box/output
+#    normals: normal_estimation/output
+#  angular_threshold: 0.32359879
+#  comparator_type: 0
+#  curvature_distance_threshold: 0.084
+#  curvature_threshold: 0.0333
+#  distance_threshold: 0.05
+#  min_inliers: 80
+#  normal_distance_threshold: 0.252
+#  rviz_prefix: flood_fill_segmentation
+flood_fill1:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::FloodFill>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+  angular_threshold: 0.32359879
+  curvature_distance_threshold: 0.07
+  curvature_threshold: 0.037
+  distance_threshold: 0.05
+  min_inliers: 50
+  normal_distance_threshold: 0.12
+  rviz_prefix: flood_fill_segmentation1
+flood_fill2:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::FloodFill>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+  $angular_threshold: 0.62359879
+  $curvature_distance_threshold: 0.07
+  $curvature_threshold: 0.037
+  $distance_threshold: 0.05
+  $min_inliers: 50
+  normal_distance_threshold: 0.3
+  rviz_prefix: flood_fill_segmentation2
+flood_fill3:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::FloodFill>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+  angular_threshold: 0.62359879
+  curvature_distance_threshold: 1.07
+  curvature_threshold: 0.0
+  distance_threshold: 0.02
+  min_inliers: 50
+  normal_distance_threshold: 0.12
+  rviz_prefix: flood_fill_segmentation3
+flood_fill4:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::FloodFill>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+  angular_threshold: 0.12359879
+  curvature_distance_threshold: 0.07
+  curvature_threshold: 0.037
+  distance_threshold: 0.05
+  min_inliers: 50
+  normal_distance_threshold: 0.12
+  rviz_prefix: flood_fill_segmentation4
+merge_clusters:
+  type: ecto_rbo_pcl::MergeClusters
+  inputs:
+    cluster_0: flood_fill1/clusters
+    cluster_1: flood_fill2/clusters
+    cluster_2: flood_fill3/clusters
+    cluster_3: flood_fill4/clusters
+cylinder_fits:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::CylinderFits>
+  inputs:
+    clusters: merge_clusters/merged_clusters
+    input: crop_box/output
+    normals: normal_estimation/output
+  distance_threshold: 0.12
+  max_iterations: 76
+  max_radius: 0.144
+  min_height: 0.016
+  $min_inlier_ratio: 0.45
+  normal_distance_weight: 0.1
+  normal_threshold: 4.4767695291
+  probability: 0.99
+crop_box:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::PassThroughOrganized>
+  inputs:
+    input: Message2PointCloud/output
+  filter_field_name: z
+  filter_limit_max: 1.5
+  filter_limit_min: 0
+  filter_limit_negative: false
+Message2PointCloud:
+  type: ecto_rbo_pcl::Message2PointCloud
+  inputs:
+    input: ros_pc_subscriber/output
+  format: 0
+BroadcastCylinderGrasps:
+  type: ecto_rbo_grasping::BroadcastCylinderGrasps
+  inputs:
+    header: Message2PointCloud/header
+#    model_ids: cyl_tracker/tracked_ids
+#    models: cyl_tracker/tracked_models
+#    model_qualities: cyl_tracker/tracked_model_qualities
+    models: cylinder_fits/models
+    model_qualities: cylinder_fits/fit_quality
+#    plane_centroids: plane_fits/centroids_biggest
+    planes: plane_fits/models_biggest
+publish_grasps:
+  type: ecto_rbo_grasping::PublishGrasps
+  inputs:
+     pregrasp_messages_ptr: BroadcastCylinderGrasps/pregrasp_messages

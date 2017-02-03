@@ -1,0 +1,41 @@
+ros_pc_subscriber:
+  type: ecto_sensor_msgs::Subscriber_PointCloud2
+  inputs:
+    {}
+  $queue_size: 2
+  $topic_name: /camera/depth_registered/points_throttle
+Message2PointCloud:
+  type: ecto_rbo_pcl::Message2PointCloud
+  inputs:
+    input: ros_pc_subscriber/output
+  $format: 0
+normal_estimation:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::NormalEstimationIntegral>
+  inputs:
+    input: Message2PointCloud/output
+  $estimation_method: 0
+  $max_depth_change_factor: 0.00999999977648258
+  $smoothing_size: 15
+crop_box:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::PassThroughOrganized>
+  inputs:
+    input: Message2PointCloud/output
+  $filter_field_name: z
+  $filter_limit_min: 0
+  $filter_limit_max: 2.0
+single_region_growing:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::SingleRegionGrowing>
+  inputs:
+    input: Message2PointCloud/output
+    normals: normal_estimation/output
+  seed: 20000
+  angular_threshold: 0.03
+  direction_threshold: 0.5
+pushing_motions:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::PushingMotions>
+  inputs:
+    input: Message2PointCloud/output
+    normals: normal_estimation/output
+    clusters: single_region_growing/clusters
+    cluster_seeds: single_region_growing/cluster_seeds
+    cluster_borders: single_region_growing/cluster_borders

@@ -1,0 +1,97 @@
+ros_pc_subscriber:
+  type: ecto_sensor_msgs::Subscriber_PointCloud2
+  inputs:
+    {}
+  $queue_size: 2
+  $topic_name: /camera/depth_registered/points_throttle
+#  $topic_name: /camera_depth_optical_frame/pointcloud
+Message2PointCloud:
+  type: ecto_rbo_pcl::Message2PointCloud
+  inputs:
+    input: ros_pc_subscriber/output
+  $format: 0
+normal_estimation:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::NormalEstimationIntegral>
+  inputs:
+    input: crop_box/output
+  $estimation_method: 0
+  $max_depth_change_factor: 0.00999999977648258
+  $smoothing_size: 15
+crop_box:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::PassThroughOrganized>
+  inputs:
+    input: Message2PointCloud/output
+  $filter_field_name: z
+  $filter_limit_min: 0
+  $filter_limit_max: 20.0
+cluster_grasps:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::FloodFill>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+  $angular_threshold: 0.02359879
+  $curvature_distance_threshold: 1.7
+  $curvature_threshold: 0.05
+  $distance_threshold: 0.05
+  $min_inliers: 600
+  $normal_distance_threshold: 0.12
+  $comparator_type: 0
+  $rviz_prefix: grasp_segmentation
+box_grasps_fit:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::PlaneFits>
+  inputs:
+    input: crop_box/output
+    clusters: cluster_grasps/clusters
+    normals: normal_estimation/output
+  $distance_threshold: 0.05
+  $max_size: 0.24
+  $min_boxness: 0.8
+  $min_inlier_ratio: 0.5
+  $min_size: 0.08
+  $weight_contour: 0.5
+cluster_surfaces:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::FloodFill>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+  $angular_threshold: 0.03359879
+  $curvature_distance_threshold: 1.7
+  $curvature_threshold: 0.05
+  $distance_threshold: 0.05
+  $min_inliers: 600
+  $normal_distance_threshold: 0.12
+  $comparator_type: 0
+  $rviz_prefix: surface_segmentation
+plane_fits:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::PlaneFits>
+  inputs:
+    input: crop_box/output
+    clusters: cluster_surfaces/clusters
+    normals: normal_estimation/output
+  $distance_threshold: 10.05
+  $max_size: 10.24
+  $min_boxness: 0.0
+  $min_inlier_ratio: 0.0
+  $min_size: 0.00
+  $weight_contour: 0.0
+select_clusters_from_lines:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::SelectClustersFromLines>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+    polygons: plane_fits/polygons
+concavities:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::ConcavityMeasureDirectional>
+  inputs:
+    input: crop_box/output
+    clusters: select_clusters_from_lines/clusters
+    normals: normal_estimation/output
+    polygons: plane_fits/polygons
+  $neighborhood: 0.03
+#edge_manifolds:
+#  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::ManifoldsAtEdges>
+#  inputs:
+#    input: crop_box/output
+#    normals: normal_estimation/output
+#    polygons: plane_fits/polygons
+#    bounded_planes: plane_fits/bounded_models
