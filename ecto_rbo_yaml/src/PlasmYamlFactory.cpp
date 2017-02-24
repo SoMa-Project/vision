@@ -66,7 +66,7 @@ PlasmYamlFactory::PlasmYamlFactory(const ecto::plasm_ptr& plasm) :
     import_modules.push_back("ecto_opencv.imgproc");
     import_modules.push_back("ecto_opencv.highgui");
 
-    import_modules.push_back("ecto_rbo_grasping");
+    //import_modules.push_back("ecto_rbo_grasping");
     import_modules.push_back("ecto_rbo_pcl");
 //        boost::python::import("ecto_object_recognition");
 }
