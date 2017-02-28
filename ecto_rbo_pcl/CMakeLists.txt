@@ -179,6 +179,14 @@ ectomodule(ecto_rbo_pcl INSTALL
     src/ecto_rbo_pcl/RegionGrowingRGB.cpp
     src/ecto_rbo_pcl/FilterClustersBySize.cpp
     src/ecto_rbo_pcl/WrapInVector.cpp
+    #src/ecto_rbo_pcl/BoundingBoxFit.cpp
+    src/ecto_rbo_pcl/ColourConditionalRemoval_RGB.cpp
+    src/ecto_rbo_pcl/EuclideanClusterExtraction.cpp
+    src/ecto_rbo_pcl/IdentifyMainPlane.cpp
+    src/ecto_rbo_pcl/MultiPlaneSegmentation.cpp
+    src/ecto_rbo_pcl/PCAnalysis.cpp
+    src/ecto_rbo_pcl/ProjectPointcloudOnPlane.cpp
+    src/ecto_rbo_pcl/UniformSamplePointCloud.cpp
 )
 
 link_ecto(ecto_rbo_pcl
