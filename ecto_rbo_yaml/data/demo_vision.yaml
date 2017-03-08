@@ -208,7 +208,7 @@ bbox_fits:
     input: crop_box/output
     clusters: filter_closest_object/closest_cluster
     normal: tf_to_vector_table/vector
-  min_aspect_ratio: 1.9
+  #min_aspect_ratio: 1.9
   #max_aspect_ratio: 1.0
 bbox_to_axis:
   type: ecto_rbo_pcl::TFs2Vectors
