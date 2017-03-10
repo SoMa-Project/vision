@@ -1,6 +1,3 @@
-#####################
-# INITIAL PROCESSES #
-#####################
 ros_pc_subscriber:
   type: ecto_sensor_msgs::Subscriber_PointCloud2
   queue_size: 2
@@ -19,10 +16,6 @@ crop_box:
   filter_limit_min: 0
   filter_limit_negative: false
 
-
-####################
-###### PC OPS ######
-####################
 normal_estimation:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::NormalEstimationIntegral>
   inputs:
@@ -56,10 +49,6 @@ region_growing_rgb:
   point_color_threshold: 7.0
   region_color_threshold: 30.0
 
-
-####################
-###### TABLE #######
-####################
 table_fits:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::PlaneFits>
   inputs:
@@ -81,10 +70,6 @@ tf_send_table:
   target_frame: table
 
 
-
-####################
-####### WALL #######
-####################
 filter_by_distance:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::FilterClustersBySize>
   inputs:
@@ -138,9 +123,6 @@ tf_send_wall:
   source_frame: camera_rgb_optical_frame
   target_frame: wall
 
-####################
-###### OBJECT ######
-####################
 merge_clusters:
   type: ecto_rbo_pcl::MergeClusters
   inputs:
@@ -155,8 +137,8 @@ filter_object_by_size:
   min_volume: 0.
   filter_criterion: 1
   max_distance: 0.2
-  min_size: 20
-  max_size: 5000
+  min_size: 120
+  max_size: 2000
 filter_closest_object:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::ExtractClosestCluster>
   inputs:
@@ -165,7 +147,7 @@ filter_closest_object:
     transform: table_fits/transform_biggest
     #transform_2: wall_fit/transform_biggest
   #size_weight: -0.0001
-  size_weight: -0.1
+  size_weight: -0.00005
 calculate_centroids:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::Centroid>
   inputs:
