@@ -2,25 +2,33 @@
 
 ROS packages providing various ecto cells and plasms for perception.
 
-## How to test
+## Install 
 
-INSTALLATION:
-- Install any packages that start with 'ros-indigo-ecto', as well as with 'openni2'
-- Compile this package
+* Install all ROS packages that start with 'ros-indigo-ecto', as well as with 'openni2':
+```
+sudo apt-get install ros-indigo-ecto* ros-indigo-openni*
+```
+* Compile this package:
+```
+catkin build ecto_rbo
+```
 
-RUNNING:
-- roscore
-- roslaunch openni2_launch openni2.launch depth_registration:=true  
-- rosrun rqt_reconfigure rqt_reconfigure [go to camera, driver, and choose 8]
-- rviz -d demo.rviz
-- rosrun ecto_rbo_yaml plasm_yaml_ros_node.py demo_vision.yaml --debug
-- rosrun ecto_rbo_yaml ecto_yaml_to_pdf ecto_rbo_yaml/data/demo_vision.yaml (not necessary for test but can help understanding)
+## Example
 
-EXPECTED OUTCOME:
-- Clear a table, place an apple on it, and a wall (a rectangular prism object with height > 15 cm).
-- You should see frames in the centroids of the table, wall, and the object.
+```
+roslaunch openni2_launch openni2.launch depth_registration:=true
+# [go to camera, driver, and choose 8]
+rosrun rqt_reconfigure rqt_reconfigure
+rviz -d demo.rviz
+rosrun ecto_rbo_yaml plasm_yaml_ros_node.py demo_vision.yaml --debug
+rosrun ecto_rbo_yaml ecto_yaml_to_pdf ecto_rbo_yaml/data/demo_vision.yaml (not necessary for test but can help understanding)
+```
 
-## How to create documentation
+Expected outcome:
+* Clear a table, place an apple on it, and a wall (a rectangular prism object with height > 15 cm).
+* You should see frames in the centroids of the table, wall, and the object.
+
+## Documentation 
 
 You can generate documentation for each package using sphinx:
 
