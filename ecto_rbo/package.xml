@@ -38,6 +38,7 @@
   <!--   <buildtool_depend>catkin</buildtool_depend> -->
   <!-- Use run_depend for packages you need at runtime: -->
   <run_depend>ecto_rbo_pcl</run_depend>
+  <run_depend>ecto_rbo_grasping</run_depend>
   <run_depend>ecto_rbo_yaml</run_depend>
   <run_depend>ecto_rbo_dbg</run_depend>
   <!-- Use test_depend for packages you need only for testing: -->
