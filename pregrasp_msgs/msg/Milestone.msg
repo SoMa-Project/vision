@@ -1,0 +1,2 @@
+PoseSet motion_constraint
+PoseSet termination_predicate
