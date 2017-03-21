@@ -20,8 +20,8 @@ The views and conclusions contained in the software and documentation are those 
 #include <visualization_msgs/Marker.h>
 #include <visualization_msgs/MarkerArray.h>
 
-//#include <pregrasp_msgs/GraspStrategy.h>
-//#include <pregrasp_msgs/GraspStrategyArray.h>
+#include <pregrasp_msgs/GraspStrategy.h>
+#include <pregrasp_msgs/GraspStrategyArray.h>
 
 #include <eigen_conversions/eigen_msg.h>
 
@@ -321,21 +321,21 @@ int publish(const std::vector< ModelCoefficientsConstPtr>& data, visualization_m
     return ecto::OK;
 }
 
-//int publish(const pregrasp_msgs::GraspStrategyArrayConstPtr& data, visualization_msgs::MarkerArrayPtr& msg, const std::string& ns)
-//{
-//    int id = 0;
-//    for (std::vector<pregrasp_msgs::GraspStrategy>::const_iterator it = data->strategies.begin(); it != data->strategies.end(); ++it)
-//    {
-//        Eigen::Affine3d tmp;
-//        tf::poseMsgToEigen(it->pregrasp_pose.pose.pose, tmp);
-//        id = addAxisMarker(msg, "base_frame", ns, id, 0.1, 0.01, tmp.cast<float>());
-//        Eigen::Vector3d start, end;
-//        tf::pointMsgToEigen(it->pregrasp_pose.pose.pose.position, start);
-//        tf::pointMsgToEigen(it->object.pose.pose.position, end);
-//        id = addArrowMarker(msg, "base_frame", ns, id, {1.0, 0, 1.0, 1.0}, 0.005, 0.01, start.cast<float>(), end.cast<float>());
-//    }
-//    return ecto::OK;
-//}
+int publish(const pregrasp_msgs::GraspStrategyArrayConstPtr& data, visualization_msgs::MarkerArrayPtr& msg, const std::string& ns)
+{
+    int id = 0;
+    for (std::vector<pregrasp_msgs::GraspStrategy>::const_iterator it = data->strategies.begin(); it != data->strategies.end(); ++it)
+    {
+        Eigen::Affine3d tmp;
+        tf::poseMsgToEigen(it->pregrasp_pose.pose.pose, tmp);
+        id = addAxisMarker(msg, "base_frame", ns, id, 0.1, 0.01, tmp.cast<float>());
+        Eigen::Vector3d start, end;
+        tf::pointMsgToEigen(it->pregrasp_pose.pose.pose.position, start);
+        tf::pointMsgToEigen(it->object.pose.pose.position, end);
+        id = addArrowMarker(msg, "base_frame", ns, id, {1.0, 0, 1.0, 1.0}, 0.005, 0.01, start.cast<float>(), end.cast<float>());
+    }
+    return ecto::OK;
+}
 
 template <typename T>
 struct RVizMessageConverter
@@ -453,4 +453,4 @@ ECTO_CELL(ecto_rbo_dbg, ecto_rbo_dbg::RVizMessageConverter< std::vector<ecto_rbo
 ECTO_CELL(ecto_rbo_dbg, ecto_rbo_dbg::RVizMessageConverter< ecto_rbo_dbg::UnalignedAffine3f >, "ecto_rbo_dbg::RVizMessageConverter<ecto_rbo_dbg::UnalignedAffine3f>", "Publish markers.");
 ECTO_CELL(ecto_rbo_dbg, ecto_rbo_dbg::RVizMessageConverter< std::vector<ecto_rbo_dbg::UnalignedAffine3f> >, "ecto_rbo_dbg::RVizMessageConverter<std::vector<ecto_rbo_dbg::UnalignedAffine3f>>", "Publish markers.");
 ECTO_CELL(ecto_rbo_dbg, ecto_rbo_dbg::RVizMessageConverter< std::vector<ecto_rbo_dbg::ModelCoefficientsConstPtr> >, "ecto_rbo_dbg::RVizMessageConverter<std::vector<ecto::pcl::ModelCoefficientsConstPtr>>", "Publish markers.");
-//ECTO_CELL(ecto_rbo_dbg, ecto_rbo_dbg::RVizMessageConverter< pregrasp_msgs::GraspStrategyArrayConstPtr >, "ecto_rbo_dbg::RVizMessageConverter< pregrasp_msgs::GraspStrategyArrayConstPtr >", "Publish markers.");
+ECTO_CELL(ecto_rbo_dbg, ecto_rbo_dbg::RVizMessageConverter< pregrasp_msgs::GraspStrategyArrayConstPtr >, "ecto_rbo_dbg::RVizMessageConverter< pregrasp_msgs::GraspStrategyArrayConstPtr >", "Publish markers.");
