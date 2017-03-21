@@ -1,19 +1,4 @@
-/*
-Copyright 2016-2017 Robotics and Biology Lab, TU Berlin. All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-
-    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-
-THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-The views and conclusions contained in the software and documentation are those of the authors and should not be interpreted as representing official policies, either expressed or implied, of the FreeBSD Project.
-*/ 
-
-#include <ecto_pcl/ecto_pcl.hpp>
-#include <ecto_pcl/pcl_cell.hpp>
-#include <ecto_pcl/pcl_cell_with_normals.hpp>
+#include <ecto_rbo_pcl/common.h>
 
 #include <pcl/segmentation/sac_segmentation.h>
 #include <pcl/common/io.h>
@@ -24,11 +9,13 @@ The views and conclusions contained in the software and documentation are those 
 
 #include <ros/ros.h>
 #include <ros/console.h>
+
 #include <pcl_conversions/pcl_conversions.h>
 #include <tf_conversions/tf_eigen.h>
 #include <tf/transform_broadcaster.h>
 #include <visualization_msgs/Marker.h>
 #include <geometry_msgs/PolygonStamped.h>
+#include <visualization_msgs/MarkerArray.h>
 
 #include <opencv/cv.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -40,11 +27,6 @@ using namespace ecto::pcl;
 
 namespace ecto_rbo_pcl
 {
-
-typedef Eigen::Matrix<float, 4, 1, Eigen::DontAlign> UnalignedVector4f;
-typedef Eigen::Matrix<float, 3, 1, Eigen::DontAlign> UnalignedVector3f;
-typedef Eigen::Matrix<float, 2, 1, Eigen::DontAlign> UnalignedVector2f;
-typedef Eigen::Transform<float,3,Eigen::Affine,Eigen::DontAlign> UnalignedAffine3f;
 
 struct PlaneFits
 {
@@ -60,7 +42,7 @@ struct PlaneFits
   spore<std::vector<UnalignedVector3f> > plane_sizes_;
   spore<std::vector<UnalignedAffine3f> > plane_transforms_;
 
-  spore<std::vector<UnalignedVector4f> > plane_centroids_biggest_;
+  spore<UnalignedVector4f> plane_centroid_biggest_;
   spore<UnalignedAffine3f> plane_transform_biggest_;
   spore<std::vector< ::pcl::ModelCoefficientsConstPtr> > plane_coefficients_biggest_;
   spore<std::vector< ::pcl::ModelCoefficientsConstPtr> > bounded_plane_coefficients_biggest_;
@@ -76,6 +58,8 @@ struct PlaneFits
   spore<double> max_size_;
   spore<double> min_size_;
   spore<double> polygon_approximation_epsilon_;
+  
+  spore<bool> publish_rviz_markers_;
 
   int biggest_index;
 
@@ -88,6 +72,8 @@ struct PlaneFits
     params.declare<double>("max_size", "", 0.24);
     params.declare<double>("min_size", "", 0.08);
     params.declare<double>("polygon_approximation_epsilon", "Parameter for Douglas-Peucker algorithm that approximates the planar contour with a polygon (in mm).", 50.0);
+    
+    params.declare<bool>("publish_rviz_markers", "Should the output be published for visualization?", false);
   }
 
   static void declare_io(const tendrils& params, tendrils& inputs, tendrils& outputs)
@@ -105,7 +91,7 @@ struct PlaneFits
 
     outputs.declare<std::vector< ::pcl::ModelCoefficientsConstPtr> >("polygons", "Fitted 3D Polygons.");
 
-    outputs.declare<std::vector<UnalignedVector4f> >("centroids_biggest", "Plane centroids.");
+    outputs.declare<UnalignedVector4f>("centroid_biggest", "The centroid of the biggest plane found.");
     outputs.declare<std::vector< ::pcl::ModelCoefficientsConstPtr> >("models_biggest", "Plane coefficients");
     outputs.declare<UnalignedAffine3f>("transform_biggest", "The homogenous transformation of the biggest plane found.");
     outputs.declare<std::vector< ::pcl::ModelCoefficientsConstPtr> >("bounded_model_biggest", "Plane coefficients of the biggest plane");
@@ -121,7 +107,7 @@ struct PlaneFits
     plane_sizes_ = outputs["sizes"];
     plane_transforms_ = outputs["transforms"];
     plane_coefficients_biggest_ = outputs["models_biggest"];
-    plane_centroids_biggest_ = outputs["centroids_biggest"];
+    plane_centroid_biggest_ = outputs["centroid_biggest"];
     plane_transform_biggest_ = outputs["transform_biggest"];
     bounded_plane_coefficients_biggest_= outputs["bounded_model_biggest"];
     polygon_biggest_ = outputs["polygon_biggest"];
@@ -136,6 +122,8 @@ struct PlaneFits
     max_size_ = params["max_size"];
     min_size_ = params["min_size"];
     polygon_approximation_epsilon_ = params["polygon_approximation_epsilon"];
+    
+    publish_rviz_markers_ = params["publish_rviz_markers"];
   }
 
   void publishRVizMarkers(const std::string& frame_id)
@@ -393,7 +381,6 @@ struct PlaneFits
       plane_coefficients_biggest_->clear();
       polygons_->clear();
       polygon_biggest_->clear();
-      plane_centroids_biggest_->clear();
       fit_quality_->clear();
       inliers_->clear();
 
@@ -520,34 +507,37 @@ struct PlaneFits
           if (inliers->indices.size() > biggest_size) {
             if (plane_coefficients_biggest_->empty()) {
               plane_coefficients_biggest_->push_back(model);
-              plane_centroids_biggest_->push_back(centroid_4d);
               bounded_plane_coefficients_biggest_->push_back(bounded_model);
               polygon_biggest_->push_back(polygons_->back());
             }
             else {
               plane_coefficients_biggest_->at(0) = model;
-              plane_centroids_biggest_->at(0) = centroid_4d;
               bounded_plane_coefficients_biggest_->at(0) = bounded_model;
               polygon_biggest_->at(0) = polygons_->back();
             }
             biggest_index = bounded_plane_coefficients_->size() - 1;
             biggest_size = inliers->indices.size();
+            
+            (*plane_centroid_biggest_) = centroid_4d;
             (*plane_transform_biggest_) = transform;// * Eigen::AngleAxisf(a, axis);
             //ROS_INFO("Outgoing transform: %f %f %f", plane_transform_biggest_->translation()[0], plane_transform_biggest_->translation()[1], plane_transform_biggest_->translation()[2]);
           }
       }
 
-      static ros::NodeHandle nh;
-      static ros::Publisher fit_error = nh.advertise<sensor_msgs::PointCloud2>("/box_fit_error", 1);
-
-      sensor_msgs::PointCloud2Ptr color_msg(new sensor_msgs::PointCloud2);
-      ::pcl::toROSMsg(*box_fit_error, *color_msg);
-      color_msg->header = pcl_conversions::fromPCL(input->header);
-      fit_error.publish(*color_msg);
-
       ROS_INFO("Found %zu planes and %zu big ones.", plane_coefficients_->size(), plane_coefficients_biggest_->size());
 
-      publishRVizMarkers(input->header.frame_id);
+      if (*publish_rviz_markers_)
+      {
+          static ros::NodeHandle nh;
+          static ros::Publisher fit_error = nh.advertise<sensor_msgs::PointCloud2>("/box_fit_error", 1);
+
+          sensor_msgs::PointCloud2Ptr color_msg(new sensor_msgs::PointCloud2);
+          ::pcl::toROSMsg(*box_fit_error, *color_msg);
+          color_msg->header = pcl_conversions::fromPCL(input->header);
+          fit_error.publish(*color_msg);
+          
+          publishRVizMarkers(input->header.frame_id);
+      }
 
       return OK;
     }
@@ -558,6 +548,7 @@ struct PlaneFits2D
 {
   spore<ecto::pcl::Clusters> clusters_;
   spore<UnalignedVector3f> normal_;
+  spore<UnalignedVector4f> height_origin_;
   
   spore<std::vector<UnalignedVector3f> > bbox_sizes_;
   spore<std::vector<UnalignedAffine3f> > bbox_transforms_;
@@ -565,31 +556,69 @@ struct PlaneFits2D
   spore<double> min_aspect_ratio_;
   spore<double> max_aspect_ratio_;
 
+  spore<bool> publish_rviz_markers_;
+  
   static void declare_params(ecto::tendrils& params)
   {
     params.declare<double>("min_aspect_ratio", "Filters out all boxes with minimum aspect ratio (= longer side / shorter side; between 1 and inf).", 1.0);
     params.declare<double>("max_aspect_ratio", "Filters out all boxes with maximum aspect ratio (= longer side / shorter side; between 1 and inf).", FLT_MAX);
+    params.declare<bool>("publish_rviz_markers", "Should the output be published for visualization?", false);
   }
 
   static void declare_io(const tendrils& params, tendrils& inputs, tendrils& outputs)
   {
     inputs.declare< ecto::pcl::Clusters >("clusters", "Point Cloud clusters.");
     inputs.declare< UnalignedVector3f >("normal", "Normal vector of all 2d bounding box footprints.").required(true);
+    inputs.declare< UnalignedVector4f >("height_origin", "If this is supplied, then calculate height of bounding box based on the largest distance of any point to this point along the normal").required(false);
 
-    outputs.declare<std::vector<UnalignedVector3f> >("sizes", "Plane sizes.");
-    outputs.declare<std::vector<UnalignedAffine3f> >("transforms", "Plane transforms.");
+    outputs.declare<std::vector<UnalignedVector3f> >("sizes", "Bounding box sizes.");
+    outputs.declare<std::vector<UnalignedAffine3f> >("transforms", "Bounding box transforms.");
   }
 
   void configure(const tendrils& params, const tendrils& inputs, const tendrils& outputs)
   {
     clusters_ = inputs["clusters"];
     normal_ = inputs["normal"];
+    height_origin_ = inputs["height_origin"];
     
     bbox_sizes_ = outputs["sizes"];
     bbox_transforms_ = outputs["transforms"];
     
     min_aspect_ratio_ = params["min_aspect_ratio"];
     max_aspect_ratio_ = params["max_aspect_ratio"];
+    
+    publish_rviz_markers_ = params["publish_rviz_markers"];
+  }
+  
+  void publishRVizMarkers(const std::vector<UnalignedAffine3f>& transforms, const std::vector<UnalignedVector3f>& sizes)
+  {
+      static ros::NodeHandle nh("~");
+      static ros::Publisher marker_publisher = nh.advertise<visualization_msgs::MarkerArray>("/bounding_boxes", 10);
+      visualization_msgs::MarkerArray markers;
+      for (size_t i = 0; i < transforms.size(); ++i)
+      {
+          visualization_msgs::Marker marker;
+          marker.header.frame_id = "/camera_rgb_optical_frame";
+          marker.header.stamp = ros::Time();
+          //marker.lifetime = ros::Duration(0);
+          marker.id = i;
+          marker.type = visualization_msgs::Marker::CUBE;
+          marker.action = visualization_msgs::Marker::ADD;
+          
+          tf::Pose bbox_pose;
+          tf::poseEigenToTF((Eigen::Affine3d) (transforms[i].cast<double>()), bbox_pose);
+          tf::poseTFToMsg(bbox_pose, marker.pose);
+          
+          marker.scale.x = std::max(sizes[i][0], 0.01f);
+          marker.scale.y = std::max(sizes[i][1], 0.01f);
+          marker.scale.z = std::max(sizes[i][2], 0.01f);
+          marker.color.a = 0.5;
+          marker.color.b = 1.0;
+          marker.color.g = marker.color.r = 0.0;
+          
+          markers.markers.push_back(marker);
+      }
+      marker_publisher.publish(markers);
   }
   
   template<typename Point>
@@ -614,20 +643,30 @@ struct PlaneFits2D
           ::pcl::getTransformationFromTwoUnitVectorsAndOrigin(normal_->cross(x_axis), *normal_, centroid_4d.head<3>(), transformToPlaneCoordinates);
           
           std::vector< ::cv::Point2i> points_2d;
+          double max_along_normal = -10e19;
+          double min_along_normal = 10e19;
           for (std::vector<int>::const_iterator jt = it->indices.begin(); jt != it->indices.end(); ++jt)
           {
             ::Eigen::Vector3f uv = transformToPlaneCoordinates * (*input)[*jt].getVector3fMap();
             ::cv::Point2i pt(uv[0] * 1000, uv[1] * 1000);
             points_2d.push_back(pt);
+            
+            double dot_prod = (*input)[*jt].getVector3fMap().dot(*normal_);
+            if (dot_prod > max_along_normal)
+                max_along_normal = dot_prod;
+            if (dot_prod < min_along_normal)
+                min_along_normal = dot_prod;
           }
           ::cv::RotatedRect rectangular_boundary = ::cv::minAreaRect(points_2d);
+          
+          ROS_INFO_STREAM("angle: " << rectangular_boundary.angle << "  and size: " << rectangular_boundary.size.width << " " << rectangular_boundary.size.height);
           
           Eigen::Vector3f principal_axis = Eigen::AngleAxisf(::pcl::deg2rad(rectangular_boundary.angle), *normal_) * x_axis;
           Eigen::Vector3f new_center(rectangular_boundary.center.x * 0.001, rectangular_boundary.center.y * 0.001, 0);
           new_center = transformToPlaneCoordinates.inverse() * new_center;
           
-          double height = rectangular_boundary.size.width * 0.001;
-          double width = rectangular_boundary.size.height * 0.001;
+          double height = rectangular_boundary.size.height * 0.001;
+          double width = rectangular_boundary.size.width * 0.001;
           double aspect_ratio = std::max(width, height) / std::min(width, height);
           //std::cout << "Aspect Ratio: " << aspect_ratio << std::endl;
           if (aspect_ratio < *min_aspect_ratio_ || aspect_ratio > *max_aspect_ratio_)
@@ -635,15 +674,37 @@ struct PlaneFits2D
           
           Eigen::Matrix3f rotation;
           if (width > height)
+          {
             rotation << principal_axis, normal_->cross(principal_axis), *normal_;
+          }
           else
+          {
             rotation << principal_axis.cross(*normal_), principal_axis, *normal_;
+            ::std::swap(width, height);
+          }
+          
+          double depth;
+          if (height_origin_.user_supplied())
+          {
+              depth = (height_origin_->head<3>().dot(*normal_)) - min_along_normal;
+              
+              new_center = new_center - (*normal_)*(new_center.dot(*normal_)-(height_origin_->head<3>().dot(*normal_))) - (*normal_ * (depth * 0.5));
+          }
+          else
+          {
+              depth = (max_along_normal - min_along_normal);
+          }
+          
           UnalignedAffine3f transform = Eigen::Translation3f(new_center[0], new_center[1], new_center[2]) * rotation;
           bbox_transforms_->push_back(transform);
-
-          UnalignedVector3f size(height, width, 0);
+          
+          UnalignedVector3f size(width, height, depth);
           bbox_sizes_->push_back(size);
       }
+      
+      
+      if (*publish_rviz_markers_)
+          publishRVizMarkers(*bbox_transforms_, *bbox_sizes_);
       
       return OK;
     }

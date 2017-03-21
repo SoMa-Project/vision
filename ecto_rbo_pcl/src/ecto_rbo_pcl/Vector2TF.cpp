@@ -46,10 +46,10 @@ struct Vector2TF
 
     int process(const tendrils& inputs, const tendrils& outputs)
     {
-				if(input_->empty())
-					*output_ = UnalignedAffine3f();
-				else
-					*output_ = input_->at(0);
+        if(input_->empty())
+            *output_ = UnalignedAffine3f();
+        else
+            *output_ = input_->at(0);
         
         return OK;
     }

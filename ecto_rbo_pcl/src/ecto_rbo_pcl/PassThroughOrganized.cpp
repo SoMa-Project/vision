@@ -42,7 +42,6 @@ using namespace ecto::pcl;
 
 namespace ecto_rbo_pcl
 {
-
     struct PassThroughOrganized
     {
       static void declare_params(tendrils& params)
@@ -54,6 +53,8 @@ namespace ecto_rbo_pcl
         params.declare<double> ("filter_limit_min", "Minimum value for the filter.", filter_limit_min);
         params.declare<double> ("filter_limit_max", "Maximum value for the filter.", filter_limit_max);
         params.declare<bool> ("filter_limit_negative", "To negate the limits or not.", default_.getNegative());
+        
+        params.declare<bool>("publish_rviz_markers", "Should the output be published for visualization?", false);
       }
 
       static void declare_io(const tendrils& params, tendrils& inputs, tendrils& outputs)
@@ -67,6 +68,8 @@ namespace ecto_rbo_pcl
         filter_limit_min_ = params["filter_limit_min"];
         filter_limit_max_ = params["filter_limit_max"];
         filter_limit_negative_ = params["filter_limit_negative"];
+        
+        publish_rviz_markers_ = params["publish_rviz_markers"];
 
         output_ = outputs["output"];
       }
@@ -84,14 +87,17 @@ namespace ecto_rbo_pcl
 
         typename ::pcl::PointCloud<Point>::Ptr cloud(new typename ::pcl::PointCloud<Point>);
         filter.filter(*cloud);
-
-        sensor_msgs::PointCloud2 color_msg;
-        ::pcl::toROSMsg(*cloud, color_msg);
-        color_msg.header.frame_id = cloud->header.frame_id;
-        color_msg.header.stamp = ::ros::Time::now();
-        static ::ros::NodeHandle nh;
-        static ::ros::Publisher passthrough_publisher = nh.advertise< sensor_msgs::PointCloud2 > ("/passthrough/inliers", 1);
-        passthrough_publisher.publish(color_msg);
+        
+        if (*publish_rviz_markers_)
+        {
+            sensor_msgs::PointCloud2 color_msg;
+            ::pcl::toROSMsg(*cloud, color_msg);
+            color_msg.header.frame_id = cloud->header.frame_id;
+            color_msg.header.stamp = ::ros::Time::now();
+            static ::ros::NodeHandle nh;
+            static ::ros::Publisher passthrough_publisher = nh.advertise< sensor_msgs::PointCloud2 > ("/passthrough/inliers", 1);
+            passthrough_publisher.publish(color_msg);
+        }
 
         cloud->header = input->header;
         *output_ = xyz_cloud_variant_t(cloud);
@@ -104,6 +110,7 @@ namespace ecto_rbo_pcl
       spore<double> filter_limit_max_;
       spore<bool> filter_limit_negative_;
       spore<PointCloud> output_;
+      spore<bool> publish_rviz_markers_;
     };
 }
 

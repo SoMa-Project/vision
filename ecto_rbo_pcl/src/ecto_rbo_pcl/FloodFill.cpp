@@ -1,16 +1,3 @@
-/*
-Copyright 2016-2017 Robotics and Biology Lab, TU Berlin. All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-
-    Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-
-THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-The views and conclusions contained in the software and documentation are those of the authors and should not be interpreted as representing official policies, either expressed or implied, of the FreeBSD Project.
-*/ 
-
 #include <pcl/segmentation/organized_connected_component_segmentation.h>
 
 #include "ecto_rbo_pcl/curvature_comparator.h"
@@ -52,10 +39,8 @@ struct FloodFill
   spore<double> curvature_distance_threshold_;
 
   spore<int> comparator_type_;
-
-  std::string rviz_topic_prefix_;
-  ::ros::NodeHandle nh_;
-  ::ros::Publisher segmentation_publisher_;
+  
+  spore<bool> publish_rviz_markers_;
 
   spore< std::vector< ::pcl::PointIndices > > clusters_;
   spore< ::pcl::PointIndices > inliers_;
@@ -69,7 +54,7 @@ struct FloodFill
       params.declare<double> ("curvature_distance_threshold", "Difference in curvature between two neighboring points.", 0.07); //0.04
       params.declare<int> ("min_inliers", "Number of minimum points a cluster must contain.", 100);
       params.declare<int> ("comparator_type", "0 = curvature_comparator, 1 = edge_comparator, 2 = curvature_comparator", 0);
-      params.declare<std::string> ("rviz_prefix", "Topic prefix for marker publications.", "flood_fill_segmentation");
+      params.declare<bool>("publish_rviz_markers", "Should the output be published for visualization?", false);
   }
 
   static void declare_io(const tendrils& params, tendrils& inputs, tendrils& outputs) {
@@ -90,8 +75,7 @@ struct FloodFill
     curvature_distance_threshold_ = params["curvature_distance_threshold"];
     min_inliers_ = params["min_inliers"];
     comparator_type_ = params["comparator_type"];
-
-    segmentation_publisher_ = nh_.advertise<sensor_msgs::PointCloud2>(params["rviz_prefix"]->get<std::string>(), 1);
+    publish_rviz_markers_ = params["publish_rviz_markers"];
   }
 
   template<typename Point>
@@ -214,24 +198,30 @@ struct FloodFill
       //ROS_INFO("Big clusters: %zu    Points in clusters: %zu / %zu", clusters_->size(), inliers_->indices.size(), input->size());
       ROS_INFO_NAMED("FloodFill", "Big clusters: %zu    Points in clusters: %zu / %zu", clusters_->size(), inliers_->indices.size(), input->size());
 
-      ::pcl::ExtractIndices< ::pcl::PointXYZRGB> filter;
-      ::pcl::IndicesPtr indices_to_be_displayed = boost::make_shared<std::vector<int> >(inliers_->indices);
-      filter.setIndices(indices_to_be_displayed);
-      filter.filterDirectly(colored_cloud);
+      if (*publish_rviz_markers_)
+      {
+          ::pcl::ExtractIndices< ::pcl::PointXYZRGB> filter;
+          ::pcl::IndicesPtr indices_to_be_displayed = boost::make_shared<std::vector<int> >(inliers_->indices);
+          filter.setIndices(indices_to_be_displayed);
+          filter.filterDirectly(colored_cloud);
 
-      sensor_msgs::PointCloud2Ptr color_msg(new sensor_msgs::PointCloud2);
-      ::pcl::toROSMsg(*colored_cloud, *color_msg);
+          sensor_msgs::PointCloud2Ptr color_msg(new sensor_msgs::PointCloud2);
+          ::pcl::toROSMsg(*colored_cloud, *color_msg);
 
-      color_msg->header.frame_id = input->header.frame_id;
-      color_msg->header.stamp = ::ros::Time::now();
-
-      segmentation_publisher_.publish(*color_msg);
-
+          color_msg->header.frame_id = input->header.frame_id;
+          color_msg->header.stamp = ::ros::Time::now();
+          
+          static ::ros::NodeHandle nh;
+          static ::ros::Publisher segmentation_publisher = nh.advertise<sensor_msgs::PointCloud2>("flood_fill_segmentation", 1);
+          
+          segmentation_publisher.publish(*color_msg);
+      }
+      
       return OK;
     }
 };
 
 }
 
-ECTO_CELL(ecto_rbo_pcl, ecto::pcl::PclCellWithNormals< ecto_rbo_pcl::FloodFill >, "FloodFill", "Do the flood fill segmentation algorithm.");
+ECTO_CELL(ecto_rbo_pcl, ecto::pcl::PclCellWithNormals< ecto_rbo_pcl::FloodFill >, "FloodFill", "Does the flood fill segmentation algorithm.");
 
