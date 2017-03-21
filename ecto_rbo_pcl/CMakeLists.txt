@@ -179,6 +179,8 @@ ectomodule(ecto_rbo_pcl INSTALL
     src/ecto_rbo_pcl/RegionGrowingRGB.cpp
     src/ecto_rbo_pcl/FilterClustersBySize.cpp
     src/ecto_rbo_pcl/WrapInVector.cpp
+    src/ecto_rbo_pcl/CreateTF.cpp
+    src/ecto_rbo_pcl/PCDReader.cpp
 )
 
 link_ecto(ecto_rbo_pcl

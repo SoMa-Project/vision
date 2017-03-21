@@ -2,7 +2,7 @@ import ecto
 import ecto_pcl
 import ecto_rbo_pcl
 import ecto_rbo_pcl_python
-import ecto_rbo_ml_py
+#import ecto_rbo_ml_py
 import ecto_rbo_grasping
 import ecto_ros
 import ecto_opencv.imgproc
@@ -33,7 +33,7 @@ def randomword(length):
    return ''.join(random.choice(string.lowercase) for i in xrange(length))
 
 # collect all available modules
-for module in [ecto_pcl, ecto_rbo_pcl, ecto_rbo_grasping, ecto_ros.ecto_sensor_msgs, ecto_rbo_ml_py, ecto_opencv.imgproc, ecto_opencv.highgui, ecto_ros]:
+for module in [ecto_pcl, ecto_rbo_pcl, ecto_rbo_grasping, ecto_ros.ecto_sensor_msgs, ecto_opencv.imgproc, ecto_opencv.highgui, ecto_ros]:
     for name, clazz in module.__dict__.iteritems():
         if name[:2] == "__":
             continue
