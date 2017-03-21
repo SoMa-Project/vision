@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   ecto_ros
   tf_conversions
   pregrasp_msgs
+  geometry_graph_msgs
   tf
 )
 
