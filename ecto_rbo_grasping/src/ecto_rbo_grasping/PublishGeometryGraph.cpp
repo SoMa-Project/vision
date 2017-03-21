@@ -188,7 +188,8 @@ struct PublishGeometryGraph
         // for each node draw an axis and a text
         for (std::vector<geometry_graph_msgs::Node>::const_iterator it = graph->nodes.begin(); it != graph->nodes.end(); ++it)
         {
-            addTextMarker(msgs, it->label, it->transform.translation, graph->header, right_now);
+            std::string text_label = it->label + std::string("_") + boost::lexical_cast<std::string>(static_cast<int>(std::distance(graph->nodes.begin(), it)));
+            addTextMarker(msgs, text_label, it->transform.translation, graph->header, right_now);
             addAxisMarker(msgs, it->transform, graph->header, right_now);
         }
         // for each edge draw an arrow
