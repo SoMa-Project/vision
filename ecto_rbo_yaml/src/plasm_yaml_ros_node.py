@@ -22,15 +22,18 @@ if __name__ == '__main__':
     myargv = rospy.myargv(argv=sys.argv)[1:]
     args = parser.parse_args(myargv)
 
-    rospy.init_node('plasm_yaml_ros_node')
-
     # rospy.loginfo("Do mockup: %s" % (DO_MOCKUP))
     # rospy.loginfo("Record data: %s" % (RECORD_DATA))
 
+    rospy.init_node('plasm_yaml_ros_node')
+    
     ecto_ros.init(myargv, 'plasm_yaml_ros_node', anonymous = False)
 
     rospack = rospkg.RosPack()
-    yml_file = map (lambda x: os.path.join(rospack.get_path("ecto_rbo_yaml"), "data/", x),
+    if any([args.yaml_file.startswith(x) for x in [".", "/"]]):
+        yml_file = [args.yaml_file]
+    else:
+        yml_file = map (lambda x: os.path.join(rospack.get_path("ecto_rbo_yaml"), "data/", x),
                 # ["input_asus.yaml", "cropping.yaml", "segment_detect_regiongrowing.yaml"])
                 # ["input_cropping_pcd.yaml", "segment_detect_regiongrowing.yaml"])                
                 # ["input_cropping_pcd.yaml", "segment_detect_bayesian.yaml"]
@@ -64,8 +67,9 @@ if __name__ == '__main__':
 
     if args.showgraph:
         ecto.view_plasm(ecto_plasm, yml_file if type(yml_file) == str else " ".join(yml_file))
-
+    
     ecto_scheduler = ecto.Scheduler(ecto_plasm)
+    #while not rospy.is_shutdown():
     ecto_scheduler.execute()
 
     print ecto_scheduler.stats()

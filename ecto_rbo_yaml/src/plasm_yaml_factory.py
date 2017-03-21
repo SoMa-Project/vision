@@ -2,8 +2,11 @@ import ecto
 import ecto_pcl
 import ecto_rbo_pcl
 import ecto_rbo_pcl_python
+import ecto_rbo_ml_py
+import ecto_rbo_grasping
 import ecto_ros
 import ecto_opencv.imgproc
+import ecto_opencv.highgui
 import ecto_ros.ecto_sensor_msgs
 import ecto_rbo_dbg_py
 import ecto_rbo_dbg
@@ -30,7 +33,7 @@ def randomword(length):
    return ''.join(random.choice(string.lowercase) for i in xrange(length))
 
 # collect all available modules
-for module in [ecto_pcl, ecto_rbo_pcl, ecto_ros.ecto_sensor_msgs, ecto_opencv.imgproc, ecto_ros]:
+for module in [ecto_pcl, ecto_rbo_pcl, ecto_rbo_grasping, ecto_ros.ecto_sensor_msgs, ecto_rbo_ml_py, ecto_opencv.imgproc, ecto_opencv.highgui, ecto_ros]:
     for name, clazz in module.__dict__.iteritems():
         if name[:2] == "__":
             continue
@@ -139,8 +142,9 @@ def build_plasm_from_dictionary(yml_file, debug = False):
                   del cell_params[p]              
           except AttributeError as e:
             print ("  Warn: querying params for %s failed. Probably a python cell? Make sure you specified the correct params" % cell_name)
-            
-          print (" Adding %s (type: %s, class: %s)" % (cell_name, cell_type, cell_class_name))
+          
+          if debug:
+            print (" Adding %s (type: %s, class: %s)" % (cell_name, cell_type, cell_class_name))
           try:
             cells[cell_name] = clazz(cell_name, **cell_params)
           except Exception as e:
@@ -163,7 +167,8 @@ def build_plasm_from_dictionary(yml_file, debug = False):
           output_cell_name, output_tendril_name = output_string.split("/")
         except ValueError:
           raise Exception("Malformatted input for cell '%s': %s \n(expecting 'input_cell_name/tendril')" % (cell_name, output_string))
-        print (" Connecting %s.%s >> %s.%s" % (output_cell_name, output_tendril_name, cell_name, input_tendril_name))
+        if debug:
+          print (" Connecting %s.%s >> %s.%s" % (output_cell_name, output_tendril_name, cell_name, input_tendril_name))
         try:
           in_tendril = cells[output_cell_name][output_tendril_name]
         except KeyError as e:
@@ -191,7 +196,6 @@ def build_plasm_from_dictionary(yml_file, debug = False):
                                             cells_that_need_aux_input.append(clazz)
                             except ecto.NonExistant as e:
                                     pass
-                            #outputs_to_dbg_cell[mod_name, name)] = clazz
 
         # go through all output types
         new_cells = {}
@@ -210,6 +214,7 @@ def build_plasm_from_dictionary(yml_file, debug = False):
                     connection.append( cell['header'] >> rviz_pub_cell['header'] )
                     break
 
+        # connect debug cells whereever possible
         for name, cell in cells.iteritems():
                     for output_tendril_name in cell.outputs.keys():
                             outputtype = cell.outputs.at(output_tendril_name).type_name
@@ -222,8 +227,9 @@ def build_plasm_from_dictionary(yml_file, debug = False):
 
                                     connection.append( cell[output_tendril_name] >> new_cell['input'] )
                                     
-                                    # connect second input if needed
+                                    # check if more inputs are needed
                                     if outputs_to_dbg_cell[outputtype] in cells_that_need_aux_input:
+                                        # debug cell needs a second input
                                         # find cell that feeds cell['input'] (type pointcloud)
                                         try:
                                             aux_output_cell_name, aux_output_tendril_name = cells_inputs[name]['input'].split('/')
@@ -235,10 +241,16 @@ def build_plasm_from_dictionary(yml_file, debug = False):
                                             del new_cell
                                             del connection[-1]
                                             #print e
-                                    else:
-                                        connection.append( new_cell['output'] >> rviz_pub_cell["input_%i" % (rviz_pub_cell_input_counter)] )
-                                        rviz_pub_cell_input_counter += 1
-
+                                    
+                                    # check for outputs
+                                    try:
+                                        if len(new_cell.outputs) > 0:
+                                            # debug cell creates a marker message that will be aggregated by the rviz_pub_cell
+                                            connection.append( new_cell['output'] >> rviz_pub_cell["input_%i" % (rviz_pub_cell_input_counter)] )
+                                            rviz_pub_cell_input_counter += 1
+                                    except NameError:
+                                        # it was deleted before
+                                        pass
         cells.update(new_cells)
     
     plasm.connect(connection)
