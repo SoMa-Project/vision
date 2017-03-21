@@ -1,3 +1,3 @@
-from .rviz_publishers import PublishClusters
+from .rviz_publishers import PublishClusters, PublishPointCloud
 
-__all__ = ["PublishClusters"]
+__all__ = ["PublishClusters", "PublishPointCloud"]
