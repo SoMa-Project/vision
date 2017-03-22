@@ -8,10 +8,42 @@ ROS packages providing various ecto cells and plasms for perception.
 ```
 sudo apt-get install ros-indigo-ecto* ros-indigo-openni*
 ```
+
+
 * Compile this package:
 ```
 catkin build ecto_rbo
 ```
+
+* To compile the package ecto_rbo_grasping you will have to solve a list of dependencies:
+
+First install CGAL:
+```
+sudo apt-get install libcgal-dev
+```
+
+You will also have to install [Wild Magic](https://www.geometrictools.com/Downloads/WildMagic5p14.zip) (from https://www.geometrictools.com/Downloads/Downloads.html)
+following the [installation instructions](https://www.geometrictools.com/Downloads/Wm5p14InstallationRelease.pdf) or simply download and execute:
+```
+make CFG=ReleaseDynamic -f makefile.wm5
+```
+And export the respective WP5_PATH
+```
+export WP5_PATH=WP5_PATH=/your_path/GeometricTools/WildMagic5/SDK
+```
+
+You will also need to install GDIAM. Download the old version libgdiam-1.01.tar.gz and follow the building instructions:
+```
+tar -xzf libgdiam-1.0.1.tar.gz 
+~/$ cd libgdiam/
+~/libgdiam$ mkdir build
+~/libgdiam$ cd build/
+~/libgdiam/build$ cmake ..
+~/libgdiam/build$ make test
+```
+copy the libgdiam.so lib from the build folder to /usr/local/lib where it is expected by the ecto_rbo package.
+
+
 
 ## Example
 
