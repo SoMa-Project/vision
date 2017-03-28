@@ -32,7 +32,7 @@ And export the respective WP5_PATH
 export WP5_PATH=WP5_PATH=/your_path/GeometricTools/WildMagic5/SDK
 ```
 
-You will also need to install GDIAM. Download the old version libgdiam-1.01.tar.gz and follow the building instructions:
+You will also need to install GDIAM. Download the old version libgdiam-1.01.tar.gz from (http://sarielhp.org/research/papers/00/diameter/) and follow the building instructions:
 ```
 tar -xzf libgdiam-1.0.1.tar.gz 
 ~/$ cd libgdiam/
