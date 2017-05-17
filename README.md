@@ -53,8 +53,11 @@ roslaunch openni2_launch openni2.launch depth_registration:=true
 rosrun rqt_reconfigure rqt_reconfigure
 rviz -d demo.rviz
 rosrun ecto_rbo_yaml plasm_yaml_ros_node.py demo_vision.yaml --debug
-rosrun ecto_rbo_yaml ecto_yaml_to_pdf ecto_rbo_yaml/data/demo_vision.yaml (not necessary for test but can help understanding)
-rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ec_grasp_planner`/data/geometry_graph_example3.yaml --show (in some cases the above one is not working, then try this) 
+#(not necessary for test but can help understanding)
+rosrun ecto_rbo_yaml ecto_yaml_to_pdf ecto_rbo_yaml/data/demo_vision.yaml 
+#(in some cases the above one is not working, then try this) 
+rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ec_grasp_planner`/data/geometry_graph_example3.yaml --show 
+
 ```
 
 Expected outcome:
