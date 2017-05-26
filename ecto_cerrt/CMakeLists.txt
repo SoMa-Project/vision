@@ -32,3 +32,6 @@ catkin_package(
 add_executable(getPlanes src/getPlanes.cpp)
 target_link_libraries(getPlanes ${catkin_LIBRARIES} ${ROS_LIBRARIES})  
 
+add_executable(createWRL src/createWRL.cpp)
+target_link_libraries(createWRL ${catkin_LIBRARIES} ${ROS_LIBRARIES})  
+
