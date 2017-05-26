@@ -35,3 +35,6 @@ target_link_libraries(getPlanes ${catkin_LIBRARIES} ${ROS_LIBRARIES})
 add_executable(createWRL src/createWRL.cpp)
 target_link_libraries(createWRL ${catkin_LIBRARIES} ${ROS_LIBRARIES})  
 
+add_executable(main src/main.cpp)
+target_link_libraries(main ${catkin_LIBRARIES} ${ROS_LIBRARIES})  
+

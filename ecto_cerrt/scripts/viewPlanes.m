@@ -5,7 +5,7 @@
 %%
 
 % Read the data
-bla = load('points2');
+bla = load('../data/points2');
 bla(1,:) = [];
 
 % Create polygon structures
@@ -22,7 +22,7 @@ for i = 1 : numel(polys)
 	plot3(polys{i}(:,1), polys{i}(:,2), polys{i}(:,3), '-o');
 	for j = 1 : size(polys{i})
 	%	plot3(polys{i}(j,1), polys{i}(j,2), polys{i}(j,3), '-o');
-%		text(polys{i}(j,1), polys{i}(j,2), polys{i}(j,3), [num2str(i-1), char('a' + j -1)]);
+		text(polys{i}(j,1), polys{i}(j,2), polys{i}(j,3), [num2str(i-1), char('a' + j -1)]);
 	end
 
 	hold on;
