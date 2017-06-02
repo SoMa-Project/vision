@@ -5,7 +5,7 @@
 %%
 
 % Read the data
-bla = load('../data/points2');
+bla = load('../data/points3');
 bla(1,:) = [];
 
 % Create polygon structures
