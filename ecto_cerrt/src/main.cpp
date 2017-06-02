@@ -114,7 +114,7 @@ void createConnectivityFile () {
 	// ... write the parameters of the planes
 	fprintf(file, "\t<planes>\n");
 	for(int poly = 0; poly < polygons.size(); poly++) {
-		fprintf(file, "\t\t<plane>\n");
+		fprintf(file, "\t\t<plane%d>\n", poly);
 		fprintf(file, "\t\t\t<id> %d </id>\n", poly);
 		Vector4d& plane = planes[poly];
 		fprintf(file, "\t\t\t<params> %lf %lf %lf %lf </params>\n", plane(0), plane(1), plane(2), plane(3));
@@ -123,19 +123,21 @@ void createConnectivityFile () {
 		fprintf(file, "\t\t\t<poly_points_local>\n");
 		for(int vert = 0; vert < (polygons[poly].size()-1); vert++) {
 			Vector3d p = polygons[poly][vert] - means[poly];
-			fprintf(file, "\t\t\t\t%lf %lf %lf\n", p(0), p(1), p(2));
+			fprintf(file, "\t\t\t\t<v%d> %lf %lf %lf </v%d>\n", vert, p(0), p(1), p(2), vert);
 		}
 		fprintf(file, "\t\t\t</poly_points_local>\n");
-		fprintf(file, "\t\t</plane>\n");
+		fprintf(file, "\t\t</plane%d>\n", poly);
 	}
 	fprintf(file, "\t</planes>\n");
 
 	// ... write the connectivity of the planes
 	fprintf(file, "\t<connectivity>\n");
+	int pairCount = 0;
 	for(set<int>::iterator it = connections.begin(); it != connections.end(); it++) {
 		int p1 = ((*it) / polygons.size());
 		int p2 = ((*it) % polygons.size());
-		fprintf(file, "\t\t<pair> %d %d </pair>\n", p1, p2);
+		fprintf(file, "\t\t<pair%d> %d %d </pair%d>\n", pairCount, p1, p2, pairCount);
+		pairCount++;
 	}
 	fprintf(file, "\t</connectivity>\n");
 	fprintf(file, "</main>\n");
@@ -173,7 +175,7 @@ void createWRLFile () {
 				1.0, 0.0, 0.0); 
 
 		// Print the top side of the polyhedra
-		static const double WALL_THICKNESS = 0.05;
+		static const double WALL_THICKNESS = 0.02;
 		fprintf(file, "\t\t\t\t\t\t\t# top\n");
 		for(int j = 0; j < (polygons[poly].size() - 1); j++) {
 			Vector3d p = polygons[poly][j] - means[poly];
@@ -194,16 +196,25 @@ void createWRLFile () {
 
 		// Create the face indices
 		int nV = (polygons[poly].size() - 1);
-		fprintf(file, "\t\t\t\t\tcoordIndex [\n\t\t\t\t\t\t");		
+		fprintf(file, "\t\t\t\t\tcoordIndex [\n");		
 		// ... top face (note the backwards)
-		for(int j = 0; j < nV; j++) fprintf(file, "%d, ", (nV-j)%nV);
-		fprintf(file, "0, -1, \n\t\t\t\t\t\t");
+		for(int j = nV-1; j > 1; j--) {
+			fprintf(file, "\t\t\t\t\t\t0, %d, %d, -1,\n", j, j-1);
+		}
+//		fprintf(file, "0, -1, \n\t\t\t\t\t\t");
 		// ... bottom face
-		for(int j = 0; j < nV; j++) fprintf(file, "%d, ", j + nV);
-		fprintf(file, "%d, -1, \n", nV);
+		for(int j = nV-1; j > 1; j--) {
+			fprintf(file, "\t\t\t\t\t\t0, %d, %d, -1,\n", j, j-1);
+		}
+		for(int j = 1; j < (nV-1); j++) 
+			fprintf(file, "\t\t\t\t\t\t%d, %d, %d, -1,\n", nV, j+nV, j+1+nV);
+//		fprintf(file, "%d, -1, \n", nV);
 		// ... side faces
-		for(int j = 0; j < nV; j++) 
-			fprintf(file, "\t\t\t\t\t\t%d, %d, %d, %d, %d, -1\n", j, ((j+1)%nV), ((j+1)%nV)+nV, (j+nV), j);
+		for(int j = 0; j < nV; j++) {
+			// fprintf(file, "\t\t\t\t\t\t%d, %d, %d, %d, %d, -1\n", j, ((j+1)%nV), ((j+1)%nV)+nV, (j+nV), j);
+			fprintf(file, "\t\t\t\t\t\t%d, %d, %d, -1,\n", j, ((j+1)%nV), ((j+1)%nV)+nV);
+			fprintf(file, "\t\t\t\t\t\t%d, %d, %d, -1,\n", ((j+1)%nV)+nV, (j+nV), j);
+		}
 		fprintf(file, "\t\t\t\t\t]\n");
 		
 		// Wrap up
