@@ -44,6 +44,8 @@ typedef Eigen::Matrix<float, 3, 1, Eigen::DontAlign> UnalignedVector3f;
 typedef Eigen::Matrix<float, 2, 1, Eigen::DontAlign> UnalignedVector2f;
 typedef Eigen::Transform<float,3,Eigen::Affine,Eigen::DontAlign> UnalignedAffine3f;
 
+// ======================================================================================================================
+// ======================================================================================================================
 struct WallGrasps
 {
     ecto::spore<pregrasp_msgs::GraspStrategyArrayConstPtr> wall_pregrasp_messages_;
@@ -54,11 +56,13 @@ struct WallGrasps
 
     spore<int> min_points_;
 
+		// ======================================================================================================================
     static void declare_params(ecto::tendrils& params)
     {
         params.declare<int>("min_points", "Minimum number of points inside closing box.", 100);
     }
 
+		// ======================================================================================================================
     static void declare_io(const tendrils& params, tendrils& inputs, tendrils& outputs)
     {
         inputs.declare<std::vector< ::pcl::ModelCoefficientsConstPtr> >("polygons", "3D Polygons.");
@@ -68,6 +72,7 @@ struct WallGrasps
         outputs.declare< ::posesets::PoseSetArrayConstPtr>("wall_manifolds", "All the grasps that should be used.");
     }
 
+		// ======================================================================================================================
     void configure(const tendrils& params, const tendrils& inputs, const tendrils& outputs)
     {
         polygons_ = inputs["polygons"];
@@ -79,6 +84,7 @@ struct WallGrasps
         min_points_ = params["min_points"];
     }
 
+		// ======================================================================================================================
     template<typename Point>
     int countPoints(const pregrasp_msgs::GraspStrategy& g, boost::shared_ptr<const ::pcl::PointCloud<Point> >& input,
                     float min_x, float max_x, float min_y, float max_y, float min_z, float max_z)
@@ -107,6 +113,7 @@ struct WallGrasps
         return inliers.indices.size();
     }
 
+		// ======================================================================================================================
     template<typename Point>
     int process(const tendrils& inputs, const tendrils& outputs,
                 boost::shared_ptr<const ::pcl::PointCloud<Point> >& input,
@@ -117,44 +124,48 @@ struct WallGrasps
 
         wall_pregrasp_messages->header = pcl_conversions::fromPCL(input->header);
 
+				// Iterate through the polygons
         for (std::vector< ::pcl::ModelCoefficientsConstPtr>::iterator it = polygons_->begin(); it != polygons_->end(); ++it)
         {
-            // assume that it's at least a triangle
+            // Compute the normal of the polygon (assume that it's at least a triangle)
             UnalignedVector3f point_a((*it)->values[0], (*it)->values[1], (*it)->values[2]);
             UnalignedVector3f point_b((*it)->values[3], (*it)->values[4], (*it)->values[5]);
             UnalignedVector3f point_c((*it)->values[6], (*it)->values[7], (*it)->values[8]);
             UnalignedVector3f polygon_normal = (point_b - point_a).normalized().cross((point_c - point_b).normalized());
             polygon_normal = -polygon_normal;
-
+						
+						// Use the bounded plane normal as the polygon normal
+						// TODO Clean up above
             size_t index = std::distance(polygons_->begin(), it);
             polygon_normal(0) = bounded_planes_->at(index)->values[3];
             polygon_normal(1) = bounded_planes_->at(index)->values[4];
             polygon_normal(2) = bounded_planes_->at(index)->values[5];
 
-
-            // iterate over every edge of every polygon
+            // Iterate over every edge of every polygon
             size_t number_of_lines = (*it)->values.size() / 3;
-            for (size_t line = 0; line < number_of_lines; ++line)
-            {
+            for (size_t line = 0; line < number_of_lines; ++line) {
+
+								// Initialize the strategy to be output
+                pregrasp_msgs::GraspStrategy g;
+                g.pregrasp_configuration = pregrasp_msgs::GraspStrategy::PREGRASP_CYLINDER;
+                g.strategy = pregrasp_msgs::GraspStrategy::STRATEGY_WALL_GRASP;
+
+								// Get three consecutive points
                 UnalignedVector3f start_point((*it)->values[3 * line], (*it)->values[3 * line + 1], (*it)->values[3 * line + 2]);
                 UnalignedVector3f end_point;
                 UnalignedVector3f before_start_point;
-                if (line == 0)
-                {
+                if (line == 0) {
                     before_start_point(0) = (*it)->values[3 * number_of_lines - 3];
                     before_start_point(1) = (*it)->values[3 * number_of_lines - 2];
                     before_start_point(2) = (*it)->values[3 * number_of_lines - 1];
                 }
-                else
-                {
+                else {
                     before_start_point(0) = (*it)->values[3 * line - 3];
                     before_start_point(1) = (*it)->values[3 * line - 2];
                     before_start_point(2) = (*it)->values[3 * line - 1];
-
                 }
 
-                if (line == number_of_lines - 1)
-                {
+                if (line == number_of_lines - 1) {
                     end_point(0) = (*it)->values[0];
                     end_point(1) = (*it)->values[1];
                     end_point(2) = (*it)->values[2];
@@ -165,53 +176,43 @@ struct WallGrasps
                     end_point(2) = (*it)->values[3 * line + 5];
                 }
 
+								// Compute edge properties (centroid, direction, length)
                 UnalignedVector3f edge_centroid = 0.5 * start_point + 0.5 * end_point;
                 UnalignedVector3f edge_direction = end_point - start_point;
                 double edge_length = edge_direction.norm();
                 edge_direction.normalize();
 
-                //                Eigen::Vector3f approach_y = edge_centroid.normalized().cross(edge_direction);
-                //                Eigen::Vector3f approach_z = edge_direction.cross(approach_y);
-                //                Eigen::Matrix3f rotation;
-                //                rotation << edge_direction, approach_y, approach_z;
-
-                // rotated the other way around
-                UnalignedVector3f other_edge_direction = before_start_point - start_point;
+								// Compute the direction to approach the edge from the polygon surface
                 Eigen::Vector3f approach_z = polygon_normal;
-                //                approach_y = edge_centroid.normalized().cross(-edge_direction);
                 Eigen::Vector3f approach_y = (edge_direction).cross(-approach_z);
                 Eigen::Matrix3f rotation2;
                 rotation2 << -edge_direction, approach_z, approach_y;
+								::Eigen::Matrix3d final_rot = rotation2.cast<double>();
 
-                pregrasp_msgs::GraspStrategy g;
-                g.pregrasp_configuration = pregrasp_msgs::GraspStrategy::PREGRASP_CYLINDER;
-                g.strategy = pregrasp_msgs::GraspStrategy::STRATEGY_WALL_GRASP;
-                
-                g.pregrasp_pose.pose.header = wall_pregrasp_messages->header;
-                g.pregrasp_pose.pose.pose.position.x = edge_centroid(0);
-                g.pregrasp_pose.pose.pose.position.y = edge_centroid(1);
-                g.pregrasp_pose.pose.pose.position.z = edge_centroid(2);
-
-                //                  ::Eigen::Quaternionf graspq(g.pregrasp_pose.center.pose.orientation.w, g.pregrasp_pose.center.pose.orientation.x, g.pregrasp_pose.center.pose.orientation.y, g.pregrasp_pose.center.pose.orientation.z);
-
-                ::Eigen::Matrix3d final_rot = rotation2.cast<double>();
-                //                  if (rotation.col(0).dot(graspq.matrix().col(0)) > rotation2.col(0).dot(graspq.matrix().col(0)))
-                //                      final_rot = rotation;
-
+								// Create the orientation portion of the message
                 ::Eigen::Quaterniond q_eigen(final_rot);
                 ::tf::Quaternion q_tf;
                 ::tf::quaternionEigenToTF(q_eigen, q_tf);
                 ::tf::quaternionTFToMsg(q_tf, g.pregrasp_pose.pose.pose.orientation);
 
-                int number_of_cropped_points = countPoints(g, input, -0.07, 0.07, -0.17, -0.07, -0.03, 0.12);
-//                number_of_cropped_points += countPoints(g, input, -0.07, 0.07, -0.07, 0.07, -0.2, -0.05);
-                ROS_DEBUG("wall: cropped points %i  (minimum needed: %i)", number_of_cropped_points, *min_points_);
+								// Create the position portion of the message (solely based on the centroid)
+                g.pregrasp_pose.pose.header = wall_pregrasp_messages->header;
+                g.pregrasp_pose.pose.pose.position.x = edge_centroid(0);
+                g.pregrasp_pose.pose.pose.position.y = edge_centroid(1);
+                g.pregrasp_pose.pose.pose.position.z = edge_centroid(2);
 
+								// Check if there are points before the grasp location to ensure that there is possibly a wall
+                int number_of_cropped_points = countPoints(g, input, -0.07, 0.07, -0.17, -0.07, -0.03, 0.12);
+                ROS_DEBUG("wall: cropped points %i  (minimum needed: %i)", number_of_cropped_points, *min_points_);
                 if (number_of_cropped_points < *min_points_)
                     continue;
 
+								// CONTINUE READING HERE
+								// CONTINUE READING HERE
+								// CONTINUE READING HERE
+								// CONTINUE READING HERE 2017-06-08 (Can & Elod)
+
 //                tf::Quaternion rotated_around_y = tf::Quaternion(0, 0,);
-                //tf::Quaternion rotated_around_x = tf::Quaternion( -M_PI, -M_PI_2, 0);
                 tf::Quaternion rotated_around_x(tf::Vector3(1, 0, 0), -M_PI);
                 tf::Transform whole(q_tf*rotated_around_x, tf::Vector3(edge_centroid(0), edge_centroid(1), edge_centroid(2)));
                 whole *= tf::Transform(tf::createIdentityQuaternion(), tf::Vector3(0, -0.05, -0.05));
@@ -239,7 +240,7 @@ struct WallGrasps
 
                 wall_pregrasp_messages->strategies.push_back(g);
 
-                // add the corresponding manifold
+                // Add the _corresponding_ manifold
                 //tf::Quaternion rotated_around_x = tf::Quaternion(0, -M_PI_2, 0);
                 ::posesets::PoseSet ps(tf::Transform(q_tf, tf::Vector3(edge_centroid(0), edge_centroid(1), edge_centroid(2))));
                 ps.setPositions(tf::Vector3(edge_length, 0.01, 0.02));

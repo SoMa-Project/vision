@@ -237,6 +237,9 @@ freespace_motions:
     normals: normal_estimation/output
 
 # ---------------------------------------------------------------------------------------
+# bounded_planes: bounded BOXES that do not really respect the geometry like polygons
+# polygons: fitted polygons to the planes
+# min_points: the number of points in front of the hand to determine if there's a wall
 wall_grasps:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::WallGrasps>
   inputs:
