@@ -24,6 +24,7 @@ vector <Vector4d> planes;
 vector < vector <Vector3d> > polygons;
 vector <Vector3d> means;
 bool printIDs = 0;
+int scene = 0; 	// 0 for ifco, 1 for boxes
 
 /* ******************************************************************************************** */
 /// Checks whether the projection of a given point onto the given plane is within the given
@@ -128,7 +129,10 @@ void createConnectivityFile () {
 	}
 
 	// Create the xml file
-	FILE* file = fopen("planes.xml", "w+");
+	char fileName [256];
+	if(scene == 0) sprintf(fileName, "planes-ifco.xml");
+	else if(scene == 1) sprintf(fileName, "planes-boxes.xml");
+	FILE* file = fopen(fileName, "w+");
 	fprintf(file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 	fprintf(file, "<!--\n");
 	fprintf(file, "# params: Plane parameters (a,b,c,d) such that ax + by + cz + d = 0. The normal (a,b,c) comes out of the face assuming a right-handed rule with incremental ordering of the vertices.\n");
@@ -174,11 +178,14 @@ void createConnectivityFile () {
 void createWRLFile () {
 
 	// Print the header
-	FILE* file = fopen("planes.wrl", "w+");
+	char fileName [256];
+	if(scene == 0) sprintf(fileName, "planes-ifco.wrl");
+	else if(scene == 1) sprintf(fileName, "planes-boxes.wrl");
+	FILE* file = fopen(fileName, "w+");
 	fprintf(file, "#VRML V2.0 utf8\n"
 		"#IndexedFaceSet polygons\n"
-		"Transform {\n"
-  	"\ttranslation 0.84999996 0 -0.69999998\n"
+		"DEF wallBody Transform {\n"
+  	"\ttranslation 0.0 0.0 0.0\n"
 		"\tchildren [\n");
 
 	// For each polygon, create a shape in wrl file
@@ -281,9 +288,20 @@ void chatterCallback(const visualization_msgs::MarkerArray::ConstPtr& msg) {
 
 	// Create the camera transform in the world frame
 	static const bool printVerts = 1;
-	Quaternion <double> camQ (-0.340, 0.790, -0.469, 0.202);
+	Quaternion <double> camQ;
+	if(scene == 0) {
+		camQ = Quaternion <double> (-0.340, 0.790, -0.469, 0.202); // tf quat [0.790, -0.469, 0.202, -0.340]
+	}
+	else if(scene == 1) {
+ 		camQ = Quaternion <double> (-0.490, 0.706, -0.419, 0.291); // tf Quaternion [0.706, -0.419, 0.291, -0.490]
+	}
+	else assert(false);
 	Matrix3d camR = camQ.toRotationMatrix();
   Vector3d camT (0.000, -0.700, 1.400);
+	if(scene == 1) {
+		Vector3d camRobotT (0.02, -0.02, -0.66);	// the translation in wrl file
+		camT += camRobotT;
+	}
 	// cout << camR << endl;
 
 	// Get the polygon data
@@ -337,7 +355,11 @@ void chatterCallback(const visualization_msgs::MarkerArray::ConstPtr& msg) {
 /* ******************************************************************************************** */
 int main(int argc, char **argv) {
 
-	if(argc > 1 && strcmp(argv[1], "--ids") == 0) {
+	if(argc > 1 && strcmp(argv[1], "--scene") == 0) {
+		scene = atoi(argv[2]);
+		std::cout << "Using robot-scene transform for scene " << scene << std::endl;
+	}
+	if(argc > 3 && strcmp(argv[3], "--ids") == 0) {
 		printIDs = 1;
 		std::cout << "Going to print the plane ids in wrl file" << std::endl;
 	}
