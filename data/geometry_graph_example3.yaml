@@ -1,3 +1,5 @@
+# Each cell in CPP has declare_params, declare_io, configure and process functions.
+
 ros_pc_subscriber:
   type: ecto_sensor_msgs::Subscriber_PointCloud2
   queue_size: 2
@@ -227,20 +229,14 @@ planar_manifolds:
   all_in_plane_orientations: true 
   rotation: 0
   #1.5
-cliff_grasps:
-  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::CliffGrasps>
-  inputs:
-    input: crop_box/output
-    normals: normal_estimation/output
-    polygons: table_fits/polygon_biggest
-    bounded_planes: table_fits/bounded_model_biggest
-  max_no_of_points: 100
-  invert_y_axis: true
-positioning_motions:
+# ---------------------------------------------------------------------------------------
+freespace_motions:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::PositioningMotions>
   inputs:
     input: crop_box/output
     normals: normal_estimation/output
+
+# ---------------------------------------------------------------------------------------
 wall_grasps:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::WallGrasps>
   inputs:
@@ -249,26 +245,23 @@ wall_grasps:
     polygons: table_fits/polygons
     bounded_planes: table_fits/bounded_models
   min_points: 200
-edge_grasp_planner:
-  type: ecto_rbo_grasping::CreateGeometryGraph
-  inputs:
-    positioning_pregrasp_messages: positioning_motions/positioning_pregrasp_messages
-    positioning_motion_manifolds: positioning_motions/positioning_manifolds
-    pushing_pregrasp_messages: planar_manifolds/pushing_pregrasp_messages
-    pushing_motion_manifolds: planar_manifolds/manifolds
-    surface_pregrasp_messages: create_top_down_grasps/pregrasp_messages
-    surface_grasp_manifolds: planar_manifolds/manifolds
-    edge_pregrasp_messages: cliff_grasps/cliff_pregrasp_messages
-    edge_grasp_manifolds: cliff_grasps/cliff_manifolds
-    wall_pregrasp_messages: wall_grasps/wall_pregrasp_messages
-    wall_grasp_manifolds: wall_grasps/wall_manifolds
-publish_graph:
-  type: ecto_rbo_grasping::PublishGeometryGraph
-  inputs:
-    graph_message: edge_grasp_planner/graph_message
 
+# ---------------------------------------------------------------------------------------
+edge_grasps:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::CliffGrasps>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+    polygons: table_fits/polygon_biggest
+    bounded_planes: table_fits/bounded_model_biggest
+  max_no_of_points: 100
+  invert_y_axis: true
 
-create_top_down_grasps:
+# ---------------------------------------------------------------------------------------
+# approach_vectors: usually normal to the palm, how to approach (and right now to the table)
+# positions: Object centroid
+# roll_vectors: Object bounding box (orientation in surface?)
+surface_grasps:
   type: ecto_rbo_grasping::CreateGrasps
   inputs:
     header: msg_to_pcl/header
@@ -279,18 +272,24 @@ create_top_down_grasps:
   pregrasp_configuration: 2 # SPHERE
   roll_offset: 0 #-1.5707963267948966   #3.141592653589793
 
-#merge_strategies:
-#  type: ecto_rbo_grasping::MergeGraspStrategies
-#  inputs:
-#    message_0: create_top_down_grasps/pregrasp_messages
-#    message_1: create_wall_grasps/pregrasp_messages
-#    message_2: edge_grasp_planner/pregrasp_messages
-#grasp_transform:
-#  type: ecto_rbo_grasping::GraspStrategies2Transform
-#  inputs:
-#    input: merge_strategies/merged_messages
-#publish_grasps:
-#  type: ecto_rbo_grasping::PublishGrasps
-#  inputs:
-#     pregrasp_messages_ptr: merge_strategies/merged_messages
-#  marker_mesh_resource: "package://soft_hand_description/meshes/softhand_right_colored.dae"
+# ---------------------------------------------------------------------------------------
+# This computes the intersection between the manifolds to establish their connectivity
+create_ece_graph:
+  type: ecto_rbo_grasping::CreateGeometryGraph
+  inputs:
+    positioning_pregrasp_messages: freespace_motions/positioning_pregrasp_messages
+    positioning_motion_manifolds: freespace_motions/positioning_manifolds
+    pushing_pregrasp_messages: planar_manifolds/pushing_pregrasp_messages
+    pushing_motion_manifolds: planar_manifolds/manifolds
+    surface_pregrasp_messages: surface_grasps/pregrasp_messages
+    surface_grasp_manifolds: planar_manifolds/manifolds
+    edge_pregrasp_messages: edge_grasps/cliff_pregrasp_messages
+    edge_grasp_manifolds: edge_grasps/cliff_manifolds
+    wall_pregrasp_messages: wall_grasps/wall_pregrasp_messages
+    wall_grasp_manifolds: wall_grasps/wall_manifolds
+publish_graph:
+  type: ecto_rbo_grasping::PublishGeometryGraph
+  inputs:
+    graph_message: create_ece_graph/graph_message
+
+

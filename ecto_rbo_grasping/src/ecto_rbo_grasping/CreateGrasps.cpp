@@ -11,6 +11,8 @@ THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND ANY EXPRE
 The views and conclusions contained in the software and documentation are those of the authors and should not be interpreted as representing official policies, either expressed or implied, of the FreeBSD Project.
 */ 
 
+// This creates surface pregrasp messages
+
 #include <ecto_pcl/ecto_pcl.hpp>
 #include <ecto_pcl/pcl_cell.hpp>
 #include <ecto_pcl/pcl_cell_with_normals.hpp>
@@ -40,6 +42,8 @@ typedef Eigen::Transform<float,3,Eigen::Affine,Eigen::DontAlign> UnalignedAffine
 namespace ecto_rbo_grasping
 {
 
+// ======================================================================================================================
+// ======================================================================================================================
 struct CreateGrasps
 {
   ecto::spore<pregrasp_msgs::GraspStrategyArrayConstPtr> pregrasp_messages_;
@@ -53,6 +57,7 @@ struct CreateGrasps
   ecto::spore<int> strategy_;
   ecto::spore<double> roll_offset_;
 
+	// ======================================================================================================================
   static void declare_params(ecto::tendrils& params)
   {
     params.declare<int>("pregrasp_configuration", "", pregrasp_msgs::GraspStrategy::PREGRASP_SPHERE);
@@ -61,6 +66,7 @@ struct CreateGrasps
     params.declare<double>("roll_offset", "Rotate by this amount along the z-axis.", 0.0);
   }
 
+	// ======================================================================================================================
   static void declare_io(const ecto::tendrils& params, ecto::tendrils& inputs, ecto::tendrils& outputs)
   {
     inputs.declare<std_msgs::Header>("header", "The frame_id of this header is used as the frame_id of the published grasps.");
@@ -71,6 +77,7 @@ struct CreateGrasps
     outputs.declare<pregrasp_msgs::GraspStrategyArrayConstPtr>("pregrasp_messages", "All the grasps that should be used.");
   }
 
+	// ======================================================================================================================
   void configure(const ecto::tendrils& params, const ecto::tendrils& inputs, const ecto::tendrils& outputs)
   {
     pregrasp_configuration_ = params["pregrasp_configuration"];
@@ -85,6 +92,7 @@ struct CreateGrasps
     pregrasp_messages_ = outputs["pregrasp_messages"];
   }
 
+	// ======================================================================================================================
   int process(const ecto::tendrils& inputs, const ecto::tendrils& outputs)
   {
     pregrasp_msgs::GraspStrategyArrayPtr pregrasp_messages(new ::pregrasp_msgs::GraspStrategyArray);
@@ -108,20 +116,24 @@ struct CreateGrasps
       approach_vector_increment = approach_vectors_->size() / grasp_count;
     }
 
+		// 
     int pos_cnt = 0;
     int app_cnt = 0;
-    for (size_t i = 0; i < grasp_count; ++i)
-    {
+    for (size_t i = 0; i < grasp_count; ++i) {
+
+			// Initialize the strategy to be output
       pregrasp_msgs::GraspStrategy grasp;
       grasp.pregrasp_configuration = *pregrasp_configuration_;
       grasp.strategy = *strategy_;
       grasp.id = i;
 
+			// Create the orientation of the hand at contact with the object
       Eigen::Vector3f approach_z = (*approach_vectors_)[app_cnt];
       Eigen::Vector3f approach_x;
       if (roll_vectors_.user_supplied() && !roll_vectors_->empty())
       {
           // ensure that roll vector points towards camera frame
+					// TODO We can add kinematic constraints here (or connection to a new cell) to ensure reachability
           if (roll_vectors_->at(0).dot(Eigen::Vector3f::UnitZ()) > 0)
             approach_x = approach_z.cross(roll_vectors_->at(0));
           else
@@ -135,24 +147,26 @@ struct CreateGrasps
       Eigen::Matrix3f rotation;
       rotation << approach_x, approach_y, approach_z;
       Eigen::Quaternionf q(rotation);
-      
+
+			// Add an additional offset to rotate around the palm (this is a local transformation) 
       q = q * Eigen::AngleAxisf(*roll_offset_, Eigen::Vector3f::UnitZ());
       
+			// Create the orientation portion of the message
       grasp.pregrasp_pose.pose.header = pregrasp_messages->header;
       grasp.pregrasp_pose.pose.pose.orientation.x = q.x();
       grasp.pregrasp_pose.pose.pose.orientation.y = q.y();
       grasp.pregrasp_pose.pose.pose.orientation.z = q.z();
       grasp.pregrasp_pose.pose.pose.orientation.w = q.w();
 
+			// Create the position portion of the message (solely based on the centroid)
       //Eigen::Vector3f center_offset = centroid - radius * rotation.col(2); //approach_z.normalized();
       grasp.pregrasp_pose.pose.pose.position.x = (*positions_)[pos_cnt][0];
       grasp.pregrasp_pose.pose.pose.position.y = (*positions_)[pos_cnt][1];
       grasp.pregrasp_pose.pose.pose.position.z = (*positions_)[pos_cnt][2];
 
+			// Set some other fields and record the grasp
       grasp.pregrasp_pose.pose.header = *header_;
-
       grasp.quality_grasp = grasp.quality_approach = grasp.quality_closing = 1.0;
-
       pregrasp_messages->strategies.push_back(grasp);
       
       pos_cnt += position_increment;
@@ -165,7 +179,8 @@ struct CreateGrasps
   }
 };
 
-
+// ======================================================================================================================
+// ======================================================================================================================
 struct CreateGraspFromTF
 {
   ecto::spore<pregrasp_msgs::GraspStrategyArrayConstPtr> pregrasp_messages_;
@@ -176,12 +191,14 @@ struct CreateGraspFromTF
   ecto::spore<int> pregrasp_configuration_;
   ecto::spore<int> strategy_;
 
+	// ====================================================================================================================
   static void declare_params(ecto::tendrils& params)
   {
     params.declare<int>("pregrasp_configuration", "", pregrasp_msgs::GraspStrategy::PREGRASP_SPHERE);
     params.declare<int>("strategy", "", pregrasp_msgs::GraspStrategy::STRATEGY_SQUEEZE);
   }
 
+	// ====================================================================================================================
   static void declare_io(const ecto::tendrils& params, ecto::tendrils& inputs, ecto::tendrils& outputs)
   {
     inputs.declare<std_msgs::Header>("header", "The frame_id of this header is used as the frame_id of the published grasps.");
@@ -190,6 +207,7 @@ struct CreateGraspFromTF
     outputs.declare<pregrasp_msgs::GraspStrategyArrayConstPtr>("pregrasp_message", "One grasp.");
   }
 
+	// ====================================================================================================================
   void configure(const ecto::tendrils& params, const ecto::tendrils& inputs, const ecto::tendrils& outputs)
   {
     pregrasp_configuration_ = params["pregrasp_configuration"];
@@ -201,6 +219,7 @@ struct CreateGraspFromTF
     pregrasp_messages_ = outputs["pregrasp_message"];
   }
 
+	// ====================================================================================================================
   int process(const ecto::tendrils& inputs, const ecto::tendrils& outputs)
   {
     pregrasp_msgs::GraspStrategyArrayPtr pregrasp_messages(new ::pregrasp_msgs::GraspStrategyArray);
