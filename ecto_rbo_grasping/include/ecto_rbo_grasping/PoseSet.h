@@ -65,7 +65,7 @@ public:
 private:
     tf::Transform origin;
     OrientationSet orientations;
-    tf::Vector3 positions;
+    tf::Vector3 positions;			//< the length of the sides of the bounding box that is used to check connectivity
 };
 
 typedef std::vector< ::posesets::PoseSet > PoseSetArray;

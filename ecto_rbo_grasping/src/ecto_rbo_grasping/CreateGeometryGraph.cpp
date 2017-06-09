@@ -33,6 +33,8 @@ The views and conclusions contained in the software and documentation are those 
 namespace ecto_rbo_grasping
 {
 
+// ======================================================================================================================
+// ======================================================================================================================
 struct CreateGeometryGraph
 {
     typedef std::vector< ::pregrasp_msgs::GraspStrategy> Strategies;
@@ -64,12 +66,14 @@ struct CreateGeometryGraph
 
     ecto::spore<geometry_graph_msgs::GraphConstPtr> graph_message_;
 
+		// ====================================================================================================================
     static void declare_params(ecto::tendrils& params)
     {
         params.declare<double>("angular_threshold", "", 0.5);
         params.declare<double>("cartesian_threshold", "", 0.05);
     }
 
+		// ====================================================================================================================
     static void declare_io(const ecto::tendrils& params, ecto::tendrils& inputs, ecto::tendrils& outputs)
     {
         inputs.declare<pregrasp_msgs::GraspStrategyArrayConstPtr>("edge_pregrasp_messages", "All edge grasps that are considered.").required(false);
@@ -89,6 +93,7 @@ struct CreateGeometryGraph
         outputs.declare<geometry_graph_msgs::GraphConstPtr>("graph_message", "A graph representation of the environment.");
     }
 
+		// ====================================================================================================================
     void configure(const ecto::tendrils& params, const ecto::tendrils& inputs, const ecto::tendrils& outputs)
     {
         wall_grasps_ = inputs["wall_pregrasp_messages"];
@@ -113,6 +118,7 @@ struct CreateGeometryGraph
         last_broadcast_ = last_broadcast2_ = ros::Time::now();
     }
 
+		// ====================================================================================================================
     bool isGoalNode(int strategy_type, int grasp_type)
     {
         if (strategy_type == ::pregrasp_msgs::GraspStrategy::STRATEGY_WALL_GRASP ||
@@ -124,6 +130,7 @@ struct CreateGeometryGraph
         return false;
     }
     
+		// ====================================================================================================================
     std::string createNodeLabel(const pregrasp_msgs::GraspStrategy& g)
     {
         if (g.strategy == ::pregrasp_msgs::GraspStrategy::STRATEGY_POSITION)
@@ -142,19 +149,21 @@ struct CreateGeometryGraph
         return "Unknown";
     }
 
+		// ====================================================================================================================
     bool isConnected(const ::posesets::PoseSet& first_strategy, const ::posesets::PoseSet& second_strategy)
     {
         return first_strategy.isIntersecting(second_strategy);
     }
 
+		// ====================================================================================================================
     bool isConnected(const ::posesets::PoseSet& first_manifold, const ::posesets::PoseSet& second_manifold,
                      const ::pregrasp_msgs::GraspStrategy& first_strategy, const ::pregrasp_msgs::GraspStrategy& second_strategy)
     {
-        // if it's the same thing do not consider it to be connected
+        // If the two strategies are the same, there is no reason to connect them
         if (first_strategy.strategy == second_strategy.strategy)
             return false;
         
-        // if the first one is a grasp, we're done
+        // If the first one is a grasp, we're done
         if (first_strategy.strategy == ::pregrasp_msgs::GraspStrategy::STRATEGY_WALL_GRASP || 
             first_strategy.strategy == ::pregrasp_msgs::GraspStrategy::STRATEGY_SLIDE_TO_EDGE || 
             first_strategy.strategy == ::pregrasp_msgs::GraspStrategy::STRATEGY_SQUEEZE)
@@ -168,6 +177,7 @@ struct CreateGeometryGraph
         return first_manifold.isIntersecting(second_manifold);
     }
 
+		// ====================================================================================================================
     bool isConnected(const ::pregrasp_msgs::GraspStrategy& first_strategy, const ::pregrasp_msgs::GraspStrategy& second_strategy)
     {
         if (first_strategy.strategy == second_strategy.strategy)
@@ -221,9 +231,10 @@ struct CreateGeometryGraph
                 object_inside_preimage;
     }
 
+		// ====================================================================================================================
     int process(const ecto::tendrils& /*inputs*/, const ecto::tendrils& /*outputs*/)
     {
-        // collect all received types of motions in a single vector
+        // Collect all received types of motions in a single vector
         std::vector<pregrasp_msgs::GraspStrategyArrayConstPtr> all_motions;
         std::vector< ::posesets::PoseSetArrayConstPtr> all_manifolds;
         std::vector<std::string> all_identifiers;
@@ -274,10 +285,6 @@ struct CreateGeometryGraph
 
         if (total == 0)
             return ecto::OK;
-
-        // find all paths in a directed acyclic graph
-        StrategyGraph dag;
-        Strategies dag_search_front;
 
         // put all strategies in a nodes vector
         Strategies nodes;
@@ -346,6 +353,7 @@ struct CreateGeometryGraph
 
         return ecto::OK;
     }
+		// ====================================================================================================================
 };
 
 }

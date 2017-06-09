@@ -182,7 +182,7 @@ struct WallGrasps
                 double edge_length = edge_direction.norm();
                 edge_direction.normalize();
 
-								// Compute the direction to approach the edge from the polygon surface
+								// Compute the orientation with which to approach the edge from the polygon surface
                 Eigen::Vector3f approach_z = polygon_normal;
                 Eigen::Vector3f approach_y = (edge_direction).cross(-approach_z);
                 Eigen::Matrix3f rotation2;
@@ -202,18 +202,14 @@ struct WallGrasps
                 g.pregrasp_pose.pose.pose.position.z = edge_centroid(2);
 
 								// Check if there are points before the grasp location to ensure that there is possibly a wall
+								// NOTE This does not use the orientation computed above but implies with the given values for the bbox
                 int number_of_cropped_points = countPoints(g, input, -0.07, 0.07, -0.17, -0.07, -0.03, 0.12);
                 ROS_DEBUG("wall: cropped points %i  (minimum needed: %i)", number_of_cropped_points, *min_points_);
                 if (number_of_cropped_points < *min_points_)
                     continue;
 
-								// CONTINUE READING HERE
-								// CONTINUE READING HERE
-								// CONTINUE READING HERE
-								// CONTINUE READING HERE 2017-06-08 (Can & Elod)
-
-//                tf::Quaternion rotated_around_y = tf::Quaternion(0, 0,);
-                tf::Quaternion rotated_around_x(tf::Vector3(1, 0, 0), -M_PI);
+								// Set the orientation of the message
+                tf::Quaternion rotated_around_x(tf::Vector3(1, 0, 0), -M_PI);	
                 tf::Transform whole(q_tf*rotated_around_x, tf::Vector3(edge_centroid(0), edge_centroid(1), edge_centroid(2)));
                 whole *= tf::Transform(tf::createIdentityQuaternion(), tf::Vector3(0, -0.05, -0.05));
                 ::tf::poseTFToMsg(whole, g.pregrasp_pose.pose.pose);
@@ -241,10 +237,8 @@ struct WallGrasps
                 wall_pregrasp_messages->strategies.push_back(g);
 
                 // Add the _corresponding_ manifold
-                //tf::Quaternion rotated_around_x = tf::Quaternion(0, -M_PI_2, 0);
                 ::posesets::PoseSet ps(tf::Transform(q_tf, tf::Vector3(edge_centroid(0), edge_centroid(1), edge_centroid(2))));
-                ps.setPositions(tf::Vector3(edge_length, 0.01, 0.02));
-//                ps.getOrientations().addFuzzy(q_tf*rotated_around_x);
+                ps.setPositions(tf::Vector3(edge_length, 0.01, 0.02));  //< the width of the wall intersection that can be used to grasp
                 ps.getOrientations().addFuzzy(q_tf);
                 wall_manifolds->push_back(ps);
             }
