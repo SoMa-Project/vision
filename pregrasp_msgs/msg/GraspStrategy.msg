@@ -1,3 +1,4 @@
+# pregrasp_pose and object ARE NOT manifolds but specific samples 
 int32 PREGRASP_DISK = 0
 int32 PREGRASP_CYLINDER = 1
 int32 PREGRASP_SPHERE = 2

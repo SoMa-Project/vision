@@ -6168,6 +6168,7 @@ void OrientationSet::addFuzzy(const tf::Quaternion& orientation)
     }
 }
 
+// =============================================================================================
 void OrientationSet::add(const RotationMatrix& orientation, const tf::Vector3& around_axis)
 {
     int steps = 60;
@@ -6182,6 +6183,7 @@ void OrientationSet::add(const RotationMatrix& orientation, const tf::Vector3& a
     }
 }
 
+// =============================================================================================
 void OrientationSet::add(const tf::Quaternion& orientation, const tf::Vector3& around_axis)
 {
     int steps = 30;
@@ -6204,6 +6206,7 @@ void OrientationSet::add(const tf::Quaternion& orientation, const tf::Vector3& a
     }
 }
 
+// =============================================================================================
 void OrientationSet::addFuzzy(const tf::Quaternion& orientation, const tf::Vector3& around_axis)
 {
     add(orientation, around_axis);

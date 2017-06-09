@@ -46,11 +46,14 @@ typedef Eigen::Matrix<float, 3, 1, Eigen::DontAlign> UnalignedVector3f;
 typedef Eigen::Matrix<float, 2, 1, Eigen::DontAlign> UnalignedVector2f;
 typedef Eigen::Transform<float,3,Eigen::Affine,Eigen::DontAlign> UnalignedAffine3f;
 
+// ======================================================================================================================
+// ======================================================================================================================
 struct ManifoldsPlanar
 {
     ecto::spore<pregrasp_msgs::GraspStrategyArrayConstPtr> pushing_pregrasp_messages_;
     ecto::spore< ::posesets::PoseSetArrayConstPtr> manifolds_;
 
+		// TODO Remove polygons 
     spore<std::vector< ::pcl::ModelCoefficientsConstPtr> > polygons_;
     spore<std::vector< ::pcl::ModelCoefficientsConstPtr> > bounded_planes_;
 
@@ -59,6 +62,7 @@ struct ManifoldsPlanar
     ecto::spore<bool> all_in_plane_orientations_;
     ecto::spore<double> rotation_;
 
+		// ======================================================================================================================
     static void declare_params(ecto::tendrils& params)
     {
         params.declare<int>("max_no_of_points", "", 10);
@@ -66,6 +70,7 @@ struct ManifoldsPlanar
         params.declare<double>("rotation", "A constant rotation offset.", 0.0);
     }
 
+		// ======================================================================================================================
     static void declare_io(const tendrils& params, tendrils& inputs, tendrils& outputs)
     {
         inputs.declare<std::vector< ::pcl::ModelCoefficientsConstPtr> >("polygons", "3D Polygons.").required(false);
@@ -75,6 +80,7 @@ struct ManifoldsPlanar
         outputs.declare< ::posesets::PoseSetArrayConstPtr>("manifolds", "All the planar manifolds found.");
     }
 
+		// ======================================================================================================================
     void configure(const tendrils& params, const tendrils& inputs, const tendrils& outputs)
     {
         polygons_ = inputs["polygons"];
@@ -91,6 +97,8 @@ struct ManifoldsPlanar
         last_marker_message_ = ::ros::Time::now();
     }
 
+		// ======================================================================================================================
+		// TODO Perhaps delete this, it is not used in this cell
     inline bool intersectRayBox(//const ::Eigen::Vector3f& ray_org, == 0
                                 const ::Eigen::Vector3f& ray_dir,
                                 const ::Eigen::Vector3f& box_org,
@@ -152,6 +160,8 @@ struct ManifoldsPlanar
         return found;
     }
 
+		// ======================================================================================================================
+		// TODO Perhaps delete this, it is not used in this cell
     template <typename Point>
     int cropByRayIntersection (const ::pcl::PointCloud<Point> &cloud,
                                //                              const std::vector<int> &indices,
@@ -192,6 +202,8 @@ struct ManifoldsPlanar
         return intersection_point_count;
     }
 
+		// ======================================================================================================================
+		// TODO Perhaps delete this, it is not used in this cell
     template<typename Point>
     int countPoints(const pregrasp_msgs::GraspStrategy& g, boost::shared_ptr<const ::pcl::PointCloud<Point> >& input)
     {
@@ -229,6 +241,7 @@ struct ManifoldsPlanar
         return inliers.indices.size();
     }
 
+		// ======================================================================================================================
     void publishRVizMarkers(const std::string& frame_id, int non_intersections)
     {
         static ros::NodeHandle nh;
@@ -343,6 +356,7 @@ struct ManifoldsPlanar
         planar_manifolds_publisher.publish(msgs);
     }
 
+		// ======================================================================================================================
     template<typename Point>
     int process(const tendrils& inputs, const tendrils& outputs,
                 boost::shared_ptr<const ::pcl::PointCloud<Point> >& input,
@@ -356,35 +370,40 @@ struct ManifoldsPlanar
 //        int dbg_cnt = -1;
 //        int dbg_one = 0;
 //        int dbg_two = 2;
-        for (std::vector< ::pcl::ModelCoefficientsConstPtr>::iterator it = bounded_planes_->begin(); it != bounded_planes_->end(); ++it)
-        {
+				// Iterate through the bounded planes to create the push messages
+        for (std::vector< ::pcl::ModelCoefficientsConstPtr>::iterator it = bounded_planes_->begin(); it != bounded_planes_->end(); ++it) {
 //            dbg_cnt++;
 //            if (dbg_cnt != dbg_one && dbg_cnt != dbg_two)
 //                continue;
 
+						// Take the origin, normal, principle axis and plane size from the bounded plane
+						// The 9th index is the length of the minor axis of the bounding box
+						// TODO Check bounding box generation
             tf::Vector3 origin_position((*it)->values[0], (*it)->values[1], (*it)->values[2]);
             tf::Vector3 normal((*it)->values[3], (*it)->values[4], (*it)->values[5]);
             tf::Vector3 principal_axis((*it)->values[6], (*it)->values[7], (*it)->values[8]);
-            tf::Vector3 plane_size(principal_axis.length(), (*it)->values[9], 0.02);
+            tf::Vector3 plane_size(principal_axis.length(), (*it)->values[9], 0.02);	
             normal.normalize();
             principal_axis.normalize();
+
+						// Create a rotation matrix for the plane frame
             tf::Vector3 third_axis = normal.cross(principal_axis);
-//            tf::Matrix3x3 rotation(principal_axis.x(), principal_axis.y(), principal_axis.z(),
-//                                   third_axis.x(), third_axis.y(), third_axis.z(),
-//                                   normal.x(), normal.y(), normal.z());
             tf::Matrix3x3 rotation(principal_axis.x(), third_axis.x(), normal.x(),
                                    principal_axis.y(), third_axis.y(), normal.y(),
                                    principal_axis.z(), third_axis.z(), normal.z());
             tf::Matrix3x3 offset(tf::Quaternion(tf::Vector3(0, 0, 1), *rotation_));
             rotation *= offset;
-            
-            tf::Transform origin(rotation, origin_position);
-
+		
+						// Get the quaternion of the orientation
             tf::Quaternion q;
             rotation.getRotation(q);
+            
+						// Create the pose for the frame
+            tf::Transform origin(rotation, origin_position);
 
+						// Create a pose set and therefore, the planar manifold
             ::posesets::PoseSet s(origin);
-            s.setPositions(plane_size);
+            s.setPositions(plane_size);	
             if (*all_in_plane_orientations_)
                 s.getOrientations().add(q, normal);
             else
@@ -396,6 +415,7 @@ struct ManifoldsPlanar
             msg.pregrasp_configuration = pregrasp_msgs::GraspStrategy::PREGRASP_HOOK;
             msg.strategy = pregrasp_msgs::GraspStrategy::STRATEGY_PUSH;
 
+						// Set pregrasp_pose.pose, object.center.pose, object.pose.pose to plane frame
             tf::poseTFToMsg(origin, msg.pregrasp_pose.center.pose);
             tf::poseTFToMsg(origin, msg.pregrasp_pose.pose.pose);
             msg.pregrasp_pose.pose.header = msg.object.pose.header = msg.object.center.header = push_messages->header;
@@ -449,6 +469,7 @@ struct ManifoldsPlanar
 
         return OK;
     }
+		// ======================================================================================================================
 };
 
 }

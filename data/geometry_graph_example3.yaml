@@ -220,6 +220,12 @@ tf_send_object:
   source_frame: camera_rgb_optical_frame
   target_frame: object
 
+# ---------------------------------------------------------------------------------------
+# Generates the surface manifold that is used for surface grasp and push motions
+# Note: push pregrasp message does not have a pushing direction.
+# all_in_plane_orientations: Samples 30-60 orientations around the normal of the plane
+# 	and adds to the manifold
+# max_no_points variable in the visualization is not used (commented out)
 planar_manifolds:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::ManifoldsPlanar>
   inputs:
@@ -227,8 +233,8 @@ planar_manifolds:
     normals: normal_estimation/output
     bounded_planes: table_fits/bounded_model_biggest
   all_in_plane_orientations: true 
-  rotation: 0
-  #1.5
+  rotation: 0 #1.5
+
 # ---------------------------------------------------------------------------------------
 freespace_motions:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::PositioningMotions>
