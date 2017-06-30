@@ -2,14 +2,14 @@
 % to t0 below
 % NOTE It does not include the "back" faces of the boxes (l25)
 
-f = fopen('bla.xml', 'w');
+f = fopen('boxes.xml', 'w');
 fprintf(f, '<main>\n');
 fprintf(f, '\t<planes>\n');
 
 t0 = [0.84999996 0 -0.69999998];
 
 clf;
-data = load('bla.wrl');
+data = load('boxes.wrl');
 counter = 0;
 for i = 1 : 8
 
@@ -45,12 +45,13 @@ for i = 1 : 8
 		p3 = tc + dir2 * dims(dimIdx2) - dir3 * dims(dimIdx3);
 		ps = [p0; p1; p2; p3; p0];
 		plot3(ps(:,1), ps(:,2), ps(:,3), '-o'); hold on;
-		plot3(tc(1), tc(2), tc(3), 'ro'); hold on;
+		%plot3(tc(1), tc(2), tc(3), 'ro'); hold on;
 
 		% Visualize plane normal
 		pn = tc + dir1 * 0.1;
 		temp = [tc; pn];
-		plot3(temp(:,1), temp(:,2), temp(:,3), 'ko-', 'linewidth', 2); hold on;
+		%plot3(temp(:,1), temp(:,2), temp(:,3), 'ko-', 'linewidth', 2); hold on;
+		text(tc(1), tc(2), tc(3), num2str(counter));
 		
 		% Compute the offset 
 		offset = -dot(tc, dir1);
