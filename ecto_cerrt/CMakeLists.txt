@@ -22,8 +22,13 @@ find_package(catkin REQUIRED COMPONENTS
 	interactive_markers 
 	visualization_msgs
 	moveit_core
+  cmake_modules
 )
-
+find_package(Eigen 3 REQUIRED)
+include_directories( 
+	${catkin_INCLUDE_DIRS}
+    	${Eigen_INCLUDE_DIRS}
+)
 catkin_package(
   #CATKIN_DEPENDS actionlib_msgs  trik_controller moveit_ros_planning_interface 
   #LIBRARIES trik_controller sdformat moveit_ros_planning_interface 

@@ -5,7 +5,7 @@ project(ecto_rbo_grasping)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  cmake_modules # for tinyxml
+  cmake_modules # for tinyxml and Eigen 
   roscpp
   ecto
   ecto_pcl
