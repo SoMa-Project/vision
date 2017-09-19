@@ -22,8 +22,7 @@ First install CGAL:
 sudo apt-get install libcgal-dev
 ```
 
-You will also have to install [Wild Magic](https://www.geometrictools.com/Downloads/WildMagic5p14.zip) (from https://www.geometrictools.com/Downloads/Downloads.html)
-following the [installation instructions](https://www.geometrictools.com/Downloads/Wm5p14InstallationRelease.pdf) or simply download and execute:
+You will also have to install Wild Magic from this [link](https://tubcloud.tu-berlin.de/s/oCwzZnOAMSZN46c) following the [installation instructions](https://www.geometrictools.com/Downloads/Wm5p14InstallationRelease.pdf) or simply download and execute:
 ```
 make CFG=ReleaseDynamic -f makefile.wm5
 ```
