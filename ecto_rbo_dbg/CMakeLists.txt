@@ -22,9 +22,10 @@ find_package(catkin REQUIRED COMPONENTS
   eigen_conversions
 )
 
-## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/Modules/")
 
+## System dependencies are found with CMake's conventions
+ find_package(Boost REQUIRED COMPONENTS system)
 find_package(Eigen3 REQUIRED)
 find_package(PythonLibs REQUIRED)
 

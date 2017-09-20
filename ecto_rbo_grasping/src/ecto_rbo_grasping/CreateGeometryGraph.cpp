@@ -47,6 +47,9 @@ struct CreateGeometryGraph
     ecto::spore<pregrasp_msgs::GraspStrategyArrayConstPtr> surface_grasps_;
     ecto::spore< ::posesets::PoseSetArrayConstPtr> surface_grasp_manifolds_;
 
+    ecto::spore<pregrasp_msgs::GraspStrategyArrayConstPtr> gs_top_grasps_;
+    ecto::spore< ::posesets::PoseSetArrayConstPtr> gs_grasp_manifolds_;
+
     ecto::spore<pregrasp_msgs::GraspStrategyArrayConstPtr> edge_grasps_;
     ecto::spore< ::posesets::PoseSetArrayConstPtr> edge_grasp_manifolds_;
 
@@ -74,6 +77,7 @@ struct CreateGeometryGraph
     {
         inputs.declare<pregrasp_msgs::GraspStrategyArrayConstPtr>("edge_pregrasp_messages", "All edge grasps that are considered.").required(false);
         inputs.declare<pregrasp_msgs::GraspStrategyArrayConstPtr>("surface_pregrasp_messages", "All surface grasps that are considered.").required(false);
+        inputs.declare<pregrasp_msgs::GraspStrategyArrayConstPtr>("graspsig_pregrasp_messages", "All GS-surface grasps that are considered.").required(false);
         inputs.declare<pregrasp_msgs::GraspStrategyArrayConstPtr>("wall_pregrasp_messages", "All wall grasps that are considered.").required(false);
         inputs.declare<pregrasp_msgs::GraspStrategyArrayConstPtr>("pushing_pregrasp_messages", "All sliding motions that are considered.").required(false);
         inputs.declare<pregrasp_msgs::GraspStrategyArrayConstPtr>("landing_pregrasp_messages", "All caging motions that are considered.").required(false);
@@ -81,6 +85,7 @@ struct CreateGeometryGraph
 
         inputs.declare< ::posesets::PoseSetArrayConstPtr>("edge_grasp_manifolds", "All the planar manifolds found.").required(false);
         inputs.declare< ::posesets::PoseSetArrayConstPtr>("surface_grasp_manifolds", "All the planar manifolds found.").required(false);
+        inputs.declare< ::posesets::PoseSetArrayConstPtr>("graspsig_grasp_manifolds", "All the planar manifolds found.").required(false);
         inputs.declare< ::posesets::PoseSetArrayConstPtr>("wall_grasp_manifolds", "All the planar manifolds found.").required(false);
         inputs.declare< ::posesets::PoseSetArrayConstPtr>("pushing_motion_manifolds", "All the planar manifolds found.").required(false);
         inputs.declare< ::posesets::PoseSetArrayConstPtr>("landing_motion_manifolds", "All the planar manifolds found.").required(false);
@@ -94,6 +99,7 @@ struct CreateGeometryGraph
         wall_grasps_ = inputs["wall_pregrasp_messages"];
         edge_grasps_ = inputs["edge_pregrasp_messages"];
         surface_grasps_ = inputs["surface_pregrasp_messages"];
+        gs_top_grasps_ = inputs["graspsig_pregrasp_messages"];
         pushing_motions_ = inputs["pushing_pregrasp_messages"];
         landing_motions_ = inputs["landing_pregrasp_messages"];
         positioning_motions_ = inputs["positioning_pregrasp_messages"];
@@ -101,6 +107,7 @@ struct CreateGeometryGraph
         edge_grasp_manifolds_ = inputs["edge_grasp_manifolds"];
         wall_grasp_manifolds_ = inputs["wall_grasp_manifolds"];
         surface_grasp_manifolds_ = inputs["surface_grasp_manifolds"];
+        gs_grasp_manifolds_ = inputs["graspsig_grasp_manifolds"];
         pushing_motion_manifolds_ = inputs["pushing_motion_manifolds"];
         landing_motion_manifolds_ = inputs["landing_motion_manifolds"];
         positioning_motion_manifolds_ = inputs["positioning_motion_manifolds"];
@@ -250,6 +257,12 @@ struct CreateGeometryGraph
             all_identifiers.push_back("surface grasp");
             all_motions.push_back(*surface_grasps_);
             all_manifolds.push_back(*surface_grasp_manifolds_);
+        }
+        if (surface_grasps_.user_supplied())
+        {
+            all_identifiers.push_back("grasp signature grasp");
+            all_motions.push_back(*gs_top_grasps_);
+            all_manifolds.push_back(*gs_grasp_manifolds_);
         }
         if (edge_grasps_.user_supplied())
         {

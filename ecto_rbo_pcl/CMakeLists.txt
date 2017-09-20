@@ -181,6 +181,7 @@ ectomodule(ecto_rbo_pcl INSTALL
     src/ecto_rbo_pcl/WrapInVector.cpp
     src/ecto_rbo_pcl/CreateTF.cpp
     src/ecto_rbo_pcl/PCDReader.cpp
+    src/ecto_rbo_pcl/BBox2GSig.cpp
 )
 
 link_ecto(ecto_rbo_pcl
