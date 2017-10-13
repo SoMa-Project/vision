@@ -39,6 +39,7 @@ using namespace ecto;
 
 #define pc(x) std::cout << #x << ": " << (x) << std::endl;
 #define ps(x) std::cout << #x << std::endl;
+#define pv(x) std::cout << #x << ": " << (x).transpose() << std::endl;
 
 namespace ecto_rbo_grasping
 {
@@ -193,13 +194,16 @@ struct IfcoGrasp
 						wall0origin = origin;
 						wall0angle = angle2;
 					
+            // Make sure that the normal axis is looking towards the middle of the ifco
+            if(wall0normal.dot(biggestOrigin - wall0origin) < 0) 
+              wall0normal *= -1;
 
 						// Update the transform for visualization
-            tf::Vector3 third_axis = normal.cross(principal_axis);
+            tf::Vector3 third_axis = wall0normal.cross(principal_axis);
             Eigen::Matrix3f rotation;
-						rotation << principal_axis.x(), third_axis.x(), normal.x(),
-                                   principal_axis.y(), third_axis.y(), normal.y(),
-                                   principal_axis.z(), third_axis.z(), normal.z();
+						rotation << principal_axis.x(), third_axis.x(), wall0normal.x(),
+                                   principal_axis.y(), third_axis.y(), wall0normal.y(),
+                                   principal_axis.z(), third_axis.z(), wall0normal.z();
 						UnalignedAffine3f transform = Eigen::Translation3f(origin[0], origin[1], origin[2]) * rotation;
 						(*ifco_wall_0_transform_) = transform;
 					}
@@ -265,34 +269,73 @@ struct IfcoGrasp
 						wall1normal = normal;
 						wall1origin = origin;
 
+            // Make sure that the normal axis is looking towards the middle of the ifco
+            if(wall1normal.dot(wall0origin - wall1origin) < 0) 
+              wall1normal *= -1;
+
 						// Update the transform for visualization
-            tf::Vector3 third_axis = normal.cross(principal_axis);
+            tf::Vector3 third_axis = wall1normal.cross(principal_axis);
             Eigen::Matrix3f rotation;
-						rotation << principal_axis.x(), third_axis.x(), normal.x(),
-                                   principal_axis.y(), third_axis.y(), normal.y(),
-                                   principal_axis.z(), third_axis.z(), normal.z();
+						rotation << principal_axis.x(), third_axis.x(), wall1normal.x(),
+                                   principal_axis.y(), third_axis.y(), wall1normal.y(),
+                                   principal_axis.z(), third_axis.z(), wall1normal.z();
 						UnalignedAffine3f transform = Eigen::Translation3f(origin[0], origin[1], origin[2]) * rotation;
 						(*ifco_wall_1_transform_) = transform;
 					}
 				}
 
-				// Compute the center of the IFCO on the biggest plane (table) by projecting wall centers and normals
-				// to the table plane
-				tf::Vector3 wall0originProj = wall0origin - ((wall0origin - biggestOrigin).dot(biggestNormal)) * biggestNormal;
-				tf::Vector3 wall0normalProj = wall0normal - (wall0normal.dot(biggestNormal)) * biggestNormal;
-				tf::Vector3 wall1originProj = wall1origin - ((wall1origin - biggestOrigin).dot(biggestNormal)) * biggestNormal;
-				tf::Vector3 wall1normalProj = wall1normal - (wall1normal.dot(biggestNormal)) * biggestNormal;
-				tf::Vector3 ifcoCenter = (wall1originProj - wall0originProj).dot(wall0normalProj) * wall0normalProj + wall0originProj;
-				Eigen::Matrix3f rotation;// = Eigen::Matrix3f::Identity();
+        // Compute the origin and normal projections of the walls to the table surface
+        tf::Vector3 wall0originProj = wall0origin - ((wall0origin - biggestOrigin).dot(biggestNormal)) * biggestNormal;
+        tf::Vector3 wall0normalProj = (wall0normal - (wall0normal.dot(biggestNormal)) * biggestNormal).normalized();
+        tf::Vector3 wall1originProj = wall1origin - ((wall1origin - biggestOrigin).dot(biggestNormal)) * biggestNormal;
+        tf::Vector3 wall1normalProj = (wall1normal - (wall1normal.dot(biggestNormal)) * biggestNormal).normalized();
+
+        // Compute the center of the IFCO on the biggest plane (table) ... 
+				// ... by projecting wall centers and normals to the table plane
+        tf::Vector3 ifcoCenter;
+        if(0) {
+          ifcoCenter = (wall1originProj - wall0originProj).dot(wall0normalProj) * wall0normalProj + wall0originProj;
+        }
+
+        // ... or, first get the corner location, and then using ifco size and long wall information, estimate the center (this should be more stable!)
+        else {
+          tf::Vector3 wall0inDir = (wall0normalProj.cross(biggestNormal)).normalized();
+          double t = (wall0originProj - wall1originProj).dot(wall1normalProj) / (wall0inDir.dot(wall1normalProj));
+
+          // We are not sure of the normal directions so we check both translation of magnitude t
+          ifcoCenter = wall0originProj + wall0inDir * t;
+          static const double kProjLimit = 0.05;
+          if((ifcoCenter.dot(wall0normalProj) > kProjLimit) || (ifcoCenter.dot(wall1normalProj) > kProjLimit))
+            ifcoCenter =  wall0originProj - wall0inDir * t;
+            
+          // Move the ifco center from the corner to the actual center with hardcoded values
+          ifcoCenter += (0.19 * wall0normalProj) + (0.29 * wall1normalProj);
+
+          //Eigen::Vector3d wall0originProj_ (wall0originProj.getX(), wall0originProj.getY(), wall0originProj.getZ());
+          //Eigen::Vector3d wall0normalProj_ (wall0normalProj.getX(), wall0normalProj.getY(), wall0normalProj.getZ());
+          //Eigen::Vector3d wall1originProj_ (wall1originProj.getX(), wall1originProj.getY(), wall1originProj.getZ());
+          //Eigen::Vector3d wall1normalProj_ (wall1normalProj.getX(), wall1normalProj.getY(), wall1normalProj.getZ());
+          //pv(wall0originProj_); 
+          //pv(wall0normalProj_); 
+          //pv(wall1originProj_); 
+          //pv(wall1normalProj_); 
+          //Eigen::ParametrizedLine<double, 3> line1(wall0originProj_, wall0normalProj_);
+          //Eigen::Hyperplane<double, 3> line2;
+          //line2 = Eigen::Hyperplane<double, 3>(wall1normalProj_, wall1originProj_);
+          //Eigen::Vector3d inter = line1.intersectionPoint(line2);
+          //ifcoCenter = tf::Vector3(inter(0), inter(1), inter(2));
+          //pv(inter);
+        }
+        
+        // Compute the orientation
+        Eigen::Matrix3f rotation;// = Eigen::Matrix3f::Identity();
         tf::Vector3 third_axis = wall0normalProj.cross(-biggestNormal);
-				rotation << third_axis.x(), wall0normalProj.x(), -biggestNormal.x(),
-															 third_axis.y(), wall0normalProj.y(), -biggestNormal.y(),
-															 third_axis.z(), wall0normalProj.z(), -biggestNormal.z();
-				UnalignedAffine3f transform = Eigen::Translation3f(ifcoCenter[0], ifcoCenter[1], ifcoCenter[2]) * rotation;
-				(*ifco_transform_) = transform;
+        rotation << third_axis.x(), wall0normalProj.x(), -biggestNormal.x(),
+                               third_axis.y(), wall0normalProj.y(), -biggestNormal.y(),
+                               third_axis.z(), wall0normalProj.z(), -biggestNormal.z();
 
-
-
+        UnalignedAffine3f transform = Eigen::Translation3f(ifcoCenter[0], ifcoCenter[1], ifcoCenter[2]) * rotation;
+        (*ifco_transform_) = transform;
 
         (*pregrasp_messages_) = messages;
         return OK;
