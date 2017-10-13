@@ -10,7 +10,7 @@ sudo apt-get install ros-indigo-ecto* ros-indigo-openni*
 ```
 
 
-* Compile this package:
+* Compile this package. CAUTION: This step can take up to 30 minutes and might freeze your computer. It's best to do it overnight or over lunchbreak.
 ```
 catkin build ecto_rbo
 ```
