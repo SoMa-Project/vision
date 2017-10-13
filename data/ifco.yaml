@@ -24,7 +24,7 @@ crop_box:
   inputs:
     input: msg_to_pcl/output
   filter_field_name: z
-  filter_limit_max: 1.5
+  filter_limit_max: 1.0
   filter_limit_min: 0
   filter_limit_negative: false
 
@@ -40,8 +40,8 @@ flood_fill:
   inputs:
     input: crop_box/output
     normals: normal_estimation/output
-  angular_threshold: 0.1359879
-  curvature_distance_threshold: 0.05
+  angular_threshold: 0.1859879
+  curvature_distance_threshold: 0.15
   curvature_threshold: 0.017
   distance_threshold: 0.05
   min_inliers: 50
@@ -55,13 +55,13 @@ table_fits:
     clusters: flood_fill/clusters
     input: crop_box/output
     normals: normal_estimation/output
-  distance_threshold: 10.05
+  distance_threshold: 45.05
   max_size: 10.24
   min_boxness: 0.0
   min_inlier_ratio: 0.0
   min_size: 0.00
   weight_contour: 0.0
-  polygon_approximation_epsilon: 30.0
+  polygon_approximation_epsilon: 40.0
 
 # ------------------------------------------------------------------------
 ifco_grasp:
