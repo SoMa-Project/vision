@@ -75,6 +75,16 @@ ifco_grasp:
   tableDist: 0.2
 
 # ------------------------------------------------------------------------
+inside_ifco:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::CropBox>
+  inputs:
+    input: crop_box/output
+    transform: ifco_grasp/ifco_transform
+  default_min: [-0.24,  -0.16, 0.02, 0]
+  default_max: [0.24,  0.16,  0.20, 0]
+  publish_rviz_markers: true
+
+# ------------------------------------------------------------------------
 tf_send_wall0:
   type: ecto_rbo_pcl::BroadcastTF
   inputs:
