@@ -92,6 +92,7 @@ struct IfcoGrasp
 				outputs.declare<UnalignedAffine3f>("ifco_wall_0_transform", "Transform of the biggest IFCO wall.");
 				outputs.declare<UnalignedAffine3f>("ifco_wall_1_transform", "Transform of the perpendicular IFCO wall.");
 				outputs.declare<UnalignedAffine3f>("ifco_transform", "Transform of the IFCO.");
+				outputs.declare<std::vector< ::pcl::ModelCoefficientsConstPtr> >("ifco_polygons", "Polygons of the IFCO.");
 				outputs.declare<std::vector< ::pcl::ModelCoefficientsConstPtr> >("ifco_planes", "Planes of the IFCO.");
 				outputs.declare<std::vector< ::pcl::ModelCoefficientsConstPtr> >("ifco_planes_biggest", "Bottom plane of the IFCO.");
     }
@@ -110,7 +111,7 @@ struct IfcoGrasp
 				ifco_wall_0_transform_ = outputs["ifco_wall_0_transform"];
 				ifco_wall_1_transform_ = outputs["ifco_wall_1_transform"];
 				ifco_transform_ = outputs["ifco_transform"];
-        ifco_polygons_ = outputs["polygons"];
+        ifco_polygons_ = outputs["ifco_polygons"];
         ifco_planes_ = outputs["ifco_planes"];
         ifco_planes_biggest_ = outputs["ifco_planes_biggest"];
         pregrasp_messages_ = outputs["pregrasp_messages"];
@@ -127,7 +128,7 @@ struct IfcoGrasp
       tf::Vector3 p1 = origin + 0.5 * width * principal + 0.5 * height * third_axis;
       tf::Vector3 p2 = origin + 0.5 * width * principal - 0.5 * height * third_axis;
       tf::Vector3 p3 = origin - 0.5 * width * principal - 0.5 * height * third_axis;
-      tf::Vector3 p4 = origin + 0.5 * width * principal + 0.5 * height * third_axis;
+      tf::Vector3 p4 = origin - 0.5 * width * principal + 0.5 * height * third_axis;
       polygon->values[0] = p1[0]; polygon->values[1] = p1[1]; polygon->values[2] = p1[2];
       polygon->values[3] = p2[0]; polygon->values[4] = p2[1]; polygon->values[5] = p2[2];
       polygon->values[6] = p3[0]; polygon->values[7] = p3[1]; polygon->values[8] = p3[2];
@@ -387,15 +388,15 @@ struct IfcoGrasp
         // Create the polygons (for wall grasps)
         ifco_polygons_->clear();
         ifco_polygons_->push_back(  
-          createPolygon(wall0originB, wall1normalProj, biggestNormal, 0.54, 0.38));
-//        ifco_polygons_->push_back(
-//          createPolygon(wall2originB,-wall0normal, 0.58 *third_axis, 0.15));
-//        ifco_polygons_->push_back(
-//          createPolygon(wall1originB, third_axis, 0.38 *wall0normal, 0.15));
-//        ifco_polygons_->push_back(
-//          createPolygon(wall3originB,-third_axis, 0.38 *wall0normal, 0.15));
-//        ifco_polygons_->push_back(
-//          createPolygon(ifcoCenter,-biggestNormal, 0.58 *third_axis, 0.38));
+          createPolygon(wall0originB, wall1normalProj, biggestNormal, 0.54, 0.15));
+        ifco_polygons_->push_back(
+          createPolygon(wall2originB, -wall1normalProj, biggestNormal, 0.54, 0.15));
+        ifco_polygons_->push_back(
+          createPolygon(wall1originB, wall0normalProj, biggestNormal, 0.38, 0.15));
+        ifco_polygons_->push_back(
+          createPolygon(wall3originB, -wall0normalProj, biggestNormal, 0.38, 0.15));
+        ifco_polygons_->push_back(
+          createPolygon(ifcoCenter, wall1normalProj, wall0normalProj, 0.54, 0.38));
 
 
 
