@@ -85,6 +85,17 @@ inside_ifco:
   publish_rviz_markers: true
 
 # ------------------------------------------------------------------------
+region_growing_rgb:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::RegionGrowingRGB>
+  inputs:
+    input: crop_box/output
+    indices: inside_ifco/indices2
+  min_cluster_size: 350
+  distance_threshold: 1000
+  point_color_threshold: 35.0
+  region_color_threshold: 50.0
+
+# ------------------------------------------------------------------------
 tf_send_wall0:
   type: ecto_rbo_pcl::BroadcastTF
   inputs:
