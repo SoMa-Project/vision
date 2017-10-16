@@ -23,6 +23,7 @@ The views and conclusions contained in the software and documentation are those 
 #include <pcl/common/eigen.h>
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/filters/crop_box.h>
+#include <pcl_conversions/pcl_conversions.h>
 
 #include <ros/ros.h>
 #include <ros/console.h>
@@ -36,6 +37,7 @@ The views and conclusions contained in the software and documentation are those 
 #include <ecto_rbo_grasping/PoseSet.h>
 
 using namespace ecto;
+using namespace ecto::pcl;
 
 #define pc(x) std::cout << #x << ": " << (x) << std::endl;
 #define ps(x) std::cout << #x << std::endl;
@@ -68,6 +70,7 @@ struct IfcoGrasp
 		spore<UnalignedAffine3f> ifco_transform_;
 		spore<UnalignedAffine3f> ifco_wall_0_transform_;
 		spore<UnalignedAffine3f> ifco_wall_1_transform_;
+    spore<std::vector< ::pcl::ModelCoefficientsConstPtr> > ifco_planes_;
 
     ::ros::Time last_marker_message_;
 
@@ -87,6 +90,7 @@ struct IfcoGrasp
 				outputs.declare<UnalignedAffine3f>("ifco_wall_0_transform", "Transform of the biggest IFCO wall.");
 				outputs.declare<UnalignedAffine3f>("ifco_wall_1_transform", "Transform of the perpendicular IFCO wall.");
 				outputs.declare<UnalignedAffine3f>("ifco_transform", "Transform of the IFCO.");
+				outputs.declare<std::vector< ::pcl::ModelCoefficientsConstPtr> >("ifco_planes", "Planes of the IFCO.");
     }
 
 		// ======================================================================================================================
@@ -103,13 +107,32 @@ struct IfcoGrasp
 				ifco_wall_0_transform_ = outputs["ifco_wall_0_transform"];
 				ifco_wall_1_transform_ = outputs["ifco_wall_1_transform"];
 				ifco_transform_ = outputs["ifco_transform"];
+        ifco_planes_ = outputs["ifco_planes"];
         pregrasp_messages_ = outputs["pregrasp_messages"];
 
         ros::Time::init();
         last_marker_message_ = ::ros::Time::now();
     }
 
-		// ======================================================================================================================
+		// ==========================================================================================
+    ::pcl::ModelCoefficients::Ptr createBounded(tf::Vector3 origin, 
+        tf::Vector3 normal, tf::Vector3 principal, double width) {
+      ::pcl::ModelCoefficients::Ptr bounded_model(new ::pcl::ModelCoefficients());
+      bounded_model->values.resize(10);
+      bounded_model->values[0] = origin[0];
+      bounded_model->values[1] = origin[1];
+      bounded_model->values[2] = origin[2];
+      bounded_model->values[3] = normal[0];
+      bounded_model->values[4] = normal[1];
+      bounded_model->values[5] = normal[2];
+      bounded_model->values[6] = principal[0];
+      bounded_model->values[7] = principal[1];
+      bounded_model->values[8] = principal[2];
+      bounded_model->values[9] = width;
+      return bounded_model;
+    }
+    
+		// ==========================================================================================
     template<typename Point>
     int process(const tendrils& inputs, const tendrils& outputs,
                 boost::shared_ptr<const ::pcl::PointCloud<Point> >& input,
@@ -132,6 +155,7 @@ struct IfcoGrasp
 				(*ifco_wall_1_transform_) = UnalignedAffine3f::Identity();
 				(*ifco_transform_) = UnalignedAffine3f::Identity();
 
+        // --- PART 1 -----------------------------------------------------------------------
 				// Iterate through the bounded planes to find the biggest IFCO wall we can see
 				double maxSize = 0;
 				::pcl::ModelCoefficientsConstPtr ifcoWall0It;
@@ -139,7 +163,8 @@ struct IfcoGrasp
 				tf::Vector3 wall0origin;
 				double wall0angle;
 				int counter = -1;
-        for (std::vector< ::pcl::ModelCoefficientsConstPtr>::iterator it = bounded_planes_->begin(); it != bounded_planes_->end(); ++it) {
+        for (std::vector< ::pcl::ModelCoefficientsConstPtr>::iterator it = 
+            bounded_planes_->begin(); it != bounded_planes_->end(); ++it) {
 
 					counter++;
 					if((*plane_id_ != -1) && counter != *plane_id_) {
@@ -208,9 +233,11 @@ struct IfcoGrasp
 						(*ifco_wall_0_transform_) = transform;
 					}
 				}
-				pc(wall0angle);
 
-				// Find a second wall of the IFCO that is perpendicular to the first wall and the table surface of course
+
+        // ---- PART 2 ----------------------------------------------------------------------
+				// Find a second wall of the IFCO that is perpendicular to the first wall and the 
+        // table surface of course
 				maxSize = 0;
 				::pcl::ModelCoefficientsConstPtr ifcoWall1It;
 				tf::Vector3 wall1normal;
@@ -309,22 +336,7 @@ struct IfcoGrasp
             ifcoCenter =  wall0originProj - wall0inDir * t;
             
           // Move the ifco center from the corner to the actual center with hardcoded values
-          ifcoCenter += (0.19 * wall0normalProj) + (0.29 * wall1normalProj);
-
-          //Eigen::Vector3d wall0originProj_ (wall0originProj.getX(), wall0originProj.getY(), wall0originProj.getZ());
-          //Eigen::Vector3d wall0normalProj_ (wall0normalProj.getX(), wall0normalProj.getY(), wall0normalProj.getZ());
-          //Eigen::Vector3d wall1originProj_ (wall1originProj.getX(), wall1originProj.getY(), wall1originProj.getZ());
-          //Eigen::Vector3d wall1normalProj_ (wall1normalProj.getX(), wall1normalProj.getY(), wall1normalProj.getZ());
-          //pv(wall0originProj_); 
-          //pv(wall0normalProj_); 
-          //pv(wall1originProj_); 
-          //pv(wall1normalProj_); 
-          //Eigen::ParametrizedLine<double, 3> line1(wall0originProj_, wall0normalProj_);
-          //Eigen::Hyperplane<double, 3> line2;
-          //line2 = Eigen::Hyperplane<double, 3>(wall1normalProj_, wall1originProj_);
-          //Eigen::Vector3d inter = line1.intersectionPoint(line2);
-          //ifcoCenter = tf::Vector3(inter(0), inter(1), inter(2));
-          //pv(inter);
+          ifcoCenter += (0.19 * wall0normalProj) + (0.27 * wall1normalProj);
         }
         
         // Compute the orientation
@@ -336,6 +348,18 @@ struct IfcoGrasp
 
         UnalignedAffine3f transform = Eigen::Translation3f(ifcoCenter[0], ifcoCenter[1], ifcoCenter[2]) * rotation;
         (*ifco_transform_) = transform;
+
+        // Visualize the biggest wall
+        ifco_planes_->clear();
+        tf::Vector3 wall0originB = ifcoCenter - (0.19 * wall0normalProj) - (.075 * biggestNormal);
+        tf::Vector3 wall2originB = ifcoCenter + (0.19 * wall0normalProj) - (.075 * biggestNormal);
+        tf::Vector3 wall1originB = ifcoCenter - (0.27 * wall1normalProj) - (.075 * biggestNormal);
+        tf::Vector3 wall3originB = ifcoCenter + (0.27 * wall1normalProj) - (.075 * biggestNormal);
+        ifco_planes_->push_back(createBounded(wall0originB, wall0normal, 0.58 *third_axis, 0.15));
+        ifco_planes_->push_back(createBounded(wall2originB,-wall0normal, 0.58 *third_axis, 0.15));
+        ifco_planes_->push_back(createBounded(wall1originB, third_axis, 0.38 *wall0normal, 0.15));
+        ifco_planes_->push_back(createBounded(wall3originB,-third_axis, 0.38 *wall0normal, 0.15));
+        ifco_planes_->push_back(createBounded(ifcoCenter,-biggestNormal, 0.58 *third_axis, 0.38));
 
         (*pregrasp_messages_) = messages;
         return OK;
