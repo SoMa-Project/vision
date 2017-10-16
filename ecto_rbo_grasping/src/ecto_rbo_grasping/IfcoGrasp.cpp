@@ -70,7 +70,9 @@ struct IfcoGrasp
 		spore<UnalignedAffine3f> ifco_transform_;
 		spore<UnalignedAffine3f> ifco_wall_0_transform_;
 		spore<UnalignedAffine3f> ifco_wall_1_transform_;
+    spore<std::vector< ::pcl::ModelCoefficientsConstPtr> > ifco_polygons_;
     spore<std::vector< ::pcl::ModelCoefficientsConstPtr> > ifco_planes_;
+    spore<std::vector< ::pcl::ModelCoefficientsConstPtr> > ifco_planes_biggest_;
 
     ::ros::Time last_marker_message_;
 
@@ -91,6 +93,7 @@ struct IfcoGrasp
 				outputs.declare<UnalignedAffine3f>("ifco_wall_1_transform", "Transform of the perpendicular IFCO wall.");
 				outputs.declare<UnalignedAffine3f>("ifco_transform", "Transform of the IFCO.");
 				outputs.declare<std::vector< ::pcl::ModelCoefficientsConstPtr> >("ifco_planes", "Planes of the IFCO.");
+				outputs.declare<std::vector< ::pcl::ModelCoefficientsConstPtr> >("ifco_planes_biggest", "Bottom plane of the IFCO.");
     }
 
 		// ======================================================================================================================
@@ -107,13 +110,31 @@ struct IfcoGrasp
 				ifco_wall_0_transform_ = outputs["ifco_wall_0_transform"];
 				ifco_wall_1_transform_ = outputs["ifco_wall_1_transform"];
 				ifco_transform_ = outputs["ifco_transform"];
+        ifco_polygons_ = outputs["polygons"];
         ifco_planes_ = outputs["ifco_planes"];
+        ifco_planes_biggest_ = outputs["ifco_planes_biggest"];
         pregrasp_messages_ = outputs["pregrasp_messages"];
 
         ros::Time::init();
         last_marker_message_ = ::ros::Time::now();
     }
 
+		// ==========================================================================================
+    ::pcl::ModelCoefficients::Ptr createPolygon(tf::Vector3 origin, 
+        tf::Vector3 principal, tf::Vector3 third_axis, double width, double height) {
+      ::pcl::ModelCoefficients::Ptr polygon(new ::pcl::ModelCoefficients());
+      polygon->values.resize(12);
+      tf::Vector3 p1 = origin + 0.5 * width * principal + 0.5 * height * third_axis;
+      tf::Vector3 p2 = origin + 0.5 * width * principal - 0.5 * height * third_axis;
+      tf::Vector3 p3 = origin - 0.5 * width * principal - 0.5 * height * third_axis;
+      tf::Vector3 p4 = origin + 0.5 * width * principal + 0.5 * height * third_axis;
+      polygon->values[0] = p1[0]; polygon->values[1] = p1[1]; polygon->values[2] = p1[2];
+      polygon->values[3] = p2[0]; polygon->values[4] = p2[1]; polygon->values[5] = p2[2];
+      polygon->values[6] = p3[0]; polygon->values[7] = p3[1]; polygon->values[8] = p3[2];
+      polygon->values[9] = p4[0]; polygon->values[10] = p4[1]; polygon->values[11] = p4[2];
+      return polygon;
+    }
+  
 		// ==========================================================================================
     ::pcl::ModelCoefficients::Ptr createBounded(tf::Vector3 origin, 
         tf::Vector3 normal, tf::Vector3 principal, double width) {
@@ -349,19 +370,37 @@ struct IfcoGrasp
         UnalignedAffine3f transform = Eigen::Translation3f(ifcoCenter[0], ifcoCenter[1], ifcoCenter[2]) * rotation;
         (*ifco_transform_) = transform;
 
-        // Visualize the biggest wall
+        // Create the bounded models for the primitives
         ifco_planes_->clear();
+        ifco_planes_biggest_->clear();
         tf::Vector3 wall0originB = ifcoCenter - (0.19 * wall0normalProj) - (.075 * biggestNormal);
         tf::Vector3 wall2originB = ifcoCenter + (0.19 * wall0normalProj) - (.075 * biggestNormal);
         tf::Vector3 wall1originB = ifcoCenter - (0.27 * wall1normalProj) - (.075 * biggestNormal);
         tf::Vector3 wall3originB = ifcoCenter + (0.27 * wall1normalProj) - (.075 * biggestNormal);
-        ifco_planes_->push_back(createBounded(wall0originB, wall0normal, 0.58 *third_axis, 0.15));
-        ifco_planes_->push_back(createBounded(wall2originB,-wall0normal, 0.58 *third_axis, 0.15));
+        ifco_planes_->push_back(createBounded(wall0originB, wall0normal, 0.54 *third_axis, 0.15));
+        ifco_planes_->push_back(createBounded(wall2originB,-wall0normal, 0.54 *third_axis, 0.15));
         ifco_planes_->push_back(createBounded(wall1originB, third_axis, 0.38 *wall0normal, 0.15));
         ifco_planes_->push_back(createBounded(wall3originB,-third_axis, 0.38 *wall0normal, 0.15));
-        ifco_planes_->push_back(createBounded(ifcoCenter,-biggestNormal, 0.58 *third_axis, 0.38));
+        ifco_planes_->push_back(createBounded(ifcoCenter,-biggestNormal, 0.54 *third_axis, 0.38));
+        ifco_planes_biggest_->push_back(createBounded(ifcoCenter,-biggestNormal, 0.54 *third_axis, 0.38));
 
-        (*pregrasp_messages_) = messages;
+        // Create the polygons (for wall grasps)
+        ifco_polygons_->clear();
+        ifco_polygons_->push_back(  
+          createPolygon(wall0originB, wall1normalProj, biggestNormal, 0.54, 0.38));
+//        ifco_polygons_->push_back(
+//          createPolygon(wall2originB,-wall0normal, 0.58 *third_axis, 0.15));
+//        ifco_polygons_->push_back(
+//          createPolygon(wall1originB, third_axis, 0.38 *wall0normal, 0.15));
+//        ifco_polygons_->push_back(
+//          createPolygon(wall3originB,-third_axis, 0.38 *wall0normal, 0.15));
+//        ifco_polygons_->push_back(
+//          createPolygon(ifcoCenter,-biggestNormal, 0.58 *third_axis, 0.38));
+
+
+
+
+        (*pregrasp_messages_) = messages;   // delete all messages stuff here (and test!)
         return OK;
     }
 		// ======================================================================================================================

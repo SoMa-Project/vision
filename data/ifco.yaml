@@ -75,6 +75,19 @@ ifco_grasp:
   tableDist: 0.2
 
 # ------------------------------------------------------------------------
+# Clean up transform data for later use
+tf_to_vector_table:
+  type: ecto_rbo_pcl::TF2Vector
+  inputs:
+    transform: ifco_grasp/ifco_transform
+  column_index: 2
+  negate: false
+wrap_in_vector_table:
+  type: ecto_rbo_pcl::WrapVector3fInVector
+  inputs:
+    input: tf_to_vector_table/vector
+
+# ------------------------------------------------------------------------
 inside_ifco:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::CropBox>
   inputs:
@@ -85,6 +98,7 @@ inside_ifco:
   publish_rviz_markers: true
 
 # ------------------------------------------------------------------------
+# Cluster the objects in the IFCO
 region_growing_rgb:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::RegionGrowingRGB>
   inputs:
@@ -94,6 +108,87 @@ region_growing_rgb:
   distance_threshold: 1000
   point_color_threshold: 35.0
   region_color_threshold: 50.0
+
+# ------------------------------------------------------------------------
+# Pick one object - the closest to the camera
+filter_closest_object:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::ExtractClosestCluster>
+  inputs:
+    input: crop_box/output
+    clusters: region_growing_rgb/output
+    transform: ifco_grasp/ifco_transform
+  size_weight: 0
+
+# ------------------------------------------------------------------------
+# Calculate the centroid and the bounding box
+calculate_centroids:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::Centroid>
+  inputs:
+    input: crop_box/output
+    clusters: filter_closest_object/closest_cluster
+bbox_fits:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::PlaneFits2D>
+  inputs:
+    input: crop_box/output
+    clusters: filter_closest_object/closest_cluster
+    normal: tf_to_vector_table/vector
+bbox_to_axis:
+  type: ecto_rbo_pcl::TFs2Vectors
+  inputs:
+    transforms: bbox_fits/transforms
+  column_index: 0
+  negate: false
+
+# Broadcast object location
+take_first_tf:
+  type: ecto_rbo_pcl::Vector2TF
+  inputs:
+    input: bbox_fits/transforms
+tf_send_object:
+  type: ecto_rbo_pcl::BroadcastTF
+  inputs:
+    transform: take_first_tf/output
+  source_frame: camera_rgb_optical_frame
+  target_frame: object
+
+# ------------------------------------------------------------------------
+# Create top grasp primitive
+create_top_down_grasps:
+  type: ecto_rbo_grasping::CreateGrasps
+  inputs:
+    header: msg_to_pcl/header
+    positions: calculate_centroids/centroids
+    approach_vectors: wrap_in_vector_table/vector
+    roll_vectors: bbox_to_axis/vectors
+  strategy: 10  # SQUEEZE
+  pregrasp_configuration: 2 # SPHERE
+  roll_offset: 0 #-1.5707963267948966   #3.141592653589793
+
+# ------------------------------------------------------------------------
+# Create slide primitives
+planar_manifolds:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::ManifoldsPlanar>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+    bounded_planes: ifco_grasp/ifco_planes_biggest
+  all_in_plane_orientations: true 
+  rotation: 0
+ 
+# ------------------------------------------------------------------------
+# Create wall grasp primitives
+wall_grasps:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::WallGrasps>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+    polygons: ifco_grasp/ifco_polygons
+    bounded_planes: ifco_grasp/ifco_planes
+  min_points: 200
+
+
+
+
 
 # ------------------------------------------------------------------------
 tf_send_wall0:
