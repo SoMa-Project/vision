@@ -179,18 +179,19 @@ struct IfcoGrasp
 
         // --- PART 1 -----------------------------------------------------------------------
 				// Iterate through the bounded planes to find the biggest IFCO wall we can see
-				double maxSize = 0;
+				double maxSize = -1;
 				::pcl::ModelCoefficientsConstPtr ifcoWall0It;
 				tf::Vector3 wall0normal;
 				tf::Vector3 wall0origin;
 				double wall0angle;
 				int counter = -1;
+        printf("\n\n\n~~~ Looking for wall 1!\n");
         for (std::vector< ::pcl::ModelCoefficientsConstPtr>::iterator it = 
             bounded_planes_->begin(); it != bounded_planes_->end(); ++it) {
 
 					counter++;
 					if((*plane_id_ != -1) && counter != *plane_id_) {
-						printf("\n\nskipping because %d vs. %d\n", counter, *plane_id_);
+						printf("skipping because %d vs. %d\n", counter, *plane_id_);
 						continue;
 					}
 					
@@ -206,16 +207,16 @@ struct IfcoGrasp
 
 					// Check if the bounded plane is perpendicular enough to the biggest plane
 					double angle = acos(normal.dot(biggestNormal));
-					//pc(angle / M_PI * 180.0);
 					if((angle < M_PI_2/2.0) || (angle > 1.5 * M_PI_2)) {
+            pc(angle / M_PI * 180.0);
 						printf("\tnot perpendicular!\n");
 						continue;
 					}
 
 					// Check if the principle axis of the bounding box is perpendicular to the table normal
 					double angle2 = acos(principal_axis.dot(biggestNormal));
-					//pc(angle2 / M_PI * 180.0);
-					if((angle2 < (M_PI_2 - 0.1)) || (angle2 > (M_PI_2 + 0.1))) {
+					if(false && (((angle2 < (M_PI_2 - 0.1)) || (angle2 > (M_PI_2 + 0.1))))) {
+            pc(angle2 / M_PI * 180.0);
 						printf("\tslanted!\n");
 						continue;
 					}
@@ -223,8 +224,8 @@ struct IfcoGrasp
 
 					// Check if the bounded box is close enough to the biggest plane (i.e. it is on the table)
 					double dist = (origin - biggestOrigin).dot(biggestNormal);
-					//pc(dist);
 					if(fabs(dist) > *tableDist_ || dist > 0) {
+            pc(dist);
 						printf("\ttoo far from table, skipping\n");
 						continue;
 					}
@@ -256,6 +257,11 @@ struct IfcoGrasp
 					}
 				}
 
+        if(maxSize < 0) {
+          ROS_ERROR("Could not find the first wall");
+          return OK;
+        }
+        printf("maxSize: %lf\n", maxSize);
 
         // ---- PART 2 ----------------------------------------------------------------------
 				// Find a second wall of the IFCO that is perpendicular to the first wall and the 
@@ -264,6 +270,7 @@ struct IfcoGrasp
 				::pcl::ModelCoefficientsConstPtr ifcoWall1It;
 				tf::Vector3 wall1normal;
 				tf::Vector3 wall1origin;
+        printf("~~~ Looking for wall 2!\n");
         for (std::vector< ::pcl::ModelCoefficientsConstPtr>::iterator it = bounded_planes_->begin(); it != bounded_planes_->end(); ++it) {
 
 					// Take the origin, normal, principle axis and plane size from the bounded plane
@@ -354,7 +361,7 @@ struct IfcoGrasp
           // We are not sure of the normal directions so we check both translation of magnitude t
           ifcoCenter = wall0originProj + wall0inDir * t;
           static const double kProjLimit = 0.05;
-          if((ifcoCenter.dot(wall0normalProj) > kProjLimit) || (ifcoCenter.dot(wall1normalProj) > kProjLimit))
+          if(((ifcoCenter-wall0originProj).dot(wall0normalProj) > kProjLimit) || ((ifcoCenter-wall1originProj).dot(wall1normalProj) > kProjLimit))
             ifcoCenter =  wall0originProj - wall0inDir * t;
             
           // Move the ifco center from the corner to the actual center with hardcoded values
