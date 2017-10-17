@@ -1,4 +1,3 @@
-# Each cell in CPP has declare_params, declare_io, configure and process functions.
 
 ros_pc_subscriber:
   type: ecto_sensor_msgs::Subscriber_PointCloud2

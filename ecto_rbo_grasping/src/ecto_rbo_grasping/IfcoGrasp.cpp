@@ -63,6 +63,9 @@ struct IfcoGrasp
 		// parameters
     ecto::spore<double> tableDist_;
     ecto::spore<int> plane_id_;
+    ecto::spore<double> ifco_length_;
+    ecto::spore<double> ifco_width_;
+    ecto::spore<double> ifco_height_;
 
 		// outputs
     ecto::spore<pregrasp_msgs::GraspStrategyArrayConstPtr> pregrasp_messages_;
@@ -80,6 +83,9 @@ struct IfcoGrasp
     static void declare_params(ecto::tendrils& params)
     {
         params.declare<double>("tableDist", "Distance of a bounded plane to the biggest bounded plane (i.e. table)", 0.0);
+        params.declare<double>("ifco_length", "Size of the long IFCO edge", 0.0);
+        params.declare<double>("ifco_width", "Size of the short IFCO edge", 0.0);
+        params.declare<double>("ifco_height", "Depth of the ifco", 0.0);
         params.declare<int>("plane_id", "afasdfof a bounded plane to the biggest bounded plane (i.e. table)", 0.0);
     }
 
@@ -105,6 +111,9 @@ struct IfcoGrasp
 
 				// parameters
         tableDist_ = params["tableDist"];
+        ifco_length_ = params["ifco_length"];
+        ifco_width_ = params["ifco_width"];
+        ifco_height_ = params["ifco_height"];
         plane_id_ = params["plane_id"];
 
 				// outputs
@@ -214,6 +223,7 @@ struct IfcoGrasp
 					}
 
 					// Check if the principle axis of the bounding box is perpendicular to the table normal
+          // Note from Can: Not sure why I wrote this in the first place. Leave it until MS4 in case necessary.
 					double angle2 = acos(principal_axis.dot(biggestNormal));
 					if(false && (((angle2 < (M_PI_2 - 0.1)) || (angle2 > (M_PI_2 + 0.1))))) {
             pc(angle2 / M_PI * 180.0);
@@ -266,7 +276,7 @@ struct IfcoGrasp
         // ---- PART 2 ----------------------------------------------------------------------
 				// Find a second wall of the IFCO that is perpendicular to the first wall and the 
         // table surface of course
-				maxSize = 0;
+				maxSize = -1;
 				::pcl::ModelCoefficientsConstPtr ifcoWall1It;
 				tf::Vector3 wall1normal;
 				tf::Vector3 wall1origin;
@@ -340,6 +350,11 @@ struct IfcoGrasp
 					}
 				}
 
+        if(maxSize < 0) {
+          ROS_ERROR("Could not find the second wall");
+          return OK;
+        }
+
         // Compute the origin and normal projections of the walls to the table surface
         tf::Vector3 wall0originProj = wall0origin - ((wall0origin - biggestOrigin).dot(biggestNormal)) * biggestNormal;
         tf::Vector3 wall0normalProj = (wall0normal - (wall0normal.dot(biggestNormal)) * biggestNormal).normalized();
@@ -381,29 +396,29 @@ struct IfcoGrasp
         // Create the bounded models for the primitives
         ifco_planes_->clear();
         ifco_planes_biggest_->clear();
-        tf::Vector3 wall0originB = ifcoCenter - (0.19 * wall0normalProj) - (.075 * biggestNormal);
-        tf::Vector3 wall2originB = ifcoCenter + (0.19 * wall0normalProj) - (.075 * biggestNormal);
-        tf::Vector3 wall1originB = ifcoCenter - (0.27 * wall1normalProj) - (.075 * biggestNormal);
-        tf::Vector3 wall3originB = ifcoCenter + (0.27 * wall1normalProj) - (.075 * biggestNormal);
-        ifco_planes_->push_back(createBounded(wall0originB, wall0normal, 0.54 *third_axis, 0.15));
-        ifco_planes_->push_back(createBounded(wall2originB,-wall0normal, 0.54 *third_axis, 0.15));
-        ifco_planes_->push_back(createBounded(wall1originB, third_axis, 0.38 *wall0normal, 0.15));
-        ifco_planes_->push_back(createBounded(wall3originB,-third_axis, 0.38 *wall0normal, 0.15));
-        ifco_planes_->push_back(createBounded(ifcoCenter,-biggestNormal, 0.54 *third_axis, 0.38));
-        ifco_planes_biggest_->push_back(createBounded(ifcoCenter,-biggestNormal, 0.54 *third_axis, 0.38));
+        tf::Vector3 wall0originB = ifcoCenter - 0.5 * ((*ifco_width_) * wall0normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
+        tf::Vector3 wall2originB = ifcoCenter + 0.5 * ((*ifco_width_) * wall0normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
+        tf::Vector3 wall1originB = ifcoCenter - 0.5 * ((*ifco_length_) * wall1normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
+        tf::Vector3 wall3originB = ifcoCenter + 0.5 * ((*ifco_length_) * wall1normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
+        ifco_planes_->push_back(createBounded(wall0originB, wall0normal, (*ifco_length_) *third_axis, (*ifco_height_)));
+        ifco_planes_->push_back(createBounded(wall2originB,-wall0normal, (*ifco_length_) *third_axis, (*ifco_height_)));
+        ifco_planes_->push_back(createBounded(wall1originB, third_axis, (*ifco_width_) *wall0normal, (*ifco_height_)));
+        ifco_planes_->push_back(createBounded(wall3originB,-third_axis, (*ifco_width_) *wall0normal, (*ifco_height_)));
+        ifco_planes_->push_back(createBounded(ifcoCenter,-biggestNormal, (*ifco_length_) *third_axis, (*ifco_width_)));
+        ifco_planes_biggest_->push_back(createBounded(ifcoCenter,-biggestNormal, (*ifco_length_) *third_axis, (*ifco_width_)));
 
         // Create the polygons (for wall grasps)
         ifco_polygons_->clear();
         ifco_polygons_->push_back(  
-          createPolygon(wall0originB, wall1normalProj, biggestNormal, 0.54, 0.15));
+          createPolygon(wall0originB, wall1normalProj, biggestNormal, (*ifco_length_), (*ifco_height_)));
         ifco_polygons_->push_back(
-          createPolygon(wall2originB, -wall1normalProj, biggestNormal, 0.54, 0.15));
+          createPolygon(wall2originB, -wall1normalProj, biggestNormal, (*ifco_length_), (*ifco_height_)));
         ifco_polygons_->push_back(
-          createPolygon(wall1originB, wall0normalProj, biggestNormal, 0.38, 0.15));
+          createPolygon(wall1originB, wall0normalProj, biggestNormal, (*ifco_width_), (*ifco_height_)));
         ifco_polygons_->push_back(
-          createPolygon(wall3originB, -wall0normalProj, biggestNormal, 0.38, 0.15));
+          createPolygon(wall3originB, -wall0normalProj, biggestNormal, (*ifco_width_), (*ifco_height_)));
         ifco_polygons_->push_back(
-          createPolygon(ifcoCenter, wall1normalProj, wall0normalProj, 0.54, 0.38));
+          createPolygon(ifcoCenter, wall1normalProj, wall0normalProj, (*ifco_length_), (*ifco_width_)));
 
 
 

@@ -1,4 +1,49 @@
-# Each cell in CPP has declare_params, declare_io, configure and process functions.
+# Copyright 2016-2017 Robotics and Biology Lab, TU Berlin. All rights reserved.
+# 
+# Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+# 
+#     Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+#     Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+# 
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+# 
+# The views and conclusions contained in the software and documentation are those of the authors and should not be interpreted as representing official policies, either expressed or implied, of the FreeBSD Project.
+# 
+
+#@author Can Erdogan
+#@date 2017-10-17
+#@brief Generates the ECE graph plan for an environment with an IFCO. 
+
+# Instructions:
+# - Start environment: roslaunch hybrid_automaton_manager_kuka launchGazebo.launch world:=iiwa_ifco OR
+#                    : roslaunch openni2_launch openni2.launch depth_registration:=true (remember to reconfigure driver modes to 8)
+# - Start vision: rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ecto_rbo_grasping`/..//data/ifco_sim.yaml --debug
+# - Visualize in Rviz: ifco, ifcoWall0, ifcoWall1 TFs and the ifco_planes under visual markers.
+
+# IFCO detection algorithm (What happens in the ifco_grasp cell below):
+# 1. Detect the planes in the world. Visualize them in Rviz with MarkerArray: table_fits/polygons.
+#
+# 2. Assume the biggest plane corresponds to the table surface: table_fits/polygon_biggest. This is 
+#      important to establish the Z+ axis of the world (normal of the plane). 
+#  . Setup implication: Need to make sure there is a sufficiently big plane under the IFCO. 
+#
+# 3. Find the second biggest plane in the world such that it is perpendicular to the table plane 
+#    and close to the table center (tableDist parameter).
+#    Assume that it corresponds to the long face of the IFCO. MarkerArray: ifco_grasp/ifco_wall_0_transform
+#    If such a plane is not found, an error message will be printed but the vision loop will continue.
+#  . Setup implication: It makes sense to setup the camera so that it sees both a long and short 
+#      face of the IFCO from outside. They can also be seen from inside but if the IFCO is full, 
+#      then occlusions might be problematic
+#
+# 4. Find the third biggest plane such that it is perpendicular to the table plane and the long IFCO.
+#    Assume that it corresponds to the long face of the IFCO. MarkerArray: ifco_grasp/ifco_wall_1_transform
+#    If such a plane is not found, an error message will be printed but the vision loop will continue.
+#
+# 5. Using the pixel patches corresponding to the two planes, determine the location of the IFCO corner where
+#      the two planes intersect. Using this intersection point, compute the center of the IFCO assuming
+#      that we know its dimensions.
+#  . Setup implications: Provide the dimensions of your IFCO as parameters. Note that these dimensions are right
+#    now hardcoded in the testKinect2Collision and probably should be set as ros environment variables somehow.
 
 ros_pc_subscriber:
   type: ecto_sensor_msgs::Subscriber_PointCloud2
@@ -73,6 +118,9 @@ ifco_grasp:
     bounded_planes_biggest: table_fits/bounded_model_biggest
   plane_id: -1
   tableDist: 0.2
+  ifco_length: 0.56
+  ifco_width: 0.38
+  ifco_height: 0.16
 
 # ------------------------------------------------------------------------
 # Clean up transform data for later use
