@@ -22,7 +22,7 @@ First install CGAL:
 sudo apt-get install libcgal-dev
 ```
 
-You will also have to install Wild Magic from this [link](https://tubcloud.tu-berlin.de/s/oCwzZnOAMSZN46c) following the [installation instructions](https://www.geometrictools.com/Downloads/Wm5p14InstallationRelease.pdf) or simply download and execute:
+You will also have to install Wild Magic from this [link](https://tubcloud.tu-berlin.de/s/oCwzZnOAMSZN46c). Download and execute:
 ```
 make CFG=ReleaseDynamic -f makefile.wm5
 ```
@@ -31,7 +31,7 @@ And export the respective WP5_PATH
 export WM5_PATH=/your_path/GeometricTools/WildMagic5/SDK
 ```
 
-You will also need to install GDIAM. Download the old version libgdiam-1.01.tar.gz from (http://sarielhp.org/research/papers/00/diameter/) and follow the building instructions:
+You will also need to install GDIAM. Download the old version libgdiam-1.01.tar.gz from (https://tubcloud.tu-berlin.de/s/4I8Txq4dJ7653HC) and follow the building instructions:
 ```
 tar -xzf libgdiam-1.0.1.tar.gz 
 ~/$ cd libgdiam/
