@@ -4,6 +4,8 @@ ROS packages providing various ecto cells and plasms for perception.
 
 ## Install 
 
+* First compile the ec_grasp_planner repository: https://github.com/soma-project/ec_grasp_planner
+
 * Install all ROS packages that start with 'ros-indigo-ecto', as well as with 'openni2':
 ```
 sudo apt-get install ros-indigo-ecto* ros-indigo-openni*
