@@ -10,9 +10,9 @@
 # The views and conclusions contained in the software and documentation are those of the authors and should not be interpreted as representing official policies, either expressed or implied, of the FreeBSD Project.
 # 
 
-#@author Can Erdogan
-#@date 2017-10-17
-#@brief Generates the ECE graph plan for an environment with an IFCO. 
+# @author Can Erdogan
+# @date 2017-10-17
+# @brief Generates the ECE graph plan for an environment with an IFCO. 
 
 # Instructions:
 # - Start environment: roslaunch hybrid_automaton_manager_kuka launchGazebo.launch world:=iiwa_ifco OR
