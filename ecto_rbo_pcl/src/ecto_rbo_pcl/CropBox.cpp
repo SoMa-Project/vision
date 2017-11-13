@@ -41,6 +41,25 @@ using ecto::spore;
 
 struct CropBox
 {
+    spore<PointCloud> output_;
+    spore<ecto::pcl::Clusters> indices_;
+    ecto::spore< ::pcl::PointIndices> indices2_;
+    spore< ::pcl::ModelCoefficientsConstPtr> box_;
+
+    spore<UnalignedAffine3f> transform_;
+    spore<UnalignedVector3f> translation_;
+    spore<UnalignedVector3f> rotation_;
+    spore<UnalignedVector4f> max_;
+    spore<UnalignedVector4f> min_;
+    
+    spore<UnalignedAffine3f> default_transform_;
+    spore<UnalignedVector3f> default_translation_;
+    spore<UnalignedVector3f> default_rotation_;
+    spore<UnalignedVector4f> default_max_;
+    spore<UnalignedVector4f> default_min_;
+    spore<bool> keep_organized_;
+    spore<bool> publish_rviz_markers_;
+
     static void declare_params(tendrils& params)
     {
         UnalignedAffine3f default_transform = Eigen::Affine3f::Identity();
@@ -70,6 +89,7 @@ struct CropBox
         
         outputs.declare<PointCloud>("output", "Filtered Cloud.");
         outputs.declare<ecto::pcl::Clusters>("indices", "Point Cloud clusters.");
+        outputs.declare< ::pcl::PointIndices>("indices2", "Point Cloud indices.");
         outputs.declare< ::pcl::ModelCoefficientsConstPtr>("box", "Box used to crop points.");
     }
 
@@ -77,6 +97,7 @@ struct CropBox
     {
         output_ = outputs["output"];
         indices_ = outputs["indices"];
+        indices2_ = outputs["indices2"];
         box_ = outputs["box"];
 
         default_transform_ = params["default_transform"];
@@ -261,11 +282,13 @@ struct CropBox
         if (*publish_rviz_markers_)
             publishRVizMarker(input->header.frame_id);
         
-        Indices::Ptr inliers ( new Indices() );
+        ::pcl::PointIndices::Ptr inliers ( new ::pcl::PointIndices() );
         crop_filter.filter(inliers->indices);
         
         indices_->clear();
         indices_->push_back(*inliers);
+        indices2_->header = input->header;
+        indices2_->indices = inliers->indices;
         
         ::pcl::ExtractIndices<Point> filter;
         filter.setIndices(inliers);
@@ -295,23 +318,6 @@ struct CropBox
         return ecto::OK;
     }
 
-    spore<PointCloud> output_;
-    spore<ecto::pcl::Clusters> indices_;
-    spore< ::pcl::ModelCoefficientsConstPtr> box_;
-
-    spore<UnalignedAffine3f> transform_;
-    spore<UnalignedVector3f> translation_;
-    spore<UnalignedVector3f> rotation_;
-    spore<UnalignedVector4f> max_;
-    spore<UnalignedVector4f> min_;
-    
-    spore<UnalignedAffine3f> default_transform_;
-    spore<UnalignedVector3f> default_translation_;
-    spore<UnalignedVector3f> default_rotation_;
-    spore<UnalignedVector4f> default_max_;
-    spore<UnalignedVector4f> default_min_;
-    spore<bool> keep_organized_;
-    spore<bool> publish_rviz_markers_;
 };
 
 }
