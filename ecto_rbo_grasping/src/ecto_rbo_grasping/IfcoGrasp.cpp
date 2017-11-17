@@ -200,13 +200,9 @@ struct IfcoGrasp
         tf::Vector3 third_axis = normal.cross(principal_axis);
         third_axis /= third_axis.length();
         Eigen::Matrix3f rotation;
-        // rotation << third_axis.x(), normal.x(), principal_axis.x(),
-        //                        third_axis.y(), normal.y(), principal_axis.y(),
-        //                        third_axis.z(), normal.z(), principal_axis.z();
         rotation <<            principal_axis.x(),third_axis.x(), normal.x(), 
                                principal_axis.y(),third_axis.y(), normal.y(), 
                                principal_axis.z(),third_axis.z(), normal.z();
-        pc(rotation);
         ::Eigen::Matrix3d final_rot = rotation.cast<double>();
         ::Eigen::Quaterniond q_eigen(final_rot);
         ::tf::Quaternion q_tf;
