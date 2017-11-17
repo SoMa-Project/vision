@@ -686,13 +686,18 @@ struct PlaneFits2D
             continue;
           
           Eigen::Matrix3f rotation;
+
+ 	  //Eigen::Vector3f negate_normal = (-1.0)*(*normal_);
+
           if (width > height)
           {
             rotation << principal_axis, normal_->cross(principal_axis), *normal_;
+	    //rotation << normal_->cross(principal_axis),principal_axis,  negate_normal;	
           }
           else
           {
             rotation << principal_axis.cross(*normal_), principal_axis, *normal_;
+	    //rotation << principal_axis, principal_axis.cross(*normal_),  negate_normal;
             ::std::swap(width, height);
           }
           
