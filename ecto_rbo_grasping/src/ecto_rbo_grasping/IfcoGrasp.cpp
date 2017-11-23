@@ -68,8 +68,8 @@ struct IfcoGrasp
     ecto::spore<double> ifco_height_;
 
 		// outputs
-    ecto::spore<pregrasp_msgs::GraspStrategyArrayConstPtr> pregrasp_messages_;
-    ecto::spore< ::posesets::PoseSetArrayConstPtr> manifolds_;
+    ecto::spore<pregrasp_msgs::GraspStrategyArrayConstPtr> wall_pregrasp_messages_;
+    ecto::spore< ::posesets::PoseSetArrayConstPtr> wall_manifolds_;
 		spore<UnalignedAffine3f> ifco_transform_;
 		spore<UnalignedAffine3f> ifco_wall_0_transform_;
 		spore<UnalignedAffine3f> ifco_wall_1_transform_;
@@ -94,7 +94,8 @@ struct IfcoGrasp
     {
         inputs.declare<std::vector< ::pcl::ModelCoefficientsConstPtr> >("bounded_planes", "Rectangular 3D Planes.");
         inputs.declare<std::vector< ::pcl::ModelCoefficientsConstPtr> >("bounded_planes_biggest", "Biggest Rectangular 3D Planes.");
-        outputs.declare<pregrasp_msgs::GraspStrategyArrayConstPtr>("pregrasp_messages", "All the grasps that should be used.");
+        outputs.declare<pregrasp_msgs::GraspStrategyArrayConstPtr>("wall_pregrasp_messages", "All the grasps that should be used.");
+        outputs.declare< ::posesets::PoseSetArrayConstPtr>("wall_manifolds", "All the grasps that should be used.");
 				outputs.declare<UnalignedAffine3f>("ifco_wall_0_transform", "Transform of the biggest IFCO wall.");
 				outputs.declare<UnalignedAffine3f>("ifco_wall_1_transform", "Transform of the perpendicular IFCO wall.");
 				outputs.declare<UnalignedAffine3f>("ifco_transform", "Transform of the IFCO.");
@@ -123,7 +124,8 @@ struct IfcoGrasp
         ifco_polygons_ = outputs["ifco_polygons"];
         ifco_planes_ = outputs["ifco_planes"];
         ifco_planes_biggest_ = outputs["ifco_planes_biggest"];
-        pregrasp_messages_ = outputs["pregrasp_messages"];
+        wall_pregrasp_messages_ = outputs["wall_pregrasp_messages"];
+        wall_manifolds_ = outputs["wall_manifolds"];
 
         ros::Time::init();
         last_marker_message_ = ::ros::Time::now();
@@ -165,15 +167,95 @@ struct IfcoGrasp
     
 		// ==========================================================================================
     template<typename Point>
+    void createWallGrasps (boost::shared_ptr<const ::pcl::PointCloud<Point> >& input) {
+
+      // Initialize the pregrasp messages
+      pregrasp_msgs::GraspStrategyArrayPtr wall_messages(new ::pregrasp_msgs::GraspStrategyArray());
+      wall_messages->header = pcl_conversions::fromPCL(input->header);
+      ::posesets::PoseSetArrayPtr wall_manifolds(new ::posesets::PoseSetArray());
+
+      // If the IFCO is not detected, don't create any messages
+      if(ifco_planes_->empty()) return;
+
+      // Create a grasp per wall
+      for(int i = 0; i < 4; i++) {
+
+        // Get the plane model
+        ::pcl::ModelCoefficientsConstPtr wall = (*ifco_planes_)[i];
+
+        pregrasp_msgs::GraspStrategy g;
+        g.pregrasp_configuration = pregrasp_msgs::GraspStrategy::PREGRASP_CYLINDER;
+        g.strategy = pregrasp_msgs::GraspStrategy::STRATEGY_WALL_GRASP;
+        
+        g.pregrasp_pose.pose.header = wall_messages->header;
+        g.pregrasp_pose.pose.pose.position.x = wall->values[0];
+        g.pregrasp_pose.pose.pose.position.y = wall->values[1];
+        g.pregrasp_pose.pose.pose.position.z = wall->values[2] - 0.5 * (*ifco_height_);
+
+        // Create the rotation for 
+        tf::Vector3 normal(wall->values[3], wall->values[4], wall->values[5]);
+        normal /= normal.length();
+        tf::Vector3 principal_axis(wall->values[6], wall->values[7], wall->values[8]);
+        principal_axis /= principal_axis.length();
+        tf::Vector3 third_axis = normal.cross(principal_axis);
+        third_axis /= third_axis.length();
+        Eigen::Matrix3f rotation;
+        rotation <<            principal_axis.x(),third_axis.x(), normal.x(), 
+                               principal_axis.y(),third_axis.y(), normal.y(), 
+                               principal_axis.z(),third_axis.z(), normal.z();
+        ::Eigen::Matrix3d final_rot = rotation.cast<double>();
+        ::Eigen::Quaterniond q_eigen(final_rot);
+        ::tf::Quaternion q_tf;
+        ::tf::quaternionEigenToTF(q_eigen, q_tf);
+        ::tf::quaternionTFToMsg(q_tf, g.pregrasp_pose.pose.pose.orientation);
+
+        tf::Quaternion rotated_around_x(tf::Vector3(1, 0, 0), 0);
+        // tf::Quaternion rotated_around_x(tf::Vector3(1, 0, 0), -M_PI);
+        // tf::Transform whole(q_tf*rotated_around_x, tf::Vector3(wall->values[0], wall->values[1], wall->values[2]));
+        tf::Transform whole(q_tf, tf::Vector3(wall->values[0], wall->values[1], wall->values[2]));
+        whole *= tf::Transform(tf::createIdentityQuaternion(), tf::Vector3(0, -0.5 * (*ifco_height_), 0.0));
+        ::tf::poseTFToMsg(whole, g.pregrasp_pose.pose.pose);
+        g.pregrasp_pose.center = g.pregrasp_pose.pose;
+
+        double edge_length = (i == 0) ? (*ifco_length_) : (*ifco_width_);
+        g.pregrasp_pose.size.push_back(edge_length);
+        g.pregrasp_pose.size.push_back(0.15);
+        g.pregrasp_pose.size.push_back(0.05);
+        g.pregrasp_pose.image_size.push_back(0.1);
+        g.pregrasp_pose.image_size.push_back(0.4);
+        g.pregrasp_pose.image_size.push_back(0.02);
+
+        // Set object pose relative to hand
+        g.object.center.pose = g.object.pose.pose = g.pregrasp_pose.center.pose;
+        g.object.size.push_back(0.05);
+        g.object.size.push_back(0.05);
+        g.object.size.push_back(0.05);
+        g.object.size.push_back(4.0);
+        g.object.image_size.push_back(0.005);
+        g.object.image_size.push_back(0.005);
+        g.object.image_size.push_back(0.005);
+        g.object.image_size.push_back(0.1);
+
+        wall_messages->strategies.push_back(g);
+
+        // Add the corresponding manifold
+        ::posesets::PoseSet poseSet(tf::Transform(q_tf, tf::Vector3(wall->values[0], wall->values[1], wall->values[2])));
+        poseSet.setPositions(tf::Vector3(edge_length, 0.01, 0.02));
+        poseSet.getOrientations().addFuzzy(q_tf);
+        wall_manifolds->push_back(poseSet);
+      }
+
+      (*wall_pregrasp_messages_) = wall_messages;   // delete all messages stuff here (and test!)
+      (*wall_manifolds_) = wall_manifolds;
+    }
+
+		// ==========================================================================================
+    template<typename Point>
     int process(const tendrils& inputs, const tendrils& outputs,
                 boost::shared_ptr<const ::pcl::PointCloud<Point> >& input,
                 boost::shared_ptr<const ::pcl::PointCloud< ::pcl::Normal> >& normals)
     {
-				// Initialize the pregrasp messages
-        pregrasp_msgs::GraspStrategyArrayPtr messages(new ::pregrasp_msgs::GraspStrategyArray());
-        messages->header = pcl_conversions::fromPCL(input->header);
-
-				// Get the size of the biggest bounded plane
+        // Get the size of the biggest bounded plane
 				std::vector< ::pcl::ModelCoefficientsConstPtr>::iterator biggestIt = bounded_planes_biggest_->begin();
 				tf::Vector3 biggestOrigin ((*biggestIt)->values[0], (*biggestIt)->values[1], (*biggestIt)->values[2]);
 				tf::Vector3 biggestNormal ((*biggestIt)->values[3], (*biggestIt)->values[4], (*biggestIt)->values[5]);
@@ -400,10 +482,10 @@ struct IfcoGrasp
         tf::Vector3 wall2originB = ifcoCenter + 0.5 * ((*ifco_width_) * wall0normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
         tf::Vector3 wall1originB = ifcoCenter - 0.5 * ((*ifco_length_) * wall1normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
         tf::Vector3 wall3originB = ifcoCenter + 0.5 * ((*ifco_length_) * wall1normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
-        ifco_planes_->push_back(createBounded(wall0originB, wall0normal, (*ifco_length_) *third_axis, (*ifco_height_)));
+        ifco_planes_->push_back(createBounded(wall0originB, wall0normal, -(*ifco_length_) *third_axis, (*ifco_height_)));
+        ifco_planes_->push_back(createBounded(wall1originB,-third_axis, -(*ifco_width_) *wall0normal, (*ifco_height_)));
         ifco_planes_->push_back(createBounded(wall2originB,-wall0normal, (*ifco_length_) *third_axis, (*ifco_height_)));
-        ifco_planes_->push_back(createBounded(wall1originB, third_axis, (*ifco_width_) *wall0normal, (*ifco_height_)));
-        ifco_planes_->push_back(createBounded(wall3originB,-third_axis, (*ifco_width_) *wall0normal, (*ifco_height_)));
+        ifco_planes_->push_back(createBounded(wall3originB, third_axis, (*ifco_width_) *wall0normal, (*ifco_height_)));
         ifco_planes_->push_back(createBounded(ifcoCenter,-biggestNormal, (*ifco_length_) *third_axis, (*ifco_width_)));
         ifco_planes_biggest_->push_back(createBounded(ifcoCenter,-biggestNormal, (*ifco_length_) *third_axis, (*ifco_width_)));
 
@@ -412,18 +494,17 @@ struct IfcoGrasp
         ifco_polygons_->push_back(  
           createPolygon(wall0originB, wall1normalProj, biggestNormal, (*ifco_length_), (*ifco_height_)));
         ifco_polygons_->push_back(
-          createPolygon(wall2originB, -wall1normalProj, biggestNormal, (*ifco_length_), (*ifco_height_)));
-        ifco_polygons_->push_back(
           createPolygon(wall1originB, wall0normalProj, biggestNormal, (*ifco_width_), (*ifco_height_)));
+        ifco_polygons_->push_back(
+          createPolygon(wall2originB, -wall1normalProj, biggestNormal, (*ifco_length_), (*ifco_height_)));
         ifco_polygons_->push_back(
           createPolygon(wall3originB, -wall0normalProj, biggestNormal, (*ifco_width_), (*ifco_height_)));
         ifco_polygons_->push_back(
           createPolygon(ifcoCenter, wall1normalProj, wall0normalProj, (*ifco_length_), (*ifco_width_)));
 
+        // Create wall grasp messages
+        createWallGrasps(input);
 
-
-
-        (*pregrasp_messages_) = messages;   // delete all messages stuff here (and test!)
         return OK;
     }
 		// ======================================================================================================================
