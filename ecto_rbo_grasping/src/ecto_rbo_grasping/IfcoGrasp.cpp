@@ -68,8 +68,8 @@ struct IfcoGrasp
     ecto::spore<double> ifco_height_;
 
 		// outputs
-    ecto::spore<pregrasp_msgs::GraspStrategyArrayConstPtr> pregrasp_messages_;
-    ecto::spore< ::posesets::PoseSetArrayConstPtr> manifolds_;
+    ecto::spore<pregrasp_msgs::GraspStrategyArrayConstPtr> wall_pregrasp_messages_;
+    ecto::spore< ::posesets::PoseSetArrayConstPtr> wall_manifolds_;
 		spore<UnalignedAffine3f> ifco_transform_;
 		spore<UnalignedAffine3f> ifco_wall_0_transform_;
 		spore<UnalignedAffine3f> ifco_wall_1_transform_;
@@ -94,8 +94,8 @@ struct IfcoGrasp
     {
         inputs.declare<std::vector< ::pcl::ModelCoefficientsConstPtr> >("bounded_planes", "Rectangular 3D Planes.");
         inputs.declare<std::vector< ::pcl::ModelCoefficientsConstPtr> >("bounded_planes_biggest", "Biggest Rectangular 3D Planes.");
-        outputs.declare<pregrasp_msgs::GraspStrategyArrayConstPtr>("pregrasp_messages", "All the grasps that should be used.");
-        outputs.declare< ::posesets::PoseSetArrayConstPtr>("manifolds", "All the grasps that should be used.");
+        outputs.declare<pregrasp_msgs::GraspStrategyArrayConstPtr>("wall_pregrasp_messages", "All the grasps that should be used.");
+        outputs.declare< ::posesets::PoseSetArrayConstPtr>("wall_manifolds", "All the grasps that should be used.");
 				outputs.declare<UnalignedAffine3f>("ifco_wall_0_transform", "Transform of the biggest IFCO wall.");
 				outputs.declare<UnalignedAffine3f>("ifco_wall_1_transform", "Transform of the perpendicular IFCO wall.");
 				outputs.declare<UnalignedAffine3f>("ifco_transform", "Transform of the IFCO.");
@@ -124,8 +124,8 @@ struct IfcoGrasp
         ifco_polygons_ = outputs["ifco_polygons"];
         ifco_planes_ = outputs["ifco_planes"];
         ifco_planes_biggest_ = outputs["ifco_planes_biggest"];
-        pregrasp_messages_ = outputs["pregrasp_messages"];
-        manifolds_ = outputs["manifolds"];
+        wall_pregrasp_messages_ = outputs["wall_pregrasp_messages"];
+        wall_manifolds_ = outputs["wall_manifolds"];
 
         ros::Time::init();
         last_marker_message_ = ::ros::Time::now();
@@ -170,9 +170,9 @@ struct IfcoGrasp
     void createWallGrasps (boost::shared_ptr<const ::pcl::PointCloud<Point> >& input) {
 
       // Initialize the pregrasp messages
-      pregrasp_msgs::GraspStrategyArrayPtr messages(new ::pregrasp_msgs::GraspStrategyArray());
-      messages->header = pcl_conversions::fromPCL(input->header);
-      ::posesets::PoseSetArrayPtr manifolds(new ::posesets::PoseSetArray());
+      pregrasp_msgs::GraspStrategyArrayPtr wall_messages(new ::pregrasp_msgs::GraspStrategyArray());
+      wall_messages->header = pcl_conversions::fromPCL(input->header);
+      ::posesets::PoseSetArrayPtr wall_manifolds(new ::posesets::PoseSetArray());
 
       // If the IFCO is not detected, don't create any messages
       if(ifco_planes_->empty()) return;
@@ -187,7 +187,7 @@ struct IfcoGrasp
         g.pregrasp_configuration = pregrasp_msgs::GraspStrategy::PREGRASP_CYLINDER;
         g.strategy = pregrasp_msgs::GraspStrategy::STRATEGY_WALL_GRASP;
         
-        g.pregrasp_pose.pose.header = messages->header;
+        g.pregrasp_pose.pose.header = wall_messages->header;
         g.pregrasp_pose.pose.pose.position.x = wall->values[0];
         g.pregrasp_pose.pose.pose.position.y = wall->values[1];
         g.pregrasp_pose.pose.pose.position.z = wall->values[2] - 0.5 * (*ifco_height_);
@@ -240,17 +240,17 @@ struct IfcoGrasp
         g.object.image_size.push_back(0.005);
         g.object.image_size.push_back(0.1);
 
-        messages->strategies.push_back(g);
+        wall_messages->strategies.push_back(g);
 
         // Add the corresponding manifold
         ::posesets::PoseSet poseSet(tf::Transform(q_tf, tf::Vector3(wall->values[0], wall->values[1], wall->values[2])));
         poseSet.setPositions(tf::Vector3(edge_length, 0.01, 0.02));
         poseSet.getOrientations().addFuzzy(q_tf);
-        manifolds->push_back(poseSet);
+        wall_manifolds->push_back(poseSet);
       }
 
-      (*pregrasp_messages_) = messages;   // delete all messages stuff here (and test!)
-      (*manifolds_) = manifolds;
+      (*wall_pregrasp_messages_) = wall_messages;   // delete all messages stuff here (and test!)
+      (*wall_manifolds_) = wall_manifolds;
     }
 
 		// ==========================================================================================

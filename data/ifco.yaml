@@ -252,8 +252,8 @@ planner:
     pushing_motion_manifolds: planar_manifolds/manifolds
     surface_pregrasp_messages: create_top_down_grasps/pregrasp_messages
     surface_grasp_manifolds: planar_manifolds/manifolds
-    wall_pregrasp_messages: wall_grasps/wall_pregrasp_messages
-    wall_grasp_manifolds: wall_grasps/wall_manifolds
+    wall_pregrasp_messages: ifco_grasp/wall_pregrasp_messages
+    wall_grasp_manifolds: ifco_grasp/wall_manifolds
 publish_graph:
   type: ecto_rbo_grasping::PublishGeometryGraph
   inputs:
