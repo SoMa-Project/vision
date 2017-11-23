@@ -190,7 +190,7 @@ struct IfcoGrasp
         g.pregrasp_pose.pose.header = messages->header;
         g.pregrasp_pose.pose.pose.position.x = wall->values[0];
         g.pregrasp_pose.pose.pose.position.y = wall->values[1];
-        g.pregrasp_pose.pose.pose.position.z = wall->values[2];
+        g.pregrasp_pose.pose.pose.position.z = wall->values[2] - 0.5 * (*ifco_height_);
 
         // Create the rotation for 
         tf::Vector3 normal(wall->values[3], wall->values[4], wall->values[5]);
@@ -200,9 +200,12 @@ struct IfcoGrasp
         tf::Vector3 third_axis = normal.cross(principal_axis);
         third_axis /= third_axis.length();
         Eigen::Matrix3f rotation;
-        rotation << third_axis.x(), normal.x(), principal_axis.x(),
-                               third_axis.y(), normal.y(), principal_axis.y(),
-                               third_axis.z(), normal.z(), principal_axis.z();
+        // rotation << third_axis.x(), normal.x(), principal_axis.x(),
+        //                        third_axis.y(), normal.y(), principal_axis.y(),
+        //                        third_axis.z(), normal.z(), principal_axis.z();
+        rotation <<            principal_axis.x(),third_axis.x(), normal.x(), 
+                               principal_axis.y(),third_axis.y(), normal.y(), 
+                               principal_axis.z(),third_axis.z(), normal.z();
         pc(rotation);
         ::Eigen::Matrix3d final_rot = rotation.cast<double>();
         ::Eigen::Quaterniond q_eigen(final_rot);
@@ -214,7 +217,7 @@ struct IfcoGrasp
         // tf::Quaternion rotated_around_x(tf::Vector3(1, 0, 0), -M_PI);
         // tf::Transform whole(q_tf*rotated_around_x, tf::Vector3(wall->values[0], wall->values[1], wall->values[2]));
         tf::Transform whole(q_tf, tf::Vector3(wall->values[0], wall->values[1], wall->values[2]));
-      //  whole *= tf::Transform(tf::createIdentityQuaternion(), tf::Vector3(0, -0.05, -0.05));
+        whole *= tf::Transform(tf::createIdentityQuaternion(), tf::Vector3(0, -0.5 * (*ifco_height_), 0.0));
         ::tf::poseTFToMsg(whole, g.pregrasp_pose.pose.pose);
         g.pregrasp_pose.center = g.pregrasp_pose.pose;
 
@@ -484,9 +487,9 @@ struct IfcoGrasp
         tf::Vector3 wall1originB = ifcoCenter - 0.5 * ((*ifco_length_) * wall1normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
         tf::Vector3 wall3originB = ifcoCenter + 0.5 * ((*ifco_length_) * wall1normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
         ifco_planes_->push_back(createBounded(wall0originB, wall0normal, -(*ifco_length_) *third_axis, (*ifco_height_)));
-        ifco_planes_->push_back(createBounded(wall1originB,third_axis, (*ifco_width_) *wall0normal, (*ifco_height_)));
+        ifco_planes_->push_back(createBounded(wall1originB,-third_axis, -(*ifco_width_) *wall0normal, (*ifco_height_)));
         ifco_planes_->push_back(createBounded(wall2originB,-wall0normal, (*ifco_length_) *third_axis, (*ifco_height_)));
-        ifco_planes_->push_back(createBounded(wall3originB, -third_axis, -(*ifco_width_) *wall0normal, (*ifco_height_)));
+        ifco_planes_->push_back(createBounded(wall3originB, third_axis, (*ifco_width_) *wall0normal, (*ifco_height_)));
         ifco_planes_->push_back(createBounded(ifcoCenter,-biggestNormal, (*ifco_length_) *third_axis, (*ifco_width_)));
         ifco_planes_biggest_->push_back(createBounded(ifcoCenter,-biggestNormal, (*ifco_length_) *third_axis, (*ifco_width_)));
 
@@ -502,8 +505,6 @@ struct IfcoGrasp
           createPolygon(wall3originB, -wall0normalProj, biggestNormal, (*ifco_width_), (*ifco_height_)));
         ifco_polygons_->push_back(
           createPolygon(ifcoCenter, wall1normalProj, wall0normalProj, (*ifco_length_), (*ifco_width_)));
-
-
 
         // Create wall grasp messages
         createWallGrasps(input);
