@@ -40,10 +40,10 @@ struct RegionGrowingRGB
   ecto::spore<int> min_cluster_size_;
 
   static void declare_params(ecto::tendrils& params) {
-      params.declare<double>("distance_threshold", "ddd", 10.0);
-      params.declare<double>("point_color_threshold", "ddd", 6.0);
-      params.declare<double>("region_color_threshold", "ddd", 5.0);
-      params.declare<int>("min_cluster_size", "", 10);
+      params.declare<double>("distance_threshold", "Used to determine whether the point is neighbouring or not. If the point is located at a distance less than the given threshold, then it is considered to be neighbouring. Used for clusters neighbours search.", 10.0);
+      params.declare<double>("point_color_threshold", "Color threshold. Just as angle threshold is used for testing points normals in pcl::RegionGrowing to determine if the point belongs to cluster, this value is used for testing points colors.", 6.0);
+      params.declare<double>("region_color_threshold", "Color threshold for clusters. This value is similar to the previous, but is used when the merging process takes place.", 5.0);
+      params.declare<int>("min_cluster_size", "This value is similar to that which was used in the Region growing segmentation tutorial. In addition to that, it is used for merging process. If cluster has less points than was set through setMinClusterSize method, then it will be merged with the nearest neighbour.", 10);
   }
 
   static void declare_io(const ecto::tendrils& params, ecto::tendrils& inputs, ecto::tendrils& outputs)
