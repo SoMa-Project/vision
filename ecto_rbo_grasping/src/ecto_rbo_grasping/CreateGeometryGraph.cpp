@@ -150,15 +150,22 @@ struct CreateGeometryGraph
     bool isConnected(const ::posesets::PoseSet& first_manifold, const ::posesets::PoseSet& second_manifold,
                      const ::pregrasp_msgs::GraspStrategy& first_strategy, const ::pregrasp_msgs::GraspStrategy& second_strategy)
     {
+        // printf("\n\n(%d %d %d) vs. (%d %d %d)\n",
+        //   first_strategy.id, first_strategy.strategy, first_strategy.pregrasp_configuration, 
+        //   second_strategy.id, second_strategy.strategy, second_strategy.pregrasp_configuration);
         // if it's the same thing do not consider it to be connected
-        if (first_strategy.strategy == second_strategy.strategy)
+        if (first_strategy.strategy == second_strategy.strategy) {
+            // printf("\tEdge case 1: Return false\n");
             return false;
+        }
         
         // if the first one is a grasp, we're done
         if (first_strategy.strategy == ::pregrasp_msgs::GraspStrategy::STRATEGY_WALL_GRASP || 
             first_strategy.strategy == ::pregrasp_msgs::GraspStrategy::STRATEGY_SLIDE_TO_EDGE || 
-            first_strategy.strategy == ::pregrasp_msgs::GraspStrategy::STRATEGY_SQUEEZE)
+            first_strategy.strategy == ::pregrasp_msgs::GraspStrategy::STRATEGY_SQUEEZE) {
+            // printf("\tEdge case 2: Return false\n");
             return false;
+        }
         
         /*
         if (first_strategy.strategy == pregrasp_msgs::GraspStrategy::STRATEGY_POSITION && second_strategy.strategy != pregrasp_msgs::GraspStrategy::STRATEGY_LAND)
@@ -170,11 +177,13 @@ struct CreateGeometryGraph
 
     bool isConnected(const ::pregrasp_msgs::GraspStrategy& first_strategy, const ::pregrasp_msgs::GraspStrategy& second_strategy)
     {
-        if (first_strategy.strategy == second_strategy.strategy)
+        if (first_strategy.strategy == second_strategy.strategy) {
             return false;
+        }
 
-        if (first_strategy.strategy == pregrasp_msgs::GraspStrategy::STRATEGY_POSITION && second_strategy.strategy != pregrasp_msgs::GraspStrategy::STRATEGY_LAND)
+        if (first_strategy.strategy == pregrasp_msgs::GraspStrategy::STRATEGY_POSITION && second_strategy.strategy != pregrasp_msgs::GraspStrategy::STRATEGY_LAND) {
             return false;
+        }
 
         // check distance
         tf::Pose p1, p2, o1, o2;
@@ -216,9 +225,12 @@ struct CreateGeometryGraph
 //        std::cout << "'" << second_strategy.pregrasp_pose.size.at(0) << "'";
 
         // homotopy vs. pre-image?
-        return (cartesian_distance < second_strategy.pregrasp_pose.size.at(0) || cartesian_distance < first_strategy.pregrasp_pose.image_size.at(0)) &&
-               (angular_distance < second_strategy.pregrasp_pose.size.at(1) || angular_distance < first_strategy.pregrasp_pose.image_size.at(1)) &&
-                object_inside_preimage;
+        bool res1a = (cartesian_distance < second_strategy.pregrasp_pose.size.at(0) || cartesian_distance < first_strategy.pregrasp_pose.image_size.at(0));
+        bool res1b = (angular_distance < second_strategy.pregrasp_pose.size.at(1) || angular_distance < first_strategy.pregrasp_pose.image_size.at(1));
+        bool res2 = object_inside_preimage;
+        bool res = res1a && res1b && res2;
+        // printf("Result: %d (%d %d %d)\n", res, res1a, res1b, res2);
+        return res;
     }
 
     int process(const ecto::tendrils& /*inputs*/, const ecto::tendrils& /*outputs*/)

@@ -385,10 +385,13 @@ struct ManifoldsPlanar
 
             ::posesets::PoseSet s(origin);
             s.setPositions(plane_size);
-            if (*all_in_plane_orientations_)
-                s.getOrientations().add(q, normal);
-            else
-                s.getOrientations().addFuzzy(q);
+
+            // C.E.: Added this to connect wall grasps and slides. In general, I think we would like to allow rotation around each edge that is bounding this plane. This can be done using the polygon info already available.
+            s.getOrientations().addAll();
+            //if (*all_in_plane_orientations_)
+            //    s.getOrientations().add(q, normal);
+            //else
+            //    s.getOrientations().addFuzzy(q);
             manifolds->push_back(s);
 
             // old stuff to make things compatible

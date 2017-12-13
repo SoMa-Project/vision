@@ -239,7 +239,10 @@ struct IfcoGrasp
         wall_messages->strategies.push_back(g);
 
         // Add the corresponding manifold
-        ::posesets::PoseSet poseSet(tf::Transform(q_tf, tf::Vector3(wall->values[0], wall->values[1], wall->values[2])));
+        ::posesets::PoseSet poseSet(tf::Transform(q_tf, tf::Vector3(
+          g.pregrasp_pose.pose.pose.position.x,
+          g.pregrasp_pose.pose.pose.position.y,
+          g.pregrasp_pose.pose.pose.position.z)));
         poseSet.setPositions(tf::Vector3(edge_length, 0.01, 0.02));
         poseSet.getOrientations().addFuzzy(q_tf);
         wall_manifolds->push_back(poseSet);
