@@ -4,8 +4,10 @@ project(pregrasp_msgs)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED
-    COMPONENTS message_generation geometry_msgs
+find_package(catkin REQUIRED COMPONENTS 
+    message_generation 
+    geometry_msgs 
+    geometry_graph_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -57,6 +59,7 @@ add_message_files(
 add_service_files(
   FILES
   ExecuteGraspStrategy.srv
+  ComputeECGraph.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -70,6 +73,7 @@ add_service_files(
 generate_messages(
   DEPENDENCIES
   geometry_msgs  # Or other packages containing msgs
+  geometry_graph_msgs
 )
 
 ###################################
@@ -84,7 +88,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES pregrasp_msgs_bak
- CATKIN_DEPENDS message_runtime geometry_msgs 
+ CATKIN_DEPENDS message_runtime geometry_msgs geometry_graph_msgs
 #  DEPENDS system_lib
 )
 

@@ -12,22 +12,54 @@ import ecto_ros
 import numpy as np
 import plasm_yaml_factory
 import rospy
+from pregrasp_msgs.srv import ComputeECGraph
 
+
+def handle_compute_ec_graph(req):
+    """Callback running the vision pipeline.
+
+    Args:
+        req: The request of the ComputeECGraph service.
+
+    Returns:
+        The response of the service defined in ComputeECGraph
+    """
+    try:
+        return run_vision(req)
+    except Exception as e:
+        rospy.logerr("!!! Object recognition crashed !!!")
+        rospy.logerr(e)
+
+        return
+
+
+def run_vision(req):
+    """Request callback for running vision
+    """
+
+    global ecto_plasm, ecto_cells, ecto_scheduler
+    global tf_listener
+
+    # start scheduler; iterate exactly once over the ecto plasm
+    ecto_scheduler.execute(niter=1)
+
+    return
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('yaml_file', type=str)
     parser.add_argument('--debug', action='store_true', default=False)
     parser.add_argument('--showgraph', action='store_true', default=False)
+    parser.add_argument('--service', action='store_true', default=False)
     myargv = rospy.myargv(argv=sys.argv)[1:]
     args = parser.parse_args(myargv)
 
     # rospy.loginfo("Do mockup: %s" % (DO_MOCKUP))
     # rospy.loginfo("Record data: %s" % (RECORD_DATA))
 
-    rospy.init_node('plasm_yaml_ros_node')
+    rospy.init_node('plasm_yaml_ros_service')
     
-    ecto_ros.init(myargv, 'plasm_yaml_ros_node', anonymous = False)
+    ecto_ros.init(myargv, 'plasm_yaml_ros_service', anonymous = False)
 
     rospack = rospkg.RosPack()
     if any([args.yaml_file.startswith(x) for x in [".", "/"]]):
@@ -70,6 +102,12 @@ if __name__ == '__main__':
     
     ecto_scheduler = ecto.Scheduler(ecto_plasm)
     #while not rospy.is_shutdown():
-    ecto_scheduler.execute()
+
+    if args.service:
+        run_sub = rospy.Service('computeECGraph', ComputeECGraph, handle_compute_ec_graph)
+        rospy.spin()
+    else:
+        ecto_scheduler.execute()
+
 
     print ecto_scheduler.stats()
