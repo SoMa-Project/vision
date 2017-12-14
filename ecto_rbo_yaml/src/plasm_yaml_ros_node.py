@@ -13,6 +13,7 @@ import numpy as np
 import plasm_yaml_factory
 import rospy
 from pregrasp_msgs.srv import ComputeECGraph
+from pregrasp_msgs import srv
 
 
 def handle_compute_ec_graph(req):
@@ -39,11 +40,11 @@ def run_vision(req):
 
     global ecto_plasm, ecto_cells, ecto_scheduler
     global tf_listener
-
+    rospy.loginfo("!!! running vision !!!")
     # start scheduler; iterate exactly once over the ecto plasm
     ecto_scheduler.execute(niter=1)
 
-    return
+    return srv.ComputeECGraphResponse()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -74,6 +75,7 @@ if __name__ == '__main__':
                 [args.yaml_file]
                 )
 
+    global ecto_plasm, ecto_cells, ecto_scheduler, tf_listener
     ecto_plasm, ecto_cells = plasm_yaml_factory.load(yml_file, debug=args.debug)
 
     ################ 
