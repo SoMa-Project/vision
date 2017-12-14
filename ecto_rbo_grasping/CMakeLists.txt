@@ -183,34 +183,34 @@ target_link_libraries(pose_sets
 # generate ecto module
 set(ECTO_CELL_SRCS
     src/ecto_rbo_grasping/module.cpp
-    src/ecto_rbo_grasping/BroadcastBoxGrasps.cpp
-    src/ecto_rbo_grasping/BroadcastDiskGrasps.cpp
-    src/ecto_rbo_grasping/BroadcastGrasps.cpp
+#    src/ecto_rbo_grasping/BroadcastBoxGrasps.cpp
+#    src/ecto_rbo_grasping/BroadcastDiskGrasps.cpp
+#    src/ecto_rbo_grasping/BroadcastGrasps.cpp
     src/ecto_rbo_grasping/CreateGrasps.cpp
     src/ecto_rbo_grasping/IfcoGrasp.cpp
-    src/ecto_rbo_grasping/PublishGrasps.cpp
-    src/ecto_rbo_grasping/MergeGraspStrategies.cpp
-    src/ecto_rbo_grasping/MergeManifolds.cpp
-    src/ecto_rbo_grasping/FilterPreGrasps.cpp
-    src/ecto_rbo_grasping/EdgeExploitingGrasps.cpp
-    src/ecto_rbo_grasping/PointFeatureHistogram.cpp
-    src/ecto_rbo_grasping/GraspStrategyArraySubscriber.cpp
-    src/ecto_rbo_grasping/ApproachBoxGrasp.cpp
-    src/ecto_rbo_grasping/CliffGrasps.cpp
+#    src/ecto_rbo_grasping/PublishGrasps.cpp
+#    src/ecto_rbo_grasping/MergeGraspStrategies.cpp
+#    src/ecto_rbo_grasping/MergeManifolds.cpp
+#    src/ecto_rbo_grasping/FilterPreGrasps.cpp
+#    src/ecto_rbo_grasping/EdgeExploitingGrasps.cpp
+#    src/ecto_rbo_grasping/PointFeatureHistogram.cpp
+#    src/ecto_rbo_grasping/GraspStrategyArraySubscriber.cpp
+#    src/ecto_rbo_grasping/ApproachBoxGrasp.cpp
+#    src/ecto_rbo_grasping/CliffGrasps.cpp
     src/ecto_rbo_grasping/WallGrasps.cpp
-    src/ecto_rbo_grasping/WallGraspsFromModel.cpp
-    src/ecto_rbo_grasping/PushingMotions.cpp
-    src/ecto_rbo_grasping/PushingSeeds.cpp
-    src/ecto_rbo_grasping/SlidingSeeds.cpp
-    src/ecto_rbo_grasping/LandingMotions.cpp
+#    src/ecto_rbo_grasping/WallGraspsFromModel.cpp
+#    src/ecto_rbo_grasping/PushingMotions.cpp
+#    src/ecto_rbo_grasping/PushingSeeds.cpp
+#    src/ecto_rbo_grasping/SlidingSeeds.cpp
+#    src/ecto_rbo_grasping/LandingMotions.cpp
     src/ecto_rbo_grasping/PositioningMotions.cpp
-    src/ecto_rbo_grasping/PlanGrasps.cpp
-    src/ecto_rbo_grasping/ManifoldsAtEdges.cpp
+#    src/ecto_rbo_grasping/PlanGrasps.cpp
+#    src/ecto_rbo_grasping/ManifoldsAtEdges.cpp
     src/ecto_rbo_grasping/ManifoldsPlanar.cpp
-    src/ecto_rbo_grasping/WallSlides.cpp
-    src/ecto_rbo_grasping/PublishManifolds.cpp
-    src/ecto_rbo_grasping/FilterManifolds.cpp
-    src/ecto_rbo_grasping/PublishGraspStrategySequence.cpp
+#    src/ecto_rbo_grasping/WallSlides.cpp
+#    src/ecto_rbo_grasping/PublishManifolds.cpp
+#    src/ecto_rbo_grasping/FilterManifolds.cpp
+#    src/ecto_rbo_grasping/PublishGraspStrategySequence.cpp
     src/ecto_rbo_grasping/CreateGeometryGraph.cpp
     src/ecto_rbo_grasping/PublishGeometryGraph.cpp
 #    src/ecto_rbo_grasping/TransitionSlideEdgeGrasp.cpp
