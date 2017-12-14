@@ -28,11 +28,12 @@ OrientationSet::~OrientationSet()
 }
 
 
-void OrientationSet::initVector(double arr[]) {
-  int size = sizeof(arr)/sizeof(arr[0]);
-  orientations.reserve(size/4);
-  for(int i=0; i<size; i+=4)
-    orientations[i%4]=Coordinates(arr[i], arr[i+1], arr[i+2], arr[i+3]);
+void OrientationSet::initVector(double arr[], int size) {
+  orientations.resize(size/4);
+  for(int i=0; i<size/4; i++)
+  {
+    orientations[i]=Coordinates(arr[4*i], arr[4*i+1], arr[4*i+2], arr[4*i+3]);
+  }
 }
 
 void OrientationSet::init72() {
@@ -111,7 +112,7 @@ void OrientationSet::init72() {
     0.288675,	-5.98543e-08,	0.912871,	-0.288675,
     0.105662,	-0.456436,		0.790569,	-0.394338};
 
-  initVector(arr);
+  initVector(arr, 4*72);
 }
 
 void OrientationSet::init576() {
@@ -692,7 +693,7 @@ void OrientationSet::init576() {
     0.809511,		-0.458043,		0.351469,		-0.106574,
     0.754344,		-0.533402,		0.220942,		-0.31246,
     0.64777,		-0.572411,		0.0753593,		-0.497052 };
-  initVector(arr);
+  initVector(arr, 4*576);
 }
 
 void OrientationSet::init4608() {
@@ -5305,7 +5306,9 @@ void OrientationSet::init4608() {
     0.684998,		-0.611241,		0.207488,		-0.337804,
     0.635045,		-0.633094,		0.12593,		-0.424324,
     0.574227,		-0.644115,		0.0422175,		-0.503584};
-  initVector(arr);
+
+  initVector(arr, 4608*4);
+
 }
 
 

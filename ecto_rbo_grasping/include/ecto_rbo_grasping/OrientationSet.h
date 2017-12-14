@@ -72,7 +72,7 @@ public:
 
 private:
     inline void init() { init4608(); }
-    void initVector(double arr[]);
+    void initVector(double arr[], int size);
 
     // new stuff
     void init72();
