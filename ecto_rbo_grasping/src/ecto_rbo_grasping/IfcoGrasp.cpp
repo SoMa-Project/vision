@@ -194,7 +194,8 @@ struct IfcoGrasp
 
         // Create the rotation for 
         tf::Vector3 normal(wall->values[3], wall->values[4], wall->values[5]);
-        normal /= normal.length();
+        // hacK BUGFIX normal is not in funciton of ifco  centroid but camera posion
+        normal /= -normal.length();
         tf::Vector3 principal_axis(wall->values[6], wall->values[7], wall->values[8]);
         principal_axis /= principal_axis.length();
         tf::Vector3 third_axis = normal.cross(principal_axis);
