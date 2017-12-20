@@ -479,44 +479,44 @@ struct IfcoGrasp
         ifco_planes_->clear();
         ifco_planes_biggest_->clear();
         tf::Vector3 wall0originB = ifcoCenter - 0.5 * ((*ifco_width_) * wall0normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
-        tf::Vector3 wall2originB = ifcoCenter + 0.5 * ((*ifco_width_) * wall0normalProj) + 0.5 * ((*ifco_height_) * biggestNormal);
-        tf::Vector3 wall1originB = ifcoCenter - 0.5 * ((*ifco_length_) * wall1normalProj) + 0.5 * ((*ifco_height_) * biggestNormal);
+        tf::Vector3 wall2originB = ifcoCenter + 0.5 * ((*ifco_width_) * wall0normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
+        tf::Vector3 wall1originB = ifcoCenter - 0.5 * ((*ifco_length_) * wall1normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
         tf::Vector3 wall3originB = ifcoCenter + 0.5 * ((*ifco_length_) * wall1normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
         
         // Make sure that the normal axis is looking towards the middle of the ifco
-
- 
-        
+        //we use the center point of the ifco bottom to check the direction of the normal and
+        //we use the correct wall normal and the ifco bottom plain normal crossproduct to get the primary axis 
+       
+        //long width wall check if normal is pointing toward the middle of the ifco
         if(wall0normal.dot(ifcoCenter - wall0originB) > 0)
-          ifco_planes_->push_back(createBounded(wall0originB, wall0normal, -(*ifco_length_) *third_axis, (*ifco_height_)));
-        else
         {
-          ifco_planes_->push_back(createBounded(wall0originB, -wall0normal, -(*ifco_length_) *third_axis, (*ifco_height_)));
+          ifco_planes_->push_back(createBounded(wall0originB, wall0normal, (wall0normal.cross(biggestNormal)).normalized(), (*ifco_height_)));
         }
+        else //if not flipp the direction of the normal
+        {
+          ifco_planes_->push_back(createBounded(wall0originB, -wall0normal, (-wall0normal.cross(biggestNormal)).normalized(), (*ifco_height_)));
+        }        
         
+        //short width wall
         if(third_axis.dot(ifcoCenter - wall1originB) > 0)          
-          ifco_planes_->push_back(createBounded(wall1originB, third_axis, -(*ifco_width_) *wall0normal, (*ifco_height_)));
+          ifco_planes_->push_back(createBounded(wall1originB, third_axis, (third_axis.cross(biggestNormal)).normalized(), (*ifco_height_)));
         else
         {
-          ifco_planes_->push_back(createBounded(wall1originB, -third_axis, -(*ifco_width_) *wall0normal, (*ifco_height_)));          
-        }
-
+          ifco_planes_->push_back(createBounded(wall1originB, -third_axis, (-third_axis.cross(biggestNormal)).normalized(), (*ifco_height_)));          
+        }        
+        
+        //long width wall
         if(wall0normal.dot(ifcoCenter - wall2originB) > 0)        
-          ifco_planes_->push_back(createBounded(wall2originB, wall0normal, (*ifco_length_) *third_axis, (*ifco_height_)));
+          ifco_planes_->push_back(createBounded(wall2originB, wall0normal, (wall0normal.cross(biggestNormal)).normalized(), (*ifco_height_)));
         else
-          ifco_planes_->push_back(createBounded(wall2originB, -wall0normal, (*ifco_length_) *third_axis, (*ifco_height_)));
-              
+          ifco_planes_->push_back(createBounded(wall2originB, -wall0normal, (-wall0normal.cross(biggestNormal)).normalized(), (*ifco_height_)));
+          
+        //short width wall
         if(third_axis.dot(ifcoCenter - wall3originB) > 0)
-          ifco_planes_->push_back(createBounded(wall3originB, third_axis, (*ifco_width_) *wall0normal, (*ifco_height_)));
+          ifco_planes_->push_back(createBounded(wall3originB, third_axis, (third_axis.cross(biggestNormal)).normalized(), (*ifco_height_)));
         else
-          ifco_planes_->push_back(createBounded(wall3originB, -third_axis, (*ifco_width_) *wall0normal, (*ifco_height_)));
-         
-/*
-        ifco_planes_->push_back(createBounded(wall0originB, wall0normal, -(*ifco_length_) *third_axis, (*ifco_height_)));
-        ifco_planes_->push_back(createBounded(wall1originB,-third_axis, -(*ifco_width_) *wall0normal, (*ifco_height_)));
-        ifco_planes_->push_back(createBounded(wall2originB,-wall0normal, (*ifco_length_) *third_axis, (*ifco_height_)));
-        ifco_planes_->push_back(createBounded(wall3originB, third_axis, (*ifco_width_) *wall0normal, (*ifco_height_)));
-*/         
+          ifco_planes_->push_back(createBounded(wall3originB, -third_axis, (-third_axis.cross(biggestNormal)).normalized(), (*ifco_height_)));
+       
         ifco_planes_->push_back(createBounded(ifcoCenter,-biggestNormal, (*ifco_length_) *third_axis, (*ifco_width_)));
         ifco_planes_biggest_->push_back(createBounded(ifcoCenter,-biggestNormal, (*ifco_length_) *third_axis, (*ifco_width_)));
 
