@@ -194,8 +194,7 @@ struct IfcoGrasp
 
         // Create the rotation for 
         tf::Vector3 normal(wall->values[3], wall->values[4], wall->values[5]);
-        // hacK BUGFIX normal is not in funciton of ifco  centroid but camera posion
-        normal /= -normal.length();
+        normal /= normal.length();
         tf::Vector3 principal_axis(wall->values[6], wall->values[7], wall->values[8]);
         principal_axis /= principal_axis.length();
         tf::Vector3 third_axis = normal.cross(principal_axis);
@@ -480,13 +479,44 @@ struct IfcoGrasp
         ifco_planes_->clear();
         ifco_planes_biggest_->clear();
         tf::Vector3 wall0originB = ifcoCenter - 0.5 * ((*ifco_width_) * wall0normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
-        tf::Vector3 wall2originB = ifcoCenter + 0.5 * ((*ifco_width_) * wall0normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
-        tf::Vector3 wall1originB = ifcoCenter - 0.5 * ((*ifco_length_) * wall1normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
+        tf::Vector3 wall2originB = ifcoCenter + 0.5 * ((*ifco_width_) * wall0normalProj) + 0.5 * ((*ifco_height_) * biggestNormal);
+        tf::Vector3 wall1originB = ifcoCenter - 0.5 * ((*ifco_length_) * wall1normalProj) + 0.5 * ((*ifco_height_) * biggestNormal);
         tf::Vector3 wall3originB = ifcoCenter + 0.5 * ((*ifco_length_) * wall1normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
+        
+        // Make sure that the normal axis is looking towards the middle of the ifco
+
+ 
+        
+        if(wall0normal.dot(ifcoCenter - wall0originB) > 0)
+          ifco_planes_->push_back(createBounded(wall0originB, wall0normal, -(*ifco_length_) *third_axis, (*ifco_height_)));
+        else
+        {
+          ifco_planes_->push_back(createBounded(wall0originB, -wall0normal, -(*ifco_length_) *third_axis, (*ifco_height_)));
+        }
+        
+        if(third_axis.dot(ifcoCenter - wall1originB) > 0)          
+          ifco_planes_->push_back(createBounded(wall1originB, third_axis, -(*ifco_width_) *wall0normal, (*ifco_height_)));
+        else
+        {
+          ifco_planes_->push_back(createBounded(wall1originB, -third_axis, -(*ifco_width_) *wall0normal, (*ifco_height_)));          
+        }
+
+        if(wall0normal.dot(ifcoCenter - wall2originB) > 0)        
+          ifco_planes_->push_back(createBounded(wall2originB, wall0normal, (*ifco_length_) *third_axis, (*ifco_height_)));
+        else
+          ifco_planes_->push_back(createBounded(wall2originB, -wall0normal, (*ifco_length_) *third_axis, (*ifco_height_)));
+              
+        if(third_axis.dot(ifcoCenter - wall3originB) > 0)
+          ifco_planes_->push_back(createBounded(wall3originB, third_axis, (*ifco_width_) *wall0normal, (*ifco_height_)));
+        else
+          ifco_planes_->push_back(createBounded(wall3originB, -third_axis, (*ifco_width_) *wall0normal, (*ifco_height_)));
+         
+/*
         ifco_planes_->push_back(createBounded(wall0originB, wall0normal, -(*ifco_length_) *third_axis, (*ifco_height_)));
         ifco_planes_->push_back(createBounded(wall1originB,-third_axis, -(*ifco_width_) *wall0normal, (*ifco_height_)));
         ifco_planes_->push_back(createBounded(wall2originB,-wall0normal, (*ifco_length_) *third_axis, (*ifco_height_)));
         ifco_planes_->push_back(createBounded(wall3originB, third_axis, (*ifco_width_) *wall0normal, (*ifco_height_)));
+*/         
         ifco_planes_->push_back(createBounded(ifcoCenter,-biggestNormal, (*ifco_length_) *third_axis, (*ifco_width_)));
         ifco_planes_biggest_->push_back(createBounded(ifcoCenter,-biggestNormal, (*ifco_length_) *third_axis, (*ifco_width_)));
 
