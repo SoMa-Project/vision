@@ -69,7 +69,7 @@ crop_box:
   inputs:
     input: msg_to_pcl/output
   filter_field_name: z
-  filter_limit_max: 1.6
+  filter_limit_max: 1.0
   filter_limit_min: 0
   filter_limit_negative: false
 
@@ -78,20 +78,19 @@ normal_estimation:
   inputs:
     input: crop_box/output
   estimation_method: 0
-  max_depth_change_factor: 0.00999999977648258
-  smoothing_size: 15
+  max_depth_change_factor: 0.05
+  smoothing_size: 30
 flood_fill:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::FloodFill>
   inputs:
     input: crop_box/output
     normals: normal_estimation/output
-  angular_threshold: 0.1359879
-  curvature_distance_threshold: 0.07
-  curvature_threshold: 0.037
+  angular_threshold: 0.1859879
+  curvature_distance_threshold: 0.15
+  curvature_threshold: 0.017
   distance_threshold: 0.05
   min_inliers: 50
   normal_distance_threshold: 0.12
-
   rviz_prefix: flood_fill_segmentation
 
 # ------------------------------------------------------------------------
@@ -226,14 +225,14 @@ planar_manifolds:
  
 # ------------------------------------------------------------------------
 # Create wall grasp primitives
-#wall_grasps:
-#  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::WallGrasps>
-#  inputs:
-#    input: crop_box/output
-#    normals: normal_estimation/output
-#    polygons: ifco_grasp/ifco_polygons
-#    bounded_planes: ifco_grasp/ifco_planes
-#  min_points: 200
+wall_grasps:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::WallGrasps>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+    polygons: ifco_grasp/ifco_polygons
+    bounded_planes: ifco_grasp/ifco_planes
+  min_points: 200
 
 # ------------------------------------------------------------------------
 # Initial approach primitive
@@ -259,6 +258,9 @@ publish_graph:
   type: ecto_rbo_grasping::PublishGeometryGraph
   inputs:
     graph_message: planner/graph_message
+
+
+
 
 # ------------------------------------------------------------------------
 tf_send_wall0:
