@@ -489,23 +489,17 @@ struct IfcoGrasp
        
         //long width wall check if normal is pointing toward the middle of the ifco
         if(wall0normal.dot(ifcoCenter - wall0originB) > 0)
-        {
           ifco_planes_->push_back(createBounded(wall0originB, wall0normal, (wall0normal.cross(biggestNormal)).normalized(), (*ifco_height_)));
-        }
-        else //if not flipp the direction of the normal
-        {
+        else //if not flip the direction of the normal
           ifco_planes_->push_back(createBounded(wall0originB, -wall0normal, (-wall0normal.cross(biggestNormal)).normalized(), (*ifco_height_)));
-        }        
-        
+                        
         //short width wall
         if(third_axis.dot(ifcoCenter - wall1originB) > 0)          
           ifco_planes_->push_back(createBounded(wall1originB, third_axis, (third_axis.cross(biggestNormal)).normalized(), (*ifco_height_)));
         else
-        {
           ifco_planes_->push_back(createBounded(wall1originB, -third_axis, (-third_axis.cross(biggestNormal)).normalized(), (*ifco_height_)));          
-        }        
-        
-        //long width wall
+             
+         //long width wall
         if(wall0normal.dot(ifcoCenter - wall2originB) > 0)        
           ifco_planes_->push_back(createBounded(wall2originB, wall0normal, (wall0normal.cross(biggestNormal)).normalized(), (*ifco_height_)));
         else
