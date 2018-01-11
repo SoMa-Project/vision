@@ -205,7 +205,7 @@ struct WallGrasps
 
                 int number_of_cropped_points = countPoints(g, input, -0.07, 0.07, -0.17, -0.07, -0.03, 0.12);
 //                number_of_cropped_points += countPoints(g, input, -0.07, 0.07, -0.07, 0.07, -0.2, -0.05);
-                ROS_DEBUG("wall: cropped points %i  (minimum needed: %i)", number_of_cropped_points, *min_points_);
+                ROS_INFO("wall: cropped points %i  (minimum needed: %i)", number_of_cropped_points, *min_points_);
 
                 if (number_of_cropped_points < *min_points_)
                     continue;

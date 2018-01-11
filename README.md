@@ -4,13 +4,15 @@ ROS packages providing various ecto cells and plasms for perception.
 
 ## Install 
 
+* First compile the ec_grasp_planner repository: https://github.com/soma-project/ec_grasp_planner
+
 * Install all ROS packages that start with 'ros-indigo-ecto', as well as with 'openni2':
 ```
 sudo apt-get install ros-indigo-ecto* ros-indigo-openni*
 ```
 
 
-* Compile this package:
+* Compile this package. CAUTION: This step can take up to 30 minutes and might freeze your computer. It's best to do it overnight or over lunchbreak.
 ```
 catkin build ecto_rbo
 ```
@@ -22,17 +24,16 @@ First install CGAL:
 sudo apt-get install libcgal-dev
 ```
 
-You will also have to install [Wild Magic](https://www.geometrictools.com/Downloads/WildMagic5p14.zip) (from https://www.geometrictools.com/Downloads/Downloads.html)
-following the [installation instructions](https://www.geometrictools.com/Downloads/Wm5p14InstallationRelease.pdf) or simply download and execute:
+You will also have to install Wild Magic from this [link](https://tubcloud.tu-berlin.de/s/oCwzZnOAMSZN46c). Download and execute:
 ```
 make CFG=ReleaseDynamic -f makefile.wm5
 ```
 And export the respective WP5_PATH
 ```
-export WP5_PATH=/your_path/GeometricTools/WildMagic5/SDK
+export WM5_PATH=/your_path/GeometricTools/WildMagic5/SDK
 ```
 
-You will also need to install GDIAM. Download the old version libgdiam-1.01.tar.gz from (http://sarielhp.org/research/papers/00/diameter/) and follow the building instructions:
+You will also need to install GDIAM. Download the old version libgdiam-1.01.tar.gz from (https://tubcloud.tu-berlin.de/s/4I8Txq4dJ7653HC) and follow the building instructions:
 ```
 tar -xzf libgdiam-1.0.1.tar.gz 
 ~/$ cd libgdiam/
