@@ -171,6 +171,14 @@ tf_send_object:
   source_frame: camera_rgb_optical_frame
   target_frame: object
 
+
+# Broadcast object data
+send_objects:
+  type: ecto_rbo_grasping::PublishObjectList
+  inputs:
+    transforms: bbox_fits/transforms
+    sizes: bbox_fits/sizes
+
 # ------------------------------------------------------------------------
 # Create top grasp primitive
 create_top_down_grasps:

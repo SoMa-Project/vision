@@ -3,7 +3,8 @@ import argparse
 import os
 import rospkg
 import sys
-import threading  
+import threading
+import time
 
 import ecto
 import ecto_pcl
@@ -13,8 +14,14 @@ import numpy as np
 import plasm_yaml_factory
 import rospy
 from geometry_graph_msgs.msg import Graph
+from geometry_graph_msgs.msg import Object
+from geometry_msgs.msg import Vector3
+from geometry_msgs.msg import Transform
 from pregrasp_msgs.srv import ComputeECGraph
 from pregrasp_msgs import srv
+
+import tf
+from tf import transformations as tra
 
 class VisionServer:
     def __init__(self, ecto_plasm, ecto_cells):
@@ -22,7 +29,10 @@ class VisionServer:
         self.ecto_cells = ecto_cells
         self.ecto_scheduler = ecto.Scheduler(self.ecto_plasm)
 
-        rospy.Subscriber('geometry_graph', Graph, self.callback_vision_result)
+        rospy.Subscriber('geometry_graph', Graph, self.callback_vision_result_graph)
+        rospy.loginfo('Subscribed to the geometry_graph topic.')
+
+        rospy.Subscriber('objects', Graph, self.callback_vision_result_objects)
         rospy.loginfo('Subscribed to the geometry_graph topic.')
 
     def handle_compute_ec_graph(self, req):
@@ -37,13 +47,16 @@ class VisionServer:
         try:
             return self.run_vision(req)
         except Exception as e:
-            rospy.logerr("!!! Object recognition crashed !!!")
+            rospy.logerr("!!! vision crashed !!!")
             rospy.logerr(e)
 
             return
 
-    def callback_vision_result(self, data):
+    def callback_vision_result_graph(self, data):
         self.outputgraph = data
+
+    def callback_vision_result_objects(self, data):
+        self.found_objects = data
 
     def run_vision(self, req):
         """Request callback for running vision
@@ -51,14 +64,15 @@ class VisionServer:
 
         rospy.loginfo("!!! running vision !!!")
         self.outputgraph = None
+        self.found_objects = None
 
         # start scheduler; iterate exactly once over the ecto plasm
         self.ecto_scheduler.execute(niter=1)
 
-        # Get geometry graph
-        self.outputgraph.header.stamp = rospy.Time.now() + rospy.Duration(0.5)
+        while self.outputgraph == None or self.found_objects == None:
+            time.sleep(0.1)
 
-        return srv.ComputeECGraphResponse(self.outputgraph)
+        return srv.ComputeECGraphResponse(self.outputgraph, self.found_objects)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

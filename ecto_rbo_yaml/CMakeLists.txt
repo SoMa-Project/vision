@@ -99,7 +99,7 @@ generate_dynamic_reconfigure_options(
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES ecto_rbo_yaml
-  CATKIN_DEPENDS ecto ecto_ros roscpp roslib geometry_graph_msgs
+  CATKIN_DEPENDS ecto ecto_ros roscpp roslib geometry_msgs geometry_graph_msgs
 #  DEPENDS system_lib
 )
 

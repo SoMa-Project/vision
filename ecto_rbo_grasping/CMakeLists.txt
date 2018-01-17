@@ -211,6 +211,7 @@ set(ECTO_CELL_SRCS
 #    src/ecto_rbo_grasping/PublishManifolds.cpp
 #    src/ecto_rbo_grasping/FilterManifolds.cpp
 #    src/ecto_rbo_grasping/PublishGraspStrategySequence.cpp
+    src/ecto_rbo_grasping/PublishObjectList.cpp
     src/ecto_rbo_grasping/CreateGeometryGraph.cpp
     src/ecto_rbo_grasping/PublishGeometryGraph.cpp
 #    src/ecto_rbo_grasping/TransitionSlideEdgeGrasp.cpp
