@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<!-- 
+POINTCLOUD DOWNSAMPLER LAUNCH FILE FOR UNIPI VISION SETUP (KINECT ONE USING IAI_KINECT2) 
+N:B: kinect2_bridge launch file should be launched previously
+-->
+
+<launch>
+
+	<!-- Calling the pc_downsampler node -->
+	<node name="pc_downsampler_node" pkg="pc_downsampler" type="pc_downsampler" respawn="true" args="input_topic:=/kinect2/sd/points output_topic:=/downsampled_points" output="screen">
+	</node> 
+
+</launch>
