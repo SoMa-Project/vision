@@ -1,6 +1,6 @@
-# POINT CLOUD DOWNSAMPLER
+# Point Cloud Downsampler
 
-A ROS node to downsample a generic resolution point cloud (sensor_msgs::PointCloud2) taken from a specified topic (e.g. /kinect2/sd/points) to a any lower resolution (x_res * y_res) keeping the PointCloud2 organized. The node pubishes the resulting cloud (sensor_msgs::PointCloud2) to another specified topic.
+A ROS node to downsample a generic resolution point cloud (sensor_msgs::PointCloud2) taken from a specified topic (e.g. */kinect2/sd/points*) to a any lower resolution (*x_res * y_res*) keeping the PointCloud2 organized (THIS IS IMPORTANT ECTO TO WORK - PCL DOES NOT HAVE ANY ORGANIZED DOWNSAMPLING FILTER). The node pubLishes the resulting cloud (sensor_msgs::PointCloud2) to another specified topic.
 
 ## Authors
 
@@ -21,7 +21,7 @@ To install this package just clone and catkin build.
 
 ### For UNIPI setup (Kinect One) 
 
-Launch the pc_downsampler node (this downsamples the point cloud taken from /kinect2/sd/points to a QVGA resolution and publishes to /down_sampled_points).
+Launch the pc_downsampler node (this downsamples the point cloud taken from */kinect2/sd/points* to a QVGA resolution and publishes to */down_sampled_points*).
 
 ```
 roslaunch pc_downsampler pc_downsampler_kinect2.launch
@@ -37,7 +37,7 @@ Or please create a new launch file.
 
 ### To set different output resolution
 
-Modify the following lines in src/main.cpp :
+Modify the following lines in *src/main.cpp* :
 
 ```
 int x_res = 320;
