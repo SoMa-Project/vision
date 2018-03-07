@@ -14,7 +14,7 @@ import numpy as np
 import plasm_yaml_factory
 import rospy
 from geometry_graph_msgs.msg import Graph
-from geometry_graph_msgs.msg import Object
+from geometry_graph_msgs.msg import ObjectList
 from geometry_msgs.msg import Vector3
 from geometry_msgs.msg import Transform
 from pregrasp_msgs.srv import ComputeECGraph
@@ -32,8 +32,8 @@ class VisionServer:
         rospy.Subscriber('geometry_graph', Graph, self.callback_vision_result_graph)
         rospy.loginfo('Subscribed to the geometry_graph topic.')
 
-        rospy.Subscriber('objects', Graph, self.callback_vision_result_objects)
-        rospy.loginfo('Subscribed to the geometry_graph topic.')
+        rospy.Subscriber('objects', ObjectList, self.callback_vision_result_objects)
+        rospy.loginfo('Subscribed to the objects topic.')
 
     def handle_compute_ec_graph(self, req):
         """Callback running the vision pipeline.
@@ -107,7 +107,7 @@ if __name__ == '__main__':
     server = VisionServer(ecto_plasm, ecto_cells)
 
     if args.service:
-        run_sub = rospy.Service('computeECGraph', ComputeECGraph, server.handle_compute_ec_graph)
+        run_sub = rospy.Service('compute_ec_graph', ComputeECGraph, server.handle_compute_ec_graph)
         rospy.spin()
     else:
         server.ecto_scheduler.execute()

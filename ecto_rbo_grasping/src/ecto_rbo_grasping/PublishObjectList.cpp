@@ -24,7 +24,8 @@ The views and conclusions contained in the software and documentation are those 
 #include <tf_conversions/tf_eigen.h>
 #include <eigen_conversions/eigen_msg.h>
 
-#include <geometry_graph_msgs/Objects.h>
+#include <geometry_graph_msgs/Object.h>
+#include <geometry_graph_msgs/ObjectList.h>
 
 namespace ecto_rbo_grasping
 {
@@ -42,11 +43,13 @@ struct PublishObjectList
     ecto::spore<std::vector<UnalignedAffine3f> > object_poses_;
     ecto::spore<std::vector<UnalignedVector3f> > object_sizes_;
 
-    ros::Time last_broadcast_;
+    std::string frame_;
 
     static void declare_params(ecto::tendrils& params)
     {
         params.declare<std::string>("topic_name", "A string to be used as topic name for found objects.", "/objects").required(false);
+        params.declare<std::string>("frame", "The source frame to listen to.", "camera_rgb_optical_frame").required(false);
+
     }
 
     static void declare_io(const ecto::tendrils& params, ecto::tendrils& inputs, ecto::tendrils& outputs)
@@ -59,7 +62,8 @@ struct PublishObjectList
     {
         object_poses_ = inputs["transforms"];
         object_sizes_ = inputs["sizes"];
-        object_publisher_ = nh_.advertise< ::geometry_graph_msgs::Objects>(params["topic_name"]->get<std::string>(), 10);
+        object_publisher_ = nh_.advertise< ::geometry_graph_msgs::ObjectList>(params["topic_name"]->get<std::string>(), 10);
+        frame_ = params["frame"]->get<std::string>();
     }
 
     int process(const ecto::tendrils& /*inputs*/, const ecto::tendrils& /*outputs*/)
@@ -67,27 +71,34 @@ struct PublishObjectList
         std::vector<UnalignedAffine3f> poses = *object_poses_;
         std::vector<UnalignedVector3f> sizes = *object_sizes_;
 
-        geometry_graph_msgs::Objects obj;
 
 
+        geometry_graph_msgs::ObjectList obj_list;
         for(int i=0; i< poses.size(); i++)
         {
-            geometry_msgs::Transform ts;
-            //tf::transformEigenToMsg((Eigen::Affine3d) transform_->cast<double>(), ts);
-            Eigen::Affine3d* ets = (Eigen::Affine3d*)(&(poses[i]));
-            tf::transformEigenToMsg(ets->cast<double>(), ts);
-            obj.transforms.push_back(ts);
+            geometry_graph_msgs::Object obj;
 
-            obj.names.push_back("object");
+            geometry_msgs::PoseStamped ts;
+            geometry_msgs::Pose tr;
+            tf::poseEigenToMsg((Eigen::Affine3d) (poses[i]).cast<double>(), tr);
+            ts.pose = tr;
+            std::stringstream ss;
+            //ss<<"object_"<<i;
+            //ts.child_frame_id = ss.str(); //Todo
+            ts.header.stamp = ros::Time::now();
+            ts.header.frame_id = frame_;
+
+            obj.transform = ts;
 
             geometry_msgs::Vector3 bbvec;
             bbvec.x = sizes[i][0];
             bbvec.y = sizes[i][1];
             bbvec.z = sizes[i][2];
-            obj.boundingboxes.push_back(bbvec);
+            obj.boundingbox = bbvec;
+            obj_list.objects.push_back(obj);
         }
 
-        object_publisher_.publish(obj);
+        object_publisher_.publish(obj_list);
         return ecto::OK;
     }
 };

@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   ecto_pcl
   ecto_ros
   tf_conversions
+  eigen_conversions
   pregrasp_msgs
   geometry_graph_msgs
   tf
