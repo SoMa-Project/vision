@@ -205,7 +205,7 @@ send_objects:
   inputs:
     transforms: bbox_fits/transforms
     sizes: bbox_fits/sizes
-    frame: camera_rgb_optical_frame
+  frame: camera_rgb_optical_frame
 
 # ------------------------------------------------------------------------
 # Create top grasp primitive
