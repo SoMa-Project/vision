@@ -30,11 +30,14 @@ The views and conclusions contained in the software and documentation are those 
 #include <tf_conversions/tf_eigen.h>
 #include <tf/transform_datatypes.h>
 #include <tf/transform_broadcaster.h>
+#include <tf/transform_listener.h>
+#include <tf/transform_datatypes.h>
 #include <visualization_msgs/Marker.h>
 #include <visualization_msgs/MarkerArray.h>
 
 #include <pregrasp_msgs/GraspStrategyArray.h>
 #include <ecto_rbo_grasping/PoseSet.h>
+
 
 using namespace ecto;
 using namespace ecto::pcl;
@@ -56,6 +59,11 @@ typedef Eigen::Transform<float,3,Eigen::Affine,Eigen::DontAlign> UnalignedAffine
 // ======================================================================================================================
 struct IfcoGrasp 
 {
+
+    ros::NodeHandle nh_;
+    tf::TransformListener tf_listener_;
+
+
 		// inputs
     spore<std::vector< ::pcl::ModelCoefficientsConstPtr> > bounded_planes_;
     spore<std::vector< ::pcl::ModelCoefficientsConstPtr> > bounded_planes_biggest_;
@@ -66,6 +74,7 @@ struct IfcoGrasp
     ecto::spore<double> ifco_length_;
     ecto::spore<double> ifco_width_;
     ecto::spore<double> ifco_height_;
+    ecto::spore<bool> ifco_pcl_;
 
 		// outputs
     ecto::spore<pregrasp_msgs::GraspStrategyArrayConstPtr> wall_pregrasp_messages_;
@@ -87,6 +96,7 @@ struct IfcoGrasp
         params.declare<double>("ifco_width", "Size of the short IFCO edge", 0.0);
         params.declare<double>("ifco_height", "Depth of the ifco", 0.0);
         params.declare<int>("plane_id", "afasdfof a bounded plane to the biggest bounded plane (i.e. table)", 0.0);
+        params.declare<bool>("ifco_pcl", "Should ifco transform be overwritten with Ocados pcl ifco estimation?", false);
     }
 
 		// ======================================================================================================================
@@ -116,6 +126,7 @@ struct IfcoGrasp
         ifco_width_ = params["ifco_width"];
         ifco_height_ = params["ifco_height"];
         plane_id_ = params["plane_id"];
+        ifco_pcl_ = params["ifco_pcl"];
 
 				// outputs
 				ifco_wall_0_transform_ = outputs["ifco_wall_0_transform"];
@@ -168,6 +179,7 @@ struct IfcoGrasp
 		// ==========================================================================================
     template<typename Point>
     void createWallGrasps (boost::shared_ptr<const ::pcl::PointCloud<Point> >& input) {
+
 
       // Initialize the pregrasp messages
       pregrasp_msgs::GraspStrategyArrayPtr wall_messages(new ::pregrasp_msgs::GraspStrategyArray());
@@ -254,7 +266,10 @@ struct IfcoGrasp
     int process(const tendrils& inputs, const tendrils& outputs,
                 boost::shared_ptr<const ::pcl::PointCloud<Point> >& input,
                 boost::shared_ptr<const ::pcl::PointCloud< ::pcl::Normal> >& normals)
+
     {
+
+
         // Get the size of the biggest bounded plane
 				std::vector< ::pcl::ModelCoefficientsConstPtr>::iterator biggestIt = bounded_planes_biggest_->begin();
 				tf::Vector3 biggestOrigin ((*biggestIt)->values[0], (*biggestIt)->values[1], (*biggestIt)->values[2]);
@@ -473,6 +488,29 @@ struct IfcoGrasp
                                third_axis.z(), wall0normalProj.z(), -biggestNormal.z();
 
         UnalignedAffine3f transform = Eigen::Translation3f(ifcoCenter[0], ifcoCenter[1], ifcoCenter[2]) * rotation;
+
+        /*
+         * ------------------------------------------------------------------------------------------------------------------
+         * ifco transform is overwritten by ocado external pcl based IFCO detection if param -- ifco_pcl -- is set to true in yaml file
+         *
+         */
+        if (*ifco_pcl_)
+        {
+            tf::StampedTransform transform;
+            try
+            {
+               tf_listener_.lookupTransform("camera_rgb_optical_frame", "ifco", ros::Time(0), transform);
+            }
+            catch (tf::TransformException ex)
+            {
+               ROS_ERROR("%s",ex.what());
+               ros::Duration(1.0).sleep();
+            }
+        }
+
+        // ------------------------------------------------------------------------------------------------------------------
+
+
         (*ifco_transform_) = transform;
 
         // Create the bounded models for the primitives
