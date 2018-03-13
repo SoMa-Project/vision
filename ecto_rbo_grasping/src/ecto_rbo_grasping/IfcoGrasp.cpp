@@ -38,7 +38,6 @@ The views and conclusions contained in the software and documentation are those 
 #include <pregrasp_msgs/GraspStrategyArray.h>
 #include <ecto_rbo_grasping/PoseSet.h>
 
-
 using namespace ecto;
 using namespace ecto::pcl;
 
@@ -59,10 +58,8 @@ typedef Eigen::Transform<float,3,Eigen::Affine,Eigen::DontAlign> UnalignedAffine
 // ======================================================================================================================
 struct IfcoGrasp 
 {
-
     ros::NodeHandle nh_;
     tf::TransformListener tf_listener_;
-
 
 		// inputs
     spore<std::vector< ::pcl::ModelCoefficientsConstPtr> > bounded_planes_;
@@ -266,10 +263,7 @@ struct IfcoGrasp
     int process(const tendrils& inputs, const tendrils& outputs,
                 boost::shared_ptr<const ::pcl::PointCloud<Point> >& input,
                 boost::shared_ptr<const ::pcl::PointCloud< ::pcl::Normal> >& normals)
-
     {
-
-
         // Get the size of the biggest bounded plane
 				std::vector< ::pcl::ModelCoefficientsConstPtr>::iterator biggestIt = bounded_planes_biggest_->begin();
 				tf::Vector3 biggestOrigin ((*biggestIt)->values[0], (*biggestIt)->values[1], (*biggestIt)->values[2]);
