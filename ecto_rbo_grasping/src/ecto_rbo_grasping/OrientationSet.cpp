@@ -20,5906 +20,5320 @@ namespace posesets
 
 OrientationSet::OrientationSet()
 {
-    init();
+  init();
 }
 
 OrientationSet::~OrientationSet()
 {
 }
 
-/*
-void OrientationSet::init89()
-{
-    orientations.push_back(Coordinates(0.850651 ,  0.525731  , 0.000000));
-    orientations.push_back(Coordinates(0.850651 , -0.525731  , 0.000000));
-    orientations.push_back(Coordinates(0.525731 ,  0.000000  , 0.850651));
-    orientations.push_back(Coordinates(0.000000 ,  0.850651  , 0.525731));
-    orientations.push_back(Coordinates(0.000000 , -0.850651  , 0.525731));
-    orientations.push_back(Coordinates(-0.525731,   0.000000 ,  0.850651));
-    orientations.push_back(Coordinates(-0.850651,   0.525731 ,  0.000000));
-    orientations.push_back(Coordinates(-0.850651,  -0.525731 ,  0.000000));
-    orientations.push_back(Coordinates(0.955423 ,  0.295242  , 0.000000));
-    orientations.push_back(Coordinates(1.000000 ,  0.000000  , 0.000000));
-    orientations.push_back(Coordinates(0.955423 , -0.295242  , 0.000000));
-    orientations.push_back(Coordinates(0.864188 ,  0.442863  , 0.238856));
-    orientations.push_back(Coordinates(0.809017 ,  0.309017  , 0.500000));
-    orientations.push_back(Coordinates(0.681718 ,  0.147621  , 0.716567));
-    orientations.push_back(Coordinates(0.716567 ,  0.681718  , 0.147621));
-    orientations.push_back(Coordinates(0.500000 ,  0.809017  , 0.309017));
-    orientations.push_back(Coordinates(0.238856 ,  0.864188  , 0.442863));
-    orientations.push_back(Coordinates(0.864188 , -0.442863  , 0.238856));
-    orientations.push_back(Coordinates(0.809017 , -0.309017  , 0.500000));
-    orientations.push_back(Coordinates(0.681718 , -0.147621  , 0.716567));
-    orientations.push_back(Coordinates(0.716567 , -0.681718  , 0.147621));
-    orientations.push_back(Coordinates(0.500000 , -0.809017  , 0.309017));
-    orientations.push_back(Coordinates(0.238856 , -0.864188  , 0.442863));
-    orientations.push_back(Coordinates(0.442863 ,  0.238856  , 0.864188));
-    orientations.push_back(Coordinates(0.309017 ,  0.500000  , 0.809017));
-    orientations.push_back(Coordinates(0.147621 ,  0.716567  , 0.681718));
-    orientations.push_back(Coordinates(0.442863 , -0.238856  , 0.864188));
-    orientations.push_back(Coordinates(0.309017 , -0.500000  , 0.809017));
-    orientations.push_back(Coordinates(0.147621 , -0.716567  , 0.681718));
-    orientations.push_back(Coordinates(0.295242 ,  0.000000  , 0.955423));
-    orientations.push_back(Coordinates(0.000000 ,  0.000000  , 1.000000));
-    orientations.push_back(Coordinates(-0.295242,   0.000000 ,  0.955423));
-    orientations.push_back(Coordinates(0.000000 ,  0.955423  , 0.295242));
-    orientations.push_back(Coordinates(0.000000 ,  1.000000  , 0.000000));
-    orientations.push_back(Coordinates(-0.147621,   0.716567 ,  0.681718));
-    orientations.push_back(Coordinates(-0.309017,   0.500000 ,  0.809017));
-    orientations.push_back(Coordinates(-0.442863,   0.238856 ,  0.864188));
-    orientations.push_back(Coordinates(-0.238856,   0.864188 ,  0.442863));
-    orientations.push_back(Coordinates(-0.500000,   0.809017 ,  0.309017));
-    orientations.push_back(Coordinates(-0.716567,   0.681718 ,  0.147621));
-    orientations.push_back(Coordinates(0.000000 , -0.955423  , 0.295242));
-    orientations.push_back(Coordinates(0.000000 , -1.000000  , 0.000000));
-    orientations.push_back(Coordinates(-0.147621,  -0.716567 ,  0.681718));
-    orientations.push_back(Coordinates(-0.309017,  -0.500000 ,  0.809017));
-    orientations.push_back(Coordinates(-0.442863,  -0.238856 ,  0.864188));
-    orientations.push_back(Coordinates(-0.238856,  -0.864188 ,  0.442863));
-    orientations.push_back(Coordinates(-0.500000,  -0.809017 ,  0.309017));
-    orientations.push_back(Coordinates(-0.716567,  -0.681718 ,  0.147621));
-    orientations.push_back(Coordinates(-0.681718,   0.147621 ,  0.716567));
-    orientations.push_back(Coordinates(-0.809017,   0.309017 ,  0.500000));
-    orientations.push_back(Coordinates(-0.864188,   0.442863 ,  0.238856));
-    orientations.push_back(Coordinates(-0.681718,  -0.147621 ,  0.716567));
-    orientations.push_back(Coordinates(-0.809017,  -0.309017 ,  0.500000));
-    orientations.push_back(Coordinates(-0.864188,  -0.442863 ,  0.238856));
-    orientations.push_back(Coordinates(-0.955423,   0.295242 ,  0.000000));
-    orientations.push_back(Coordinates(-1.000000,   0.000000 ,  0.000000));
-    orientations.push_back(Coordinates(-0.955423,  -0.295242 ,  0.000000));
-    orientations.push_back(Coordinates(0.951057 ,  0.162460  , 0.262866));
-    orientations.push_back(Coordinates(0.951057 , -0.162460  , 0.262866));
-    orientations.push_back(Coordinates(0.850651 ,  0.000000  , 0.525731));
-    orientations.push_back(Coordinates(0.688191 ,  0.587785  , 0.425325));
-    orientations.push_back(Coordinates(0.587785 ,  0.425325  , 0.688191));
-    orientations.push_back(Coordinates(0.425325 ,  0.688191  , 0.587785));
-    orientations.push_back(Coordinates(0.525731 ,  0.850651  , 0.000000));
-    orientations.push_back(Coordinates(0.262866 ,  0.951057  , 0.162460));
-    orientations.push_back(Coordinates(0.688191 , -0.587785  , 0.425325));
-    orientations.push_back(Coordinates(0.425325 , -0.688191  , 0.587785));
-    orientations.push_back(Coordinates(0.587785 , -0.425325  , 0.688191));
-    orientations.push_back(Coordinates(0.525731 , -0.850651  , 0.000000));
-    orientations.push_back(Coordinates(0.262866 , -0.951057  , 0.162460));
-    orientations.push_back(Coordinates(0.162460 ,  0.262866  , 0.951057));
-    orientations.push_back(Coordinates(-0.162460,   0.262866 ,  0.951057));
-    orientations.push_back(Coordinates(0.000000 ,  0.525731  , 0.850651));
-    orientations.push_back(Coordinates(0.162460 , -0.262866  , 0.951057));
-    orientations.push_back(Coordinates(0.000000 , -0.525731  , 0.850651));
-    orientations.push_back(Coordinates(-0.162460,  -0.262866 ,  0.951057));
-    orientations.push_back(Coordinates(-0.262866,   0.951057 ,  0.162460));
-    orientations.push_back(Coordinates(-0.525731,   0.850651 ,  0.000000));
-    orientations.push_back(Coordinates(-0.425325,   0.688191 ,  0.587785));
-    orientations.push_back(Coordinates(-0.587785,   0.425325 ,  0.688191));
-    orientations.push_back(Coordinates(-0.688191,   0.587785 ,  0.425325));
-    orientations.push_back(Coordinates(-0.425325,  -0.688191 ,  0.587785));
-    orientations.push_back(Coordinates(-0.688191,  -0.587785 ,  0.425325));
-    orientations.push_back(Coordinates(-0.587785,  -0.425325 ,  0.688191));
-    orientations.push_back(Coordinates(-0.262866,  -0.951057 ,  0.162460));
-    orientations.push_back(Coordinates(-0.525731,  -0.850651 ,  0.000000));
-    orientations.push_back(Coordinates(-0.850651,   0.000000 ,  0.525731));
-    orientations.push_back(Coordinates(-0.951057,  -0.162460 ,  0.262866));
-    orientations.push_back(Coordinates(-0.951057,   0.162460 ,  0.262866));
+
+void OrientationSet::initVector(double arr[], int size) {
+  orientations.resize(size/4);
+  for(int i=0; i<size/4; i++)
+  {
+    orientations[i]=Coordinates(arr[4*i], arr[4*i+1], arr[4*i+2], arr[4*i+3]);
+  }
 }
-
-
-void OrientationSet::init136() {
-    // http://people.sc.fsu.edu/~jburkardt/m_src/sphere_xyz_display/sphere_grid_icos1_f5_xyz.txt
-
-    orientations.push_back(Coordinates( 0.850651, 0.525731,0.000000));
-    orientations.push_back(Coordinates( 0.850651,-0.525731,0.000000));
-    orientations.push_back(Coordinates( 0.525731, 0.000000,0.850651));
-    orientations.push_back(Coordinates( 0.000000, 0.850651,0.525731));
-    orientations.push_back(Coordinates( 0.000000,-0.850651,0.525731));
-    orientations.push_back(Coordinates(-0.525731, 0.000000,0.850651));
-    orientations.push_back(Coordinates(-0.850651, 0.525731,0.000000));
-    orientations.push_back(Coordinates(-0.850651,-0.525731,0.000000));
-    orientations.push_back(Coordinates( 0.937611, 0.347685,0.000000));
-    orientations.push_back(Coordinates( 0.992447, 0.122673,0.000000));
-    orientations.push_back(Coordinates( 0.992447,-0.122673,0.000000));
-    orientations.push_back(Coordinates( 0.937611,-0.347685,0.000000));
-    orientations.push_back(Coordinates( 0.865984, 0.463581,0.187522));
-    orientations.push_back(Coordinates( 0.840815, 0.368020,0.396979));
-    orientations.push_back(Coordinates( 0.764998, 0.245346,0.595468));
-    orientations.push_back(Coordinates( 0.651103, 0.115895,0.750089));
-    orientations.push_back(Coordinates( 0.750089, 0.651103,0.115895));
-    orientations.push_back(Coordinates( 0.595468, 0.764998,0.245346));
-    orientations.push_back(Coordinates( 0.396979, 0.840815,0.368020));
-    orientations.push_back(Coordinates( 0.187522, 0.865984,0.463581));
-    orientations.push_back(Coordinates( 0.865984,-0.463581,0.187522));
-    orientations.push_back(Coordinates( 0.840815,-0.368020,0.396979));
-    orientations.push_back(Coordinates( 0.764998,-0.245346,0.595468));
-    orientations.push_back(Coordinates( 0.651103,-0.115895,0.750089));
-    orientations.push_back(Coordinates( 0.750089,-0.651103,0.115895));
-    orientations.push_back(Coordinates( 0.595468,-0.764998,0.245346));
-    orientations.push_back(Coordinates( 0.396979,-0.840815,0.368020));
-    orientations.push_back(Coordinates( 0.187522,-0.865984,0.463581));
-    orientations.push_back(Coordinates( 0.463581, 0.187522,0.865984));
-    orientations.push_back(Coordinates( 0.368020, 0.396979,0.840815));
-    orientations.push_back(Coordinates( 0.245346, 0.595468,0.764998));
-    orientations.push_back(Coordinates( 0.115895, 0.750089,0.651103));
-    orientations.push_back(Coordinates( 0.463581,-0.187522,0.865984));
-    orientations.push_back(Coordinates( 0.368020,-0.396979,0.840815));
-    orientations.push_back(Coordinates( 0.245346,-0.595468,0.764998));
-    orientations.push_back(Coordinates( 0.115895,-0.750089,0.651103));
-    orientations.push_back(Coordinates( 0.347685, 0.000000,0.937611));
-    orientations.push_back(Coordinates( 0.122673, 0.000000,0.992447));
-    orientations.push_back(Coordinates(-0.122673, 0.000000,0.992447));
-    orientations.push_back(Coordinates(-0.347685, 0.000000,0.937611));
-    orientations.push_back(Coordinates( 0.000000, 0.937611,0.347685));
-    orientations.push_back(Coordinates( 0.000000, 0.992447,0.122673));
-    orientations.push_back(Coordinates(-0.115895, 0.750089,0.651103));
-    orientations.push_back(Coordinates(-0.245346, 0.595468,0.764998));
-    orientations.push_back(Coordinates(-0.368020, 0.396979,0.840815));
-    orientations.push_back(Coordinates(-0.463581, 0.187522,0.865984));
-    orientations.push_back(Coordinates(-0.187522, 0.865984,0.463581));
-    orientations.push_back(Coordinates(-0.396979, 0.840815,0.368020));
-    orientations.push_back(Coordinates(-0.595468, 0.764998,0.245346));
-    orientations.push_back(Coordinates(-0.750089, 0.651103,0.115895));
-    orientations.push_back(Coordinates( 0.000000,-0.937611,0.347685));
-    orientations.push_back(Coordinates( 0.000000,-0.992447,0.122673));
-    orientations.push_back(Coordinates(-0.115895,-0.750089,0.651103));
-    orientations.push_back(Coordinates(-0.245346,-0.595468,0.764998));
-    orientations.push_back(Coordinates(-0.368020,-0.396979,0.840815));
-    orientations.push_back(Coordinates(-0.463581,-0.187522,0.865984));
-    orientations.push_back(Coordinates(-0.187522,-0.865984,0.463581));
-    orientations.push_back(Coordinates(-0.396979,-0.840815,0.368020));
-    orientations.push_back(Coordinates(-0.595468,-0.764998,0.245346));
-    orientations.push_back(Coordinates(-0.750089,-0.651103,0.115895));
-    orientations.push_back(Coordinates(-0.651103, 0.115895,0.750089));
-    orientations.push_back(Coordinates(-0.764998, 0.245346,0.595468));
-    orientations.push_back(Coordinates(-0.840815, 0.368020,0.396979));
-    orientations.push_back(Coordinates(-0.865984, 0.463581,0.187522));
-    orientations.push_back(Coordinates(-0.651103,-0.115895,0.750089));
-    orientations.push_back(Coordinates(-0.764998,-0.245346,0.595468));
-    orientations.push_back(Coordinates(-0.840815,-0.368020,0.396979));
-    orientations.push_back(Coordinates(-0.865984,-0.463581,0.187522));
-    orientations.push_back(Coordinates(-0.937611, 0.347685,0.000000));
-    orientations.push_back(Coordinates(-0.992447, 0.122673,0.000000));
-    orientations.push_back(Coordinates(-0.992447,-0.122673,0.000000));
-    orientations.push_back(Coordinates(-0.937611,-0.347685,0.000000));
-    orientations.push_back(Coordinates( 0.945531, 0.253082,0.204747));
-    orientations.push_back(Coordinates( 0.977348, 0.000000,0.211637));
-    orientations.push_back(Coordinates( 0.945531,-0.253082,0.204747));
-    orientations.push_back(Coordinates( 0.896510, 0.130799,0.423275));
-    orientations.push_back(Coordinates( 0.896510,-0.130799,0.423275));
-    orientations.push_back(Coordinates( 0.789117, 0.000000,0.614242));
-    orientations.push_back(Coordinates( 0.740783, 0.584370,0.331288));
-    orientations.push_back(Coordinates( 0.684873, 0.473235,0.554074));
-    orientations.push_back(Coordinates( 0.584370, 0.331288,0.740783));
-    orientations.push_back(Coordinates( 0.554074, 0.684873,0.473235));
-    orientations.push_back(Coordinates( 0.473235, 0.554074,0.684873));
-    orientations.push_back(Coordinates( 0.331288, 0.740783,0.584370));
-    orientations.push_back(Coordinates( 0.614242, 0.789117,0.000000));
-    orientations.push_back(Coordinates( 0.423275, 0.896510,0.130799));
-    orientations.push_back(Coordinates( 0.204747, 0.945531,0.253082));
-    orientations.push_back(Coordinates( 0.211637, 0.977348,0.000000));
-    orientations.push_back(Coordinates( 0.740783,-0.584370,0.331288));
-    orientations.push_back(Coordinates( 0.554074,-0.684873,0.473235));
-    orientations.push_back(Coordinates( 0.331288,-0.740783,0.584370));
-    orientations.push_back(Coordinates( 0.684873,-0.473235,0.554074));
-    orientations.push_back(Coordinates( 0.473235,-0.554074,0.684873));
-    orientations.push_back(Coordinates( 0.584370,-0.331288,0.740783));
-    orientations.push_back(Coordinates( 0.614242,-0.789117,0.000000));
-    orientations.push_back(Coordinates( 0.423275,-0.896510,0.130799));
-    orientations.push_back(Coordinates( 0.211637,-0.977348,0.000000));
-    orientations.push_back(Coordinates( 0.204747,-0.945531,0.253082));
-    orientations.push_back(Coordinates( 0.253082, 0.204747,0.945531));
-    orientations.push_back(Coordinates( 0.000000, 0.211637,0.977348));
-    orientations.push_back(Coordinates(-0.253082, 0.204747,0.945531));
-    orientations.push_back(Coordinates( 0.130799, 0.423275,0.896510));
-    orientations.push_back(Coordinates(-0.130799, 0.423275,0.896510));
-    orientations.push_back(Coordinates( 0.000000, 0.614242,0.789117));
-    orientations.push_back(Coordinates( 0.253082,-0.204747,0.945531));
-    orientations.push_back(Coordinates( 0.130799,-0.423275,0.896510));
-    orientations.push_back(Coordinates( 0.000000,-0.614242,0.789117));
-    orientations.push_back(Coordinates( 0.000000,-0.211637,0.977348));
-    orientations.push_back(Coordinates(-0.130799,-0.423275,0.896510));
-    orientations.push_back(Coordinates(-0.253082,-0.204747,0.945531));
-    orientations.push_back(Coordinates(-0.204747, 0.945531,0.253082));
-    orientations.push_back(Coordinates(-0.423275, 0.896510,0.130799));
-    orientations.push_back(Coordinates(-0.614242, 0.789117,0.000000));
-    orientations.push_back(Coordinates(-0.211637, 0.977348,0.000000));
-    orientations.push_back(Coordinates(-0.331288, 0.740783,0.584370));
-    orientations.push_back(Coordinates(-0.473235, 0.554074,0.684873));
-    orientations.push_back(Coordinates(-0.584370, 0.331288,0.740783));
-    orientations.push_back(Coordinates(-0.554074, 0.684873,0.473235));
-    orientations.push_back(Coordinates(-0.684873, 0.473235,0.554074));
-    orientations.push_back(Coordinates(-0.740783, 0.584370,0.331288));
-    orientations.push_back(Coordinates(-0.331288,-0.740783,0.584370));
-    orientations.push_back(Coordinates(-0.554074,-0.684873,0.473235));
-    orientations.push_back(Coordinates(-0.740783,-0.584370,0.331288));
-    orientations.push_back(Coordinates(-0.473235,-0.554074,0.684873));
-    orientations.push_back(Coordinates(-0.684873,-0.473235,0.554074));
-    orientations.push_back(Coordinates(-0.584370,-0.331288,0.740783));
-    orientations.push_back(Coordinates(-0.204747,-0.945531,0.253082));
-    orientations.push_back(Coordinates(-0.211637,-0.977348,0.000000));
-    orientations.push_back(Coordinates(-0.423275,-0.896510,0.130799));
-    orientations.push_back(Coordinates(-0.614242,-0.789117,0.000000));
-    orientations.push_back(Coordinates(-0.789117, 0.000000,0.614242));
-    orientations.push_back(Coordinates(-0.896510,-0.130799,0.423275));
-    orientations.push_back(Coordinates(-0.945531,-0.253082,0.204747));
-    orientations.push_back(Coordinates(-0.896510, 0.130799,0.423275));
-    orientations.push_back(Coordinates(-0.977348, 0.000000,0.211637));
-    orientations.push_back(Coordinates(-0.945531, 0.253082,0.204747));
-}
-
-
-void OrientationSet::init362() {
-    // http://people.sc.fsu.edu/~jburkardt/m_src/sphere_xyz_display/sphere_grid_icos1_f6_xyz.txt
-    orientations.push_back(Coordinates( 0.850651,    0.525731,    0.000000));
-    orientations.push_back(Coordinates( 0.850651,   -0.525731,    0.000000));
-    orientations.push_back(Coordinates( 0.525731,    0.000000,    0.850651));
-    orientations.push_back(Coordinates( 0.525731,    0.000000,   -0.850651));
-    orientations.push_back(Coordinates( 0.000000,    0.850651,    0.525731));
-    orientations.push_back(Coordinates( 0.000000,    0.850651,   -0.525731));
-    orientations.push_back(Coordinates( 0.000000,   -0.850651,    0.525731));
-    orientations.push_back(Coordinates( 0.000000,   -0.850651,   -0.525731));
-    orientations.push_back(Coordinates(-0.525731,    0.000000,    0.850651));
-    orientations.push_back(Coordinates(-0.525731,    0.000000,   -0.850651));
-    orientations.push_back(Coordinates(-0.850651,    0.525731,    0.000000));
-    orientations.push_back(Coordinates(-0.850651,   -0.525731,    0.000000));
-    orientations.push_back(Coordinates( 0.924594,    0.380954,    0.000000));
-    orientations.push_back(Coordinates( 0.979432,    0.201774,    0.000000));
-    orientations.push_back(Coordinates( 1.000000,    0.000000,    0.000000));
-    orientations.push_back(Coordinates( 0.979432,   -0.201774,    0.000000));
-    orientations.push_back(Coordinates( 0.924594,   -0.380954,    0.000000));
-    orientations.push_back(Coordinates( 0.865734,    0.476192,    0.154099));
-    orientations.push_back(Coordinates( 0.854729,    0.403548,    0.326477));
-    orientations.push_back(Coordinates( 0.809017,    0.309017,    0.500000));
-    orientations.push_back(Coordinates( 0.730026,    0.201774,    0.652955));
-    orientations.push_back(Coordinates( 0.630291,    0.095238,    0.770495));
-    orientations.push_back(Coordinates( 0.865734,    0.476192,   -0.154099));
-    orientations.push_back(Coordinates( 0.854729,    0.403548,   -0.326477));
-    orientations.push_back(Coordinates( 0.809017,    0.309017,   -0.500000));
-    orientations.push_back(Coordinates( 0.730026,    0.201774,   -0.652955));
-    orientations.push_back(Coordinates( 0.630291,    0.095238,   -0.770495));
-    orientations.push_back(Coordinates( 0.770495,    0.630291,    0.095238));
-    orientations.push_back(Coordinates( 0.652955,    0.730026,    0.201774));
-    orientations.push_back(Coordinates( 0.500000,    0.809017,    0.309017));
-    orientations.push_back(Coordinates( 0.326477,    0.854729,    0.403548));
-    orientations.push_back(Coordinates( 0.154099,    0.865734,    0.476192));
-    orientations.push_back(Coordinates( 0.770495,    0.630291,   -0.095238));
-    orientations.push_back(Coordinates( 0.652955,    0.730026,   -0.201774));
-    orientations.push_back(Coordinates( 0.500000,    0.809017,   -0.309017));
-    orientations.push_back(Coordinates( 0.326477,    0.854729,   -0.403548));
-    orientations.push_back(Coordinates( 0.154099,    0.865734,   -0.476192));
-    orientations.push_back(Coordinates( 0.865734,   -0.476192,    0.154099));
-    orientations.push_back(Coordinates( 0.854729,   -0.403548,    0.326477));
-    orientations.push_back(Coordinates( 0.809017,   -0.309017,    0.500000));
-    orientations.push_back(Coordinates( 0.730026,   -0.201774,    0.652955));
-    orientations.push_back(Coordinates( 0.630291,   -0.095238,    0.770495));
-    orientations.push_back(Coordinates( 0.865734,   -0.476192,   -0.154099));
-    orientations.push_back(Coordinates( 0.854729,   -0.403548,   -0.326477));
-    orientations.push_back(Coordinates( 0.809017,   -0.309017,   -0.500000));
-    orientations.push_back(Coordinates( 0.730026,   -0.201774,   -0.652955));
-    orientations.push_back(Coordinates( 0.630291,   -0.095238,   -0.770495));
-    orientations.push_back(Coordinates( 0.770495,   -0.630291,    0.095238));
-    orientations.push_back(Coordinates( 0.652955,   -0.730026,    0.201774));
-    orientations.push_back(Coordinates( 0.500000,   -0.809017,    0.309017));
-    orientations.push_back(Coordinates( 0.326477,   -0.854729,    0.403548));
-    orientations.push_back(Coordinates( 0.154099,   -0.865734,    0.476192));
-    orientations.push_back(Coordinates( 0.770495,   -0.630291,   -0.095238));
-    orientations.push_back(Coordinates( 0.652955,   -0.730026,   -0.201774));
-    orientations.push_back(Coordinates( 0.500000,   -0.809017,   -0.309017));
-    orientations.push_back(Coordinates( 0.326477,   -0.854729,   -0.403548));
-    orientations.push_back(Coordinates( 0.154099,   -0.865734,   -0.476192));
-    orientations.push_back(Coordinates( 0.476192,    0.154099,    0.865734));
-    orientations.push_back(Coordinates( 0.403548,    0.326477,    0.854729));
-    orientations.push_back(Coordinates( 0.309017,    0.500000,    0.809017));
-    orientations.push_back(Coordinates( 0.201774,    0.652955,    0.730026));
-    orientations.push_back(Coordinates( 0.095238,    0.770495,    0.630291));
-    orientations.push_back(Coordinates( 0.476192,   -0.154099,    0.865734));
-    orientations.push_back(Coordinates( 0.403548,   -0.326477,    0.854729));
-    orientations.push_back(Coordinates( 0.309017,   -0.500000,    0.809017));
-    orientations.push_back(Coordinates( 0.201774,   -0.652955,    0.730026));
-    orientations.push_back(Coordinates( 0.095238,   -0.770495,    0.630291));
-    orientations.push_back(Coordinates( 0.380954,    0.000000,    0.924594));
-    orientations.push_back(Coordinates( 0.201774,    0.000000,    0.979432));
-    orientations.push_back(Coordinates( 0.000000,    0.000000,    1.000000));
-    orientations.push_back(Coordinates(-0.201774,    0.000000,    0.979432));
-    orientations.push_back(Coordinates(-0.380954,    0.000000,    0.924594));
-    orientations.push_back(Coordinates( 0.476192,    0.154099,   -0.865734));
-    orientations.push_back(Coordinates( 0.403548,    0.326477,   -0.854729));
-    orientations.push_back(Coordinates( 0.309017,    0.500000,   -0.809017));
-    orientations.push_back(Coordinates( 0.201774,    0.652955,   -0.730026));
-    orientations.push_back(Coordinates( 0.095238,    0.770495,   -0.630291));
-    orientations.push_back(Coordinates( 0.476192,   -0.154099,   -0.865734));
-    orientations.push_back(Coordinates( 0.403548,   -0.326477,   -0.854729));
-    orientations.push_back(Coordinates( 0.309017,   -0.500000,   -0.809017));
-    orientations.push_back(Coordinates( 0.201774,   -0.652955,   -0.730026));
-    orientations.push_back(Coordinates( 0.095238,   -0.770495,   -0.630291));
-    orientations.push_back(Coordinates( 0.380954,    0.000000,   -0.924594));
-    orientations.push_back(Coordinates( 0.201774,    0.000000,   -0.979432));
-    orientations.push_back(Coordinates( 0.000000,    0.000000,   -1.000000));
-    orientations.push_back(Coordinates(-0.201774,    0.000000,   -0.979432));
-    orientations.push_back(Coordinates(-0.380954,    0.000000,   -0.924594));
-    orientations.push_back(Coordinates( 0.000000,    0.924594,    0.380954));
-    orientations.push_back(Coordinates( 0.000000,    0.979432,    0.201774));
-    orientations.push_back(Coordinates( 0.000000,    1.000000,    0.000000));
-    orientations.push_back(Coordinates( 0.000000,    0.979432,   -0.201774));
-    orientations.push_back(Coordinates( 0.000000,    0.924594,   -0.380954));
-    orientations.push_back(Coordinates(-0.095238,    0.770495,    0.630291));
-    orientations.push_back(Coordinates(-0.201774,    0.652955,    0.730026));
-    orientations.push_back(Coordinates(-0.309017,    0.500000,    0.809017));
-    orientations.push_back(Coordinates(-0.403548,    0.326477,    0.854729));
-    orientations.push_back(Coordinates(-0.476192,    0.154099,    0.865734));
-    orientations.push_back(Coordinates(-0.154099,    0.865734,    0.476192));
-    orientations.push_back(Coordinates(-0.326477,    0.854729,    0.403548));
-    orientations.push_back(Coordinates(-0.500000,    0.809017,    0.309017));
-    orientations.push_back(Coordinates(-0.652955,    0.730026,    0.201774));
-    orientations.push_back(Coordinates(-0.770495,    0.630291,    0.095238));
-    orientations.push_back(Coordinates(-0.095238,    0.770495,   -0.630291));
-    orientations.push_back(Coordinates(-0.201774,    0.652955,   -0.730026));
-    orientations.push_back(Coordinates(-0.309017,    0.500000,   -0.809017));
-    orientations.push_back(Coordinates(-0.403548,    0.326477,   -0.854729));
-    orientations.push_back(Coordinates(-0.476192,    0.154099,   -0.865734));
-    orientations.push_back(Coordinates(-0.154099,    0.865734,   -0.476192));
-    orientations.push_back(Coordinates(-0.326477,    0.854729,   -0.403548));
-    orientations.push_back(Coordinates(-0.500000,    0.809017,   -0.309017));
-    orientations.push_back(Coordinates(-0.652955,    0.730026,   -0.201774));
-    orientations.push_back(Coordinates(-0.770495,    0.630291,   -0.095238));
-    orientations.push_back(Coordinates( 0.000000,   -0.924594,    0.380954));
-    orientations.push_back(Coordinates( 0.000000,   -0.979432,    0.201774));
-    orientations.push_back(Coordinates( 0.000000,   -1.000000,    0.000000));
-    orientations.push_back(Coordinates( 0.000000,   -0.979432,   -0.201774));
-    orientations.push_back(Coordinates( 0.000000,   -0.924594,   -0.380954));
-    orientations.push_back(Coordinates(-0.095238,   -0.770495,    0.630291));
-    orientations.push_back(Coordinates(-0.201774,   -0.652955,    0.730026));
-    orientations.push_back(Coordinates(-0.309017,   -0.500000,    0.809017));
-    orientations.push_back(Coordinates(-0.403548,   -0.326477,    0.854729));
-    orientations.push_back(Coordinates(-0.476192,   -0.154099,    0.865734));
-    orientations.push_back(Coordinates(-0.154099,   -0.865734,    0.476192));
-    orientations.push_back(Coordinates(-0.326477,   -0.854729,    0.403548));
-    orientations.push_back(Coordinates(-0.500000,   -0.809017,    0.309017));
-    orientations.push_back(Coordinates(-0.652955,   -0.730026,    0.201774));
-    orientations.push_back(Coordinates(-0.770495,   -0.630291,    0.095238));
-    orientations.push_back(Coordinates(-0.095238,   -0.770495,   -0.630291));
-    orientations.push_back(Coordinates(-0.201774,   -0.652955,   -0.730026));
-    orientations.push_back(Coordinates(-0.309017,   -0.500000,   -0.809017));
-    orientations.push_back(Coordinates(-0.403548,   -0.326477,   -0.854729));
-    orientations.push_back(Coordinates(-0.476192,   -0.154099,   -0.865734));
-    orientations.push_back(Coordinates(-0.154099,   -0.865734,   -0.476192));
-    orientations.push_back(Coordinates(-0.326477,   -0.854729,   -0.403548));
-    orientations.push_back(Coordinates(-0.500000,   -0.809017,   -0.309017));
-    orientations.push_back(Coordinates(-0.652955,   -0.730026,   -0.201774));
-    orientations.push_back(Coordinates(-0.770495,   -0.630291,   -0.095238));
-    orientations.push_back(Coordinates(-0.630291,    0.095238,    0.770495));
-    orientations.push_back(Coordinates(-0.730026,    0.201774,    0.652955));
-    orientations.push_back(Coordinates(-0.809017,    0.309017,    0.500000));
-    orientations.push_back(Coordinates(-0.854729,    0.403548,    0.326477));
-    orientations.push_back(Coordinates(-0.865734,    0.476192,    0.154099));
-    orientations.push_back(Coordinates(-0.630291,   -0.095238,    0.770495));
-    orientations.push_back(Coordinates(-0.730026,   -0.201774,    0.652955));
-    orientations.push_back(Coordinates(-0.809017,   -0.309017,    0.500000));
-    orientations.push_back(Coordinates(-0.854729,   -0.403548,    0.326477));
-    orientations.push_back(Coordinates(-0.865734,   -0.476192,    0.154099));
-    orientations.push_back(Coordinates(-0.630291,    0.095238,   -0.770495));
-    orientations.push_back(Coordinates(-0.730026,    0.201774,   -0.652955));
-    orientations.push_back(Coordinates(-0.809017,    0.309017,   -0.500000));
-    orientations.push_back(Coordinates(-0.854729,    0.403548,   -0.326477));
-    orientations.push_back(Coordinates(-0.865734,    0.476192,   -0.154099));
-    orientations.push_back(Coordinates(-0.630291,   -0.095238,   -0.770495));
-    orientations.push_back(Coordinates(-0.730026,   -0.201774,   -0.652955));
-    orientations.push_back(Coordinates(-0.809017,   -0.309017,   -0.500000));
-    orientations.push_back(Coordinates(-0.854729,   -0.403548,   -0.326477));
-    orientations.push_back(Coordinates(-0.865734,   -0.476192,   -0.154099));
-    orientations.push_back(Coordinates(-0.924594,    0.380954,    0.000000));
-    orientations.push_back(Coordinates(-0.979432,    0.201774,    0.000000));
-    orientations.push_back(Coordinates(-1.000000,    0.000000,    0.000000));
-    orientations.push_back(Coordinates(-0.979432,   -0.201774,    0.000000));
-    orientations.push_back(Coordinates(-0.924594,   -0.380954,    0.000000));
-    orientations.push_back(Coordinates( 0.936339,    0.309017,   -0.166667));
-    orientations.push_back(Coordinates( 0.912253,    0.215354,   -0.348450));
-    orientations.push_back(Coordinates( 0.845705,    0.107677,   -0.522674));
-    orientations.push_back(Coordinates( 0.745356,    0.000000,   -0.666667));
-    orientations.push_back(Coordinates( 0.978801,    0.107677,   -0.174225));
-    orientations.push_back(Coordinates( 0.934172,    0.000000,   -0.356822));
-    orientations.push_back(Coordinates( 0.845705,   -0.107677,   -0.522674));
-    orientations.push_back(Coordinates( 0.978801,   -0.107677,   -0.174225));
-    orientations.push_back(Coordinates( 0.912253,   -0.215354,   -0.348450));
-    orientations.push_back(Coordinates( 0.936339,   -0.309017,   -0.166667));
-    orientations.push_back(Coordinates( 0.936339,    0.309017,    0.166667));
-    orientations.push_back(Coordinates( 0.978801,    0.107677,    0.174225));
-    orientations.push_back(Coordinates( 0.978801,   -0.107677,    0.174225));
-    orientations.push_back(Coordinates( 0.936339,   -0.309017,    0.166667));
-    orientations.push_back(Coordinates( 0.912253,    0.215354,    0.348450));
-    orientations.push_back(Coordinates( 0.934172,    0.000000,    0.356822));
-    orientations.push_back(Coordinates( 0.912253,   -0.215354,    0.348450));
-    orientations.push_back(Coordinates( 0.845705,    0.107677,    0.522674));
-    orientations.push_back(Coordinates( 0.845705,   -0.107677,    0.522674));
-    orientations.push_back(Coordinates( 0.745356,    0.000000,    0.666667));
-    orientations.push_back(Coordinates( 0.769672,    0.578689,   -0.269672));
-    orientations.push_back(Coordinates( 0.630351,    0.671480,   -0.389579));
-    orientations.push_back(Coordinates( 0.456127,    0.738028,   -0.497255));
-    orientations.push_back(Coordinates( 0.269672,    0.769672,   -0.578689));
-    orientations.push_back(Coordinates( 0.738028,    0.497255,   -0.456127));
-    orientations.push_back(Coordinates( 0.577350,    0.577350,   -0.577350));
-    orientations.push_back(Coordinates( 0.389579,    0.630351,   -0.671480));
-    orientations.push_back(Coordinates( 0.671480,    0.389579,   -0.630351));
-    orientations.push_back(Coordinates( 0.497255,    0.456127,   -0.738028));
-    orientations.push_back(Coordinates( 0.578689,    0.269672,   -0.769672));
-    orientations.push_back(Coordinates( 0.769672,    0.578689,    0.269672));
-    orientations.push_back(Coordinates( 0.738028,    0.497255,    0.456127));
-    orientations.push_back(Coordinates( 0.671480,    0.389579,    0.630351));
-    orientations.push_back(Coordinates( 0.578689,    0.269672,    0.769672));
-    orientations.push_back(Coordinates( 0.630351,    0.671480,    0.389579));
-    orientations.push_back(Coordinates( 0.577350,    0.577350,    0.577350));
-    orientations.push_back(Coordinates( 0.497255,    0.456127,    0.738028));
-    orientations.push_back(Coordinates( 0.456127,    0.738028,    0.497255));
-    orientations.push_back(Coordinates( 0.389579,    0.630351,    0.671480));
-    orientations.push_back(Coordinates( 0.269672,    0.769672,    0.578689));
-    orientations.push_back(Coordinates( 0.666667,    0.745356,    0.000000));
-    orientations.push_back(Coordinates( 0.522674,    0.845705,    0.107677));
-    orientations.push_back(Coordinates( 0.348450,    0.912253,    0.215354));
-    orientations.push_back(Coordinates( 0.166667,    0.936339,    0.309017));
-    orientations.push_back(Coordinates( 0.522674,    0.845705,   -0.107677));
-    orientations.push_back(Coordinates( 0.356822,    0.934172,    0.000000));
-    orientations.push_back(Coordinates( 0.174225,    0.978801,    0.107677));
-    orientations.push_back(Coordinates( 0.348450,    0.912253,   -0.215354));
-    orientations.push_back(Coordinates( 0.174225,    0.978801,   -0.107677));
-    orientations.push_back(Coordinates( 0.166667,    0.936339,   -0.309017));
-    orientations.push_back(Coordinates( 0.769672,   -0.578689,    0.269672));
-    orientations.push_back(Coordinates( 0.630351,   -0.671480,    0.389579));
-    orientations.push_back(Coordinates( 0.456127,   -0.738028,    0.497255));
-    orientations.push_back(Coordinates( 0.269672,   -0.769672,    0.578689));
-    orientations.push_back(Coordinates( 0.738028,   -0.497255,    0.456127));
-    orientations.push_back(Coordinates( 0.577350,   -0.577350,    0.577350));
-    orientations.push_back(Coordinates( 0.389579,   -0.630351,    0.671480));
-    orientations.push_back(Coordinates( 0.671480,   -0.389579,    0.630351));
-    orientations.push_back(Coordinates( 0.497255,   -0.456127,    0.738028));
-    orientations.push_back(Coordinates( 0.578689,   -0.269672,    0.769672));
-    orientations.push_back(Coordinates( 0.666667,   -0.745356,    0.000000));
-    orientations.push_back(Coordinates( 0.522674,   -0.845705,   -0.107677));
-    orientations.push_back(Coordinates( 0.348450,   -0.912253,   -0.215354));
-    orientations.push_back(Coordinates( 0.166667,   -0.936339,   -0.309017));
-    orientations.push_back(Coordinates( 0.522674,   -0.845705,    0.107677));
-    orientations.push_back(Coordinates( 0.356822,   -0.934172,    0.000000));
-    orientations.push_back(Coordinates( 0.174225,   -0.978801,   -0.107677));
-    orientations.push_back(Coordinates( 0.348450,   -0.912253,    0.215354));
-    orientations.push_back(Coordinates( 0.174225,   -0.978801,    0.107677));
-    orientations.push_back(Coordinates( 0.166667,   -0.936339,    0.309017));
-    orientations.push_back(Coordinates( 0.769672,   -0.578689,   -0.269672));
-    orientations.push_back(Coordinates( 0.738028,   -0.497255,   -0.456127));
-    orientations.push_back(Coordinates( 0.671480,   -0.389579,   -0.630351));
-    orientations.push_back(Coordinates( 0.578689,   -0.269672,   -0.769672));
-    orientations.push_back(Coordinates( 0.630351,   -0.671480,   -0.389579));
-    orientations.push_back(Coordinates( 0.577350,   -0.577350,   -0.577350));
-    orientations.push_back(Coordinates( 0.497255,   -0.456127,   -0.738028));
-    orientations.push_back(Coordinates( 0.456127,   -0.738028,   -0.497255));
-    orientations.push_back(Coordinates( 0.389579,   -0.630351,   -0.671480));
-    orientations.push_back(Coordinates( 0.269672,   -0.769672,   -0.578689));
-    orientations.push_back(Coordinates( 0.309017,    0.166667,    0.936339));
-    orientations.push_back(Coordinates( 0.107677,    0.174225,    0.978801));
-    orientations.push_back(Coordinates(-0.107677,    0.174225,    0.978801));
-    orientations.push_back(Coordinates(-0.309017,    0.166667,    0.936339));
-    orientations.push_back(Coordinates( 0.215354,    0.348450,    0.912253));
-    orientations.push_back(Coordinates( 0.000000,    0.356822,    0.934172));
-    orientations.push_back(Coordinates(-0.215354,    0.348450,    0.912253));
-    orientations.push_back(Coordinates( 0.107677,    0.522674,    0.845705));
-    orientations.push_back(Coordinates(-0.107677,    0.522674,    0.845705));
-    orientations.push_back(Coordinates( 0.000000,    0.666667,    0.745356));
-    orientations.push_back(Coordinates( 0.309017,   -0.166667,    0.936339));
-    orientations.push_back(Coordinates( 0.215354,   -0.348450,    0.912253));
-    orientations.push_back(Coordinates( 0.107677,   -0.522674,    0.845705));
-    orientations.push_back(Coordinates( 0.000000,   -0.666667,    0.745356));
-    orientations.push_back(Coordinates( 0.107677,   -0.174225,    0.978801));
-    orientations.push_back(Coordinates( 0.000000,   -0.356822,    0.934172));
-    orientations.push_back(Coordinates(-0.107677,   -0.522674,    0.845705));
-    orientations.push_back(Coordinates(-0.107677,   -0.174225,    0.978801));
-    orientations.push_back(Coordinates(-0.215354,   -0.348450,    0.912253));
-    orientations.push_back(Coordinates(-0.309017,   -0.166667,    0.936339));
-    orientations.push_back(Coordinates( 0.309017,   -0.166667,   -0.936339));
-    orientations.push_back(Coordinates( 0.107677,   -0.174225,   -0.978801));
-    orientations.push_back(Coordinates(-0.107677,   -0.174225,   -0.978801));
-    orientations.push_back(Coordinates(-0.309017,   -0.166667,   -0.936339));
-    orientations.push_back(Coordinates( 0.215354,   -0.348450,   -0.912253));
-    orientations.push_back(Coordinates( 0.000000,   -0.356822,   -0.934172));
-    orientations.push_back(Coordinates(-0.215354,   -0.348450,   -0.912253));
-    orientations.push_back(Coordinates( 0.107677,   -0.522674,   -0.845705));
-    orientations.push_back(Coordinates(-0.107677,   -0.522674,   -0.845705));
-    orientations.push_back(Coordinates( 0.000000,   -0.666667,   -0.745356));
-    orientations.push_back(Coordinates( 0.309017,    0.166667,   -0.936339));
-    orientations.push_back(Coordinates( 0.215354,    0.348450,   -0.912253));
-    orientations.push_back(Coordinates( 0.107677,    0.522674,   -0.845705));
-    orientations.push_back(Coordinates( 0.000000,    0.666667,   -0.745356));
-    orientations.push_back(Coordinates( 0.107677,    0.174225,   -0.978801));
-    orientations.push_back(Coordinates( 0.000000,    0.356822,   -0.934172));
-    orientations.push_back(Coordinates(-0.107677,    0.522674,   -0.845705));
-    orientations.push_back(Coordinates(-0.107677,    0.174225,   -0.978801));
-    orientations.push_back(Coordinates(-0.215354,    0.348450,   -0.912253));
-    orientations.push_back(Coordinates(-0.309017,    0.166667,   -0.936339));
-    orientations.push_back(Coordinates(-0.166667,    0.936339,    0.309017));
-    orientations.push_back(Coordinates(-0.348450,    0.912253,    0.215354));
-    orientations.push_back(Coordinates(-0.522674,    0.845705,    0.107677));
-    orientations.push_back(Coordinates(-0.666667,    0.745356,    0.000000));
-    orientations.push_back(Coordinates(-0.174225,    0.978801,    0.107677));
-    orientations.push_back(Coordinates(-0.356822,    0.934172,    0.000000));
-    orientations.push_back(Coordinates(-0.522674,    0.845705,   -0.107677));
-    orientations.push_back(Coordinates(-0.174225,    0.978801,   -0.107677));
-    orientations.push_back(Coordinates(-0.348450,    0.912253,   -0.215354));
-    orientations.push_back(Coordinates(-0.166667,    0.936339,   -0.309017));
-    orientations.push_back(Coordinates(-0.269672,    0.769672,    0.578689));
-    orientations.push_back(Coordinates(-0.389579,    0.630351,    0.671480));
-    orientations.push_back(Coordinates(-0.497255,    0.456127,    0.738028));
-    orientations.push_back(Coordinates(-0.578689,    0.269672,    0.769672));
-    orientations.push_back(Coordinates(-0.456127,    0.738028,    0.497255));
-    orientations.push_back(Coordinates(-0.577350,    0.577350,    0.577350));
-    orientations.push_back(Coordinates(-0.671480,    0.389579,    0.630351));
-    orientations.push_back(Coordinates(-0.630351,    0.671480,    0.389579));
-    orientations.push_back(Coordinates(-0.738028,    0.497255,    0.456127));
-    orientations.push_back(Coordinates(-0.769672,    0.578689,    0.269672));
-    orientations.push_back(Coordinates(-0.269672,    0.769672,   -0.578689));
-    orientations.push_back(Coordinates(-0.456127,    0.738028,   -0.497255));
-    orientations.push_back(Coordinates(-0.630351,    0.671480,   -0.389579));
-    orientations.push_back(Coordinates(-0.769672,    0.578689,   -0.269672));
-    orientations.push_back(Coordinates(-0.389579,    0.630351,   -0.671480));
-    orientations.push_back(Coordinates(-0.577350,    0.577350,   -0.577350));
-    orientations.push_back(Coordinates(-0.738028,    0.497255,   -0.456127));
-    orientations.push_back(Coordinates(-0.497255,    0.456127,   -0.738028));
-    orientations.push_back(Coordinates(-0.671480,    0.389579,   -0.630351));
-    orientations.push_back(Coordinates(-0.578689,    0.269672,   -0.769672));
-    orientations.push_back(Coordinates(-0.269672,   -0.769672,    0.578689));
-    orientations.push_back(Coordinates(-0.456127,   -0.738028,    0.497255));
-    orientations.push_back(Coordinates(-0.630351,   -0.671480,    0.389579));
-    orientations.push_back(Coordinates(-0.769672,   -0.578689,    0.269672));
-    orientations.push_back(Coordinates(-0.389579,   -0.630351,    0.671480));
-    orientations.push_back(Coordinates(-0.577350,   -0.577350,    0.577350));
-    orientations.push_back(Coordinates(-0.738028,   -0.497255,    0.456127));
-    orientations.push_back(Coordinates(-0.497255,   -0.456127,    0.738028));
-    orientations.push_back(Coordinates(-0.671480,   -0.389579,    0.630351));
-    orientations.push_back(Coordinates(-0.578689,   -0.269672,    0.769672));
-    orientations.push_back(Coordinates(-0.166667,   -0.936339,    0.309017));
-    orientations.push_back(Coordinates(-0.174225,   -0.978801,    0.107677));
-    orientations.push_back(Coordinates(-0.174225,   -0.978801,   -0.107677));
-    orientations.push_back(Coordinates(-0.166667,   -0.936339,   -0.309017));
-    orientations.push_back(Coordinates(-0.348450,   -0.912253,    0.215354));
-    orientations.push_back(Coordinates(-0.356822,   -0.934172,    0.000000));
-    orientations.push_back(Coordinates(-0.348450,   -0.912253,   -0.215354));
-    orientations.push_back(Coordinates(-0.522674,   -0.845705,    0.107677));
-    orientations.push_back(Coordinates(-0.522674,   -0.845705,   -0.107677));
-    orientations.push_back(Coordinates(-0.666667,   -0.745356,    0.000000));
-    orientations.push_back(Coordinates(-0.269672,   -0.769672,   -0.578689));
-    orientations.push_back(Coordinates(-0.389579,   -0.630351,   -0.671480));
-    orientations.push_back(Coordinates(-0.497255,   -0.456127,   -0.738028));
-    orientations.push_back(Coordinates(-0.578689,   -0.269672,   -0.769672));
-    orientations.push_back(Coordinates(-0.456127,   -0.738028,   -0.497255));
-    orientations.push_back(Coordinates(-0.577350,   -0.577350,   -0.577350));
-    orientations.push_back(Coordinates(-0.671480,   -0.389579,   -0.630351));
-    orientations.push_back(Coordinates(-0.630351,   -0.671480,   -0.389579));
-    orientations.push_back(Coordinates(-0.738028,   -0.497255,   -0.456127));
-    orientations.push_back(Coordinates(-0.769672,   -0.578689,   -0.269672));
-    orientations.push_back(Coordinates(-0.745356,    0.000000,    0.666667));
-    orientations.push_back(Coordinates(-0.845705,   -0.107677,    0.522674));
-    orientations.push_back(Coordinates(-0.912253,   -0.215354,    0.348450));
-    orientations.push_back(Coordinates(-0.936339,   -0.309017,    0.166667));
-    orientations.push_back(Coordinates(-0.845705,    0.107677,    0.522674));
-    orientations.push_back(Coordinates(-0.934172,    0.000000,    0.356822));
-    orientations.push_back(Coordinates(-0.978801,   -0.107677,    0.174225));
-    orientations.push_back(Coordinates(-0.912253,    0.215354,    0.348450));
-    orientations.push_back(Coordinates(-0.978801,    0.107677,    0.174225));
-    orientations.push_back(Coordinates(-0.936339,    0.309017,    0.166667));
-    orientations.push_back(Coordinates(-0.745356,    0.000000,   -0.666667));
-    orientations.push_back(Coordinates(-0.845705,    0.107677,   -0.522674));
-    orientations.push_back(Coordinates(-0.912253,    0.215354,   -0.348450));
-    orientations.push_back(Coordinates(-0.936339,    0.309017,   -0.166667));
-    orientations.push_back(Coordinates(-0.845705,   -0.107677,   -0.522674));
-    orientations.push_back(Coordinates(-0.934172,    0.000000,   -0.356822));
-    orientations.push_back(Coordinates(-0.978801,    0.107677,   -0.174225));
-    orientations.push_back(Coordinates(-0.912253,   -0.215354,   -0.348450));
-    orientations.push_back(Coordinates(-0.978801,   -0.107677,   -0.174225));
-    orientations.push_back(Coordinates(-0.936339,   -0.309017,   -0.166667));
-}
-*/
 
 void OrientationSet::init72() {
-    // Caution: eigen-order is: w,x,y,z
-    orientations.push_back(Coordinates(0.236268,	0.204124,		0.353553    ,	0.881766	 ));
-    orientations.push_back(Coordinates(0.645497,	-8.92255e-09,	0.408248    ,	0.645497	 ));
-    orientations.push_back(Coordinates(0.881766,	-0.204124,		0.353553    ,	0.236268	 ));
-    orientations.push_back(Coordinates(0.881766,	-0.353553,		0.204124    ,	-0.236268	 ));
-    orientations.push_back(Coordinates(0.645497,	-0.408248,		-2.67677e-08,	-0.645497	 ));
-    orientations.push_back(Coordinates(0.236268,	-0.353553,		-0.204124   ,	-0.881766	 ));
-    orientations.push_back(Coordinates(0.236268,	-0.353553,		0.204124    ,	0.881766	 ));
-    orientations.push_back(Coordinates(0.645497,	-0.408248,		-8.92255e-09,	0.645497	 ));
-    orientations.push_back(Coordinates(0.881766,	-0.353553,		-0.204124   ,	0.236268	 ));
-    orientations.push_back(Coordinates(0.881766,	-0.204124,		-0.353553   ,	-0.236268	 ));
-    orientations.push_back(Coordinates(0.645497,	2.67677e-08,	-0.408248   ,	-0.645497	 ));
-    orientations.push_back(Coordinates(0.236268,	0.204124,		-0.353553   ,	-0.881766	 ));
-    orientations.push_back(Coordinates(0.236268,	-0.204124,		-0.353553   ,	0.881766	 ));
-    orientations.push_back(Coordinates(0.645497,	8.92255e-09,	-0.408248   ,	0.645497	 ));
-    orientations.push_back(Coordinates(0.881766,	0.204124,		-0.353553   ,	0.236268	 ));
-    orientations.push_back(Coordinates(0.881766,	0.353553,		-0.204124   ,	-0.236268	 ));
-    orientations.push_back(Coordinates(0.645497,	0.408248,		2.67677e-08 ,	-0.645497	 ));
-    orientations.push_back(Coordinates(0.236268,	0.353553,		0.204124    ,	-0.881766	 ));
-    orientations.push_back(Coordinates(0.236268,	0.353553,		-0.204124   ,	0.881766	 ));
-    orientations.push_back(Coordinates(0.645497,	0.408248,		8.92255e-09 ,	0.645497	 ));
-    orientations.push_back(Coordinates(0.881766,	0.353553,		0.204124    ,	0.236268	 ));
-    orientations.push_back(Coordinates(0.881766,	0.204124,		0.353553    ,	-0.236268	 ));
-    orientations.push_back(Coordinates(0.645497,	-2.67677e-08,	0.408248    ,	-0.645497	 ));
-    orientations.push_back(Coordinates(0.236268,	-0.204124,		0.353553    ,	-0.881766	 ));
-    orientations.push_back(Coordinates(0.183013,	0.683013,		0.183013    ,	0.683013	 ));
-    orientations.push_back(Coordinates(0.5,		0.5,			0.5          	,	0.5			));
-    orientations.push_back(Coordinates(0.683013,	0.183013,		0.683013    ,	0.183013	 ));
-    orientations.push_back(Coordinates(0.683013,	-0.183013,		0.683013    ,	-0.183013	 ));
-    orientations.push_back(Coordinates(0.5,		-0.5,			0.5          	,	-0.5		));
-    orientations.push_back(Coordinates(0.183013,	-0.683013,		0.183013    ,	-0.683013	 ));
-    orientations.push_back(Coordinates(0.183013,	-0.183013,		0.683013    ,	0.683013	 ));
-    orientations.push_back(Coordinates(0.5,		-0.5,			0.5          	,	0.5			));
-    orientations.push_back(Coordinates(0.683013,	-0.683013,		0.183013    ,	0.183013	 ));
-    orientations.push_back(Coordinates(0.683013,	-0.683013,		-0.183013   ,	-0.183013	 ));
-    orientations.push_back(Coordinates(0.5,		-0.5,			-0.5         	,	-0.5		));
-    orientations.push_back(Coordinates(0.183013,	-0.183013,		-0.683013   ,	-0.683013	 ));
-    orientations.push_back(Coordinates(0.183013,	-0.683013,		-0.183013   ,	0.683013	 ));
-    orientations.push_back(Coordinates(0.5,		-0.5,			-0.5         	,	0.5			));
-    orientations.push_back(Coordinates(0.683013,	-0.183013,		-0.683013   ,	0.183013	 ));
-    orientations.push_back(Coordinates(0.683013,	0.183013,		-0.683013   ,	-0.183013	 ));
-    orientations.push_back(Coordinates(0.5,		0.5,			-0.5         	,	-0.5		));
-    orientations.push_back(Coordinates(0.183013,	0.683013,		-0.183013   ,	-0.683013	 ));
-    orientations.push_back(Coordinates(0.183013,	0.183013,		-0.683013   ,	0.683013	 ));
-    orientations.push_back(Coordinates(0.5,		0.5,			-0.5         	,	0.5			));
-    orientations.push_back(Coordinates(0.683013,	0.683013,		-0.183013   ,	0.183013	 ));
-    orientations.push_back(Coordinates(0.683013,	0.683013,		0.183013    ,	-0.183013	 ));
-    orientations.push_back(Coordinates(0.5,		0.5,			0.5          	,	-0.5			));
-    orientations.push_back(Coordinates(0.183013,	0.183013,		0.683013    ,	-0.683013	 ));
-    orientations.push_back(Coordinates(0.105662,	0.456435,		0.790569    ,	0.394338	 ));
-    orientations.push_back(Coordinates(0.288675,	-1.99514e-08,	0.912871    ,	0.288675	 ));
-    orientations.push_back(Coordinates(0.394338,	-0.456435,		0.790569    ,	0.105662	 ));
-    orientations.push_back(Coordinates(0.394338,	-0.790569,		0.456435    ,	-0.105662	 ));
-    orientations.push_back(Coordinates(0.288675,	-0.912871,		-5.98543e-08,	-0.288675	 ));
-    orientations.push_back(Coordinates(0.105662,	-0.790569,		-0.456436   ,	-0.394338	 ));
-    orientations.push_back(Coordinates(0.105662,	-0.790569,		0.456435    ,	0.394338	 ));
-    orientations.push_back(Coordinates(0.288675,	-0.912871,		-1.99514e-08,	0.288675	 ));
-    orientations.push_back(Coordinates(0.394338,	-0.790569,		-0.456435   ,	0.105662	 ));
-    orientations.push_back(Coordinates(0.394338,	-0.456435,		-0.790569   ,	-0.105662	 ));
-    orientations.push_back(Coordinates(0.288675,	5.98543e-08,	-0.912871   ,	-0.288675	 ));
-    orientations.push_back(Coordinates(0.105662,	0.456436,		-0.790569   ,	-0.394338	 ));
-    orientations.push_back(Coordinates(0.105662,	-0.456435,		-0.790569   ,	0.394338	 ));
-    orientations.push_back(Coordinates(0.288675,	1.99514e-08,	-0.912871   ,	0.288675	 ));
-    orientations.push_back(Coordinates(0.394338,	0.456435,		-0.790569   ,	0.105662	 ));
-    orientations.push_back(Coordinates(0.394338,	0.790569,		-0.456435   ,	-0.105662	 ));
-    orientations.push_back(Coordinates(0.288675,	0.912871,		5.98543e-08 ,	-0.288675	 ));
-    orientations.push_back(Coordinates(0.105662,	0.790569,		0.456436    ,	-0.394338	 ));
-    orientations.push_back(Coordinates(0.105662,	0.790569,		-0.456435   ,	0.394338	 ));
-    orientations.push_back(Coordinates(0.288675,	0.912871,		1.99514e-08 ,	0.288675	 ));
-    orientations.push_back(Coordinates(0.394338,	0.790569,		0.456435    ,	0.105662	 ));
-    orientations.push_back(Coordinates(0.394338,	0.456435,		0.790569    ,	-0.105662	 ));
-    orientations.push_back(Coordinates(0.288675,	-5.98543e-08,	0.912871    ,	-0.288675	 ));
-    orientations.push_back(Coordinates(0.105662,	-0.456436,		0.790569    ,	-0.394338	 ));
+  // Caution: eigen-order is: w,x,y,z
+  double arr[4*72]={
+    0.236268,	0.204124,		0.353553,	0.881766,
+    0.645497,	-8.92255e-09,	0.408248,	0.645497,
+    0.881766,	-0.204124,		0.353553,	0.236268,
+    0.881766,	-0.353553,		0.204124,	-0.236268,
+    0.645497,	-0.408248,		-2.67677e-08,	-0.645497,
+    0.236268,	-0.353553,		-0.204124,	-0.881766,
+    0.236268,	-0.353553,		0.204124,	0.881766,
+    0.645497,	-0.408248,		-8.92255e-09,	0.645497,
+    0.881766,	-0.353553,		-0.204124,	0.236268,
+    0.881766,	-0.204124,		-0.353553,	-0.236268,
+    0.645497,	2.67677e-08,	-0.408248,	-0.645497,
+    0.236268,	0.204124,		-0.353553,	-0.881766,
+    0.236268,	-0.204124,		-0.353553,	0.881766,
+    0.645497,	8.92255e-09,	-0.408248,	0.645497,
+    0.881766,	0.204124,		-0.353553,	0.236268,
+    0.881766,	0.353553,		-0.204124,	-0.236268,
+    0.645497,	0.408248,		2.67677e-08,	-0.645497,
+    0.236268,	0.353553,		0.204124,	-0.881766,
+    0.236268,	0.353553,		-0.204124,	0.881766,
+    0.645497,	0.408248,		8.92255e-09,	0.645497,
+    0.881766,	0.353553,		0.204124,	0.236268,
+    0.881766,	0.204124,		0.353553,	-0.236268,
+    0.645497,	-2.67677e-08,	0.408248,	-0.645497,
+    0.236268,	-0.204124,		0.353553,	-0.881766,
+    0.183013,	0.683013,		0.183013,	0.683013,
+    0.5,		0.5,			0.5          	,	0.5,
+    0.683013,	0.183013,		0.683013,	0.183013,
+    0.683013,	-0.183013,		0.683013,	-0.183013,
+    0.5,		-0.5,			0.5          	,	-0.5	,
+    0.183013,	-0.683013,		0.183013,	-0.683013,
+    0.183013,	-0.183013,		0.683013,	0.683013,
+    0.5,		-0.5,			0.5          	,	0.5,
+    0.683013,	-0.683013,		0.183013,	0.183013,
+    0.683013,	-0.683013,		-0.183013,	-0.183013,
+    0.5,		-0.5,			-0.5         	,	-0.5	,
+    0.183013,	-0.183013,		-0.683013,	-0.683013,
+    0.183013,	-0.683013,		-0.183013,	0.683013,
+    0.5,		-0.5,			-0.5         	,	0.5,
+    0.683013,	-0.183013,		-0.683013,	0.183013,
+    0.683013,	0.183013,		-0.683013,	-0.183013,
+    0.5,		0.5,			-0.5         	,	-0.5	,
+    0.183013,	0.683013,		-0.183013,	-0.683013,
+    0.183013,	0.183013,		-0.683013,	0.683013,
+    0.5,		0.5,			-0.5         	,	0.5,
+    0.683013,	0.683013,		-0.183013,	0.183013,
+    0.683013,	0.683013,		0.183013,	-0.183013,
+    0.5,		0.5,			0.5          	,	-0.5,
+    0.183013,	0.183013,		0.683013,	-0.683013,
+    0.105662,	0.456435,		0.790569,	0.394338,
+    0.288675,	-1.99514e-08,	0.912871,	0.288675,
+    0.394338,	-0.456435,		0.790569,	0.105662,
+    0.394338,	-0.790569,		0.456435,	-0.105662,
+    0.288675,	-0.912871,		-5.98543e-08,	-0.288675,
+    0.105662,	-0.790569,		-0.456436,	-0.394338,
+    0.105662,	-0.790569,		0.456435,	0.394338,
+    0.288675,	-0.912871,		-1.99514e-08,	0.288675,
+    0.394338,	-0.790569,		-0.456435,	0.105662,
+    0.394338,	-0.456435,		-0.790569,	-0.105662,
+    0.288675,	5.98543e-08,	-0.912871,	-0.288675,
+    0.105662,	0.456436,		-0.790569,	-0.394338,
+    0.105662,	-0.456435,		-0.790569,	0.394338,
+    0.288675,	1.99514e-08,	-0.912871,	0.288675,
+    0.394338,	0.456435,		-0.790569,	0.105662,
+    0.394338,	0.790569,		-0.456435,	-0.105662,
+    0.288675,	0.912871,		5.98543e-08,	-0.288675,
+    0.105662,	0.790569,		0.456436,	-0.394338,
+    0.105662,	0.790569,		-0.456435,	0.394338,
+    0.288675,	0.912871,		1.99514e-08,	0.288675,
+    0.394338,	0.790569,		0.456435,	0.105662,
+    0.394338,	0.456435,		0.790569,	-0.105662,
+    0.288675,	-5.98543e-08,	0.912871,	-0.288675,
+    0.105662,	-0.456436,		0.790569,	-0.394338};
+
+  initVector(arr, 4*72);
 }
 
 void OrientationSet::init576() {
-    orientations.push_back(Coordinates(0.458043,		0.809511,		0.106574,		0.351469                                                  ));
-    orientations.push_back(Coordinates(0.533402,		0.754344,		0.31246,		0.220942                                                  ));
-    orientations.push_back(Coordinates(0.572411,		0.64777,		0.497052,		0.0753593                                                 ));
-    orientations.push_back(Coordinates(0.572411,		0.497052,		0.64777,		-0.0753593                                                ));
-    orientations.push_back(Coordinates(0.533402,		0.31246,		0.754344,		-0.220942                                                 ));
-    orientations.push_back(Coordinates(0.458043,		0.106574,		0.809511,		-0.351469                                                 ));
-    orientations.push_back(Coordinates(0.351469,		-0.106574,		0.809511,		-0.458043                                                 ));
-    orientations.push_back(Coordinates(0.220942,		-0.31246,		0.754344,		-0.533402                                                 ));
-    orientations.push_back(Coordinates(0.0753593,		-0.497052,		0.64777,		-0.572411                                                 ));
-    orientations.push_back(Coordinates(-0.0753594,		-0.64777,		0.497052,		-0.572411                                                 ));
-    orientations.push_back(Coordinates(-0.220942,		-0.754345,		0.31246,		-0.533402                                                 ));
-    orientations.push_back(Coordinates(-0.351469,		-0.809511,		0.106574,		-0.458043                                                 ));
-    orientations.push_back(Coordinates(0.394338,		0.905061,		0.119154,		0.105662                                                  ));
-    orientations.push_back(Coordinates(0.408248,		0.843383,		0.349341,		-4.46128e-09                                              ));
-    orientations.push_back(Coordinates(0.394338,		0.724229,		0.555721,		-0.105662                                                 ));
-    orientations.push_back(Coordinates(0.353553,		0.555721,		0.724229,		-0.204124                                                 ));
-    orientations.push_back(Coordinates(0.288675,		0.349341,		0.843383,		-0.288675                                                 ));
-    orientations.push_back(Coordinates(0.204124,		0.119154,		0.905061,		-0.353553                                                 ));
-    orientations.push_back(Coordinates(0.105662,		-0.119154,		0.905061,		-0.394338                                                 ));
-    orientations.push_back(Coordinates(-2.23064e-08,		-0.349341,		0.843383,		-0.408248                                             ));
-    orientations.push_back(Coordinates(-0.105662,		-0.555721,		0.724229,		-0.394338                                                 ));
-    orientations.push_back(Coordinates(-0.204124,		-0.724229,		0.555721,		-0.353553                                                 ));
-    orientations.push_back(Coordinates(-0.288675,		-0.843383,		0.349341,		-0.288675                                                 ));
-    orientations.push_back(Coordinates(-0.353553,		-0.905061,		0.119153,		-0.204124                                                 ));
-    orientations.push_back(Coordinates(0.204124,		0.905061,		0.119154,		0.353553                                                  ));
-    orientations.push_back(Coordinates(0.288675,		0.843383,		0.349341,		0.288675                                                  ));
-    orientations.push_back(Coordinates(0.353553,		0.724229,		0.555721,		0.204124                                                  ));
-    orientations.push_back(Coordinates(0.394338,		0.555721,		0.724229,		0.105662                                                  ));
-    orientations.push_back(Coordinates(0.408248,		0.349341,		0.843383,		-1.33838e-08                                              ));
-    orientations.push_back(Coordinates(0.394338,		0.119154,		0.905061,		-0.105662                                                 ));
-    orientations.push_back(Coordinates(0.353553,		-0.119154,		0.905061,		-0.204124                                                 ));
-    orientations.push_back(Coordinates(0.288675,		-0.349341,		0.843383,		-0.288675                                                 ));
-    orientations.push_back(Coordinates(0.204124,		-0.555721,		0.724229,		-0.353553                                                 ));
-    orientations.push_back(Coordinates(0.105662,		-0.724229,		0.555721,		-0.394338                                                 ));
-    orientations.push_back(Coordinates(-3.12289e-08,		-0.843383,		0.349341,		-0.408248                                             ));
-    orientations.push_back(Coordinates(-0.105662,		-0.905061,		0.119153,		-0.394338                                                 ));
-    orientations.push_back(Coordinates(0.161943,		0.97057,		0.127778,		0.124263                                                  ));
-    orientations.push_back(Coordinates(0.188586,		0.904427,		0.374626,		0.0781149                                                 ));
-    orientations.push_back(Coordinates(0.202378,		0.776649,		0.595944,		0.0266435                                                 ));
-    orientations.push_back(Coordinates(0.202378,		0.595944,		0.776649,		-0.0266436                                                ));
-    orientations.push_back(Coordinates(0.188586,		0.374626,		0.904427,		-0.0781149                                                ));
-    orientations.push_back(Coordinates(0.161943,		0.127778,		0.97057,		-0.124263                                                 ));
-    orientations.push_back(Coordinates(0.124263,		-0.127778,		0.97057,		-0.161943                                                 ));
-    orientations.push_back(Coordinates(0.0781149,		-0.374626,		0.904427,		-0.188586                                                 ));
-    orientations.push_back(Coordinates(0.0266435,		-0.595944,		0.776649,		-0.202378                                                 ));
-    orientations.push_back(Coordinates(-0.0266436,		-0.776649,		0.595944,		-0.202378                                                 ));
-    orientations.push_back(Coordinates(-0.0781149,		-0.904427,		0.374626,		-0.188586                                                 ));
-    orientations.push_back(Coordinates(-0.124263,		-0.97057,		0.127778,		-0.161943                                                 ));
-    orientations.push_back(Coordinates(0.351469,		0.809511,		0.106574,		-0.458043                                                 ));
-    orientations.push_back(Coordinates(0.220942,		0.754344,		0.31246,		-0.533402                                                 ));
-    orientations.push_back(Coordinates(0.0753593,		0.64777,		0.497052,		-0.572411                                                 ));
-    orientations.push_back(Coordinates(-0.0753593,		0.497052,		0.64777,		-0.572411                                                 ));
-    orientations.push_back(Coordinates(-0.220942,		0.31246,		0.754344,		-0.533402                                                 ));
-    orientations.push_back(Coordinates(-0.351469,		0.106574,		0.809511,		-0.458043                                                 ));
-    orientations.push_back(Coordinates(-0.458043,		-0.106574,		0.809511,		-0.351469                                                 ));
-    orientations.push_back(Coordinates(-0.533402,		-0.31246,		0.754344,		-0.220942                                                 ));
-    orientations.push_back(Coordinates(-0.572411,		-0.497052,		0.64777,		-0.0753593                                                ));
-    orientations.push_back(Coordinates(-0.572411,		-0.64777,		0.497052,		0.0753594                                                 ));
-    orientations.push_back(Coordinates(-0.533402,		-0.754345,		0.31246,		0.220942                                                  ));
-    orientations.push_back(Coordinates(-0.458043,		-0.809511,		0.106574,		0.351469                                                  ));
-    orientations.push_back(Coordinates(0.105662,		0.905061,		0.119154,		-0.394338                                                 ));
-    orientations.push_back(Coordinates(-4.46128e-09,		0.843383,		0.349341,		-0.408248                                             ));
-    orientations.push_back(Coordinates(-0.105662,		0.724229,		0.555721,		-0.394338                                                 ));
-    orientations.push_back(Coordinates(-0.204124,		0.555721,		0.724229,		-0.353553                                                 ));
-    orientations.push_back(Coordinates(-0.288675,		0.349341,		0.843383,		-0.288675                                                 ));
-    orientations.push_back(Coordinates(-0.353553,		0.119154,		0.905061,		-0.204124                                                 ));
-    orientations.push_back(Coordinates(-0.394338,		-0.119154,		0.905061,		-0.105662                                                 ));
-    orientations.push_back(Coordinates(-0.408248,		-0.349341,		0.843383,		2.23064e-08                                               ));
-    orientations.push_back(Coordinates(-0.394338,		-0.555721,		0.724229,		0.105662                                                  ));
-    orientations.push_back(Coordinates(-0.353553,		-0.724229,		0.555721,		0.204124                                                  ));
-    orientations.push_back(Coordinates(-0.288675,		-0.843383,		0.349341,		0.288675                                                  ));
-    orientations.push_back(Coordinates(-0.204124,		-0.905061,		0.119153,		0.353553                                                  ));
-    orientations.push_back(Coordinates(0.353553,		0.905061,		0.119154,		-0.204124                                                 ));
-    orientations.push_back(Coordinates(0.288675,		0.843383,		0.349341,		-0.288675                                                 ));
-    orientations.push_back(Coordinates(0.204124,		0.724229,		0.555721,		-0.353553                                                 ));
-    orientations.push_back(Coordinates(0.105662,		0.555721,		0.724229,		-0.394338                                                 ));
-    orientations.push_back(Coordinates(-1.33838e-08,		0.349341,		0.843383,		-0.408248                                             ));
-    orientations.push_back(Coordinates(-0.105662,		0.119154,		0.905061,		-0.394338                                                 ));
-    orientations.push_back(Coordinates(-0.204124,		-0.119154,		0.905061,		-0.353553                                                 ));
-    orientations.push_back(Coordinates(-0.288675,		-0.349341,		0.843383,		-0.288675                                                 ));
-    orientations.push_back(Coordinates(-0.353553,		-0.555721,		0.724229,		-0.204124                                                 ));
-    orientations.push_back(Coordinates(-0.394338,		-0.724229,		0.555721,		-0.105662                                                 ));
-    orientations.push_back(Coordinates(-0.408248,		-0.843383,		0.349341,		3.12289e-08                                               ));
-    orientations.push_back(Coordinates(-0.394338,		-0.905061,		0.119153,		0.105662                                                  ));
-    orientations.push_back(Coordinates(0.124263,		0.97057,		0.127778,		-0.161943                                                 ));
-    orientations.push_back(Coordinates(0.0781149,		0.904427,		0.374626,		-0.188586                                                 ));
-    orientations.push_back(Coordinates(0.0266435,		0.776649,		0.595944,		-0.202378                                                 ));
-    orientations.push_back(Coordinates(-0.0266436,		0.595944,		0.776649,		-0.202378                                                 ));
-    orientations.push_back(Coordinates(-0.0781149,		0.374626,		0.904427,		-0.188586                                                 ));
-    orientations.push_back(Coordinates(-0.124263,		0.127778,		0.97057,		-0.161943                                                 ));
-    orientations.push_back(Coordinates(-0.161943,		-0.127778,		0.97057,		-0.124263                                                 ));
-    orientations.push_back(Coordinates(-0.188586,		-0.374626,		0.904427,		-0.0781149                                                ));
-    orientations.push_back(Coordinates(-0.202378,		-0.595944,		0.776649,		-0.0266435                                                ));
-    orientations.push_back(Coordinates(-0.202378,		-0.776649,		0.595944,		0.0266436                                                 ));
-    orientations.push_back(Coordinates(-0.188586,		-0.904427,		0.374626,		0.0781149                                                 ));
-    orientations.push_back(Coordinates(-0.161943,		-0.97057,		0.127778,		0.124263                                                  ));
-    orientations.push_back(Coordinates(-0.458043,		0.809511,		0.106574,		-0.351469                                                 ));
-    orientations.push_back(Coordinates(-0.533402,		0.754344,		0.31246,		-0.220942                                                 ));
-    orientations.push_back(Coordinates(-0.572411,		0.64777,		0.497052,		-0.0753593                                                ));
-    orientations.push_back(Coordinates(-0.572411,		0.497052,		0.64777,		0.0753593                                                 ));
-    orientations.push_back(Coordinates(-0.533402,		0.31246,		0.754344,		0.220942                                                  ));
-    orientations.push_back(Coordinates(-0.458043,		0.106574,		0.809511,		0.351469                                                  ));
-    orientations.push_back(Coordinates(-0.351469,		-0.106574,		0.809511,		0.458043                                                  ));
-    orientations.push_back(Coordinates(-0.220942,		-0.31246,		0.754344,		0.533402                                                  ));
-    orientations.push_back(Coordinates(-0.0753593,		-0.497052,		0.64777,		0.572411                                                  ));
-    orientations.push_back(Coordinates(0.0753594,		-0.64777,		0.497052,		0.572411                                                  ));
-    orientations.push_back(Coordinates(0.220942,		-0.754345,		0.31246,		0.533402                                                  ));
-    orientations.push_back(Coordinates(0.351469,		-0.809511,		0.106574,		0.458043                                                  ));
-    orientations.push_back(Coordinates(-0.394338,		0.905061,		0.119154,		-0.105662                                                 ));
-    orientations.push_back(Coordinates(-0.408248,		0.843383,		0.349341,		4.46127e-09                                               ));
-    orientations.push_back(Coordinates(-0.394338,		0.724229,		0.555721,		0.105662                                                  ));
-    orientations.push_back(Coordinates(-0.353553,		0.555721,		0.724229,		0.204124                                                  ));
-    orientations.push_back(Coordinates(-0.288675,		0.349341,		0.843383,		0.288675                                                  ));
-    orientations.push_back(Coordinates(-0.204124,		0.119154,		0.905061,		0.353553                                                  ));
-    orientations.push_back(Coordinates(-0.105662,		-0.119154,		0.905061,		0.394338                                                  ));
-    orientations.push_back(Coordinates(2.23064e-08,		-0.349341,		0.843383,		0.408248                                              ));
-    orientations.push_back(Coordinates(0.105662,		-0.555721,		0.724229,		0.394338                                                  ));
-    orientations.push_back(Coordinates(0.204124,		-0.724229,		0.555721,		0.353553                                                  ));
-    orientations.push_back(Coordinates(0.288675,		-0.843383,		0.349341,		0.288675                                                  ));
-    orientations.push_back(Coordinates(0.353553,		-0.905061,		0.119153,		0.204124                                                  ));
-    orientations.push_back(Coordinates(-0.204124,		0.905061,		0.119154,		-0.353553                                                 ));
-    orientations.push_back(Coordinates(-0.288675,		0.843383,		0.349341,		-0.288675                                                 ));
-    orientations.push_back(Coordinates(-0.353553,		0.724229,		0.555721,		-0.204124                                                 ));
-    orientations.push_back(Coordinates(-0.394338,		0.555721,		0.724229,		-0.105662                                                 ));
-    orientations.push_back(Coordinates(-0.408248,		0.349341,		0.843383,		1.33838e-08                                               ));
-    orientations.push_back(Coordinates(-0.394338,		0.119154,		0.905061,		0.105662                                                  ));
-    orientations.push_back(Coordinates(-0.353553,		-0.119154,		0.905061,		0.204124                                                  ));
-    orientations.push_back(Coordinates(-0.288675,		-0.349341,		0.843383,		0.288675                                                  ));
-    orientations.push_back(Coordinates(-0.204124,		-0.555721,		0.724229,		0.353553                                                  ));
-    orientations.push_back(Coordinates(-0.105662,		-0.724229,		0.555721,		0.394338                                                  ));
-    orientations.push_back(Coordinates(3.12289e-08,		-0.843383,		0.349341,		0.408248                                              ));
-    orientations.push_back(Coordinates(0.105662,		-0.905061,		0.119153,		0.394338                                                  ));
-    orientations.push_back(Coordinates(-0.161943,		0.97057,		0.127778,		-0.124263                                                 ));
-    orientations.push_back(Coordinates(-0.188586,		0.904427,		0.374626,		-0.0781149                                                ));
-    orientations.push_back(Coordinates(-0.202378,		0.776649,		0.595944,		-0.0266435                                                ));
-    orientations.push_back(Coordinates(-0.202378,		0.595944,		0.776649,		0.0266436                                                 ));
-    orientations.push_back(Coordinates(-0.188586,		0.374626,		0.904427,		0.0781149                                                 ));
-    orientations.push_back(Coordinates(-0.161943,		0.127778,		0.97057,		0.124263                                                  ));
-    orientations.push_back(Coordinates(-0.124263,		-0.127778,		0.97057,		0.161943                                                  ));
-    orientations.push_back(Coordinates(-0.0781149,		-0.374626,		0.904427,		0.188586                                                  ));
-    orientations.push_back(Coordinates(-0.0266435,		-0.595944,		0.776649,		0.202378                                                  ));
-    orientations.push_back(Coordinates(0.0266436,		-0.776649,		0.595944,		0.202378                                                  ));
-    orientations.push_back(Coordinates(0.0781149,		-0.904427,		0.374626,		0.188586                                                  ));
-    orientations.push_back(Coordinates(0.124263,		-0.97057,		0.127778,		0.161943                                                  ));
-    orientations.push_back(Coordinates(-0.351469,		0.809511,		0.106574,		0.458043                                                  ));
-    orientations.push_back(Coordinates(-0.220942,		0.754344,		0.31246,		0.533402                                                  ));
-    orientations.push_back(Coordinates(-0.0753593,		0.64777,		0.497052,		0.572411                                                  ));
-    orientations.push_back(Coordinates(0.0753593,		0.497052,		0.64777,		0.572411                                                  ));
-    orientations.push_back(Coordinates(0.220942,		0.31246,		0.754344,		0.533402                                                  ));
-    orientations.push_back(Coordinates(0.351469,		0.106574,		0.809511,		0.458043                                                  ));
-    orientations.push_back(Coordinates(0.458043,		-0.106574,		0.809511,		0.351469                                                  ));
-    orientations.push_back(Coordinates(0.533402,		-0.31246,		0.754344,		0.220942                                                  ));
-    orientations.push_back(Coordinates(0.572411,		-0.497052,		0.64777,		0.0753593                                                 ));
-    orientations.push_back(Coordinates(0.572411,		-0.64777,		0.497052,		-0.0753594                                                ));
-    orientations.push_back(Coordinates(0.533402,		-0.754345,		0.31246,		-0.220942                                                 ));
-    orientations.push_back(Coordinates(0.458043,		-0.809511,		0.106574,		-0.351469                                                 ));
-    orientations.push_back(Coordinates(-0.105662,		0.905061,		0.119154,		0.394338                                                  ));
-    orientations.push_back(Coordinates(4.46127e-09,		0.843383,		0.349341,		0.408248                                              ));
-    orientations.push_back(Coordinates(0.105662,		0.724229,		0.555721,		0.394338                                                  ));
-    orientations.push_back(Coordinates(0.204124,		0.555721,		0.724229,		0.353553                                                  ));
-    orientations.push_back(Coordinates(0.288675,		0.349341,		0.843383,		0.288675                                                  ));
-    orientations.push_back(Coordinates(0.353553,		0.119154,		0.905061,		0.204124                                                  ));
-    orientations.push_back(Coordinates(0.394338,		-0.119154,		0.905061,		0.105662                                                  ));
-    orientations.push_back(Coordinates(0.408248,		-0.349341,		0.843383,		-2.23064e-08                                              ));
-    orientations.push_back(Coordinates(0.394338,		-0.555721,		0.724229,		-0.105662                                                 ));
-    orientations.push_back(Coordinates(0.353553,		-0.724229,		0.555721,		-0.204124                                                 ));
-    orientations.push_back(Coordinates(0.288675,		-0.843383,		0.349341,		-0.288675                                                 ));
-    orientations.push_back(Coordinates(0.204124,		-0.905061,		0.119153,		-0.353553                                                 ));
-    orientations.push_back(Coordinates(-0.353553,		0.905061,		0.119154,		0.204124                                                  ));
-    orientations.push_back(Coordinates(-0.288675,		0.843383,		0.349341,		0.288675                                                  ));
-    orientations.push_back(Coordinates(-0.204124,		0.724229,		0.555721,		0.353553                                                  ));
-    orientations.push_back(Coordinates(-0.105662,		0.555721,		0.724229,		0.394338                                                  ));
-    orientations.push_back(Coordinates(1.33838e-08,		0.349341,		0.843383,		0.408248                                              ));
-    orientations.push_back(Coordinates(0.105662,		0.119154,		0.905061,		0.394338                                                  ));
-    orientations.push_back(Coordinates(0.204124,		-0.119154,		0.905061,		0.353553                                                  ));
-    orientations.push_back(Coordinates(0.288675,		-0.349341,		0.843383,		0.288675                                                  ));
-    orientations.push_back(Coordinates(0.353553,		-0.555721,		0.724229,		0.204124                                                  ));
-    orientations.push_back(Coordinates(0.394338,		-0.724229,		0.555721,		0.105662                                                  ));
-    orientations.push_back(Coordinates(0.408248,		-0.843383,		0.349341,		-3.12289e-08                                              ));
-    orientations.push_back(Coordinates(0.394338,		-0.905061,		0.119153,		-0.105662                                                 ));
-    orientations.push_back(Coordinates(-0.124263,		0.97057,		0.127778,		0.161943                                                  ));
-    orientations.push_back(Coordinates(-0.0781149,		0.904427,		0.374626,		0.188586                                                  ));
-    orientations.push_back(Coordinates(-0.0266435,		0.776649,		0.595944,		0.202378                                                  ));
-    orientations.push_back(Coordinates(0.0266436,		0.595944,		0.776649,		0.202378                                                  ));
-    orientations.push_back(Coordinates(0.0781149,		0.374626,		0.904427,		0.188586                                                  ));
-    orientations.push_back(Coordinates(0.124263,		0.127778,		0.97057,		0.161943                                                  ));
-    orientations.push_back(Coordinates(0.161943,		-0.127778,		0.97057,		0.124263                                                  ));
-    orientations.push_back(Coordinates(0.188586,		-0.374626,		0.904427,		0.0781149                                                 ));
-    orientations.push_back(Coordinates(0.202378,		-0.595944,		0.776649,		0.0266435                                                 ));
-    orientations.push_back(Coordinates(0.202378,		-0.776649,		0.595944,		-0.0266436                                                ));
-    orientations.push_back(Coordinates(0.188586,		-0.904427,		0.374626,		-0.0781149                                                ));
-    orientations.push_back(Coordinates(0.161943,		-0.97057,		0.127778,		-0.124263                                                 ));
-    orientations.push_back(Coordinates(0.106574,		0.572411,		0.0753593,		0.809511                                                  ));
-    orientations.push_back(Coordinates(0.31246,		0.533402,		0.220942,		0.754344                                                  ));
-    orientations.push_back(Coordinates(0.497052,		0.458043,		0.351469,		0.64777                                                   ));
-    orientations.push_back(Coordinates(0.64777,		0.351469,		0.458043,		0.497052                                                  ));
-    orientations.push_back(Coordinates(0.754344,		0.220942,		0.533402,		0.31246                                                   ));
-    orientations.push_back(Coordinates(0.809511,		0.0753593,		0.572411,		0.106574                                                  ));
-    orientations.push_back(Coordinates(0.809511,		-0.0753594,		0.572411,		-0.106574                                                 ));
-    orientations.push_back(Coordinates(0.754344,		-0.220942,		0.533402,		-0.31246                                                  ));
-    orientations.push_back(Coordinates(0.64777,		-0.351469,		0.458043,		-0.497052                                                 ));
-    orientations.push_back(Coordinates(0.497052,		-0.458043,		0.351469,		-0.64777                                                  ));
-    orientations.push_back(Coordinates(0.31246,		-0.533402,		0.220942,		-0.754345                                                 ));
-    orientations.push_back(Coordinates(0.106574,		-0.572411,		0.0753593,		-0.809511                                                 ));
-    orientations.push_back(Coordinates(0.353553,		0.701057,		0.092296,		0.612372                                                  ));
-    orientations.push_back(Coordinates(0.5,		0.653281,		0.270598,		0.5                                                           ));
-    orientations.push_back(Coordinates(0.612372,		0.560986,		0.430459,		0.353553                                                  ));
-    orientations.push_back(Coordinates(0.683013,		0.430459,		0.560986,		0.183013                                                  ));
-    orientations.push_back(Coordinates(0.707107,		0.270598,		0.653281,		-2.31815e-08                                              ));
-    orientations.push_back(Coordinates(0.683013,		0.0922959,		0.701057,		-0.183013                                                 ));
-    orientations.push_back(Coordinates(0.612372,		-0.092296,		0.701057,		-0.353553                                                 ));
-    orientations.push_back(Coordinates(0.5,		-0.270598,		0.653281,		-0.5                                                          ));
-    orientations.push_back(Coordinates(0.353553,		-0.430459,		0.560986,		-0.612372                                                 ));
-    orientations.push_back(Coordinates(0.183013,		-0.560986,		0.430459,		-0.683013                                                 ));
-    orientations.push_back(Coordinates(-5.40901e-08,		-0.653282,		0.270598,		-0.707107                                             ));
-    orientations.push_back(Coordinates(-0.183013,		-0.701057,		0.0922959,		-0.683013                                                 ));
-    orientations.push_back(Coordinates(-0.183013,		0.701057,		0.092296,		0.683013                                                  ));
-    orientations.push_back(Coordinates(7.72715e-09,		0.653281,		0.270598,		0.707107                                              ));
-    orientations.push_back(Coordinates(0.183013,		0.560986,		0.430459,		0.683013                                                  ));
-    orientations.push_back(Coordinates(0.353553,		0.430459,		0.560986,		0.612372                                                  ));
-    orientations.push_back(Coordinates(0.5,		0.270598,		0.653281,		0.5                                                           ));
-    orientations.push_back(Coordinates(0.612372,		0.0922959,		0.701057,		0.353553                                                  ));
-    orientations.push_back(Coordinates(0.683013,		-0.092296,		0.701057,		0.183013                                                  ));
-    orientations.push_back(Coordinates(0.707107,		-0.270598,		0.653281,		-3.86358e-08                                              ));
-    orientations.push_back(Coordinates(0.683013,		-0.430459,		0.560986,		-0.183013                                                 ));
-    orientations.push_back(Coordinates(0.612372,		-0.560986,		0.430459,		-0.353553                                                 ));
-    orientations.push_back(Coordinates(0.5,		-0.653282,		0.270598,		-0.5                                                          ));
-    orientations.push_back(Coordinates(0.353553,		-0.701057,		0.0922959,		-0.612372                                                 ));
-    orientations.push_back(Coordinates(0.0753593,		0.809511,		0.106574,		0.572411                                                  ));
-    orientations.push_back(Coordinates(0.220942,		0.754344,		0.31246,		0.533402                                                  ));
-    orientations.push_back(Coordinates(0.351469,		0.64777,		0.497052,		0.458043                                                  ));
-    orientations.push_back(Coordinates(0.458043,		0.497052,		0.64777,		0.351469                                                  ));
-    orientations.push_back(Coordinates(0.533402,		0.31246,		0.754344,		0.220942                                                  ));
-    orientations.push_back(Coordinates(0.572411,		0.106574,		0.809511,		0.0753593                                                 ));
-    orientations.push_back(Coordinates(0.572411,		-0.106574,		0.809511,		-0.0753594                                                ));
-    orientations.push_back(Coordinates(0.533402,		-0.31246,		0.754344,		-0.220942                                                 ));
-    orientations.push_back(Coordinates(0.458043,		-0.497052,		0.64777,		-0.351469                                                 ));
-    orientations.push_back(Coordinates(0.351469,		-0.64777,		0.497052,		-0.458043                                                 ));
-    orientations.push_back(Coordinates(0.220942,		-0.754345,		0.31246,		-0.533402                                                 ));
-    orientations.push_back(Coordinates(0.0753593,		-0.809511,		0.106574,		-0.572411                                                 ));
-    orientations.push_back(Coordinates(0.809511,		0.572411,		0.0753593,		-0.106574                                                 ));
-    orientations.push_back(Coordinates(0.754344,		0.533402,		0.220942,		-0.31246                                                  ));
-    orientations.push_back(Coordinates(0.64777,		0.458043,		0.351469,		-0.497052                                                 ));
-    orientations.push_back(Coordinates(0.497052,		0.351469,		0.458043,		-0.64777                                                  ));
-    orientations.push_back(Coordinates(0.31246,		0.220942,		0.533402,		-0.754344                                                 ));
-    orientations.push_back(Coordinates(0.106574,		0.0753593,		0.572411,		-0.809511                                                 ));
-    orientations.push_back(Coordinates(-0.106574,		-0.0753594,		0.572411,		-0.809511                                                 ));
-    orientations.push_back(Coordinates(-0.31246,		-0.220942,		0.533402,		-0.754344                                                 ));
-    orientations.push_back(Coordinates(-0.497052,		-0.351469,		0.458043,		-0.64777                                                  ));
-    orientations.push_back(Coordinates(-0.64777,		-0.458043,		0.351469,		-0.497052                                                 ));
-    orientations.push_back(Coordinates(-0.754345,		-0.533402,		0.220942,		-0.31246                                                  ));
-    orientations.push_back(Coordinates(-0.809511,		-0.572411,		0.0753593,		-0.106574                                                 ));
-    orientations.push_back(Coordinates(0.612372,		0.701057,		0.092296,		-0.353553                                                 ));
-    orientations.push_back(Coordinates(0.5,		0.653281,		0.270598,		-0.5                                                          ));
-    orientations.push_back(Coordinates(0.353553,		0.560986,		0.430459,		-0.612372                                                 ));
-    orientations.push_back(Coordinates(0.183013,		0.430459,		0.560986,		-0.683013                                                 ));
-    orientations.push_back(Coordinates(-2.31815e-08,		0.270598,		0.653281,		-0.707107                                             ));
-    orientations.push_back(Coordinates(-0.183013,		0.0922959,		0.701057,		-0.683013                                                 ));
-    orientations.push_back(Coordinates(-0.353553,		-0.092296,		0.701057,		-0.612372                                                 ));
-    orientations.push_back(Coordinates(-0.5,		-0.270598,		0.653281,		-0.5                                                          ));
-    orientations.push_back(Coordinates(-0.612372,		-0.430459,		0.560986,		-0.353553                                                 ));
-    orientations.push_back(Coordinates(-0.683013,		-0.560986,		0.430459,		-0.183013                                                 ));
-    orientations.push_back(Coordinates(-0.707107,		-0.653282,		0.270598,		5.40901e-08                                               ));
-    orientations.push_back(Coordinates(-0.683013,		-0.701057,		0.0922959,		0.183013                                                  ));
-    orientations.push_back(Coordinates(0.683013,		0.701057,		0.092296,		0.183013                                                  ));
-    orientations.push_back(Coordinates(0.707107,		0.653281,		0.270598,		-7.72716e-09                                              ));
-    orientations.push_back(Coordinates(0.683013,		0.560986,		0.430459,		-0.183013                                                 ));
-    orientations.push_back(Coordinates(0.612372,		0.430459,		0.560986,		-0.353553                                                 ));
-    orientations.push_back(Coordinates(0.5,		0.270598,		0.653281,		-0.5                                                          ));
-    orientations.push_back(Coordinates(0.353553,		0.0922959,		0.701057,		-0.612372                                                 ));
-    orientations.push_back(Coordinates(0.183013,		-0.092296,		0.701057,		-0.683013                                                 ));
-    orientations.push_back(Coordinates(-3.86358e-08,		-0.270598,		0.653281,		-0.707107                                             ));
-    orientations.push_back(Coordinates(-0.183013,		-0.430459,		0.560986,		-0.683013                                                 ));
-    orientations.push_back(Coordinates(-0.353553,		-0.560986,		0.430459,		-0.612372                                                 ));
-    orientations.push_back(Coordinates(-0.5,		-0.653282,		0.270598,		-0.5                                                          ));
-    orientations.push_back(Coordinates(-0.612372,		-0.701057,		0.0922959,		-0.353553                                                 ));
-    orientations.push_back(Coordinates(0.572411,		0.809511,		0.106574,		-0.0753593                                                ));
-    orientations.push_back(Coordinates(0.533402,		0.754344,		0.31246,		-0.220942                                                 ));
-    orientations.push_back(Coordinates(0.458043,		0.64777,		0.497052,		-0.351469                                                 ));
-    orientations.push_back(Coordinates(0.351469,		0.497052,		0.64777,		-0.458043                                                 ));
-    orientations.push_back(Coordinates(0.220942,		0.31246,		0.754344,		-0.533402                                                 ));
-    orientations.push_back(Coordinates(0.0753593,		0.106574,		0.809511,		-0.572411                                                 ));
-    orientations.push_back(Coordinates(-0.0753594,		-0.106574,		0.809511,		-0.572411                                                 ));
-    orientations.push_back(Coordinates(-0.220942,		-0.31246,		0.754344,		-0.533402                                                 ));
-    orientations.push_back(Coordinates(-0.351469,		-0.497052,		0.64777,		-0.458043                                                 ));
-    orientations.push_back(Coordinates(-0.458043,		-0.64777,		0.497052,		-0.351469                                                 ));
-    orientations.push_back(Coordinates(-0.533402,		-0.754345,		0.31246,		-0.220942                                                 ));
-    orientations.push_back(Coordinates(-0.572411,		-0.809511,		0.106574,		-0.0753593                                                ));
-    orientations.push_back(Coordinates(-0.106574,		0.572411,		0.0753593,		-0.809511                                                 ));
-    orientations.push_back(Coordinates(-0.31246,		0.533402,		0.220942,		-0.754344                                                 ));
-    orientations.push_back(Coordinates(-0.497052,		0.458043,		0.351469,		-0.64777                                                  ));
-    orientations.push_back(Coordinates(-0.64777,		0.351469,		0.458043,		-0.497052                                                 ));
-    orientations.push_back(Coordinates(-0.754344,		0.220942,		0.533402,		-0.31246                                                  ));
-    orientations.push_back(Coordinates(-0.809511,		0.0753593,		0.572411,		-0.106574                                                 ));
-    orientations.push_back(Coordinates(-0.809511,		-0.0753594,		0.572411,		0.106574                                                  ));
-    orientations.push_back(Coordinates(-0.754344,		-0.220942,		0.533402,		0.31246                                                   ));
-    orientations.push_back(Coordinates(-0.64777,		-0.351469,		0.458043,		0.497052                                                  ));
-    orientations.push_back(Coordinates(-0.497052,		-0.458043,		0.351469,		0.64777                                                   ));
-    orientations.push_back(Coordinates(-0.31246,		-0.533402,		0.220942,		0.754345                                                  ));
-    orientations.push_back(Coordinates(-0.106574,		-0.572411,		0.0753593,		0.809511                                                  ));
-    orientations.push_back(Coordinates(-0.353553,		0.701057,		0.092296,		-0.612372                                                 ));
-    orientations.push_back(Coordinates(-0.5,		0.653281,		0.270598,		-0.5                                                          ));
-    orientations.push_back(Coordinates(-0.612372,		0.560986,		0.430459,		-0.353553                                                 ));
-    orientations.push_back(Coordinates(-0.683013,		0.430459,		0.560986,		-0.183013                                                 ));
-    orientations.push_back(Coordinates(-0.707107,		0.270598,		0.653281,		2.31815e-08                                               ));
-    orientations.push_back(Coordinates(-0.683013,		0.0922959,		0.701057,		0.183013                                                  ));
-    orientations.push_back(Coordinates(-0.612372,		-0.092296,		0.701057,		0.353553                                                  ));
-    orientations.push_back(Coordinates(-0.5,		-0.270598,		0.653281,		0.5                                                           ));
-    orientations.push_back(Coordinates(-0.353553,		-0.430459,		0.560986,		0.612372                                                  ));
-    orientations.push_back(Coordinates(-0.183013,		-0.560986,		0.430459,		0.683013                                                  ));
-    orientations.push_back(Coordinates(5.40901e-08,		-0.653282,		0.270598,		0.707107                                              ));
-    orientations.push_back(Coordinates(0.183013,		-0.701057,		0.0922959,		0.683013                                                  ));
-    orientations.push_back(Coordinates(0.183013,		0.701057,		0.092296,		-0.683013                                                 ));
-    orientations.push_back(Coordinates(-7.72715e-09,		0.653281,		0.270598,		-0.707107                                             ));
-    orientations.push_back(Coordinates(-0.183013,		0.560986,		0.430459,		-0.683013                                                 ));
-    orientations.push_back(Coordinates(-0.353553,		0.430459,		0.560986,		-0.612372                                                 ));
-    orientations.push_back(Coordinates(-0.5,		0.270598,		0.653281,		-0.5                                                          ));
-    orientations.push_back(Coordinates(-0.612372,		0.0922959,		0.701057,		-0.353553                                                 ));
-    orientations.push_back(Coordinates(-0.683013,		-0.092296,		0.701057,		-0.183013                                                 ));
-    orientations.push_back(Coordinates(-0.707107,		-0.270598,		0.653281,		3.86358e-08                                               ));
-    orientations.push_back(Coordinates(-0.683013,		-0.430459,		0.560986,		0.183013                                                  ));
-    orientations.push_back(Coordinates(-0.612372,		-0.560986,		0.430459,		0.353553                                                  ));
-    orientations.push_back(Coordinates(-0.5,		-0.653282,		0.270598,		0.5                                                           ));
-    orientations.push_back(Coordinates(-0.353553,		-0.701057,		0.0922959,		0.612372                                                  ));
-    orientations.push_back(Coordinates(-0.0753593,		0.809511,		0.106574,		-0.572411                                                 ));
-    orientations.push_back(Coordinates(-0.220942,		0.754344,		0.31246,		-0.533402                                                 ));
-    orientations.push_back(Coordinates(-0.351469,		0.64777,		0.497052,		-0.458043                                                 ));
-    orientations.push_back(Coordinates(-0.458043,		0.497052,		0.64777,		-0.351469                                                 ));
-    orientations.push_back(Coordinates(-0.533402,		0.31246,		0.754344,		-0.220942                                                 ));
-    orientations.push_back(Coordinates(-0.572411,		0.106574,		0.809511,		-0.0753593                                                ));
-    orientations.push_back(Coordinates(-0.572411,		-0.106574,		0.809511,		0.0753594                                                 ));
-    orientations.push_back(Coordinates(-0.533402,		-0.31246,		0.754344,		0.220942                                                  ));
-    orientations.push_back(Coordinates(-0.458043,		-0.497052,		0.64777,		0.351469                                                  ));
-    orientations.push_back(Coordinates(-0.351469,		-0.64777,		0.497052,		0.458043                                                  ));
-    orientations.push_back(Coordinates(-0.220942,		-0.754345,		0.31246,		0.533402                                                  ));
-    orientations.push_back(Coordinates(-0.0753593,		-0.809511,		0.106574,		0.572411                                                  ));
-    orientations.push_back(Coordinates(-0.809511,		0.572411,		0.0753593,		0.106574                                                  ));
-    orientations.push_back(Coordinates(-0.754344,		0.533402,		0.220942,		0.31246                                                   ));
-    orientations.push_back(Coordinates(-0.64777,		0.458043,		0.351469,		0.497052                                                  ));
-    orientations.push_back(Coordinates(-0.497052,		0.351469,		0.458043,		0.64777                                                   ));
-    orientations.push_back(Coordinates(-0.31246,		0.220942,		0.533402,		0.754344                                                  ));
-    orientations.push_back(Coordinates(-0.106574,		0.0753593,		0.572411,		0.809511                                                  ));
-    orientations.push_back(Coordinates(0.106574,		-0.0753594,		0.572411,		0.809511                                                  ));
-    orientations.push_back(Coordinates(0.31246,		-0.220942,		0.533402,		0.754344                                                  ));
-    orientations.push_back(Coordinates(0.497052,		-0.351469,		0.458043,		0.64777                                                   ));
-    orientations.push_back(Coordinates(0.64777,		-0.458043,		0.351469,		0.497052                                                  ));
-    orientations.push_back(Coordinates(0.754345,		-0.533402,		0.220942,		0.31246                                                   ));
-    orientations.push_back(Coordinates(0.809511,		-0.572411,		0.0753593,		0.106574                                                  ));
-    orientations.push_back(Coordinates(-0.612372,		0.701057,		0.092296,		0.353553                                                  ));
-    orientations.push_back(Coordinates(-0.5,		0.653281,		0.270598,		0.5                                                           ));
-    orientations.push_back(Coordinates(-0.353553,		0.560986,		0.430459,		0.612372                                                  ));
-    orientations.push_back(Coordinates(-0.183013,		0.430459,		0.560986,		0.683013                                                  ));
-    orientations.push_back(Coordinates(2.31815e-08,		0.270598,		0.653281,		0.707107                                              ));
-    orientations.push_back(Coordinates(0.183013,		0.0922959,		0.701057,		0.683013                                                  ));
-    orientations.push_back(Coordinates(0.353553,		-0.092296,		0.701057,		0.612372                                                  ));
-    orientations.push_back(Coordinates(0.5,		-0.270598,		0.653281,		0.5                                                           ));
-    orientations.push_back(Coordinates(0.612372,		-0.430459,		0.560986,		0.353553                                                  ));
-    orientations.push_back(Coordinates(0.683013,		-0.560986,		0.430459,		0.183013                                                  ));
-    orientations.push_back(Coordinates(0.707107,		-0.653282,		0.270598,		-5.40901e-08                                              ));
-    orientations.push_back(Coordinates(0.683013,		-0.701057,		0.0922959,		-0.183013                                                 ));
-    orientations.push_back(Coordinates(-0.683013,		0.701057,		0.092296,		-0.183013                                                 ));
-    orientations.push_back(Coordinates(-0.707107,		0.653281,		0.270598,		7.72715e-09                                               ));
-    orientations.push_back(Coordinates(-0.683013,		0.560986,		0.430459,		0.183013                                                  ));
-    orientations.push_back(Coordinates(-0.612372,		0.430459,		0.560986,		0.353553                                                  ));
-    orientations.push_back(Coordinates(-0.5,		0.270598,		0.653281,		0.5                                                           ));
-    orientations.push_back(Coordinates(-0.353553,		0.0922959,		0.701057,		0.612372                                                  ));
-    orientations.push_back(Coordinates(-0.183013,		-0.092296,		0.701057,		0.683013                                                  ));
-    orientations.push_back(Coordinates(3.86358e-08,		-0.270598,		0.653281,		0.707107                                              ));
-    orientations.push_back(Coordinates(0.183013,		-0.430459,		0.560986,		0.683013                                                  ));
-    orientations.push_back(Coordinates(0.353553,		-0.560986,		0.430459,		0.612372                                                  ));
-    orientations.push_back(Coordinates(0.5,		-0.653282,		0.270598,		0.5                                                           ));
-    orientations.push_back(Coordinates(0.612372,		-0.701057,		0.0922959,		0.353553                                                  ));
-    orientations.push_back(Coordinates(-0.572411,		0.809511,		0.106574,		0.0753593                                                 ));
-    orientations.push_back(Coordinates(-0.533402,		0.754344,		0.31246,		0.220942                                                  ));
-    orientations.push_back(Coordinates(-0.458043,		0.64777,		0.497052,		0.351469                                                  ));
-    orientations.push_back(Coordinates(-0.351469,		0.497052,		0.64777,		0.458043                                                  ));
-    orientations.push_back(Coordinates(-0.220942,		0.31246,		0.754344,		0.533402                                                  ));
-    orientations.push_back(Coordinates(-0.0753593,		0.106574,		0.809511,		0.572411                                                  ));
-    orientations.push_back(Coordinates(0.0753594,		-0.106574,		0.809511,		0.572411                                                  ));
-    orientations.push_back(Coordinates(0.220942,		-0.31246,		0.754344,		0.533402                                                  ));
-    orientations.push_back(Coordinates(0.351469,		-0.497052,		0.64777,		0.458043                                                  ));
-    orientations.push_back(Coordinates(0.458043,		-0.64777,		0.497052,		0.351469                                                  ));
-    orientations.push_back(Coordinates(0.533402,		-0.754345,		0.31246,		0.220942                                                  ));
-    orientations.push_back(Coordinates(0.572411,		-0.809511,		0.106574,		0.0753593                                                 ));
-    orientations.push_back(Coordinates(0.776649,		0.202378,		0.0266435,		0.595944                                                  ));
-    orientations.push_back(Coordinates(0.904427,		0.188586,		0.0781149,		0.374626                                                  ));
-    orientations.push_back(Coordinates(0.97057,		0.161943,		0.124263,		0.127778                                                  ));
-    orientations.push_back(Coordinates(0.97057,		0.124263,		0.161943,		-0.127778                                                 ));
-    orientations.push_back(Coordinates(0.904427,		0.0781149,		0.188586,		-0.374626                                                 ));
-    orientations.push_back(Coordinates(0.776649,		0.0266435,		0.202378,		-0.595944                                                 ));
-    orientations.push_back(Coordinates(0.595944,		-0.0266436,		0.202378,		-0.776649                                                 ));
-    orientations.push_back(Coordinates(0.374626,		-0.0781149,		0.188586,		-0.904427                                                 ));
-    orientations.push_back(Coordinates(0.127778,		-0.124263,		0.161943,		-0.97057                                                  ));
-    orientations.push_back(Coordinates(-0.127778,		-0.161943,		0.124263,		-0.97057                                                  ));
-    orientations.push_back(Coordinates(-0.374626,		-0.188586,		0.0781149,		-0.904427                                                 ));
-    orientations.push_back(Coordinates(-0.595944,		-0.202378,		0.0266435,		-0.776649                                                 ));
-    orientations.push_back(Coordinates(0.881766,		0.404756,		0.0532871,		0.236268                                                  ));
-    orientations.push_back(Coordinates(0.912871,		0.377172,		0.15623,		-9.97571e-09                                              ));
-    orientations.push_back(Coordinates(0.881766,		0.323885,		0.248526,		-0.236268                                                 ));
-    orientations.push_back(Coordinates(0.790569,		0.248526,		0.323885,		-0.456435                                                 ));
-    orientations.push_back(Coordinates(0.645497,		0.15623,		0.377172,		-0.645497                                                 ));
-    orientations.push_back(Coordinates(0.456435,		0.0532871,		0.404756,		-0.790569                                                 ));
-    orientations.push_back(Coordinates(0.236268,		-0.0532871,		0.404756,		-0.881766                                                 ));
-    orientations.push_back(Coordinates(-4.98786e-08,		-0.15623,		0.377172,		-0.912871                                             ));
-    orientations.push_back(Coordinates(-0.236268,		-0.248526,		0.323885,		-0.881766                                                 ));
-    orientations.push_back(Coordinates(-0.456436,		-0.323885,		0.248526,		-0.790569                                                 ));
-    orientations.push_back(Coordinates(-0.645497,		-0.377172,		0.15623,		-0.645497                                                 ));
-    orientations.push_back(Coordinates(-0.790569,		-0.404756,		0.0532871,		-0.456435                                                 ));
-    orientations.push_back(Coordinates(0.456435,		0.404756,		0.0532871,		0.790569                                                  ));
-    orientations.push_back(Coordinates(0.645497,		0.377172,		0.15623,		0.645497                                                  ));
-    orientations.push_back(Coordinates(0.790569,		0.323885,		0.248526,		0.456435                                                  ));
-    orientations.push_back(Coordinates(0.881766,		0.248526,		0.323885,		0.236268                                                  ));
-    orientations.push_back(Coordinates(0.912871,		0.15623,		0.377172,		-2.99271e-08                                              ));
-    orientations.push_back(Coordinates(0.881766,		0.0532871,		0.404756,		-0.236268                                                 ));
-    orientations.push_back(Coordinates(0.790569,		-0.0532871,		0.404756,		-0.456436                                                 ));
-    orientations.push_back(Coordinates(0.645497,		-0.15623,		0.377172,		-0.645497                                                 ));
-    orientations.push_back(Coordinates(0.456435,		-0.248526,		0.323885,		-0.790569                                                 ));
-    orientations.push_back(Coordinates(0.236268,		-0.323885,		0.248526,		-0.881766                                                 ));
-    orientations.push_back(Coordinates(-6.983e-08,		-0.377172,		0.15623,		-0.912871                                                 ));
-    orientations.push_back(Coordinates(-0.236268,		-0.404756,		0.0532871,		-0.881766                                                 ));
-    orientations.push_back(Coordinates(0.64777,		0.572411,		0.0753593,		0.497052                                                  ));
-    orientations.push_back(Coordinates(0.754344,		0.533402,		0.220942,		0.31246                                                   ));
-    orientations.push_back(Coordinates(0.809511,		0.458043,		0.351469,		0.106574                                                  ));
-    orientations.push_back(Coordinates(0.809511,		0.351469,		0.458043,		-0.106574                                                 ));
-    orientations.push_back(Coordinates(0.754344,		0.220942,		0.533402,		-0.31246                                                  ));
-    orientations.push_back(Coordinates(0.64777,		0.0753593,		0.572411,		-0.497052                                                 ));
-    orientations.push_back(Coordinates(0.497052,		-0.0753594,		0.572411,		-0.64777                                                  ));
-    orientations.push_back(Coordinates(0.31246,		-0.220942,		0.533402,		-0.754344                                                 ));
-    orientations.push_back(Coordinates(0.106574,		-0.351469,		0.458043,		-0.809511                                                 ));
-    orientations.push_back(Coordinates(-0.106574,		-0.458043,		0.351469,		-0.809511                                                 ));
-    orientations.push_back(Coordinates(-0.31246,		-0.533402,		0.220942,		-0.754344                                                 ));
-    orientations.push_back(Coordinates(-0.497052,		-0.572411,		0.0753593,		-0.64777                                                  ));
-    orientations.push_back(Coordinates(0.595944,		0.202378,		0.0266435,		-0.776649                                                 ));
-    orientations.push_back(Coordinates(0.374626,		0.188586,		0.0781149,		-0.904427                                                 ));
-    orientations.push_back(Coordinates(0.127778,		0.161943,		0.124263,		-0.97057                                                  ));
-    orientations.push_back(Coordinates(-0.127778,		0.124263,		0.161943,		-0.97057                                                  ));
-    orientations.push_back(Coordinates(-0.374626,		0.0781149,		0.188586,		-0.904427                                                 ));
-    orientations.push_back(Coordinates(-0.595944,		0.0266435,		0.202378,		-0.776649                                                 ));
-    orientations.push_back(Coordinates(-0.776649,		-0.0266436,		0.202378,		-0.595944                                                 ));
-    orientations.push_back(Coordinates(-0.904427,		-0.0781149,		0.188586,		-0.374626                                                 ));
-    orientations.push_back(Coordinates(-0.97057,		-0.124263,		0.161943,		-0.127778                                                 ));
-    orientations.push_back(Coordinates(-0.97057,		-0.161943,		0.124263,		0.127778                                                  ));
-    orientations.push_back(Coordinates(-0.904427,		-0.188586,		0.0781149,		0.374626                                                  ));
-    orientations.push_back(Coordinates(-0.776649,		-0.202378,		0.0266435,		0.595944                                                  ));
-    orientations.push_back(Coordinates(0.236268,		0.404756,		0.0532871,		-0.881766                                                 ));
-    orientations.push_back(Coordinates(-9.97571e-09,		0.377172,		0.15623,		-0.912871                                             ));
-    orientations.push_back(Coordinates(-0.236268,		0.323885,		0.248526,		-0.881766                                                 ));
-    orientations.push_back(Coordinates(-0.456435,		0.248526,		0.323885,		-0.790569                                                 ));
-    orientations.push_back(Coordinates(-0.645497,		0.15623,		0.377172,		-0.645497                                                 ));
-    orientations.push_back(Coordinates(-0.790569,		0.0532871,		0.404756,		-0.456435                                                 ));
-    orientations.push_back(Coordinates(-0.881766,		-0.0532871,		0.404756,		-0.236268                                                 ));
-    orientations.push_back(Coordinates(-0.912871,		-0.15623,		0.377172,		4.98786e-08                                               ));
-    orientations.push_back(Coordinates(-0.881766,		-0.248526,		0.323885,		0.236268                                                  ));
-    orientations.push_back(Coordinates(-0.790569,		-0.323885,		0.248526,		0.456436                                                  ));
-    orientations.push_back(Coordinates(-0.645497,		-0.377172,		0.15623,		0.645497                                                  ));
-    orientations.push_back(Coordinates(-0.456435,		-0.404756,		0.0532871,		0.790569                                                  ));
-    orientations.push_back(Coordinates(0.790569,		0.404756,		0.0532871,		-0.456435                                                 ));
-    orientations.push_back(Coordinates(0.645497,		0.377172,		0.15623,		-0.645497                                                 ));
-    orientations.push_back(Coordinates(0.456435,		0.323885,		0.248526,		-0.790569                                                 ));
-    orientations.push_back(Coordinates(0.236268,		0.248526,		0.323885,		-0.881766                                                 ));
-    orientations.push_back(Coordinates(-2.99271e-08,		0.15623,		0.377172,		-0.912871                                             ));
-    orientations.push_back(Coordinates(-0.236268,		0.0532871,		0.404756,		-0.881766                                                 ));
-    orientations.push_back(Coordinates(-0.456436,		-0.0532871,		0.404756,		-0.790569                                                 ));
-    orientations.push_back(Coordinates(-0.645497,		-0.15623,		0.377172,		-0.645497                                                 ));
-    orientations.push_back(Coordinates(-0.790569,		-0.248526,		0.323885,		-0.456435                                                 ));
-    orientations.push_back(Coordinates(-0.881766,		-0.323885,		0.248526,		-0.236268                                                 ));
-    orientations.push_back(Coordinates(-0.912871,		-0.377172,		0.15623,		6.983e-08                                                 ));
-    orientations.push_back(Coordinates(-0.881766,		-0.404756,		0.0532871,		0.236268                                                  ));
-    orientations.push_back(Coordinates(0.497052,		0.572411,		0.0753593,		-0.64777                                                  ));
-    orientations.push_back(Coordinates(0.31246,		0.533402,		0.220942,		-0.754344                                                 ));
-    orientations.push_back(Coordinates(0.106574,		0.458043,		0.351469,		-0.809511                                                 ));
-    orientations.push_back(Coordinates(-0.106574,		0.351469,		0.458043,		-0.809511                                                 ));
-    orientations.push_back(Coordinates(-0.31246,		0.220942,		0.533402,		-0.754344                                                 ));
-    orientations.push_back(Coordinates(-0.497052,		0.0753593,		0.572411,		-0.64777                                                  ));
-    orientations.push_back(Coordinates(-0.64777,		-0.0753594,		0.572411,		-0.497052                                                 ));
-    orientations.push_back(Coordinates(-0.754344,		-0.220942,		0.533402,		-0.31246                                                  ));
-    orientations.push_back(Coordinates(-0.809511,		-0.351469,		0.458043,		-0.106574                                                 ));
-    orientations.push_back(Coordinates(-0.809511,		-0.458043,		0.351469,		0.106574                                                  ));
-    orientations.push_back(Coordinates(-0.754344,		-0.533402,		0.220942,		0.31246                                                   ));
-    orientations.push_back(Coordinates(-0.64777,		-0.572411,		0.0753593,		0.497052                                                  ));
-    orientations.push_back(Coordinates(-0.776649,		0.202378,		0.0266435,		-0.595944                                                 ));
-    orientations.push_back(Coordinates(-0.904427,		0.188586,		0.0781149,		-0.374626                                                 ));
-    orientations.push_back(Coordinates(-0.97057,		0.161943,		0.124263,		-0.127778                                                 ));
-    orientations.push_back(Coordinates(-0.97057,		0.124263,		0.161943,		0.127778                                                  ));
-    orientations.push_back(Coordinates(-0.904427,		0.0781149,		0.188586,		0.374626                                                  ));
-    orientations.push_back(Coordinates(-0.776649,		0.0266435,		0.202378,		0.595944                                                  ));
-    orientations.push_back(Coordinates(-0.595944,		-0.0266436,		0.202378,		0.776649                                                  ));
-    orientations.push_back(Coordinates(-0.374626,		-0.0781149,		0.188586,		0.904427                                                  ));
-    orientations.push_back(Coordinates(-0.127778,		-0.124263,		0.161943,		0.97057                                                   ));
-    orientations.push_back(Coordinates(0.127778,		-0.161943,		0.124263,		0.97057                                                   ));
-    orientations.push_back(Coordinates(0.374626,		-0.188586,		0.0781149,		0.904427                                                  ));
-    orientations.push_back(Coordinates(0.595944,		-0.202378,		0.0266435,		0.776649                                                  ));
-    orientations.push_back(Coordinates(-0.881766,		0.404756,		0.0532871,		-0.236268                                                 ));
-    orientations.push_back(Coordinates(-0.912871,		0.377172,		0.15623,		9.97571e-09                                               ));
-    orientations.push_back(Coordinates(-0.881766,		0.323885,		0.248526,		0.236268                                                  ));
-    orientations.push_back(Coordinates(-0.790569,		0.248526,		0.323885,		0.456435                                                  ));
-    orientations.push_back(Coordinates(-0.645497,		0.15623,		0.377172,		0.645497                                                  ));
-    orientations.push_back(Coordinates(-0.456435,		0.0532871,		0.404756,		0.790569                                                  ));
-    orientations.push_back(Coordinates(-0.236268,		-0.0532871,		0.404756,		0.881766                                                  ));
-    orientations.push_back(Coordinates(4.98786e-08,		-0.15623,		0.377172,		0.912871                                              ));
-    orientations.push_back(Coordinates(0.236268,		-0.248526,		0.323885,		0.881766                                                  ));
-    orientations.push_back(Coordinates(0.456436,		-0.323885,		0.248526,		0.790569                                                  ));
-    orientations.push_back(Coordinates(0.645497,		-0.377172,		0.15623,		0.645497                                                  ));
-    orientations.push_back(Coordinates(0.790569,		-0.404756,		0.0532871,		0.456435                                                  ));
-    orientations.push_back(Coordinates(-0.456435,		0.404756,		0.0532871,		-0.790569                                                 ));
-    orientations.push_back(Coordinates(-0.645497,		0.377172,		0.15623,		-0.645497                                                 ));
-    orientations.push_back(Coordinates(-0.790569,		0.323885,		0.248526,		-0.456435                                                 ));
-    orientations.push_back(Coordinates(-0.881766,		0.248526,		0.323885,		-0.236268                                                 ));
-    orientations.push_back(Coordinates(-0.912871,		0.15623,		0.377172,		2.99271e-08                                               ));
-    orientations.push_back(Coordinates(-0.881766,		0.0532871,		0.404756,		0.236268                                                  ));
-    orientations.push_back(Coordinates(-0.790569,		-0.0532871,		0.404756,		0.456436                                                  ));
-    orientations.push_back(Coordinates(-0.645497,		-0.15623,		0.377172,		0.645497                                                  ));
-    orientations.push_back(Coordinates(-0.456435,		-0.248526,		0.323885,		0.790569                                                  ));
-    orientations.push_back(Coordinates(-0.236268,		-0.323885,		0.248526,		0.881766                                                  ));
-    orientations.push_back(Coordinates(6.983e-08,		-0.377172,		0.15623,		0.912871                                                  ));
-    orientations.push_back(Coordinates(0.236268,		-0.404756,		0.0532871,		0.881766                                                  ));
-    orientations.push_back(Coordinates(-0.64777,		0.572411,		0.0753593,		-0.497052                                                 ));
-    orientations.push_back(Coordinates(-0.754344,		0.533402,		0.220942,		-0.31246                                                  ));
-    orientations.push_back(Coordinates(-0.809511,		0.458043,		0.351469,		-0.106574                                                 ));
-    orientations.push_back(Coordinates(-0.809511,		0.351469,		0.458043,		0.106574                                                  ));
-    orientations.push_back(Coordinates(-0.754344,		0.220942,		0.533402,		0.31246                                                   ));
-    orientations.push_back(Coordinates(-0.64777,		0.0753593,		0.572411,		0.497052                                                  ));
-    orientations.push_back(Coordinates(-0.497052,		-0.0753594,		0.572411,		0.64777                                                   ));
-    orientations.push_back(Coordinates(-0.31246,		-0.220942,		0.533402,		0.754344                                                  ));
-    orientations.push_back(Coordinates(-0.106574,		-0.351469,		0.458043,		0.809511                                                  ));
-    orientations.push_back(Coordinates(0.106574,		-0.458043,		0.351469,		0.809511                                                  ));
-    orientations.push_back(Coordinates(0.31246,		-0.533402,		0.220942,		0.754344                                                  ));
-    orientations.push_back(Coordinates(0.497052,		-0.572411,		0.0753593,		0.64777                                                   ));
-    orientations.push_back(Coordinates(-0.595944,		0.202378,		0.0266435,		0.776649                                                  ));
-    orientations.push_back(Coordinates(-0.374626,		0.188586,		0.0781149,		0.904427                                                  ));
-    orientations.push_back(Coordinates(-0.127778,		0.161943,		0.124263,		0.97057                                                   ));
-    orientations.push_back(Coordinates(0.127778,		0.124263,		0.161943,		0.97057                                                   ));
-    orientations.push_back(Coordinates(0.374626,		0.0781149,		0.188586,		0.904427                                                  ));
-    orientations.push_back(Coordinates(0.595944,		0.0266435,		0.202378,		0.776649                                                  ));
-    orientations.push_back(Coordinates(0.776649,		-0.0266436,		0.202378,		0.595944                                                  ));
-    orientations.push_back(Coordinates(0.904427,		-0.0781149,		0.188586,		0.374626                                                  ));
-    orientations.push_back(Coordinates(0.97057,		-0.124263,		0.161943,		0.127778                                                  ));
-    orientations.push_back(Coordinates(0.97057,		-0.161943,		0.124263,		-0.127778                                                 ));
-    orientations.push_back(Coordinates(0.904427,		-0.188586,		0.0781149,		-0.374626             ));
-    orientations.push_back(Coordinates(0.776649,		-0.202378,		0.0266435,		-0.595944             ));
-    orientations.push_back(Coordinates(-0.236268,		0.404756,		0.0532871,		0.881766              ));
-    orientations.push_back(Coordinates(9.97571e-09,		0.377172,		0.15623,		0.912871              ));
-    orientations.push_back(Coordinates(0.236268,		0.323885,		0.248526,		0.881766              ));
-    orientations.push_back(Coordinates(0.456435,		0.248526,		0.323885,		0.790569              ));
-    orientations.push_back(Coordinates(0.645497,		0.15623,		0.377172,		0.645497              ));
-    orientations.push_back(Coordinates(0.790569,		0.0532871,		0.404756,		0.456435              ));
-    orientations.push_back(Coordinates(0.881766,		-0.0532871,		0.404756,		0.236268              ));
-    orientations.push_back(Coordinates(0.912871,		-0.15623,		0.377172,		-4.98786e-08          ));
-    orientations.push_back(Coordinates(0.881766,		-0.248526,		0.323885,		-0.236268             ));
-    orientations.push_back(Coordinates(0.790569,		-0.323885,		0.248526,		-0.456436             ));
-    orientations.push_back(Coordinates(0.645497,		-0.377172,		0.15623,		-0.645497             ));
-    orientations.push_back(Coordinates(0.456435,		-0.404756,		0.0532871,		-0.790569             ));
-    orientations.push_back(Coordinates(-0.790569,		0.404756,		0.0532871,		0.456435              ));
-    orientations.push_back(Coordinates(-0.645497,		0.377172,		0.15623,		0.645497              ));
-    orientations.push_back(Coordinates(-0.456435,		0.323885,		0.248526,		0.790569              ));
-    orientations.push_back(Coordinates(-0.236268,		0.248526,		0.323885,		0.881766              ));
-    orientations.push_back(Coordinates(2.99271e-08,		0.15623,		0.377172,		0.912871              ));
-    orientations.push_back(Coordinates(0.236268,		0.0532871,		0.404756,		0.881766              ));
-    orientations.push_back(Coordinates(0.456436,		-0.0532871,		0.404756,		0.790569              ));
-    orientations.push_back(Coordinates(0.645497,		-0.15623,		0.377172,		0.645497              ));
-    orientations.push_back(Coordinates(0.790569,		-0.248526,		0.323885,		0.456435              ));
-    orientations.push_back(Coordinates(0.881766,		-0.323885,		0.248526,		0.236268              ));
-    orientations.push_back(Coordinates(0.912871,		-0.377172,		0.15623,		-6.983e-08            ));
-    orientations.push_back(Coordinates(0.881766,		-0.404756,		0.0532871,		-0.236268             ));
-    orientations.push_back(Coordinates(-0.497052,		0.572411,		0.0753593,		0.64777               ));
-    orientations.push_back(Coordinates(-0.31246,		0.533402,		0.220942,		0.754344              ));
-    orientations.push_back(Coordinates(-0.106574,		0.458043,		0.351469,		0.809511              ));
-    orientations.push_back(Coordinates(0.106574,		0.351469,		0.458043,		0.809511              ));
-    orientations.push_back(Coordinates(0.31246,		0.220942,		0.533402,		0.754344                  ));
-    orientations.push_back(Coordinates(0.497052,		0.0753593,		0.572411,		0.64777               ));
-    orientations.push_back(Coordinates(0.64777,		-0.0753594,		0.572411,		0.497052                  ));
-    orientations.push_back(Coordinates(0.754344,		-0.220942,		0.533402,		0.31246               ));
-    orientations.push_back(Coordinates(0.809511,		-0.351469,		0.458043,		0.106574              ));
-    orientations.push_back(Coordinates(0.809511,		-0.458043,		0.351469,		-0.106574             ));
-    orientations.push_back(Coordinates(0.754344,		-0.533402,		0.220942,		-0.31246              ));
-    orientations.push_back(Coordinates(0.64777,		-0.572411,		0.0753593,		-0.497052                 ));
+  double arr[4*576] = {
+    0.458043,		0.809511,		0.106574,		0.351469,
+    0.533402,		0.754344,		0.31246,		0.220942,
+    0.572411,		0.64777,		0.497052,		0.0753593,
+    0.572411,		0.497052,		0.64777,		-0.0753593,
+    0.533402,		0.31246,		0.754344,		-0.220942,
+    0.458043,		0.106574,		0.809511,		-0.351469,
+    0.351469,		-0.106574,		0.809511,		-0.458043,
+    0.220942,		-0.31246,		0.754344,		-0.533402,
+    0.0753593,		-0.497052,		0.64777,		-0.572411,
+    -0.0753594,		-0.64777,		0.497052,		-0.572411,
+    -0.220942,		-0.754345,		0.31246,		-0.533402,
+    -0.351469,		-0.809511,		0.106574,		-0.458043,
+    0.394338,		0.905061,		0.119154,		0.105662,
+    0.408248,		0.843383,		0.349341,		-4.46128e-09,
+    0.394338,		0.724229,		0.555721,		-0.105662,
+    0.353553,		0.555721,		0.724229,		-0.204124,
+    0.288675,		0.349341,		0.843383,		-0.288675,
+    0.204124,		0.119154,		0.905061,		-0.353553,
+    0.105662,		-0.119154,		0.905061,		-0.394338,
+    -2.23064e-08,		-0.349341,		0.843383,		-0.408248,
+    -0.105662,		-0.555721,		0.724229,		-0.394338,
+    -0.204124,		-0.724229,		0.555721,		-0.353553,
+    -0.288675,		-0.843383,		0.349341,		-0.288675,
+    -0.353553,		-0.905061,		0.119153,		-0.204124,
+    0.204124,		0.905061,		0.119154,		0.353553,
+    0.288675,		0.843383,		0.349341,		0.288675,
+    0.353553,		0.724229,		0.555721,		0.204124,
+    0.394338,		0.555721,		0.724229,		0.105662,
+    0.408248,		0.349341,		0.843383,		-1.33838e-08,
+    0.394338,		0.119154,		0.905061,		-0.105662,
+    0.353553,		-0.119154,		0.905061,		-0.204124,
+    0.288675,		-0.349341,		0.843383,		-0.288675,
+    0.204124,		-0.555721,		0.724229,		-0.353553,
+    0.105662,		-0.724229,		0.555721,		-0.394338,
+    -3.12289e-08,		-0.843383,		0.349341,		-0.408248,
+    -0.105662,		-0.905061,		0.119153,		-0.394338,
+    0.161943,		0.97057,		0.127778,		0.124263,
+    0.188586,		0.904427,		0.374626,		0.0781149,
+    0.202378,		0.776649,		0.595944,		0.0266435,
+    0.202378,		0.595944,		0.776649,		-0.0266436,
+    0.188586,		0.374626,		0.904427,		-0.0781149,
+    0.161943,		0.127778,		0.97057,		-0.124263,
+    0.124263,		-0.127778,		0.97057,		-0.161943,
+    0.0781149,		-0.374626,		0.904427,		-0.188586,
+    0.0266435,		-0.595944,		0.776649,		-0.202378,
+    -0.0266436,		-0.776649,		0.595944,		-0.202378,
+    -0.0781149,		-0.904427,		0.374626,		-0.188586,
+    -0.124263,		-0.97057,		0.127778,		-0.161943,
+    0.351469,		0.809511,		0.106574,		-0.458043,
+    0.220942,		0.754344,		0.31246,		-0.533402,
+    0.0753593,		0.64777,		0.497052,		-0.572411,
+    -0.0753593,		0.497052,		0.64777,		-0.572411,
+    -0.220942,		0.31246,		0.754344,		-0.533402,
+    -0.351469,		0.106574,		0.809511,		-0.458043,
+    -0.458043,		-0.106574,		0.809511,		-0.351469,
+    -0.533402,		-0.31246,		0.754344,		-0.220942,
+    -0.572411,		-0.497052,		0.64777,		-0.0753593,
+    -0.572411,		-0.64777,		0.497052,		0.0753594,
+    -0.533402,		-0.754345,		0.31246,		0.220942,
+    -0.458043,		-0.809511,		0.106574,		0.351469,
+    0.105662,		0.905061,		0.119154,		-0.394338,
+    -4.46128e-09,		0.843383,		0.349341,		-0.408248,
+    -0.105662,		0.724229,		0.555721,		-0.394338,
+    -0.204124,		0.555721,		0.724229,		-0.353553,
+    -0.288675,		0.349341,		0.843383,		-0.288675,
+    -0.353553,		0.119154,		0.905061,		-0.204124,
+    -0.394338,		-0.119154,		0.905061,		-0.105662,
+    -0.408248,		-0.349341,		0.843383,		2.23064e-08,
+    -0.394338,		-0.555721,		0.724229,		0.105662,
+    -0.353553,		-0.724229,		0.555721,		0.204124,
+    -0.288675,		-0.843383,		0.349341,		0.288675,
+    -0.204124,		-0.905061,		0.119153,		0.353553,
+    0.353553,		0.905061,		0.119154,		-0.204124,
+    0.288675,		0.843383,		0.349341,		-0.288675,
+    0.204124,		0.724229,		0.555721,		-0.353553,
+    0.105662,		0.555721,		0.724229,		-0.394338,
+    -1.33838e-08,		0.349341,		0.843383,		-0.408248,
+    -0.105662,		0.119154,		0.905061,		-0.394338,
+    -0.204124,		-0.119154,		0.905061,		-0.353553,
+    -0.288675,		-0.349341,		0.843383,		-0.288675,
+    -0.353553,		-0.555721,		0.724229,		-0.204124,
+    -0.394338,		-0.724229,		0.555721,		-0.105662,
+    -0.408248,		-0.843383,		0.349341,		3.12289e-08,
+    -0.394338,		-0.905061,		0.119153,		0.105662,
+    0.124263,		0.97057,		0.127778,		-0.161943,
+    0.0781149,		0.904427,		0.374626,		-0.188586,
+    0.0266435,		0.776649,		0.595944,		-0.202378,
+    -0.0266436,		0.595944,		0.776649,		-0.202378,
+    -0.0781149,		0.374626,		0.904427,		-0.188586,
+    -0.124263,		0.127778,		0.97057,		-0.161943,
+    -0.161943,		-0.127778,		0.97057,		-0.124263,
+    -0.188586,		-0.374626,		0.904427,		-0.0781149,
+    -0.202378,		-0.595944,		0.776649,		-0.0266435,
+    -0.202378,		-0.776649,		0.595944,		0.0266436,
+    -0.188586,		-0.904427,		0.374626,		0.0781149,
+    -0.161943,		-0.97057,		0.127778,		0.124263,
+    -0.458043,		0.809511,		0.106574,		-0.351469,
+    -0.533402,		0.754344,		0.31246,		-0.220942,
+    -0.572411,		0.64777,		0.497052,		-0.0753593,
+    -0.572411,		0.497052,		0.64777,		0.0753593,
+    -0.533402,		0.31246,		0.754344,		0.220942,
+    -0.458043,		0.106574,		0.809511,		0.351469,
+    -0.351469,		-0.106574,		0.809511,		0.458043,
+    -0.220942,		-0.31246,		0.754344,		0.533402,
+    -0.0753593,		-0.497052,		0.64777,		0.572411,
+    0.0753594,		-0.64777,		0.497052,		0.572411,
+    0.220942,		-0.754345,		0.31246,		0.533402,
+    0.351469,		-0.809511,		0.106574,		0.458043,
+    -0.394338,		0.905061,		0.119154,		-0.105662,
+    -0.408248,		0.843383,		0.349341,		4.46127e-09,
+    -0.394338,		0.724229,		0.555721,		0.105662,
+    -0.353553,		0.555721,		0.724229,		0.204124,
+    -0.288675,		0.349341,		0.843383,		0.288675,
+    -0.204124,		0.119154,		0.905061,		0.353553,
+    -0.105662,		-0.119154,		0.905061,		0.394338,
+    2.23064e-08,		-0.349341,		0.843383,		0.408248,
+    0.105662,		-0.555721,		0.724229,		0.394338,
+    0.204124,		-0.724229,		0.555721,		0.353553,
+    0.288675,		-0.843383,		0.349341,		0.288675,
+    0.353553,		-0.905061,		0.119153,		0.204124,
+    -0.204124,		0.905061,		0.119154,		-0.353553,
+    -0.288675,		0.843383,		0.349341,		-0.288675,
+    -0.353553,		0.724229,		0.555721,		-0.204124,
+    -0.394338,		0.555721,		0.724229,		-0.105662,
+    -0.408248,		0.349341,		0.843383,		1.33838e-08,
+    -0.394338,		0.119154,		0.905061,		0.105662,
+    -0.353553,		-0.119154,		0.905061,		0.204124,
+    -0.288675,		-0.349341,		0.843383,		0.288675,
+    -0.204124,		-0.555721,		0.724229,		0.353553,
+    -0.105662,		-0.724229,		0.555721,		0.394338,
+    3.12289e-08,		-0.843383,		0.349341,		0.408248,
+    0.105662,		-0.905061,		0.119153,		0.394338,
+    -0.161943,		0.97057,		0.127778,		-0.124263,
+    -0.188586,		0.904427,		0.374626,		-0.0781149,
+    -0.202378,		0.776649,		0.595944,		-0.0266435,
+    -0.202378,		0.595944,		0.776649,		0.0266436,
+    -0.188586,		0.374626,		0.904427,		0.0781149,
+    -0.161943,		0.127778,		0.97057,		0.124263,
+    -0.124263,		-0.127778,		0.97057,		0.161943,
+    -0.0781149,		-0.374626,		0.904427,		0.188586,
+    -0.0266435,		-0.595944,		0.776649,		0.202378,
+    0.0266436,		-0.776649,		0.595944,		0.202378,
+    0.0781149,		-0.904427,		0.374626,		0.188586,
+    0.124263,		-0.97057,		0.127778,		0.161943,
+    -0.351469,		0.809511,		0.106574,		0.458043,
+    -0.220942,		0.754344,		0.31246,		0.533402,
+    -0.0753593,		0.64777,		0.497052,		0.572411,
+    0.0753593,		0.497052,		0.64777,		0.572411,
+    0.220942,		0.31246,		0.754344,		0.533402,
+    0.351469,		0.106574,		0.809511,		0.458043,
+    0.458043,		-0.106574,		0.809511,		0.351469,
+    0.533402,		-0.31246,		0.754344,		0.220942,
+    0.572411,		-0.497052,		0.64777,		0.0753593,
+    0.572411,		-0.64777,		0.497052,		-0.0753594,
+    0.533402,		-0.754345,		0.31246,		-0.220942,
+    0.458043,		-0.809511,		0.106574,		-0.351469,
+    -0.105662,		0.905061,		0.119154,		0.394338,
+    4.46127e-09,		0.843383,		0.349341,		0.408248,
+    0.105662,		0.724229,		0.555721,		0.394338,
+    0.204124,		0.555721,		0.724229,		0.353553,
+    0.288675,		0.349341,		0.843383,		0.288675,
+    0.353553,		0.119154,		0.905061,		0.204124,
+    0.394338,		-0.119154,		0.905061,		0.105662,
+    0.408248,		-0.349341,		0.843383,		-2.23064e-08,
+    0.394338,		-0.555721,		0.724229,		-0.105662,
+    0.353553,		-0.724229,		0.555721,		-0.204124,
+    0.288675,		-0.843383,		0.349341,		-0.288675,
+    0.204124,		-0.905061,		0.119153,		-0.353553,
+    -0.353553,		0.905061,		0.119154,		0.204124,
+    -0.288675,		0.843383,		0.349341,		0.288675,
+    -0.204124,		0.724229,		0.555721,		0.353553,
+    -0.105662,		0.555721,		0.724229,		0.394338,
+    1.33838e-08,		0.349341,		0.843383,		0.408248,
+    0.105662,		0.119154,		0.905061,		0.394338,
+    0.204124,		-0.119154,		0.905061,		0.353553,
+    0.288675,		-0.349341,		0.843383,		0.288675,
+    0.353553,		-0.555721,		0.724229,		0.204124,
+    0.394338,		-0.724229,		0.555721,		0.105662,
+    0.408248,		-0.843383,		0.349341,		-3.12289e-08,
+    0.394338,		-0.905061,		0.119153,		-0.105662,
+    -0.124263,		0.97057,		0.127778,		0.161943,
+    -0.0781149,		0.904427,		0.374626,		0.188586,
+    -0.0266435,		0.776649,		0.595944,		0.202378,
+    0.0266436,		0.595944,		0.776649,		0.202378,
+    0.0781149,		0.374626,		0.904427,		0.188586,
+    0.124263,		0.127778,		0.97057,		0.161943,
+    0.161943,		-0.127778,		0.97057,		0.124263,
+    0.188586,		-0.374626,		0.904427,		0.0781149,
+    0.202378,		-0.595944,		0.776649,		0.0266435,
+    0.202378,		-0.776649,		0.595944,		-0.0266436,
+    0.188586,		-0.904427,		0.374626,		-0.0781149,
+    0.161943,		-0.97057,		0.127778,		-0.124263,
+    0.106574,		0.572411,		0.0753593,		0.809511,
+    0.31246,		0.533402,		0.220942,		0.754344,
+    0.497052,		0.458043,		0.351469,		0.64777,
+    0.64777,		0.351469,		0.458043,		0.497052,
+    0.754344,		0.220942,		0.533402,		0.31246,
+    0.809511,		0.0753593,		0.572411,		0.106574,
+    0.809511,		-0.0753594,		0.572411,		-0.106574,
+    0.754344,		-0.220942,		0.533402,		-0.31246,
+    0.64777,		-0.351469,		0.458043,		-0.497052,
+    0.497052,		-0.458043,		0.351469,		-0.64777,
+    0.31246,		-0.533402,		0.220942,		-0.754345,
+    0.106574,		-0.572411,		0.0753593,		-0.809511,
+    0.353553,		0.701057,		0.092296,		0.612372,
+    0.5,		0.653281,		0.270598,		0.5,
+    0.612372,		0.560986,		0.430459,		0.353553,
+    0.683013,		0.430459,		0.560986,		0.183013,
+    0.707107,		0.270598,		0.653281,		-2.31815e-08,
+    0.683013,		0.0922959,		0.701057,		-0.183013,
+    0.612372,		-0.092296,		0.701057,		-0.353553,
+    0.5,		-0.270598,		0.653281,		-0.5,
+    0.353553,		-0.430459,		0.560986,		-0.612372,
+    0.183013,		-0.560986,		0.430459,		-0.683013,
+    -5.40901e-08,		-0.653282,		0.270598,		-0.707107,
+    -0.183013,		-0.701057,		0.0922959,		-0.683013,
+    -0.183013,		0.701057,		0.092296,		0.683013,
+    7.72715e-09,		0.653281,		0.270598,		0.707107,
+    0.183013,		0.560986,		0.430459,		0.683013,
+    0.353553,		0.430459,		0.560986,		0.612372,
+    0.5,		0.270598,		0.653281,		0.5,
+    0.612372,		0.0922959,		0.701057,		0.353553,
+    0.683013,		-0.092296,		0.701057,		0.183013,
+    0.707107,		-0.270598,		0.653281,		-3.86358e-08,
+    0.683013,		-0.430459,		0.560986,		-0.183013,
+    0.612372,		-0.560986,		0.430459,		-0.353553,
+    0.5,		-0.653282,		0.270598,		-0.5,
+    0.353553,		-0.701057,		0.0922959,		-0.612372,
+    0.0753593,		0.809511,		0.106574,		0.572411,
+    0.220942,		0.754344,		0.31246,		0.533402,
+    0.351469,		0.64777,		0.497052,		0.458043,
+    0.458043,		0.497052,		0.64777,		0.351469,
+    0.533402,		0.31246,		0.754344,		0.220942,
+    0.572411,		0.106574,		0.809511,		0.0753593,
+    0.572411,		-0.106574,		0.809511,		-0.0753594,
+    0.533402,		-0.31246,		0.754344,		-0.220942,
+    0.458043,		-0.497052,		0.64777,		-0.351469,
+    0.351469,		-0.64777,		0.497052,		-0.458043,
+    0.220942,		-0.754345,		0.31246,		-0.533402,
+    0.0753593,		-0.809511,		0.106574,		-0.572411,
+    0.809511,		0.572411,		0.0753593,		-0.106574,
+    0.754344,		0.533402,		0.220942,		-0.31246,
+    0.64777,		0.458043,		0.351469,		-0.497052,
+    0.497052,		0.351469,		0.458043,		-0.64777,
+    0.31246,		0.220942,		0.533402,		-0.754344,
+    0.106574,		0.0753593,		0.572411,		-0.809511,
+    -0.106574,		-0.0753594,		0.572411,		-0.809511,
+    -0.31246,		-0.220942,		0.533402,		-0.754344,
+    -0.497052,		-0.351469,		0.458043,		-0.64777,
+    -0.64777,		-0.458043,		0.351469,		-0.497052,
+    -0.754345,		-0.533402,		0.220942,		-0.31246,
+    -0.809511,		-0.572411,		0.0753593,		-0.106574,
+    0.612372,		0.701057,		0.092296,		-0.353553,
+    0.5,		0.653281,		0.270598,		-0.5,
+    0.353553,		0.560986,		0.430459,		-0.612372,
+    0.183013,		0.430459,		0.560986,		-0.683013,
+    -2.31815e-08,		0.270598,		0.653281,		-0.707107,
+    -0.183013,		0.0922959,		0.701057,		-0.683013,
+    -0.353553,		-0.092296,		0.701057,		-0.612372,
+    -0.5,		-0.270598,		0.653281,		-0.5,
+    -0.612372,		-0.430459,		0.560986,		-0.353553,
+    -0.683013,		-0.560986,		0.430459,		-0.183013,
+    -0.707107,		-0.653282,		0.270598,		5.40901e-08,
+    -0.683013,		-0.701057,		0.0922959,		0.183013,
+    0.683013,		0.701057,		0.092296,		0.183013,
+    0.707107,		0.653281,		0.270598,		-7.72716e-09,
+    0.683013,		0.560986,		0.430459,		-0.183013,
+    0.612372,		0.430459,		0.560986,		-0.353553,
+    0.5,		0.270598,		0.653281,		-0.5,
+    0.353553,		0.0922959,		0.701057,		-0.612372,
+    0.183013,		-0.092296,		0.701057,		-0.683013,
+    -3.86358e-08,		-0.270598,		0.653281,		-0.707107,
+    -0.183013,		-0.430459,		0.560986,		-0.683013,
+    -0.353553,		-0.560986,		0.430459,		-0.612372,
+    -0.5,		-0.653282,		0.270598,		-0.5,
+    -0.612372,		-0.701057,		0.0922959,		-0.353553,
+    0.572411,		0.809511,		0.106574,		-0.0753593,
+    0.533402,		0.754344,		0.31246,		-0.220942,
+    0.458043,		0.64777,		0.497052,		-0.351469,
+    0.351469,		0.497052,		0.64777,		-0.458043,
+    0.220942,		0.31246,		0.754344,		-0.533402,
+    0.0753593,		0.106574,		0.809511,		-0.572411,
+    -0.0753594,		-0.106574,		0.809511,		-0.572411,
+    -0.220942,		-0.31246,		0.754344,		-0.533402,
+    -0.351469,		-0.497052,		0.64777,		-0.458043,
+    -0.458043,		-0.64777,		0.497052,		-0.351469,
+    -0.533402,		-0.754345,		0.31246,		-0.220942,
+    -0.572411,		-0.809511,		0.106574,		-0.0753593,
+    -0.106574,		0.572411,		0.0753593,		-0.809511,
+    -0.31246,		0.533402,		0.220942,		-0.754344,
+    -0.497052,		0.458043,		0.351469,		-0.64777,
+    -0.64777,		0.351469,		0.458043,		-0.497052,
+    -0.754344,		0.220942,		0.533402,		-0.31246,
+    -0.809511,		0.0753593,		0.572411,		-0.106574,
+    -0.809511,		-0.0753594,		0.572411,		0.106574,
+    -0.754344,		-0.220942,		0.533402,		0.31246,
+    -0.64777,		-0.351469,		0.458043,		0.497052,
+    -0.497052,		-0.458043,		0.351469,		0.64777,
+    -0.31246,		-0.533402,		0.220942,		0.754345,
+    -0.106574,		-0.572411,		0.0753593,		0.809511,
+    -0.353553,		0.701057,		0.092296,		-0.612372,
+    -0.5,		0.653281,		0.270598,		-0.5,
+    -0.612372,		0.560986,		0.430459,		-0.353553,
+    -0.683013,		0.430459,		0.560986,		-0.183013,
+    -0.707107,		0.270598,		0.653281,		2.31815e-08,
+    -0.683013,		0.0922959,		0.701057,		0.183013,
+    -0.612372,		-0.092296,		0.701057,		0.353553,
+    -0.5,		-0.270598,		0.653281,		0.5,
+    -0.353553,		-0.430459,		0.560986,		0.612372,
+    -0.183013,		-0.560986,		0.430459,		0.683013,
+    5.40901e-08,		-0.653282,		0.270598,		0.707107,
+    0.183013,		-0.701057,		0.0922959,		0.683013,
+    0.183013,		0.701057,		0.092296,		-0.683013,
+    -7.72715e-09,		0.653281,		0.270598,		-0.707107,
+    -0.183013,		0.560986,		0.430459,		-0.683013,
+    -0.353553,		0.430459,		0.560986,		-0.612372,
+    -0.5,		0.270598,		0.653281,		-0.5,
+    -0.612372,		0.0922959,		0.701057,		-0.353553,
+    -0.683013,		-0.092296,		0.701057,		-0.183013,
+    -0.707107,		-0.270598,		0.653281,		3.86358e-08,
+    -0.683013,		-0.430459,		0.560986,		0.183013,
+    -0.612372,		-0.560986,		0.430459,		0.353553,
+    -0.5,		-0.653282,		0.270598,		0.5,
+    -0.353553,		-0.701057,		0.0922959,		0.612372,
+    -0.0753593,		0.809511,		0.106574,		-0.572411,
+    -0.220942,		0.754344,		0.31246,		-0.533402,
+    -0.351469,		0.64777,		0.497052,		-0.458043,
+    -0.458043,		0.497052,		0.64777,		-0.351469,
+    -0.533402,		0.31246,		0.754344,		-0.220942,
+    -0.572411,		0.106574,		0.809511,		-0.0753593,
+    -0.572411,		-0.106574,		0.809511,		0.0753594,
+    -0.533402,		-0.31246,		0.754344,		0.220942,
+    -0.458043,		-0.497052,		0.64777,		0.351469,
+    -0.351469,		-0.64777,		0.497052,		0.458043,
+    -0.220942,		-0.754345,		0.31246,		0.533402,
+    -0.0753593,		-0.809511,		0.106574,		0.572411,
+    -0.809511,		0.572411,		0.0753593,		0.106574,
+    -0.754344,		0.533402,		0.220942,		0.31246,
+    -0.64777,		0.458043,		0.351469,		0.497052,
+    -0.497052,		0.351469,		0.458043,		0.64777,
+    -0.31246,		0.220942,		0.533402,		0.754344,
+    -0.106574,		0.0753593,		0.572411,		0.809511,
+    0.106574,		-0.0753594,		0.572411,		0.809511,
+    0.31246,		-0.220942,		0.533402,		0.754344,
+    0.497052,		-0.351469,		0.458043,		0.64777,
+    0.64777,		-0.458043,		0.351469,		0.497052,
+    0.754345,		-0.533402,		0.220942,		0.31246,
+    0.809511,		-0.572411,		0.0753593,		0.106574,
+    -0.612372,		0.701057,		0.092296,		0.353553,
+    -0.5,		0.653281,		0.270598,		0.5,
+    -0.353553,		0.560986,		0.430459,		0.612372,
+    -0.183013,		0.430459,		0.560986,		0.683013,
+    2.31815e-08,		0.270598,		0.653281,		0.707107,
+    0.183013,		0.0922959,		0.701057,		0.683013,
+    0.353553,		-0.092296,		0.701057,		0.612372,
+    0.5,		-0.270598,		0.653281,		0.5,
+    0.612372,		-0.430459,		0.560986,		0.353553,
+    0.683013,		-0.560986,		0.430459,		0.183013,
+    0.707107,		-0.653282,		0.270598,		-5.40901e-08,
+    0.683013,		-0.701057,		0.0922959,		-0.183013,
+    -0.683013,		0.701057,		0.092296,		-0.183013,
+    -0.707107,		0.653281,		0.270598,		7.72715e-09,
+    -0.683013,		0.560986,		0.430459,		0.183013,
+    -0.612372,		0.430459,		0.560986,		0.353553,
+    -0.5,		0.270598,		0.653281,		0.5,
+    -0.353553,		0.0922959,		0.701057,		0.612372,
+    -0.183013,		-0.092296,		0.701057,		0.683013,
+    3.86358e-08,		-0.270598,		0.653281,		0.707107,
+    0.183013,		-0.430459,		0.560986,		0.683013,
+    0.353553,		-0.560986,		0.430459,		0.612372,
+    0.5,		-0.653282,		0.270598,		0.5,
+    0.612372,		-0.701057,		0.0922959,		0.353553,
+    -0.572411,		0.809511,		0.106574,		0.0753593,
+    -0.533402,		0.754344,		0.31246,		0.220942,
+    -0.458043,		0.64777,		0.497052,		0.351469,
+    -0.351469,		0.497052,		0.64777,		0.458043,
+    -0.220942,		0.31246,		0.754344,		0.533402,
+    -0.0753593,		0.106574,		0.809511,		0.572411,
+    0.0753594,		-0.106574,		0.809511,		0.572411,
+    0.220942,		-0.31246,		0.754344,		0.533402,
+    0.351469,		-0.497052,		0.64777,		0.458043,
+    0.458043,		-0.64777,		0.497052,		0.351469,
+    0.533402,		-0.754345,		0.31246,		0.220942,
+    0.572411,		-0.809511,		0.106574,		0.0753593,
+    0.776649,		0.202378,		0.0266435,		0.595944,
+    0.904427,		0.188586,		0.0781149,		0.374626,
+    0.97057,		0.161943,		0.124263,		0.127778,
+    0.97057,		0.124263,		0.161943,		-0.127778,
+    0.904427,		0.0781149,		0.188586,		-0.374626,
+    0.776649,		0.0266435,		0.202378,		-0.595944,
+    0.595944,		-0.0266436,		0.202378,		-0.776649,
+    0.374626,		-0.0781149,		0.188586,		-0.904427,
+    0.127778,		-0.124263,		0.161943,		-0.97057,
+    -0.127778,		-0.161943,		0.124263,		-0.97057,
+    -0.374626,		-0.188586,		0.0781149,		-0.904427,
+    -0.595944,		-0.202378,		0.0266435,		-0.776649,
+    0.881766,		0.404756,		0.0532871,		0.236268,
+    0.912871,		0.377172,		0.15623,		-9.97571e-09,
+    0.881766,		0.323885,		0.248526,		-0.236268,
+    0.790569,		0.248526,		0.323885,		-0.456435,
+    0.645497,		0.15623,		0.377172,		-0.645497,
+    0.456435,		0.0532871,		0.404756,		-0.790569,
+    0.236268,		-0.0532871,		0.404756,		-0.881766,
+    -4.98786e-08,		-0.15623,		0.377172,		-0.912871,
+    -0.236268,		-0.248526,		0.323885,		-0.881766,
+    -0.456436,		-0.323885,		0.248526,		-0.790569,
+    -0.645497,		-0.377172,		0.15623,		-0.645497,
+    -0.790569,		-0.404756,		0.0532871,		-0.456435,
+    0.456435,		0.404756,		0.0532871,		0.790569,
+    0.645497,		0.377172,		0.15623,		0.645497,
+    0.790569,		0.323885,		0.248526,		0.456435,
+    0.881766,		0.248526,		0.323885,		0.236268,
+    0.912871,		0.15623,		0.377172,		-2.99271e-08,
+    0.881766,		0.0532871,		0.404756,		-0.236268,
+    0.790569,		-0.0532871,		0.404756,		-0.456436,
+    0.645497,		-0.15623,		0.377172,		-0.645497,
+    0.456435,		-0.248526,		0.323885,		-0.790569,
+    0.236268,		-0.323885,		0.248526,		-0.881766,
+    -6.983e-08,		-0.377172,		0.15623,		-0.912871,
+    -0.236268,		-0.404756,		0.0532871,		-0.881766,
+    0.64777,		0.572411,		0.0753593,		0.497052,
+    0.754344,		0.533402,		0.220942,		0.31246,
+    0.809511,		0.458043,		0.351469,		0.106574,
+    0.809511,		0.351469,		0.458043,		-0.106574,
+    0.754344,		0.220942,		0.533402,		-0.31246,
+    0.64777,		0.0753593,		0.572411,		-0.497052,
+    0.497052,		-0.0753594,		0.572411,		-0.64777,
+    0.31246,		-0.220942,		0.533402,		-0.754344,
+    0.106574,		-0.351469,		0.458043,		-0.809511,
+    -0.106574,		-0.458043,		0.351469,		-0.809511,
+    -0.31246,		-0.533402,		0.220942,		-0.754344,
+    -0.497052,		-0.572411,		0.0753593,		-0.64777,
+    0.595944,		0.202378,		0.0266435,		-0.776649,
+    0.374626,		0.188586,		0.0781149,		-0.904427,
+    0.127778,		0.161943,		0.124263,		-0.97057,
+    -0.127778,		0.124263,		0.161943,		-0.97057,
+    -0.374626,		0.0781149,		0.188586,		-0.904427,
+    -0.595944,		0.0266435,		0.202378,		-0.776649,
+    -0.776649,		-0.0266436,		0.202378,		-0.595944,
+    -0.904427,		-0.0781149,		0.188586,		-0.374626,
+    -0.97057,		-0.124263,		0.161943,		-0.127778,
+    -0.97057,		-0.161943,		0.124263,		0.127778,
+    -0.904427,		-0.188586,		0.0781149,		0.374626,
+    -0.776649,		-0.202378,		0.0266435,		0.595944,
+    0.236268,		0.404756,		0.0532871,		-0.881766,
+    -9.97571e-09,		0.377172,		0.15623,		-0.912871,
+    -0.236268,		0.323885,		0.248526,		-0.881766,
+    -0.456435,		0.248526,		0.323885,		-0.790569,
+    -0.645497,		0.15623,		0.377172,		-0.645497,
+    -0.790569,		0.0532871,		0.404756,		-0.456435,
+    -0.881766,		-0.0532871,		0.404756,		-0.236268,
+    -0.912871,		-0.15623,		0.377172,		4.98786e-08,
+    -0.881766,		-0.248526,		0.323885,		0.236268,
+    -0.790569,		-0.323885,		0.248526,		0.456436,
+    -0.645497,		-0.377172,		0.15623,		0.645497,
+    -0.456435,		-0.404756,		0.0532871,		0.790569,
+    0.790569,		0.404756,		0.0532871,		-0.456435,
+    0.645497,		0.377172,		0.15623,		-0.645497,
+    0.456435,		0.323885,		0.248526,		-0.790569,
+    0.236268,		0.248526,		0.323885,		-0.881766,
+    -2.99271e-08,		0.15623,		0.377172,		-0.912871,
+    -0.236268,		0.0532871,		0.404756,		-0.881766,
+    -0.456436,		-0.0532871,		0.404756,		-0.790569,
+    -0.645497,		-0.15623,		0.377172,		-0.645497,
+    -0.790569,		-0.248526,		0.323885,		-0.456435,
+    -0.881766,		-0.323885,		0.248526,		-0.236268,
+    -0.912871,		-0.377172,		0.15623,		6.983e-08,
+    -0.881766,		-0.404756,		0.0532871,		0.236268,
+    0.497052,		0.572411,		0.0753593,		-0.64777,
+    0.31246,		0.533402,		0.220942,		-0.754344,
+    0.106574,		0.458043,		0.351469,		-0.809511,
+    -0.106574,		0.351469,		0.458043,		-0.809511,
+    -0.31246,		0.220942,		0.533402,		-0.754344,
+    -0.497052,		0.0753593,		0.572411,		-0.64777,
+    -0.64777,		-0.0753594,		0.572411,		-0.497052,
+    -0.754344,		-0.220942,		0.533402,		-0.31246,
+    -0.809511,		-0.351469,		0.458043,		-0.106574,
+    -0.809511,		-0.458043,		0.351469,		0.106574,
+    -0.754344,		-0.533402,		0.220942,		0.31246,
+    -0.64777,		-0.572411,		0.0753593,		0.497052,
+    -0.776649,		0.202378,		0.0266435,		-0.595944,
+    -0.904427,		0.188586,		0.0781149,		-0.374626,
+    -0.97057,		0.161943,		0.124263,		-0.127778,
+    -0.97057,		0.124263,		0.161943,		0.127778,
+    -0.904427,		0.0781149,		0.188586,		0.374626,
+    -0.776649,		0.0266435,		0.202378,		0.595944,
+    -0.595944,		-0.0266436,		0.202378,		0.776649,
+    -0.374626,		-0.0781149,		0.188586,		0.904427,
+    -0.127778,		-0.124263,		0.161943,		0.97057,
+    0.127778,		-0.161943,		0.124263,		0.97057,
+    0.374626,		-0.188586,		0.0781149,		0.904427,
+    0.595944,		-0.202378,		0.0266435,		0.776649,
+    -0.881766,		0.404756,		0.0532871,		-0.236268,
+    -0.912871,		0.377172,		0.15623,		9.97571e-09,
+    -0.881766,		0.323885,		0.248526,		0.236268,
+    -0.790569,		0.248526,		0.323885,		0.456435,
+    -0.645497,		0.15623,		0.377172,		0.645497,
+    -0.456435,		0.0532871,		0.404756,		0.790569,
+    -0.236268,		-0.0532871,		0.404756,		0.881766,
+    4.98786e-08,		-0.15623,		0.377172,		0.912871,
+    0.236268,		-0.248526,		0.323885,		0.881766,
+    0.456436,		-0.323885,		0.248526,		0.790569,
+    0.645497,		-0.377172,		0.15623,		0.645497,
+    0.790569,		-0.404756,		0.0532871,		0.456435,
+    -0.456435,		0.404756,		0.0532871,		-0.790569,
+    -0.645497,		0.377172,		0.15623,		-0.645497,
+    -0.790569,		0.323885,		0.248526,		-0.456435,
+    -0.881766,		0.248526,		0.323885,		-0.236268,
+    -0.912871,		0.15623,		0.377172,		2.99271e-08,
+    -0.881766,		0.0532871,		0.404756,		0.236268,
+    -0.790569,		-0.0532871,		0.404756,		0.456436,
+    -0.645497,		-0.15623,		0.377172,		0.645497,
+    -0.456435,		-0.248526,		0.323885,		0.790569,
+    -0.236268,		-0.323885,		0.248526,		0.881766,
+    6.983e-08,		-0.377172,		0.15623,		0.912871,
+    0.236268,		-0.404756,		0.0532871,		0.881766,
+    -0.64777,		0.572411,		0.0753593,		-0.497052,
+    -0.754344,		0.533402,		0.220942,		-0.31246,
+    -0.809511,		0.458043,		0.351469,		-0.106574,
+    -0.809511,		0.351469,		0.458043,		0.106574,
+    -0.754344,		0.220942,		0.533402,		0.31246,
+    -0.64777,		0.0753593,		0.572411,		0.497052,
+    -0.497052,		-0.0753594,		0.572411,		0.64777,
+    -0.31246,		-0.220942,		0.533402,		0.754344,
+    -0.106574,		-0.351469,		0.458043,		0.809511,
+    0.106574,		-0.458043,		0.351469,		0.809511,
+    0.31246,		-0.533402,		0.220942,		0.754344,
+    0.497052,		-0.572411,		0.0753593,		0.64777,
+    -0.595944,		0.202378,		0.0266435,		0.776649,
+    -0.374626,		0.188586,		0.0781149,		0.904427,
+    -0.127778,		0.161943,		0.124263,		0.97057,
+    0.127778,		0.124263,		0.161943,		0.97057,
+    0.374626,		0.0781149,		0.188586,		0.904427,
+    0.595944,		0.0266435,		0.202378,		0.776649,
+    0.776649,		-0.0266436,		0.202378,		0.595944,
+    0.904427,		-0.0781149,		0.188586,		0.374626,
+    0.97057,		-0.124263,		0.161943,		0.127778,
+    0.97057,		-0.161943,		0.124263,		-0.127778,
+    0.904427,		-0.188586,		0.0781149,		-0.374626,
+    0.776649,		-0.202378,		0.0266435,		-0.595944,
+    -0.236268,		0.404756,		0.0532871,		0.881766,
+    9.97571e-09,		0.377172,		0.15623,		0.912871,
+    0.236268,		0.323885,		0.248526,		0.881766,
+    0.456435,		0.248526,		0.323885,		0.790569,
+    0.645497,		0.15623,		0.377172,		0.645497,
+    0.790569,		0.0532871,		0.404756,		0.456435,
+    0.881766,		-0.0532871,		0.404756,		0.236268,
+    0.912871,		-0.15623,		0.377172,		-4.98786e-08,
+    0.881766,		-0.248526,		0.323885,		-0.236268,
+    0.790569,		-0.323885,		0.248526,		-0.456436,
+    0.645497,		-0.377172,		0.15623,		-0.645497,
+    0.456435,		-0.404756,		0.0532871,		-0.790569,
+    -0.790569,		0.404756,		0.0532871,		0.456435,
+    -0.645497,		0.377172,		0.15623,		0.645497,
+    -0.456435,		0.323885,		0.248526,		0.790569,
+    -0.236268,		0.248526,		0.323885,		0.881766,
+    2.99271e-08,		0.15623,		0.377172,		0.912871,
+    0.236268,		0.0532871,		0.404756,		0.881766,
+    0.456436,		-0.0532871,		0.404756,		0.790569,
+    0.645497,		-0.15623,		0.377172,		0.645497,
+    0.790569,		-0.248526,		0.323885,		0.456435,
+    0.881766,		-0.323885,		0.248526,		0.236268,
+    0.912871,		-0.377172,		0.15623,		-6.983e-08,
+    0.881766,		-0.404756,		0.0532871,		-0.236268,
+    -0.497052,		0.572411,		0.0753593,		0.64777,
+    -0.31246,		0.533402,		0.220942,		0.754344,
+    -0.106574,		0.458043,		0.351469,		0.809511,
+    0.106574,		0.351469,		0.458043,		0.809511,
+    0.31246,		0.220942,		0.533402,		0.754344,
+    0.497052,		0.0753593,		0.572411,		0.64777,
+    0.64777,		-0.0753594,		0.572411,		0.497052,
+    0.754344,		-0.220942,		0.533402,		0.31246,
+    0.809511,		-0.351469,		0.458043,		0.106574,
+    0.809511,		-0.458043,		0.351469,		-0.106574,
+    0.754344,		-0.533402,		0.220942,		-0.31246,
+    0.64777,		-0.572411,		0.0753593,		-0.497052 };
+  initVector(arr, 4*576);
 }
 
 void OrientationSet::init4608() {
-    orientations.push_back(Coordinates(0.485311,		0.762127,		0.0499525,		0.425606            ));
-    orientations.push_back(Coordinates(0.536711,		0.749087,		0.149003,		0.358619            ));
-    orientations.push_back(Coordinates(0.578929,		0.72323,		0.245503,		0.285496            ));
-    orientations.push_back(Coordinates(0.611241,		0.684998,		0.337804,		0.207488            ));
-    orientations.push_back(Coordinates(0.633094,		0.635045,		0.424324,		0.12593             ));
-    orientations.push_back(Coordinates(0.644115,		0.574227,		0.503584,		0.0422175           ));
-    orientations.push_back(Coordinates(0.644115,		0.503584,		0.574227,		-0.0422176          ));
-    orientations.push_back(Coordinates(0.633094,		0.424324,		0.635045,		-0.12593            ));
-    orientations.push_back(Coordinates(0.611241,		0.337804,		0.684998,		-0.207488           ));
-    orientations.push_back(Coordinates(0.578929,		0.245503,		0.72323,		-0.285496           ));
-    orientations.push_back(Coordinates(0.536711,		0.149003,		0.749087,		-0.358619           ));
-    orientations.push_back(Coordinates(0.48531,		0.0499524,		0.762127,		-0.425606               ));
-    orientations.push_back(Coordinates(0.425606,		-0.0499525,		0.762127,		-0.485311           ));
-    orientations.push_back(Coordinates(0.358619,		-0.149003,		0.749087,		-0.536711           ));
-    orientations.push_back(Coordinates(0.285496,		-0.245503,		0.72323,		-0.578929           ));
-    orientations.push_back(Coordinates(0.207488,		-0.337804,		0.684998,		-0.611241           ));
-    orientations.push_back(Coordinates(0.12593,		-0.424324,		0.635045,		-0.633094               ));
-    orientations.push_back(Coordinates(0.0422175,		-0.503584,		0.574227,		-0.644115           ));
-    orientations.push_back(Coordinates(-0.0422176,		-0.574227,		0.503584,		-0.644115           ));
-    orientations.push_back(Coordinates(-0.12593,		-0.635045,		0.424324,		-0.633094           ));
-    orientations.push_back(Coordinates(-0.207488,		-0.684998,		0.337804,		-0.611241           ));
-    orientations.push_back(Coordinates(-0.285496,		-0.72323,		0.245503,		-0.578929           ));
-    orientations.push_back(Coordinates(-0.358619,		-0.749087,		0.149003,		-0.536711           ));
-    orientations.push_back(Coordinates(-0.425606,		-0.762127,		0.0499524,		-0.48531            ));
-    orientations.push_back(Coordinates(0.5,		0.814748,		0.0534014,		0.288675                    ));
-    orientations.push_back(Coordinates(0.533402,		0.800808,		0.159291,		0.220942            ));
-    orientations.push_back(Coordinates(0.557678,		0.773165,		0.262454,		0.149429            ));
-    orientations.push_back(Coordinates(0.572411,		0.732294,		0.361127,		0.0753593           ));
-    orientations.push_back(Coordinates(0.57735,		0.678892,		0.453621,		-9.46379e-09            ));
-    orientations.push_back(Coordinates(0.572411,		0.613875,		0.538354,		-0.0753593          ));
-    orientations.push_back(Coordinates(0.557678,		0.538354,		0.613875,		-0.149429           ));
-    orientations.push_back(Coordinates(0.533402,		0.453621,		0.678892,		-0.220942           ));
-    orientations.push_back(Coordinates(0.5,		0.361127,		0.732294,		-0.288675                   ));
-    orientations.push_back(Coordinates(0.458043,		0.262454,		0.773165,		-0.351469           ));
-    orientations.push_back(Coordinates(0.408248,		0.159291,		0.800808,		-0.408248           ));
-    orientations.push_back(Coordinates(0.351469,		0.0534014,		0.814748,		-0.458043           ));
-    orientations.push_back(Coordinates(0.288675,		-0.0534015,		0.814748,		-0.5                ));
-    orientations.push_back(Coordinates(0.220942,		-0.159291,		0.800808,		-0.533402           ));
-    orientations.push_back(Coordinates(0.149429,		-0.262454,		0.773165,		-0.557678           ));
-    orientations.push_back(Coordinates(0.0753593,		-0.361127,		0.732294,		-0.572411           ));
-    orientations.push_back(Coordinates(-3.47006e-08,		-0.453621,		0.678892,		-0.57735        ));
-    orientations.push_back(Coordinates(-0.0753594,		-0.538354,		0.613875,		-0.572411           ));
-    orientations.push_back(Coordinates(-0.149429,		-0.613875,		0.538354,		-0.557678           ));
-    orientations.push_back(Coordinates(-0.220942,		-0.678892,		0.453621,		-0.533402           ));
-    orientations.push_back(Coordinates(-0.288675,		-0.732294,		0.361127,		-0.5                ));
-    orientations.push_back(Coordinates(-0.351469,		-0.773165,		0.262454,		-0.458043           ));
-    orientations.push_back(Coordinates(-0.408248,		-0.800808,		0.159291,		-0.408248           ));
-    orientations.push_back(Coordinates(-0.458043,		-0.814748,		0.0534014,		-0.351469           ));
-    orientations.push_back(Coordinates(0.351469,		0.814748,		0.0534014,		0.458043            ));
-    orientations.push_back(Coordinates(0.408248,		0.800808,		0.159291,		0.408248            ));
-    orientations.push_back(Coordinates(0.458043,		0.773165,		0.262454,		0.351469            ));
-    orientations.push_back(Coordinates(0.5,		0.732294,		0.361127,		0.288675                    ));
-    orientations.push_back(Coordinates(0.533402,		0.678892,		0.453621,		0.220942            ));
-    orientations.push_back(Coordinates(0.557678,		0.613875,		0.538354,		0.149429            ));
-    orientations.push_back(Coordinates(0.572411,		0.538354,		0.613875,		0.0753593           ));
-    orientations.push_back(Coordinates(0.57735,		0.453621,		0.678892,		-1.5773e-08             ));
-    orientations.push_back(Coordinates(0.572411,		0.361127,		0.732294,		-0.0753593          ));
-    orientations.push_back(Coordinates(0.557678,		0.262454,		0.773165,		-0.149429           ));
-    orientations.push_back(Coordinates(0.533402,		0.159291,		0.800808,		-0.220942           ));
-    orientations.push_back(Coordinates(0.5,		0.0534014,		0.814748,		-0.288675                   ));
-    orientations.push_back(Coordinates(0.458043,		-0.0534015,		0.814748,		-0.351469           ));
-    orientations.push_back(Coordinates(0.408248,		-0.159291,		0.800808,		-0.408248           ));
-    orientations.push_back(Coordinates(0.351469,		-0.262454,		0.773165,		-0.458043           ));
-    orientations.push_back(Coordinates(0.288675,		-0.361127,		0.732294,		-0.5                ));
-    orientations.push_back(Coordinates(0.220942,		-0.453621,		0.678892,		-0.533402           ));
-    orientations.push_back(Coordinates(0.149429,		-0.538354,		0.613875,		-0.557678           ));
-    orientations.push_back(Coordinates(0.0753593,		-0.613875,		0.538354,		-0.572411           ));
-    orientations.push_back(Coordinates(-4.10098e-08,		-0.678892,		0.453621,		-0.57735        ));
-    orientations.push_back(Coordinates(-0.0753594,		-0.732294,		0.361127,		-0.572411           ));
-    orientations.push_back(Coordinates(-0.149429,		-0.773165,		0.262454,		-0.557678           ));
-    orientations.push_back(Coordinates(-0.220942,		-0.800808,		0.159291,		-0.533402           ));
-    orientations.push_back(Coordinates(-0.288675,		-0.814748,		0.0534014,		-0.5                ));
-    orientations.push_back(Coordinates(0.37592,		0.864171,		0.0566408,		0.329673                ));
-    orientations.push_back(Coordinates(0.415735,		0.849385,		0.168953,		0.277785            ));
-    orientations.push_back(Coordinates(0.448436,		0.820066,		0.278375,		0.221144            ));
-    orientations.push_back(Coordinates(0.473465,		0.776715,		0.383033,		0.16072             ));
-    orientations.push_back(Coordinates(0.490393,		0.720074,		0.481138,		0.0975452           ));
-    orientations.push_back(Coordinates(0.498929,		0.651112,		0.57101,		0.0327016           ));
-    orientations.push_back(Coordinates(0.498929,		0.57101,		0.651112,		-0.0327016          ));
-    orientations.push_back(Coordinates(0.490393,		0.481138,		0.720074,		-0.0975452          ));
-    orientations.push_back(Coordinates(0.473465,		0.383033,		0.776715,		-0.16072            ));
-    orientations.push_back(Coordinates(0.448436,		0.278375,		0.820066,		-0.221144           ));
-    orientations.push_back(Coordinates(0.415735,		0.168953,		0.849385,		-0.277785           ));
-    orientations.push_back(Coordinates(0.37592,		0.0566407,		0.864171,		-0.329673               ));
-    orientations.push_back(Coordinates(0.329673,		-0.0566408,		0.864171,		-0.37592            ));
-    orientations.push_back(Coordinates(0.277785,		-0.168953,		0.849385,		-0.415735           ));
-    orientations.push_back(Coordinates(0.221144,		-0.278375,		0.820066,		-0.448436           ));
-    orientations.push_back(Coordinates(0.16072,		-0.383033,		0.776715,		-0.473465               ));
-    orientations.push_back(Coordinates(0.0975451,		-0.481138,		0.720074,		-0.490393           ));
-    orientations.push_back(Coordinates(0.0327015,		-0.57101,		0.651112,		-0.498929           ));
-    orientations.push_back(Coordinates(-0.0327016,		-0.651112,		0.57101,		-0.498929           ));
-    orientations.push_back(Coordinates(-0.0975452,		-0.720074,		0.481138,		-0.490393           ));
-    orientations.push_back(Coordinates(-0.16072,		-0.776715,		0.383033,		-0.473465           ));
-    orientations.push_back(Coordinates(-0.221144,		-0.820066,		0.278375,		-0.448436           ));
-    orientations.push_back(Coordinates(-0.277785,		-0.849385,		0.168953,		-0.415735           ));
-    orientations.push_back(Coordinates(-0.329673,		-0.864171,		0.0566407,		-0.37592            ));
-    orientations.push_back(Coordinates(0.473465,		0.864171,		0.0566408,		0.16072             ));
-    orientations.push_back(Coordinates(0.490393,		0.849385,		0.168953,		0.0975452           ));
-    orientations.push_back(Coordinates(0.498929,		0.820066,		0.278375,		0.0327016           ));
-    orientations.push_back(Coordinates(0.498929,		0.776715,		0.383033,		-0.0327016          ));
-    orientations.push_back(Coordinates(0.490393,		0.720074,		0.481138,		-0.0975452          ));
-    orientations.push_back(Coordinates(0.473465,		0.651112,		0.57101,		-0.16072            ));
-    orientations.push_back(Coordinates(0.448436,		0.57101,		0.651112,		-0.221144           ));
-    orientations.push_back(Coordinates(0.415735,		0.481138,		0.720074,		-0.277785           ));
-    orientations.push_back(Coordinates(0.37592,		0.383033,		0.776715,		-0.329673               ));
-    orientations.push_back(Coordinates(0.329673,		0.278375,		0.820066,		-0.37592            ));
-    orientations.push_back(Coordinates(0.277785,		0.168953,		0.849385,		-0.415735           ));
-    orientations.push_back(Coordinates(0.221144,		0.0566407,		0.864171,		-0.448436           ));
-    orientations.push_back(Coordinates(0.16072,		-0.0566408,		0.864171,		-0.473465               ));
-    orientations.push_back(Coordinates(0.0975451,		-0.168953,		0.849385,		-0.490393           ));
-    orientations.push_back(Coordinates(0.0327015,		-0.278375,		0.820066,		-0.498929           ));
-    orientations.push_back(Coordinates(-0.0327016,		-0.383033,		0.776715,		-0.498929           ));
-    orientations.push_back(Coordinates(-0.0975452,		-0.481138,		0.720074,		-0.490393           ));
-    orientations.push_back(Coordinates(-0.16072,		-0.57101,		0.651112,		-0.473465           ));
-    orientations.push_back(Coordinates(-0.221144,		-0.651112,		0.57101,		-0.448436           ));
-    orientations.push_back(Coordinates(-0.277785,		-0.720074,		0.481138,		-0.415735           ));
-    orientations.push_back(Coordinates(-0.329673,		-0.776715,		0.383033,		-0.37592            ));
-    orientations.push_back(Coordinates(-0.37592,		-0.820066,		0.278375,		-0.329673           ));
-    orientations.push_back(Coordinates(-0.415735,		-0.849385,		0.168953,		-0.277785           ));
-    orientations.push_back(Coordinates(-0.448436,		-0.864171,		0.0566407,		-0.221144           ));
-    orientations.push_back(Coordinates(0.404756,		0.910916,		0.0597046,		0.0532871           ));
-    orientations.push_back(Coordinates(0.408248,		0.89533,		0.178092,		-2.23064e-09        ));
-    orientations.push_back(Coordinates(0.404756,		0.864425,		0.293433,		-0.0532871          ));
-    orientations.push_back(Coordinates(0.394338,		0.818729,		0.403752,		-0.105662           ));
-    orientations.push_back(Coordinates(0.377172,		0.759024,		0.507164,		-0.15623            ));
-    orientations.push_back(Coordinates(0.353553,		0.686333,		0.601898,		-0.204124           ));
-    orientations.push_back(Coordinates(0.323885,		0.601898,		0.686333,		-0.248526           ));
-    orientations.push_back(Coordinates(0.288675,		0.507164,		0.759024,		-0.288675           ));
-    orientations.push_back(Coordinates(0.248526,		0.403752,		0.818729,		-0.323885           ));
-    orientations.push_back(Coordinates(0.204124,		0.293433,		0.864425,		-0.353553           ));
-    orientations.push_back(Coordinates(0.15623,		0.178092,		0.89533,		-0.377172               ));
-    orientations.push_back(Coordinates(0.105662,		0.0597046,		0.910916,		-0.394338           ));
-    orientations.push_back(Coordinates(0.0532871,		-0.0597047,		0.910916,		-0.404756           ));
-    orientations.push_back(Coordinates(-2.00757e-08,		-0.178092,		0.89533,		-0.408248       ));
-    orientations.push_back(Coordinates(-0.0532871,		-0.293433,		0.864425,		-0.404756           ));
-    orientations.push_back(Coordinates(-0.105662,		-0.403753,		0.818729,		-0.394338           ));
-    orientations.push_back(Coordinates(-0.15623,		-0.507164,		0.759024,		-0.377172           ));
-    orientations.push_back(Coordinates(-0.204124,		-0.601898,		0.686333,		-0.353553           ));
-    orientations.push_back(Coordinates(-0.248526,		-0.686333,		0.601898,		-0.323885           ));
-    orientations.push_back(Coordinates(-0.288675,		-0.759024,		0.507164,		-0.288675           ));
-    orientations.push_back(Coordinates(-0.323885,		-0.818729,		0.403752,		-0.248526           ));
-    orientations.push_back(Coordinates(-0.353553,		-0.864425,		0.293433,		-0.204124           ));
-    orientations.push_back(Coordinates(-0.377172,		-0.89533,		0.178092,		-0.15623            ));
-    orientations.push_back(Coordinates(-0.394338,		-0.910916,		0.0597045,		-0.105662           ));
-    orientations.push_back(Coordinates(0.353553,		0.910916,		0.0597046,		0.204124            ));
-    orientations.push_back(Coordinates(0.377172,		0.89533,		0.178092,		0.15623             ));
-    orientations.push_back(Coordinates(0.394338,		0.864425,		0.293433,		0.105662            ));
-    orientations.push_back(Coordinates(0.404756,		0.818729,		0.403752,		0.0532871           ));
-    orientations.push_back(Coordinates(0.408248,		0.759024,		0.507164,		-6.69191e-09        ));
-    orientations.push_back(Coordinates(0.404756,		0.686333,		0.601898,		-0.0532871          ));
-    orientations.push_back(Coordinates(0.394338,		0.601898,		0.686333,		-0.105662           ));
-    orientations.push_back(Coordinates(0.377172,		0.507164,		0.759024,		-0.15623            ));
-    orientations.push_back(Coordinates(0.353553,		0.403752,		0.818729,		-0.204124           ));
-    orientations.push_back(Coordinates(0.323885,		0.293433,		0.864425,		-0.248526           ));
-    orientations.push_back(Coordinates(0.288675,		0.178092,		0.89533,		-0.288675           ));
-    orientations.push_back(Coordinates(0.248526,		0.0597046,		0.910916,		-0.323885           ));
-    orientations.push_back(Coordinates(0.204124,		-0.0597047,		0.910916,		-0.353553           ));
-    orientations.push_back(Coordinates(0.15623,		-0.178092,		0.89533,		-0.377172               ));
-    orientations.push_back(Coordinates(0.105662,		-0.293433,		0.864425,		-0.394338           ));
-    orientations.push_back(Coordinates(0.0532871,		-0.403753,		0.818729,		-0.404756           ));
-    orientations.push_back(Coordinates(-2.4537e-08,		-0.507164,		0.759024,		-0.408248           ));
-    orientations.push_back(Coordinates(-0.0532871,		-0.601898,		0.686333,		-0.404756           ));
-    orientations.push_back(Coordinates(-0.105662,		-0.686333,		0.601898,		-0.394338           ));
-    orientations.push_back(Coordinates(-0.15623,		-0.759024,		0.507164,		-0.377172           ));
-    orientations.push_back(Coordinates(-0.204124,		-0.818729,		0.403752,		-0.353553           ));
-    orientations.push_back(Coordinates(-0.248526,		-0.864425,		0.293433,		-0.323885           ));
-    orientations.push_back(Coordinates(-0.288675,		-0.89533,		0.178092,		-0.288675           ));
-    orientations.push_back(Coordinates(-0.323885,		-0.910916,		0.0597045,		-0.248526           ));
-    orientations.push_back(Coordinates(0.300303,		0.949933,		0.0622619,		0.059734            ));
-    orientations.push_back(Coordinates(0.305531,		0.93368,		0.18572,		0.0200255           ));
-    orientations.push_back(Coordinates(0.305531,		0.901451,		0.306001,		-0.0200255          ));
-    orientations.push_back(Coordinates(0.300303,		0.853797,		0.421046,		-0.059734           ));
-    orientations.push_back(Coordinates(0.289937,		0.791535,		0.528887,		-0.0984203          ));
-    orientations.push_back(Coordinates(0.27461,		0.71573,		0.627679,		-0.135423               ));
-    orientations.push_back(Coordinates(0.254585,		0.627678,		0.71573,		-0.170108           ));
-    orientations.push_back(Coordinates(0.230203,		0.528887,		0.791536,		-0.201883           ));
-    orientations.push_back(Coordinates(0.201883,		0.421046,		0.853797,		-0.230203           ));
-    orientations.push_back(Coordinates(0.170108,		0.306001,		0.901451,		-0.254585           ));
-    orientations.push_back(Coordinates(0.135423,		0.18572,		0.93368,		-0.27461            ));
-    orientations.push_back(Coordinates(0.0984203,		0.0622619,		0.949933,		-0.289937           ));
-    orientations.push_back(Coordinates(0.059734,		-0.062262,		0.949933,		-0.300303           ));
-    orientations.push_back(Coordinates(0.0200255,		-0.18572,		0.93368,		-0.305531           ));
-    orientations.push_back(Coordinates(-0.0200256,		-0.306001,		0.901451,		-0.305531           ));
-    orientations.push_back(Coordinates(-0.059734,		-0.421046,		0.853797,		-0.300303           ));
-    orientations.push_back(Coordinates(-0.0984204,		-0.528887,		0.791535,		-0.289937           ));
-    orientations.push_back(Coordinates(-0.135423,		-0.627679,		0.71573,		-0.27461            ));
-    orientations.push_back(Coordinates(-0.170108,		-0.71573,		0.627678,		-0.254585           ));
-    orientations.push_back(Coordinates(-0.201883,		-0.791536,		0.528887,		-0.230203           ));
-    orientations.push_back(Coordinates(-0.230203,		-0.853797,		0.421046,		-0.201883           ));
-    orientations.push_back(Coordinates(-0.254585,		-0.901451,		0.306001,		-0.170108           ));
-    orientations.push_back(Coordinates(-0.27461,		-0.93368,		0.18572,		-0.135423           ));
-    orientations.push_back(Coordinates(-0.289937,		-0.949933,		0.0622618,		-0.0984203          ));
-    orientations.push_back(Coordinates(0.221144,		0.864171,		0.0566408,		0.448436            ));
-    orientations.push_back(Coordinates(0.277785,		0.849385,		0.168953,		0.415735            ));
-    orientations.push_back(Coordinates(0.329673,		0.820066,		0.278375,		0.37592             ));
-    orientations.push_back(Coordinates(0.37592,		0.776715,		0.383033,		0.329673                ));
-    orientations.push_back(Coordinates(0.415735,		0.720074,		0.481138,		0.277785            ));
-    orientations.push_back(Coordinates(0.448436,		0.651112,		0.57101,		0.221144            ));
-    orientations.push_back(Coordinates(0.473465,		0.57101,		0.651112,		0.16072             ));
-    orientations.push_back(Coordinates(0.490393,		0.481138,		0.720074,		0.0975451           ));
-    orientations.push_back(Coordinates(0.498929,		0.383033,		0.776715,		0.0327015           ));
-    orientations.push_back(Coordinates(0.498929,		0.278375,		0.820066,		-0.0327016          ));
-    orientations.push_back(Coordinates(0.490393,		0.168953,		0.849385,		-0.0975452          ));
-    orientations.push_back(Coordinates(0.473465,		0.0566407,		0.864171,		-0.16072            ));
-    orientations.push_back(Coordinates(0.448436,		-0.0566408,		0.864171,		-0.221144           ));
-    orientations.push_back(Coordinates(0.415735,		-0.168953,		0.849385,		-0.277785           ));
-    orientations.push_back(Coordinates(0.37592,		-0.278375,		0.820066,		-0.329673               ));
-    orientations.push_back(Coordinates(0.329673,		-0.383033,		0.776715,		-0.37592            ));
-    orientations.push_back(Coordinates(0.277785,		-0.481138,		0.720074,		-0.415735           ));
-    orientations.push_back(Coordinates(0.221144,		-0.57101,		0.651112,		-0.448436           ));
-    orientations.push_back(Coordinates(0.16072,		-0.651112,		0.57101,		-0.473465               ));
-    orientations.push_back(Coordinates(0.0975451,		-0.720074,		0.481138,		-0.490393           ));
-    orientations.push_back(Coordinates(0.0327015,		-0.776715,		0.383033,		-0.498929           ));
-    orientations.push_back(Coordinates(-0.0327016,		-0.820066,		0.278375,		-0.498929           ));
-    orientations.push_back(Coordinates(-0.0975452,		-0.849385,		0.168953,		-0.490393           ));
-    orientations.push_back(Coordinates(-0.16072,		-0.864171,		0.0566407,		-0.473465           ));
-    orientations.push_back(Coordinates(0.248526,		0.910916,		0.0597046,		0.323885            ));
-    orientations.push_back(Coordinates(0.288675,		0.89533,		0.178092,		0.288675            ));
-    orientations.push_back(Coordinates(0.323885,		0.864425,		0.293433,		0.248526            ));
-    orientations.push_back(Coordinates(0.353553,		0.818729,		0.403752,		0.204124            ));
-    orientations.push_back(Coordinates(0.377172,		0.759024,		0.507164,		0.15623             ));
-    orientations.push_back(Coordinates(0.394338,		0.686333,		0.601898,		0.105662            ));
-    orientations.push_back(Coordinates(0.404756,		0.601898,		0.686333,		0.0532871           ));
-    orientations.push_back(Coordinates(0.408248,		0.507164,		0.759024,		-1.11532e-08        ));
-    orientations.push_back(Coordinates(0.404756,		0.403752,		0.818729,		-0.0532871          ));
-    orientations.push_back(Coordinates(0.394338,		0.293433,		0.864425,		-0.105662           ));
-    orientations.push_back(Coordinates(0.377172,		0.178092,		0.89533,		-0.15623            ));
-    orientations.push_back(Coordinates(0.353553,		0.0597046,		0.910916,		-0.204124           ));
-    orientations.push_back(Coordinates(0.323885,		-0.0597047,		0.910916,		-0.248526           ));
-    orientations.push_back(Coordinates(0.288675,		-0.178092,		0.89533,		-0.288675           ));
-    orientations.push_back(Coordinates(0.248526,		-0.293433,		0.864425,		-0.323885           ));
-    orientations.push_back(Coordinates(0.204124,		-0.403753,		0.818729,		-0.353553           ));
-    orientations.push_back(Coordinates(0.15623,		-0.507164,		0.759024,		-0.377172               ));
-    orientations.push_back(Coordinates(0.105662,		-0.601898,		0.686333,		-0.394338           ));
-    orientations.push_back(Coordinates(0.0532871,		-0.686333,		0.601898,		-0.404756           ));
-    orientations.push_back(Coordinates(-2.89983e-08,		-0.759024,		0.507164,		-0.408248       ));
-    orientations.push_back(Coordinates(-0.0532871,		-0.818729,		0.403752,		-0.404756           ));
-    orientations.push_back(Coordinates(-0.105662,		-0.864425,		0.293433,		-0.394338           ));
-    orientations.push_back(Coordinates(-0.15623,		-0.89533,		0.178092,		-0.377172           ));
-    orientations.push_back(Coordinates(-0.204124,		-0.910916,		0.0597045,		-0.353553           ));
-    orientations.push_back(Coordinates(0.105662,		0.910916,		0.0597046,		0.394338            ));
-    orientations.push_back(Coordinates(0.15623,		0.89533,		0.178092,		0.377172                ));
-    orientations.push_back(Coordinates(0.204124,		0.864425,		0.293433,		0.353553            ));
-    orientations.push_back(Coordinates(0.248526,		0.818729,		0.403752,		0.323885            ));
-    orientations.push_back(Coordinates(0.288675,		0.759024,		0.507164,		0.288675            ));
-    orientations.push_back(Coordinates(0.323885,		0.686333,		0.601898,		0.248526            ));
-    orientations.push_back(Coordinates(0.353553,		0.601898,		0.686333,		0.204124            ));
-    orientations.push_back(Coordinates(0.377172,		0.507164,		0.759024,		0.15623             ));
-    orientations.push_back(Coordinates(0.394338,		0.403752,		0.818729,		0.105662            ));
-    orientations.push_back(Coordinates(0.404756,		0.293433,		0.864425,		0.0532871           ));
-    orientations.push_back(Coordinates(0.408248,		0.178092,		0.89533,		-1.56145e-08        ));
-    orientations.push_back(Coordinates(0.404756,		0.0597046,		0.910916,		-0.0532871          ));
-    orientations.push_back(Coordinates(0.394338,		-0.0597047,		0.910916,		-0.105662           ));
-    orientations.push_back(Coordinates(0.377172,		-0.178092,		0.89533,		-0.15623            ));
-    orientations.push_back(Coordinates(0.353553,		-0.293433,		0.864425,		-0.204124           ));
-    orientations.push_back(Coordinates(0.323885,		-0.403753,		0.818729,		-0.248526           ));
-    orientations.push_back(Coordinates(0.288675,		-0.507164,		0.759024,		-0.288675           ));
-    orientations.push_back(Coordinates(0.248526,		-0.601898,		0.686333,		-0.323885           ));
-    orientations.push_back(Coordinates(0.204124,		-0.686333,		0.601898,		-0.353553           ));
-    orientations.push_back(Coordinates(0.15623,		-0.759024,		0.507164,		-0.377172               ));
-    orientations.push_back(Coordinates(0.105662,		-0.818729,		0.403752,		-0.394338           ));
-    orientations.push_back(Coordinates(0.0532871,		-0.864425,		0.293433,		-0.404756           ));
-    orientations.push_back(Coordinates(-3.34596e-08,		-0.89533,		0.178092,		-0.408248       ));
-    orientations.push_back(Coordinates(-0.0532871,		-0.910916,		0.0597045,		-0.404756           ));
-    orientations.push_back(Coordinates(0.0984203,		0.949933,		0.0622619,		0.289937            ));
-    orientations.push_back(Coordinates(0.135423,		0.93368,		0.18572,		0.27461             ));
-    orientations.push_back(Coordinates(0.170108,		0.901451,		0.306001,		0.254585            ));
-    orientations.push_back(Coordinates(0.201883,		0.853797,		0.421046,		0.230203            ));
-    orientations.push_back(Coordinates(0.230203,		0.791535,		0.528887,		0.201883            ));
-    orientations.push_back(Coordinates(0.254585,		0.71573,		0.627679,		0.170108            ));
-    orientations.push_back(Coordinates(0.27461,		0.627678,		0.71573,		0.135423                ));
-    orientations.push_back(Coordinates(0.289937,		0.528887,		0.791536,		0.0984203           ));
-    orientations.push_back(Coordinates(0.300303,		0.421046,		0.853797,		0.059734            ));
-    orientations.push_back(Coordinates(0.305531,		0.306001,		0.901451,		0.0200255           ));
-    orientations.push_back(Coordinates(0.305531,		0.18572,		0.93368,		-0.0200255          ));
-    orientations.push_back(Coordinates(0.300303,		0.0622619,		0.949933,		-0.059734           ));
-    orientations.push_back(Coordinates(0.289937,		-0.062262,		0.949933,		-0.0984203          ));
-    orientations.push_back(Coordinates(0.27461,		-0.18572,		0.93368,		-0.135423               ));
-    orientations.push_back(Coordinates(0.254585,		-0.306001,		0.901451,		-0.170108           ));
-    orientations.push_back(Coordinates(0.230203,		-0.421046,		0.853797,		-0.201883           ));
-    orientations.push_back(Coordinates(0.201883,		-0.528887,		0.791535,		-0.230203           ));
-    orientations.push_back(Coordinates(0.170108,		-0.627679,		0.71573,		-0.254585           ));
-    orientations.push_back(Coordinates(0.135423,		-0.71573,		0.627678,		-0.27461            ));
-    orientations.push_back(Coordinates(0.0984203,		-0.791536,		0.528887,		-0.289937           ));
-    orientations.push_back(Coordinates(0.0597339,		-0.853797,		0.421046,		-0.300303           ));
-    orientations.push_back(Coordinates(0.0200255,		-0.901451,		0.306001,		-0.305531           ));
-    orientations.push_back(Coordinates(-0.0200256,		-0.93368,		0.18572,		-0.305531           ));
-    orientations.push_back(Coordinates(-0.059734,		-0.949933,		0.0622618,		-0.300303           ));
-    orientations.push_back(Coordinates(0.230203,		0.949933,		0.0622619,		0.201883            ));
-    orientations.push_back(Coordinates(0.254585,		0.93368,		0.18572,		0.170108            ));
-    orientations.push_back(Coordinates(0.27461,		0.901451,		0.306001,		0.135423                ));
-    orientations.push_back(Coordinates(0.289937,		0.853797,		0.421046,		0.0984203           ));
-    orientations.push_back(Coordinates(0.300303,		0.791535,		0.528887,		0.059734            ));
-    orientations.push_back(Coordinates(0.305531,		0.71573,		0.627679,		0.0200255           ));
-    orientations.push_back(Coordinates(0.305531,		0.627678,		0.71573,		-0.0200255          ));
-    orientations.push_back(Coordinates(0.300303,		0.528887,		0.791536,		-0.059734           ));
-    orientations.push_back(Coordinates(0.289937,		0.421046,		0.853797,		-0.0984203          ));
-    orientations.push_back(Coordinates(0.27461,		0.306001,		0.901451,		-0.135423               ));
-    orientations.push_back(Coordinates(0.254585,		0.18572,		0.93368,		-0.170108           ));
-    orientations.push_back(Coordinates(0.230203,		0.0622619,		0.949933,		-0.201883           ));
-    orientations.push_back(Coordinates(0.201883,		-0.062262,		0.949933,		-0.230203           ));
-    orientations.push_back(Coordinates(0.170108,		-0.18572,		0.93368,		-0.254585           ));
-    orientations.push_back(Coordinates(0.135423,		-0.306001,		0.901451,		-0.27461            ));
-    orientations.push_back(Coordinates(0.0984203,		-0.421046,		0.853797,		-0.289937           ));
-    orientations.push_back(Coordinates(0.0597339,		-0.528887,		0.791535,		-0.300303           ));
-    orientations.push_back(Coordinates(0.0200255,		-0.627679,		0.71573,		-0.305531           ));
-    orientations.push_back(Coordinates(-0.0200256,		-0.71573,		0.627678,		-0.305531           ));
-    orientations.push_back(Coordinates(-0.059734,		-0.791536,		0.528887,		-0.300303           ));
-    orientations.push_back(Coordinates(-0.0984204,		-0.853797,		0.421046,		-0.289937           ));
-    orientations.push_back(Coordinates(-0.135423,		-0.901451,		0.306001,		-0.27461            ));
-    orientations.push_back(Coordinates(-0.170108,		-0.93368,		0.18572,		-0.254585           ));
-    orientations.push_back(Coordinates(-0.201883,		-0.949933,		0.0622618,		-0.230203           ));
-    orientations.push_back(Coordinates(0.193291,		0.976849,		0.0640261,		0.0656136           ));
-    orientations.push_back(Coordinates(0.200202,		0.960135,		0.190983,		0.0398226           ));
-    orientations.push_back(Coordinates(0.203687,		0.926993,		0.314672,		0.0133504           ));
-    orientations.push_back(Coordinates(0.203687,		0.877989,		0.432976,		-0.0133504          ));
-    orientations.push_back(Coordinates(0.200202,		0.813963,		0.543873,		-0.0398226          ));
-    orientations.push_back(Coordinates(0.193291,		0.73601,		0.645463,		-0.0656136          ));
-    orientations.push_back(Coordinates(0.183073,		0.645463,		0.73601,		-0.0902818          ));
-    orientations.push_back(Coordinates(0.169723,		0.543873,		0.813963,		-0.113405           ));
-    orientations.push_back(Coordinates(0.153469,		0.432976,		0.877989,		-0.134588           ));
-    orientations.push_back(Coordinates(0.134588,		0.314672,		0.926993,		-0.153469           ));
-    orientations.push_back(Coordinates(0.113405,		0.190983,		0.960135,		-0.169723           ));
-    orientations.push_back(Coordinates(0.0902818,		0.064026,		0.976849,		-0.183073           ));
-    orientations.push_back(Coordinates(0.0656135,		-0.0640261,		0.976849,		-0.193291           ));
-    orientations.push_back(Coordinates(0.0398226,		-0.190983,		0.960135,		-0.200202           ));
-    orientations.push_back(Coordinates(0.0133503,		-0.314672,		0.926993,		-0.203687           ));
-    orientations.push_back(Coordinates(-0.0133504,		-0.432976,		0.877989,		-0.203687           ));
-    orientations.push_back(Coordinates(-0.0398227,		-0.543873,		0.813963,		-0.200202           ));
-    orientations.push_back(Coordinates(-0.0656136,		-0.645463,		0.73601,		-0.193291           ));
-    orientations.push_back(Coordinates(-0.0902818,		-0.73601,		0.645463,		-0.183073           ));
-    orientations.push_back(Coordinates(-0.113405,		-0.813963,		0.543873,		-0.169723           ));
-    orientations.push_back(Coordinates(-0.134588,		-0.877989,		0.432976,		-0.153469           ));
-    orientations.push_back(Coordinates(-0.153469,		-0.926993,		0.314671,		-0.134588           ));
-    orientations.push_back(Coordinates(-0.169723,		-0.960135,		0.190983,		-0.113405           ));
-    orientations.push_back(Coordinates(-0.183073,		-0.976849,		0.064026,		-0.0902818          ));
-    orientations.push_back(Coordinates(0.0902818,		0.976849,		0.0640261,		0.183073            ));
-    orientations.push_back(Coordinates(0.113405,		0.960135,		0.190983,		0.169723            ));
-    orientations.push_back(Coordinates(0.134588,		0.926993,		0.314672,		0.153469            ));
-    orientations.push_back(Coordinates(0.153469,		0.877989,		0.432976,		0.134588            ));
-    orientations.push_back(Coordinates(0.169723,		0.813963,		0.543873,		0.113405            ));
-    orientations.push_back(Coordinates(0.183073,		0.73601,		0.645463,		0.0902818           ));
-    orientations.push_back(Coordinates(0.193291,		0.645463,		0.73601,		0.0656136           ));
-    orientations.push_back(Coordinates(0.200202,		0.543873,		0.813963,		0.0398226           ));
-    orientations.push_back(Coordinates(0.203687,		0.432976,		0.877989,		0.0133504           ));
-    orientations.push_back(Coordinates(0.203687,		0.314672,		0.926993,		-0.0133504          ));
-    orientations.push_back(Coordinates(0.200202,		0.190983,		0.960135,		-0.0398227          ));
-    orientations.push_back(Coordinates(0.193291,		0.064026,		0.976849,		-0.0656136          ));
-    orientations.push_back(Coordinates(0.183073,		-0.0640261,		0.976849,		-0.0902818          ));
-    orientations.push_back(Coordinates(0.169723,		-0.190983,		0.960135,		-0.113405           ));
-    orientations.push_back(Coordinates(0.153469,		-0.314672,		0.926993,		-0.134588           ));
-    orientations.push_back(Coordinates(0.134588,		-0.432976,		0.877989,		-0.153469           ));
-    orientations.push_back(Coordinates(0.113405,		-0.543873,		0.813963,		-0.169723           ));
-    orientations.push_back(Coordinates(0.0902818,		-0.645463,		0.73601,		-0.183073           ));
-    orientations.push_back(Coordinates(0.0656135,		-0.73601,		0.645463,		-0.193291           ));
-    orientations.push_back(Coordinates(0.0398226,		-0.813963,		0.543873,		-0.200202           ));
-    orientations.push_back(Coordinates(0.0133503,		-0.877989,		0.432976,		-0.203687           ));
-    orientations.push_back(Coordinates(-0.0133504,		-0.926993,		0.314671,		-0.203687           ));
-    orientations.push_back(Coordinates(-0.0398227,		-0.960135,		0.190983,		-0.200202           ));
-    orientations.push_back(Coordinates(-0.0656136,		-0.976849,		0.064026,		-0.193291           ));
-    orientations.push_back(Coordinates(0.0767343,		0.992648,		0.0650616,		0.0672942           ));
-    orientations.push_back(Coordinates(0.0848615,		0.975664,		0.194072,		0.0567026           ));
-    orientations.push_back(Coordinates(0.0915367,		0.941985,		0.319761,		0.0451409           ));
-    orientations.push_back(Coordinates(0.0966457,		0.892189,		0.439979,		0.0328068           ));
-    orientations.push_back(Coordinates(0.100101,		0.827128,		0.552669,		0.0199113           ));
-    orientations.push_back(Coordinates(0.101844,		0.747914,		0.655903,		0.00667518          ));
-    orientations.push_back(Coordinates(0.101844,		0.655903,		0.747914,		-0.00667518         ));
-    orientations.push_back(Coordinates(0.100101,		0.552669,		0.827128,		-0.0199113          ));
-    orientations.push_back(Coordinates(0.0966457,		0.439979,		0.892189,		-0.0328068          ));
-    orientations.push_back(Coordinates(0.0915367,		0.319761,		0.941985,		-0.0451409          ));
-    orientations.push_back(Coordinates(0.0848615,		0.194072,		0.975664,		-0.0567027          ));
-    orientations.push_back(Coordinates(0.0767343,		0.0650616,		0.992648,		-0.0672942          ));
-    orientations.push_back(Coordinates(0.0672942,		-0.0650616,		0.992648,		-0.0767343          ));
-    orientations.push_back(Coordinates(0.0567026,		-0.194072,		0.975664,		-0.0848615          ));
-    orientations.push_back(Coordinates(0.0451409,		-0.319761,		0.941985,		-0.0915367          ));
-    orientations.push_back(Coordinates(0.0328068,		-0.439979,		0.892189,		-0.0966457          ));
-    orientations.push_back(Coordinates(0.0199113,		-0.552669,		0.827128,		-0.100101           ));
-    orientations.push_back(Coordinates(0.00667517,		-0.655903,		0.747914,		-0.101844           ));
-    orientations.push_back(Coordinates(-0.00667519,		-0.747914,		0.655903,		-0.101844           ));
-    orientations.push_back(Coordinates(-0.0199113,		-0.827128,		0.552669,		-0.100101           ));
-    orientations.push_back(Coordinates(-0.0328068,		-0.892189,		0.439979,		-0.0966456          ));
-    orientations.push_back(Coordinates(-0.0451409,		-0.941985,		0.319761,		-0.0915367          ));
-    orientations.push_back(Coordinates(-0.0567027,		-0.975664,		0.194071,		-0.0848615          ));
-    orientations.push_back(Coordinates(-0.0672942,		-0.992648,		0.0650615,		-0.0767343          ));
-    orientations.push_back(Coordinates(0.425606,		0.762127,		0.0499525,		-0.485311           ));
-    orientations.push_back(Coordinates(0.358619,		0.749087,		0.149003,		-0.536711           ));
-    orientations.push_back(Coordinates(0.285496,		0.72323,		0.245503,		-0.578929           ));
-    orientations.push_back(Coordinates(0.207488,		0.684998,		0.337804,		-0.611241           ));
-    orientations.push_back(Coordinates(0.12593,		0.635045,		0.424324,		-0.633094               ));
-    orientations.push_back(Coordinates(0.0422175,		0.574227,		0.503584,		-0.644115           ));
-    orientations.push_back(Coordinates(-0.0422176,		0.503584,		0.574227,		-0.644115           ));
-    orientations.push_back(Coordinates(-0.12593,		0.424324,		0.635045,		-0.633094           ));
-    orientations.push_back(Coordinates(-0.207488,		0.337804,		0.684998,		-0.611241           ));
-    orientations.push_back(Coordinates(-0.285496,		0.245503,		0.72323,		-0.578929           ));
-    orientations.push_back(Coordinates(-0.358619,		0.149003,		0.749087,		-0.536711           ));
-    orientations.push_back(Coordinates(-0.425606,		0.0499524,		0.762127,		-0.48531            ));
-    orientations.push_back(Coordinates(-0.485311,		-0.0499525,		0.762127,		-0.425606           ));
-    orientations.push_back(Coordinates(-0.536711,		-0.149003,		0.749087,		-0.358619           ));
-    orientations.push_back(Coordinates(-0.578929,		-0.245503,		0.72323,		-0.285496           ));
-    orientations.push_back(Coordinates(-0.611241,		-0.337804,		0.684998,		-0.207488           ));
-    orientations.push_back(Coordinates(-0.633094,		-0.424324,		0.635045,		-0.12593            ));
-    orientations.push_back(Coordinates(-0.644115,		-0.503584,		0.574227,		-0.0422175          ));
-    orientations.push_back(Coordinates(-0.644115,		-0.574227,		0.503584,		0.0422176           ));
-    orientations.push_back(Coordinates(-0.633094,		-0.635045,		0.424324,		0.12593             ));
-    orientations.push_back(Coordinates(-0.611241,		-0.684998,		0.337804,		0.207488            ));
-    orientations.push_back(Coordinates(-0.578929,		-0.72323,		0.245503,		0.285496            ));
-    orientations.push_back(Coordinates(-0.536711,		-0.749087,		0.149003,		0.358619            ));
-    orientations.push_back(Coordinates(-0.48531,		-0.762127,		0.0499524,		0.425606            ));
-    orientations.push_back(Coordinates(0.288675,		0.814748,		0.0534014,		-0.5                ));
-    orientations.push_back(Coordinates(0.220942,		0.800808,		0.159291,		-0.533402           ));
-    orientations.push_back(Coordinates(0.149429,		0.773165,		0.262454,		-0.557678           ));
-    orientations.push_back(Coordinates(0.0753593,		0.732294,		0.361127,		-0.572411           ));
-    orientations.push_back(Coordinates(-9.46379e-09,		0.678892,		0.453621,		-0.57735        ));
-    orientations.push_back(Coordinates(-0.0753593,		0.613875,		0.538354,		-0.572411           ));
-    orientations.push_back(Coordinates(-0.149429,		0.538354,		0.613875,		-0.557678           ));
-    orientations.push_back(Coordinates(-0.220942,		0.453621,		0.678892,		-0.533402           ));
-    orientations.push_back(Coordinates(-0.288675,		0.361127,		0.732294,		-0.5                ));
-    orientations.push_back(Coordinates(-0.351469,		0.262454,		0.773165,		-0.458043           ));
-    orientations.push_back(Coordinates(-0.408248,		0.159291,		0.800808,		-0.408248           ));
-    orientations.push_back(Coordinates(-0.458043,		0.0534014,		0.814748,		-0.351469           ));
-    orientations.push_back(Coordinates(-0.5,		-0.0534015,		0.814748,		-0.288675               ));
-    orientations.push_back(Coordinates(-0.533402,		-0.159291,		0.800808,		-0.220942           ));
-    orientations.push_back(Coordinates(-0.557678,		-0.262454,		0.773165,		-0.149429           ));
-    orientations.push_back(Coordinates(-0.572411,		-0.361127,		0.732294,		-0.0753593          ));
-    orientations.push_back(Coordinates(-0.57735,		-0.453621,		0.678892,		3.47006e-08         ));
-    orientations.push_back(Coordinates(-0.572411,		-0.538354,		0.613875,		0.0753594           ));
-    orientations.push_back(Coordinates(-0.557678,		-0.613875,		0.538354,		0.149429            ));
-    orientations.push_back(Coordinates(-0.533402,		-0.678892,		0.453621,		0.220942            ));
-    orientations.push_back(Coordinates(-0.5,		-0.732294,		0.361127,		0.288675                ));
-    orientations.push_back(Coordinates(-0.458043,		-0.773165,		0.262454,		0.351469            ));
-    orientations.push_back(Coordinates(-0.408248,		-0.800808,		0.159291,		0.408248            ));
-    orientations.push_back(Coordinates(-0.351469,		-0.814748,		0.0534014,		0.458043            ));
-    orientations.push_back(Coordinates(0.458043,		0.814748,		0.0534014,		-0.351469           ));
-    orientations.push_back(Coordinates(0.408248,		0.800808,		0.159291,		-0.408248           ));
-    orientations.push_back(Coordinates(0.351469,		0.773165,		0.262454,		-0.458043           ));
-    orientations.push_back(Coordinates(0.288675,		0.732294,		0.361127,		-0.5                ));
-    orientations.push_back(Coordinates(0.220942,		0.678892,		0.453621,		-0.533402           ));
-    orientations.push_back(Coordinates(0.149429,		0.613875,		0.538354,		-0.557678           ));
-    orientations.push_back(Coordinates(0.0753593,		0.538354,		0.613875,		-0.572411           ));
-    orientations.push_back(Coordinates(-1.5773e-08,		0.453621,		0.678892,		-0.57735            ));
-    orientations.push_back(Coordinates(-0.0753593,		0.361127,		0.732294,		-0.572411           ));
-    orientations.push_back(Coordinates(-0.149429,		0.262454,		0.773165,		-0.557678           ));
-    orientations.push_back(Coordinates(-0.220942,		0.159291,		0.800808,		-0.533402           ));
-    orientations.push_back(Coordinates(-0.288675,		0.0534014,		0.814748,		-0.5                ));
-    orientations.push_back(Coordinates(-0.351469,		-0.0534015,		0.814748,		-0.458043           ));
-    orientations.push_back(Coordinates(-0.408248,		-0.159291,		0.800808,		-0.408248           ));
-    orientations.push_back(Coordinates(-0.458043,		-0.262454,		0.773165,		-0.351469           ));
-    orientations.push_back(Coordinates(-0.5,		-0.361127,		0.732294,		-0.288675               ));
-    orientations.push_back(Coordinates(-0.533402,		-0.453621,		0.678892,		-0.220942           ));
-    orientations.push_back(Coordinates(-0.557678,		-0.538354,		0.613875,		-0.149429           ));
-    orientations.push_back(Coordinates(-0.572411,		-0.613875,		0.538354,		-0.0753593          ));
-    orientations.push_back(Coordinates(-0.57735,		-0.678892,		0.453621,		4.10098e-08         ));
-    orientations.push_back(Coordinates(-0.572411,		-0.732294,		0.361127,		0.0753594           ));
-    orientations.push_back(Coordinates(-0.557678,		-0.773165,		0.262454,		0.149429            ));
-    orientations.push_back(Coordinates(-0.533402,		-0.800808,		0.159291,		0.220942            ));
-    orientations.push_back(Coordinates(-0.5,		-0.814748,		0.0534014,		0.288675                ));
-    orientations.push_back(Coordinates(0.329673,		0.864171,		0.0566408,		-0.37592            ));
-    orientations.push_back(Coordinates(0.277785,		0.849385,		0.168953,		-0.415735           ));
-    orientations.push_back(Coordinates(0.221144,		0.820066,		0.278375,		-0.448436           ));
-    orientations.push_back(Coordinates(0.16072,		0.776715,		0.383033,		-0.473465               ));
-    orientations.push_back(Coordinates(0.0975452,		0.720074,		0.481138,		-0.490393           ));
-    orientations.push_back(Coordinates(0.0327016,		0.651112,		0.57101,		-0.498929           ));
-    orientations.push_back(Coordinates(-0.0327016,		0.57101,		0.651112,		-0.498929           ));
-    orientations.push_back(Coordinates(-0.0975452,		0.481138,		0.720074,		-0.490393           ));
-    orientations.push_back(Coordinates(-0.16072,		0.383033,		0.776715,		-0.473465           ));
-    orientations.push_back(Coordinates(-0.221144,		0.278375,		0.820066,		-0.448436           ));
-    orientations.push_back(Coordinates(-0.277785,		0.168953,		0.849385,		-0.415735           ));
-    orientations.push_back(Coordinates(-0.329673,		0.0566407,		0.864171,		-0.37592            ));
-    orientations.push_back(Coordinates(-0.37592,		-0.0566408,		0.864171,		-0.329673           ));
-    orientations.push_back(Coordinates(-0.415735,		-0.168953,		0.849385,		-0.277785           ));
-    orientations.push_back(Coordinates(-0.448436,		-0.278375,		0.820066,		-0.221144           ));
-    orientations.push_back(Coordinates(-0.473465,		-0.383033,		0.776715,		-0.16072            ));
-    orientations.push_back(Coordinates(-0.490393,		-0.481138,		0.720074,		-0.0975451          ));
-    orientations.push_back(Coordinates(-0.498929,		-0.57101,		0.651112,		-0.0327015          ));
-    orientations.push_back(Coordinates(-0.498929,		-0.651112,		0.57101,		0.0327016           ));
-    orientations.push_back(Coordinates(-0.490393,		-0.720074,		0.481138,		0.0975452           ));
-    orientations.push_back(Coordinates(-0.473465,		-0.776715,		0.383033,		0.16072             ));
-    orientations.push_back(Coordinates(-0.448436,		-0.820066,		0.278375,		0.221144            ));
-    orientations.push_back(Coordinates(-0.415735,		-0.849385,		0.168953,		0.277785            ));
-    orientations.push_back(Coordinates(-0.37592,		-0.864171,		0.0566407,		0.329673            ));
-    orientations.push_back(Coordinates(0.16072,		0.864171,		0.0566408,		-0.473465               ));
-    orientations.push_back(Coordinates(0.0975452,		0.849385,		0.168953,		-0.490393           ));
-    orientations.push_back(Coordinates(0.0327016,		0.820066,		0.278375,		-0.498929           ));
-    orientations.push_back(Coordinates(-0.0327016,		0.776715,		0.383033,		-0.498929           ));
-    orientations.push_back(Coordinates(-0.0975452,		0.720074,		0.481138,		-0.490393           ));
-    orientations.push_back(Coordinates(-0.16072,		0.651112,		0.57101,		-0.473465           ));
-    orientations.push_back(Coordinates(-0.221144,		0.57101,		0.651112,		-0.448436           ));
-    orientations.push_back(Coordinates(-0.277785,		0.481138,		0.720074,		-0.415735           ));
-    orientations.push_back(Coordinates(-0.329673,		0.383033,		0.776715,		-0.37592            ));
-    orientations.push_back(Coordinates(-0.37592,		0.278375,		0.820066,		-0.329673           ));
-    orientations.push_back(Coordinates(-0.415735,		0.168953,		0.849385,		-0.277785           ));
-    orientations.push_back(Coordinates(-0.448436,		0.0566407,		0.864171,		-0.221144           ));
-    orientations.push_back(Coordinates(-0.473465,		-0.0566408,		0.864171,		-0.16072            ));
-    orientations.push_back(Coordinates(-0.490393,		-0.168953,		0.849385,		-0.0975451          ));
-    orientations.push_back(Coordinates(-0.498929,		-0.278375,		0.820066,		-0.0327015          ));
-    orientations.push_back(Coordinates(-0.498929,		-0.383033,		0.776715,		0.0327016           ));
-    orientations.push_back(Coordinates(-0.490393,		-0.481138,		0.720074,		0.0975452           ));
-    orientations.push_back(Coordinates(-0.473465,		-0.57101,		0.651112,		0.16072             ));
-    orientations.push_back(Coordinates(-0.448436,		-0.651112,		0.57101,		0.221144            ));
-    orientations.push_back(Coordinates(-0.415735,		-0.720074,		0.481138,		0.277785            ));
-    orientations.push_back(Coordinates(-0.37592,		-0.776715,		0.383033,		0.329673            ));
-    orientations.push_back(Coordinates(-0.329673,		-0.820066,		0.278375,		0.37592             ));
-    orientations.push_back(Coordinates(-0.277785,		-0.849385,		0.168953,		0.415735            ));
-    orientations.push_back(Coordinates(-0.221144,		-0.864171,		0.0566407,		0.448436            ));
-    orientations.push_back(Coordinates(0.0532871,		0.910916,		0.0597046,		-0.404756           ));
-    orientations.push_back(Coordinates(-2.23064e-09,		0.89533,		0.178092,		-0.408248       ));
-    orientations.push_back(Coordinates(-0.0532871,		0.864425,		0.293433,		-0.404756           ));
-    orientations.push_back(Coordinates(-0.105662,		0.818729,		0.403752,		-0.394338           ));
-    orientations.push_back(Coordinates(-0.15623,		0.759024,		0.507164,		-0.377172           ));
-    orientations.push_back(Coordinates(-0.204124,		0.686333,		0.601898,		-0.353553           ));
-    orientations.push_back(Coordinates(-0.248526,		0.601898,		0.686333,		-0.323885           ));
-    orientations.push_back(Coordinates(-0.288675,		0.507164,		0.759024,		-0.288675           ));
-    orientations.push_back(Coordinates(-0.323885,		0.403752,		0.818729,		-0.248526           ));
-    orientations.push_back(Coordinates(-0.353553,		0.293433,		0.864425,		-0.204124           ));
-    orientations.push_back(Coordinates(-0.377172,		0.178092,		0.89533,		-0.15623            ));
-    orientations.push_back(Coordinates(-0.394338,		0.0597046,		0.910916,		-0.105662           ));
-    orientations.push_back(Coordinates(-0.404756,		-0.0597047,		0.910916,		-0.0532871          ));
-    orientations.push_back(Coordinates(-0.408248,		-0.178092,		0.89533,		2.00757e-08         ));
-    orientations.push_back(Coordinates(-0.404756,		-0.293433,		0.864425,		0.0532871           ));
-    orientations.push_back(Coordinates(-0.394338,		-0.403753,		0.818729,		0.105662            ));
-    orientations.push_back(Coordinates(-0.377172,		-0.507164,		0.759024,		0.15623             ));
-    orientations.push_back(Coordinates(-0.353553,		-0.601898,		0.686333,		0.204124            ));
-    orientations.push_back(Coordinates(-0.323885,		-0.686333,		0.601898,		0.248526            ));
-    orientations.push_back(Coordinates(-0.288675,		-0.759024,		0.507164,		0.288675            ));
-    orientations.push_back(Coordinates(-0.248526,		-0.818729,		0.403752,		0.323885            ));
-    orientations.push_back(Coordinates(-0.204124,		-0.864425,		0.293433,		0.353553            ));
-    orientations.push_back(Coordinates(-0.15623,		-0.89533,		0.178092,		0.377172            ));
-    orientations.push_back(Coordinates(-0.105662,		-0.910916,		0.0597045,		0.394338            ));
-    orientations.push_back(Coordinates(0.204124,		0.910916,		0.0597046,		-0.353553           ));
-    orientations.push_back(Coordinates(0.15623,		0.89533,		0.178092,		-0.377172               ));
-    orientations.push_back(Coordinates(0.105662,		0.864425,		0.293433,		-0.394338           ));
-    orientations.push_back(Coordinates(0.0532871,		0.818729,		0.403752,		-0.404756           ));
-    orientations.push_back(Coordinates(-6.69191e-09,		0.759024,		0.507164,		-0.408248       ));
-    orientations.push_back(Coordinates(-0.0532871,		0.686333,		0.601898,		-0.404756           ));
-    orientations.push_back(Coordinates(-0.105662,		0.601898,		0.686333,		-0.394338           ));
-    orientations.push_back(Coordinates(-0.15623,		0.507164,		0.759024,		-0.377172           ));
-    orientations.push_back(Coordinates(-0.204124,		0.403752,		0.818729,		-0.353553           ));
-    orientations.push_back(Coordinates(-0.248526,		0.293433,		0.864425,		-0.323885           ));
-    orientations.push_back(Coordinates(-0.288675,		0.178092,		0.89533,		-0.288675           ));
-    orientations.push_back(Coordinates(-0.323885,		0.0597046,		0.910916,		-0.248526           ));
-    orientations.push_back(Coordinates(-0.353553,		-0.0597047,		0.910916,		-0.204124           ));
-    orientations.push_back(Coordinates(-0.377172,		-0.178092,		0.89533,		-0.15623            ));
-    orientations.push_back(Coordinates(-0.394338,		-0.293433,		0.864425,		-0.105662           ));
-    orientations.push_back(Coordinates(-0.404756,		-0.403753,		0.818729,		-0.0532871          ));
-    orientations.push_back(Coordinates(-0.408248,		-0.507164,		0.759024,		2.4537e-08          ));
-    orientations.push_back(Coordinates(-0.404756,		-0.601898,		0.686333,		0.0532871           ));
-    orientations.push_back(Coordinates(-0.394338,		-0.686333,		0.601898,		0.105662            ));
-    orientations.push_back(Coordinates(-0.377172,		-0.759024,		0.507164,		0.15623             ));
-    orientations.push_back(Coordinates(-0.353553,		-0.818729,		0.403752,		0.204124            ));
-    orientations.push_back(Coordinates(-0.323885,		-0.864425,		0.293433,		0.248526            ));
-    orientations.push_back(Coordinates(-0.288675,		-0.89533,		0.178092,		0.288675            ));
-    orientations.push_back(Coordinates(-0.248526,		-0.910916,		0.0597045,		0.323885            ));
-    orientations.push_back(Coordinates(0.059734,		0.949933,		0.0622619,		-0.300303           ));
-    orientations.push_back(Coordinates(0.0200255,		0.93368,		0.18572,		-0.305531           ));
-    orientations.push_back(Coordinates(-0.0200255,		0.901451,		0.306001,		-0.305531           ));
-    orientations.push_back(Coordinates(-0.059734,		0.853797,		0.421046,		-0.300303           ));
-    orientations.push_back(Coordinates(-0.0984203,		0.791535,		0.528887,		-0.289937           ));
-    orientations.push_back(Coordinates(-0.135423,		0.71573,		0.627679,		-0.27461            ));
-    orientations.push_back(Coordinates(-0.170108,		0.627678,		0.71573,		-0.254585           ));
-    orientations.push_back(Coordinates(-0.201883,		0.528887,		0.791536,		-0.230203           ));
-    orientations.push_back(Coordinates(-0.230203,		0.421046,		0.853797,		-0.201883           ));
-    orientations.push_back(Coordinates(-0.254585,		0.306001,		0.901451,		-0.170108           ));
-    orientations.push_back(Coordinates(-0.27461,		0.18572,		0.93368,		-0.135423           ));
-    orientations.push_back(Coordinates(-0.289937,		0.0622619,		0.949933,		-0.0984203          ));
-    orientations.push_back(Coordinates(-0.300303,		-0.062262,		0.949933,		-0.059734           ));
-    orientations.push_back(Coordinates(-0.305531,		-0.18572,		0.93368,		-0.0200255          ));
-    orientations.push_back(Coordinates(-0.305531,		-0.306001,		0.901451,		0.0200256           ));
-    orientations.push_back(Coordinates(-0.300303,		-0.421046,		0.853797,		0.059734            ));
-    orientations.push_back(Coordinates(-0.289937,		-0.528887,		0.791535,		0.0984204           ));
-    orientations.push_back(Coordinates(-0.27461,		-0.627679,		0.71573,		0.135423            ));
-    orientations.push_back(Coordinates(-0.254585,		-0.71573,		0.627678,		0.170108            ));
-    orientations.push_back(Coordinates(-0.230203,		-0.791536,		0.528887,		0.201883            ));
-    orientations.push_back(Coordinates(-0.201883,		-0.853797,		0.421046,		0.230203            ));
-    orientations.push_back(Coordinates(-0.170108,		-0.901451,		0.306001,		0.254585            ));
-    orientations.push_back(Coordinates(-0.135423,		-0.93368,		0.18572,		0.27461             ));
-    orientations.push_back(Coordinates(-0.0984203,		-0.949933,		0.0622618,		0.289937            ));
-    orientations.push_back(Coordinates(0.448436,		0.864171,		0.0566408,		-0.221144           ));
-    orientations.push_back(Coordinates(0.415735,		0.849385,		0.168953,		-0.277785           ));
-    orientations.push_back(Coordinates(0.37592,		0.820066,		0.278375,		-0.329673               ));
-    orientations.push_back(Coordinates(0.329673,		0.776715,		0.383033,		-0.37592            ));
-    orientations.push_back(Coordinates(0.277785,		0.720074,		0.481138,		-0.415735           ));
-    orientations.push_back(Coordinates(0.221144,		0.651112,		0.57101,		-0.448436           ));
-    orientations.push_back(Coordinates(0.16072,		0.57101,		0.651112,		-0.473465               ));
-    orientations.push_back(Coordinates(0.0975451,		0.481138,		0.720074,		-0.490393           ));
-    orientations.push_back(Coordinates(0.0327015,		0.383033,		0.776715,		-0.498929           ));
-    orientations.push_back(Coordinates(-0.0327016,		0.278375,		0.820066,		-0.498929           ));
-    orientations.push_back(Coordinates(-0.0975452,		0.168953,		0.849385,		-0.490393           ));
-    orientations.push_back(Coordinates(-0.16072,		0.0566407,		0.864171,		-0.473465           ));
-    orientations.push_back(Coordinates(-0.221144,		-0.0566408,		0.864171,		-0.448436           ));
-    orientations.push_back(Coordinates(-0.277785,		-0.168953,		0.849385,		-0.415735           ));
-    orientations.push_back(Coordinates(-0.329673,		-0.278375,		0.820066,		-0.37592            ));
-    orientations.push_back(Coordinates(-0.37592,		-0.383033,		0.776715,		-0.329673           ));
-    orientations.push_back(Coordinates(-0.415735,		-0.481138,		0.720074,		-0.277785           ));
-    orientations.push_back(Coordinates(-0.448436,		-0.57101,		0.651112,		-0.221144           ));
-    orientations.push_back(Coordinates(-0.473465,		-0.651112,		0.57101,		-0.16072            ));
-    orientations.push_back(Coordinates(-0.490393,		-0.720074,		0.481138,		-0.0975451          ));
-    orientations.push_back(Coordinates(-0.498929,		-0.776715,		0.383033,		-0.0327015          ));
-    orientations.push_back(Coordinates(-0.498929,		-0.820066,		0.278375,		0.0327016           ));
-    orientations.push_back(Coordinates(-0.490393,		-0.849385,		0.168953,		0.0975452           ));
-    orientations.push_back(Coordinates(-0.473465,		-0.864171,		0.0566407,		0.16072             ));
-    orientations.push_back(Coordinates(0.323885,		0.910916,		0.0597046,		-0.248526           ));
-    orientations.push_back(Coordinates(0.288675,		0.89533,		0.178092,		-0.288675           ));
-    orientations.push_back(Coordinates(0.248526,		0.864425,		0.293433,		-0.323885           ));
-    orientations.push_back(Coordinates(0.204124,		0.818729,		0.403752,		-0.353553           ));
-    orientations.push_back(Coordinates(0.15623,		0.759024,		0.507164,		-0.377172               ));
-    orientations.push_back(Coordinates(0.105662,		0.686333,		0.601898,		-0.394338           ));
-    orientations.push_back(Coordinates(0.0532871,		0.601898,		0.686333,		-0.404756           ));
-    orientations.push_back(Coordinates(-1.11532e-08,		0.507164,		0.759024,		-0.408248       ));
-    orientations.push_back(Coordinates(-0.0532871,		0.403752,		0.818729,		-0.404756           ));
-    orientations.push_back(Coordinates(-0.105662,		0.293433,		0.864425,		-0.394338           ));
-    orientations.push_back(Coordinates(-0.15623,		0.178092,		0.89533,		-0.377172           ));
-    orientations.push_back(Coordinates(-0.204124,		0.0597046,		0.910916,		-0.353553           ));
-    orientations.push_back(Coordinates(-0.248526,		-0.0597047,		0.910916,		-0.323885           ));
-    orientations.push_back(Coordinates(-0.288675,		-0.178092,		0.89533,		-0.288675           ));
-    orientations.push_back(Coordinates(-0.323885,		-0.293433,		0.864425,		-0.248526           ));
-    orientations.push_back(Coordinates(-0.353553,		-0.403753,		0.818729,		-0.204124           ));
-    orientations.push_back(Coordinates(-0.377172,		-0.507164,		0.759024,		-0.15623            ));
-    orientations.push_back(Coordinates(-0.394338,		-0.601898,		0.686333,		-0.105662           ));
-    orientations.push_back(Coordinates(-0.404756,		-0.686333,		0.601898,		-0.0532871          ));
-    orientations.push_back(Coordinates(-0.408248,		-0.759024,		0.507164,		2.89983e-08         ));
-    orientations.push_back(Coordinates(-0.404756,		-0.818729,		0.403752,		0.0532871           ));
-    orientations.push_back(Coordinates(-0.394338,		-0.864425,		0.293433,		0.105662            ));
-    orientations.push_back(Coordinates(-0.377172,		-0.89533,		0.178092,		0.15623             ));
-    orientations.push_back(Coordinates(-0.353553,		-0.910916,		0.0597045,		0.204124            ));
-    orientations.push_back(Coordinates(0.394338,		0.910916,		0.0597046,		-0.105662           ));
-    orientations.push_back(Coordinates(0.377172,		0.89533,		0.178092,		-0.15623            ));
-    orientations.push_back(Coordinates(0.353553,		0.864425,		0.293433,		-0.204124           ));
-    orientations.push_back(Coordinates(0.323885,		0.818729,		0.403752,		-0.248526           ));
-    orientations.push_back(Coordinates(0.288675,		0.759024,		0.507164,		-0.288675           ));
-    orientations.push_back(Coordinates(0.248526,		0.686333,		0.601898,		-0.323885           ));
-    orientations.push_back(Coordinates(0.204124,		0.601898,		0.686333,		-0.353553           ));
-    orientations.push_back(Coordinates(0.15623,		0.507164,		0.759024,		-0.377172               ));
-    orientations.push_back(Coordinates(0.105662,		0.403752,		0.818729,		-0.394338           ));
-    orientations.push_back(Coordinates(0.0532871,		0.293433,		0.864425,		-0.404756           ));
-    orientations.push_back(Coordinates(-1.56145e-08,		0.178092,		0.89533,		-0.408248       ));
-    orientations.push_back(Coordinates(-0.0532871,		0.0597046,		0.910916,		-0.404756           ));
-    orientations.push_back(Coordinates(-0.105662,		-0.0597047,		0.910916,		-0.394338           ));
-    orientations.push_back(Coordinates(-0.15623,		-0.178092,		0.89533,		-0.377172           ));
-    orientations.push_back(Coordinates(-0.204124,		-0.293433,		0.864425,		-0.353553           ));
-    orientations.push_back(Coordinates(-0.248526,		-0.403753,		0.818729,		-0.323885           ));
-    orientations.push_back(Coordinates(-0.288675,		-0.507164,		0.759024,		-0.288675           ));
-    orientations.push_back(Coordinates(-0.323885,		-0.601898,		0.686333,		-0.248526           ));
-    orientations.push_back(Coordinates(-0.353553,		-0.686333,		0.601898,		-0.204124           ));
-    orientations.push_back(Coordinates(-0.377172,		-0.759024,		0.507164,		-0.15623            ));
-    orientations.push_back(Coordinates(-0.394338,		-0.818729,		0.403752,		-0.105662           ));
-    orientations.push_back(Coordinates(-0.404756,		-0.864425,		0.293433,		-0.0532871          ));
-    orientations.push_back(Coordinates(-0.408248,		-0.89533,		0.178092,		3.34596e-08         ));
-    orientations.push_back(Coordinates(-0.404756,		-0.910916,		0.0597045,		0.0532871           ));
-    orientations.push_back(Coordinates(0.289937,		0.949933,		0.0622619,		-0.0984203          ));
-    orientations.push_back(Coordinates(0.27461,		0.93368,		0.18572,		-0.135423               ));
-    orientations.push_back(Coordinates(0.254585,		0.901451,		0.306001,		-0.170108           ));
-    orientations.push_back(Coordinates(0.230203,		0.853797,		0.421046,		-0.201883           ));
-    orientations.push_back(Coordinates(0.201883,		0.791535,		0.528887,		-0.230203           ));
-    orientations.push_back(Coordinates(0.170108,		0.71573,		0.627679,		-0.254585           ));
-    orientations.push_back(Coordinates(0.135423,		0.627678,		0.71573,		-0.27461            ));
-    orientations.push_back(Coordinates(0.0984203,		0.528887,		0.791536,		-0.289937           ));
-    orientations.push_back(Coordinates(0.059734,		0.421046,		0.853797,		-0.300303           ));
-    orientations.push_back(Coordinates(0.0200255,		0.306001,		0.901451,		-0.305531           ));
-    orientations.push_back(Coordinates(-0.0200255,		0.18572,		0.93368,		-0.305531           ));
-    orientations.push_back(Coordinates(-0.059734,		0.0622619,		0.949933,		-0.300303           ));
-    orientations.push_back(Coordinates(-0.0984203,		-0.062262,		0.949933,		-0.289937           ));
-    orientations.push_back(Coordinates(-0.135423,		-0.18572,		0.93368,		-0.27461            ));
-    orientations.push_back(Coordinates(-0.170108,		-0.306001,		0.901451,		-0.254585           ));
-    orientations.push_back(Coordinates(-0.201883,		-0.421046,		0.853797,		-0.230203           ));
-    orientations.push_back(Coordinates(-0.230203,		-0.528887,		0.791535,		-0.201883           ));
-    orientations.push_back(Coordinates(-0.254585,		-0.627679,		0.71573,		-0.170108           ));
-    orientations.push_back(Coordinates(-0.27461,		-0.71573,		0.627678,		-0.135423           ));
-    orientations.push_back(Coordinates(-0.289937,		-0.791536,		0.528887,		-0.0984203          ));
-    orientations.push_back(Coordinates(-0.300303,		-0.853797,		0.421046,		-0.0597339          ));
-    orientations.push_back(Coordinates(-0.305531,		-0.901451,		0.306001,		-0.0200255          ));
-    orientations.push_back(Coordinates(-0.305531,		-0.93368,		0.18572,		0.0200256           ));
-    orientations.push_back(Coordinates(-0.300303,		-0.949933,		0.0622618,		0.059734            ));
-    orientations.push_back(Coordinates(0.201883,		0.949933,		0.0622619,		-0.230203           ));
-    orientations.push_back(Coordinates(0.170108,		0.93368,		0.18572,		-0.254585           ));
-    orientations.push_back(Coordinates(0.135423,		0.901451,		0.306001,		-0.27461            ));
-    orientations.push_back(Coordinates(0.0984203,		0.853797,		0.421046,		-0.289937           ));
-    orientations.push_back(Coordinates(0.059734,		0.791535,		0.528887,		-0.300303           ));
-    orientations.push_back(Coordinates(0.0200255,		0.71573,		0.627679,		-0.305531           ));
-    orientations.push_back(Coordinates(-0.0200255,		0.627678,		0.71573,		-0.305531           ));
-    orientations.push_back(Coordinates(-0.059734,		0.528887,		0.791536,		-0.300303           ));
-    orientations.push_back(Coordinates(-0.0984203,		0.421046,		0.853797,		-0.289937           ));
-    orientations.push_back(Coordinates(-0.135423,		0.306001,		0.901451,		-0.27461            ));
-    orientations.push_back(Coordinates(-0.170108,		0.18572,		0.93368,		-0.254585           ));
-    orientations.push_back(Coordinates(-0.201883,		0.0622619,		0.949933,		-0.230203           ));
-    orientations.push_back(Coordinates(-0.230203,		-0.062262,		0.949933,		-0.201883           ));
-    orientations.push_back(Coordinates(-0.254585,		-0.18572,		0.93368,		-0.170108           ));
-    orientations.push_back(Coordinates(-0.27461,		-0.306001,		0.901451,		-0.135423           ));
-    orientations.push_back(Coordinates(-0.289937,		-0.421046,		0.853797,		-0.0984203          ));
-    orientations.push_back(Coordinates(-0.300303,		-0.528887,		0.791535,		-0.0597339          ));
-    orientations.push_back(Coordinates(-0.305531,		-0.627679,		0.71573,		-0.0200255          ));
-    orientations.push_back(Coordinates(-0.305531,		-0.71573,		0.627678,		0.0200256           ));
-    orientations.push_back(Coordinates(-0.300303,		-0.791536,		0.528887,		0.059734            ));
-    orientations.push_back(Coordinates(-0.289937,		-0.853797,		0.421046,		0.0984204           ));
-    orientations.push_back(Coordinates(-0.27461,		-0.901451,		0.306001,		0.135423            ));
-    orientations.push_back(Coordinates(-0.254585,		-0.93368,		0.18572,		0.170108            ));
-    orientations.push_back(Coordinates(-0.230203,		-0.949933,		0.0622618,		0.201883            ));
-    orientations.push_back(Coordinates(0.0656136,		0.976849,		0.0640261,		-0.193291           ));
-    orientations.push_back(Coordinates(0.0398226,		0.960135,		0.190983,		-0.200202           ));
-    orientations.push_back(Coordinates(0.0133504,		0.926993,		0.314672,		-0.203687           ));
-    orientations.push_back(Coordinates(-0.0133504,		0.877989,		0.432976,		-0.203687           ));
-    orientations.push_back(Coordinates(-0.0398226,		0.813963,		0.543873,		-0.200202           ));
-    orientations.push_back(Coordinates(-0.0656136,		0.73601,		0.645463,		-0.193291           ));
-    orientations.push_back(Coordinates(-0.0902818,		0.645463,		0.73601,		-0.183073           ));
-    orientations.push_back(Coordinates(-0.113405,		0.543873,		0.813963,		-0.169723           ));
-    orientations.push_back(Coordinates(-0.134588,		0.432976,		0.877989,		-0.153469           ));
-    orientations.push_back(Coordinates(-0.153469,		0.314672,		0.926993,		-0.134588           ));
-    orientations.push_back(Coordinates(-0.169723,		0.190983,		0.960135,		-0.113405           ));
-    orientations.push_back(Coordinates(-0.183073,		0.064026,		0.976849,		-0.0902818          ));
-    orientations.push_back(Coordinates(-0.193291,		-0.0640261,		0.976849,		-0.0656135          ));
-    orientations.push_back(Coordinates(-0.200202,		-0.190983,		0.960135,		-0.0398226          ));
-    orientations.push_back(Coordinates(-0.203687,		-0.314672,		0.926993,		-0.0133503          ));
-    orientations.push_back(Coordinates(-0.203687,		-0.432976,		0.877989,		0.0133504           ));
-    orientations.push_back(Coordinates(-0.200202,		-0.543873,		0.813963,		0.0398227           ));
-    orientations.push_back(Coordinates(-0.193291,		-0.645463,		0.73601,		0.0656136           ));
-    orientations.push_back(Coordinates(-0.183073,		-0.73601,		0.645463,		0.0902818           ));
-    orientations.push_back(Coordinates(-0.169723,		-0.813963,		0.543873,		0.113405            ));
-    orientations.push_back(Coordinates(-0.153469,		-0.877989,		0.432976,		0.134588            ));
-    orientations.push_back(Coordinates(-0.134588,		-0.926993,		0.314671,		0.153469            ));
-    orientations.push_back(Coordinates(-0.113405,		-0.960135,		0.190983,		0.169723            ));
-    orientations.push_back(Coordinates(-0.0902818,		-0.976849,		0.064026,		0.183073            ));
-    orientations.push_back(Coordinates(0.183073,		0.976849,		0.0640261,		-0.0902818          ));
-    orientations.push_back(Coordinates(0.169723,		0.960135,		0.190983,		-0.113405           ));
-    orientations.push_back(Coordinates(0.153469,		0.926993,		0.314672,		-0.134588           ));
-    orientations.push_back(Coordinates(0.134588,		0.877989,		0.432976,		-0.153469           ));
-    orientations.push_back(Coordinates(0.113405,		0.813963,		0.543873,		-0.169723           ));
-    orientations.push_back(Coordinates(0.0902818,		0.73601,		0.645463,		-0.183073           ));
-    orientations.push_back(Coordinates(0.0656136,		0.645463,		0.73601,		-0.193291           ));
-    orientations.push_back(Coordinates(0.0398226,		0.543873,		0.813963,		-0.200202           ));
-    orientations.push_back(Coordinates(0.0133504,		0.432976,		0.877989,		-0.203687           ));
-    orientations.push_back(Coordinates(-0.0133504,		0.314672,		0.926993,		-0.203687           ));
-    orientations.push_back(Coordinates(-0.0398227,		0.190983,		0.960135,		-0.200202           ));
-    orientations.push_back(Coordinates(-0.0656136,		0.064026,		0.976849,		-0.193291           ));
-    orientations.push_back(Coordinates(-0.0902818,		-0.0640261,		0.976849,		-0.183073           ));
-    orientations.push_back(Coordinates(-0.113405,		-0.190983,		0.960135,		-0.169723           ));
-    orientations.push_back(Coordinates(-0.134588,		-0.314672,		0.926993,		-0.153469           ));
-    orientations.push_back(Coordinates(-0.153469,		-0.432976,		0.877989,		-0.134588           ));
-    orientations.push_back(Coordinates(-0.169723,		-0.543873,		0.813963,		-0.113405           ));
-    orientations.push_back(Coordinates(-0.183073,		-0.645463,		0.73601,		-0.0902818          ));
-    orientations.push_back(Coordinates(-0.193291,		-0.73601,		0.645463,		-0.0656135          ));
-    orientations.push_back(Coordinates(-0.200202,		-0.813963,		0.543873,		-0.0398226          ));
-    orientations.push_back(Coordinates(-0.203687,		-0.877989,		0.432976,		-0.0133503          ));
-    orientations.push_back(Coordinates(-0.203687,		-0.926993,		0.314671,		0.0133504           ));
-    orientations.push_back(Coordinates(-0.200202,		-0.960135,		0.190983,		0.0398227           ));
-    orientations.push_back(Coordinates(-0.193291,		-0.976849,		0.064026,		0.0656136           ));
-    orientations.push_back(Coordinates(0.0672942,		0.992648,		0.0650616,		-0.0767343          ));
-    orientations.push_back(Coordinates(0.0567026,		0.975664,		0.194072,		-0.0848615          ));
-    orientations.push_back(Coordinates(0.0451409,		0.941985,		0.319761,		-0.0915367          ));
-    orientations.push_back(Coordinates(0.0328068,		0.892189,		0.439979,		-0.0966457          ));
-    orientations.push_back(Coordinates(0.0199113,		0.827128,		0.552669,		-0.100101           ));
-    orientations.push_back(Coordinates(0.00667518,		0.747914,		0.655903,		-0.101844           ));
-    orientations.push_back(Coordinates(-0.00667518,		0.655903,		0.747914,		-0.101844           ));
-    orientations.push_back(Coordinates(-0.0199113,		0.552669,		0.827128,		-0.100101           ));
-    orientations.push_back(Coordinates(-0.0328068,		0.439979,		0.892189,		-0.0966457          ));
-    orientations.push_back(Coordinates(-0.0451409,		0.319761,		0.941985,		-0.0915367          ));
-    orientations.push_back(Coordinates(-0.0567027,		0.194072,		0.975664,		-0.0848615          ));
-    orientations.push_back(Coordinates(-0.0672942,		0.0650616,		0.992648,		-0.0767343          ));
-    orientations.push_back(Coordinates(-0.0767343,		-0.0650616,		0.992648,		-0.0672942          ));
-    orientations.push_back(Coordinates(-0.0848615,		-0.194072,		0.975664,		-0.0567026          ));
-    orientations.push_back(Coordinates(-0.0915367,		-0.319761,		0.941985,		-0.0451409          ));
-    orientations.push_back(Coordinates(-0.0966457,		-0.439979,		0.892189,		-0.0328068          ));
-    orientations.push_back(Coordinates(-0.100101,		-0.552669,		0.827128,		-0.0199113          ));
-    orientations.push_back(Coordinates(-0.101844,		-0.655903,		0.747914,		-0.00667517         ));
-    orientations.push_back(Coordinates(-0.101844,		-0.747914,		0.655903,		0.00667519          ));
-    orientations.push_back(Coordinates(-0.100101,		-0.827128,		0.552669,		0.0199113           ));
-    orientations.push_back(Coordinates(-0.0966456,		-0.892189,		0.439979,		0.0328068           ));
-    orientations.push_back(Coordinates(-0.0915367,		-0.941985,		0.319761,		0.0451409           ));
-    orientations.push_back(Coordinates(-0.0848615,		-0.975664,		0.194071,		0.0567027           ));
-    orientations.push_back(Coordinates(-0.0767343,		-0.992648,		0.0650615,		0.0672942           ));
-    orientations.push_back(Coordinates(-0.485311,		0.762127,		0.0499525,		-0.425606           ));
-    orientations.push_back(Coordinates(-0.536711,		0.749087,		0.149003,		-0.358619           ));
-    orientations.push_back(Coordinates(-0.578929,		0.72323,		0.245503,		-0.285496           ));
-    orientations.push_back(Coordinates(-0.611241,		0.684998,		0.337804,		-0.207488           ));
-    orientations.push_back(Coordinates(-0.633094,		0.635045,		0.424324,		-0.12593            ));
-    orientations.push_back(Coordinates(-0.644115,		0.574227,		0.503584,		-0.0422175          ));
-    orientations.push_back(Coordinates(-0.644115,		0.503584,		0.574227,		0.0422176           ));
-    orientations.push_back(Coordinates(-0.633094,		0.424324,		0.635045,		0.12593             ));
-    orientations.push_back(Coordinates(-0.611241,		0.337804,		0.684998,		0.207488            ));
-    orientations.push_back(Coordinates(-0.578929,		0.245503,		0.72323,		0.285496            ));
-    orientations.push_back(Coordinates(-0.536711,		0.149003,		0.749087,		0.358619            ));
-    orientations.push_back(Coordinates(-0.48531,		0.0499524,		0.762127,		0.425606            ));
-    orientations.push_back(Coordinates(-0.425606,		-0.0499525,		0.762127,		0.485311            ));
-    orientations.push_back(Coordinates(-0.358619,		-0.149003,		0.749087,		0.536711            ));
-    orientations.push_back(Coordinates(-0.285496,		-0.245503,		0.72323,		0.578929            ));
-    orientations.push_back(Coordinates(-0.207488,		-0.337804,		0.684998,		0.611241            ));
-    orientations.push_back(Coordinates(-0.12593,		-0.424324,		0.635045,		0.633094            ));
-    orientations.push_back(Coordinates(-0.0422175,		-0.503584,		0.574227,		0.644115            ));
-    orientations.push_back(Coordinates(0.0422176,		-0.574227,		0.503584,		0.644115            ));
-    orientations.push_back(Coordinates(0.12593,		-0.635045,		0.424324,		0.633094                ));
-    orientations.push_back(Coordinates(0.207488,		-0.684998,		0.337804,		0.611241            ));
-    orientations.push_back(Coordinates(0.285496,		-0.72323,		0.245503,		0.578929            ));
-    orientations.push_back(Coordinates(0.358619,		-0.749087,		0.149003,		0.536711            ));
-    orientations.push_back(Coordinates(0.425606,		-0.762127,		0.0499524,		0.48531             ));
-    orientations.push_back(Coordinates(-0.5,		0.814748,		0.0534014,		-0.288675               ));
-    orientations.push_back(Coordinates(-0.533402,		0.800808,		0.159291,		-0.220942           ));
-    orientations.push_back(Coordinates(-0.557678,		0.773165,		0.262454,		-0.149429           ));
-    orientations.push_back(Coordinates(-0.572411,		0.732294,		0.361127,		-0.0753593          ));
-    orientations.push_back(Coordinates(-0.57735,		0.678892,		0.453621,		9.46379e-09         ));
-    orientations.push_back(Coordinates(-0.572411,		0.613875,		0.538354,		0.0753593           ));
-    orientations.push_back(Coordinates(-0.557678,		0.538354,		0.613875,		0.149429            ));
-    orientations.push_back(Coordinates(-0.533402,		0.453621,		0.678892,		0.220942            ));
-    orientations.push_back(Coordinates(-0.5,		0.361127,		0.732294,		0.288675                ));
-    orientations.push_back(Coordinates(-0.458043,		0.262454,		0.773165,		0.351469            ));
-    orientations.push_back(Coordinates(-0.408248,		0.159291,		0.800808,		0.408248            ));
-    orientations.push_back(Coordinates(-0.351469,		0.0534014,		0.814748,		0.458043            ));
-    orientations.push_back(Coordinates(-0.288675,		-0.0534015,		0.814748,		0.5                 ));
-    orientations.push_back(Coordinates(-0.220942,		-0.159291,		0.800808,		0.533402            ));
-    orientations.push_back(Coordinates(-0.149429,		-0.262454,		0.773165,		0.557678            ));
-    orientations.push_back(Coordinates(-0.0753593,		-0.361127,		0.732294,		0.572411            ));
-    orientations.push_back(Coordinates(3.47006e-08,		-0.453621,		0.678892,		0.57735             ));
-    orientations.push_back(Coordinates(0.0753594,		-0.538354,		0.613875,		0.572411            ));
-    orientations.push_back(Coordinates(0.149429,		-0.613875,		0.538354,		0.557678            ));
-    orientations.push_back(Coordinates(0.220942,		-0.678892,		0.453621,		0.533402            ));
-    orientations.push_back(Coordinates(0.288675,		-0.732294,		0.361127,		0.5                 ));
-    orientations.push_back(Coordinates(0.351469,		-0.773165,		0.262454,		0.458043            ));
-    orientations.push_back(Coordinates(0.408248,		-0.800808,		0.159291,		0.408248            ));
-    orientations.push_back(Coordinates(0.458043,		-0.814748,		0.0534014,		0.351469            ));
-    orientations.push_back(Coordinates(-0.351469,		0.814748,		0.0534014,		-0.458043           ));
-    orientations.push_back(Coordinates(-0.408248,		0.800808,		0.159291,		-0.408248           ));
-    orientations.push_back(Coordinates(-0.458043,		0.773165,		0.262454,		-0.351469           ));
-    orientations.push_back(Coordinates(-0.5,		0.732294,		0.361127,		-0.288675               ));
-    orientations.push_back(Coordinates(-0.533402,		0.678892,		0.453621,		-0.220942           ));
-    orientations.push_back(Coordinates(-0.557678,		0.613875,		0.538354,		-0.149429           ));
-    orientations.push_back(Coordinates(-0.572411,		0.538354,		0.613875,		-0.0753593          ));
-    orientations.push_back(Coordinates(-0.57735,		0.453621,		0.678892,		1.5773e-08          ));
-    orientations.push_back(Coordinates(-0.572411,		0.361127,		0.732294,		0.0753593           ));
-    orientations.push_back(Coordinates(-0.557678,		0.262454,		0.773165,		0.149429            ));
-    orientations.push_back(Coordinates(-0.533402,		0.159291,		0.800808,		0.220942            ));
-    orientations.push_back(Coordinates(-0.5,		0.0534014,		0.814748,		0.288675                ));
-    orientations.push_back(Coordinates(-0.458043,		-0.0534015,		0.814748,		0.351469            ));
-    orientations.push_back(Coordinates(-0.408248,		-0.159291,		0.800808,		0.408248            ));
-    orientations.push_back(Coordinates(-0.351469,		-0.262454,		0.773165,		0.458043            ));
-    orientations.push_back(Coordinates(-0.288675,		-0.361127,		0.732294,		0.5                 ));
-    orientations.push_back(Coordinates(-0.220942,		-0.453621,		0.678892,		0.533402            ));
-    orientations.push_back(Coordinates(-0.149429,		-0.538354,		0.613875,		0.557678            ));
-    orientations.push_back(Coordinates(-0.0753593,		-0.613875,		0.538354,		0.572411            ));
-    orientations.push_back(Coordinates(4.10098e-08,		-0.678892,		0.453621,		0.57735             ));
-    orientations.push_back(Coordinates(0.0753594,		-0.732294,		0.361127,		0.572411            ));
-    orientations.push_back(Coordinates(0.149429,		-0.773165,		0.262454,		0.557678            ));
-    orientations.push_back(Coordinates(0.220942,		-0.800808,		0.159291,		0.533402            ));
-    orientations.push_back(Coordinates(0.288675,		-0.814748,		0.0534014,		0.5                 ));
-    orientations.push_back(Coordinates(-0.37592,		0.864171,		0.0566408,		-0.329673           ));
-    orientations.push_back(Coordinates(-0.415735,		0.849385,		0.168953,		-0.277785           ));
-    orientations.push_back(Coordinates(-0.448436,		0.820066,		0.278375,		-0.221144           ));
-    orientations.push_back(Coordinates(-0.473465,		0.776715,		0.383033,		-0.16072            ));
-    orientations.push_back(Coordinates(-0.490393,		0.720074,		0.481138,		-0.0975452          ));
-    orientations.push_back(Coordinates(-0.498929,		0.651112,		0.57101,		-0.0327016          ));
-    orientations.push_back(Coordinates(-0.498929,		0.57101,		0.651112,		0.0327016           ));
-    orientations.push_back(Coordinates(-0.490393,		0.481138,		0.720074,		0.0975452           ));
-    orientations.push_back(Coordinates(-0.473465,		0.383033,		0.776715,		0.16072             ));
-    orientations.push_back(Coordinates(-0.448436,		0.278375,		0.820066,		0.221144            ));
-    orientations.push_back(Coordinates(-0.415735,		0.168953,		0.849385,		0.277785            ));
-    orientations.push_back(Coordinates(-0.37592,		0.0566407,		0.864171,		0.329673            ));
-    orientations.push_back(Coordinates(-0.329673,		-0.0566408,		0.864171,		0.37592             ));
-    orientations.push_back(Coordinates(-0.277785,		-0.168953,		0.849385,		0.415735            ));
-    orientations.push_back(Coordinates(-0.221144,		-0.278375,		0.820066,		0.448436            ));
-    orientations.push_back(Coordinates(-0.16072,		-0.383033,		0.776715,		0.473465            ));
-    orientations.push_back(Coordinates(-0.0975451,		-0.481138,		0.720074,		0.490393            ));
-    orientations.push_back(Coordinates(-0.0327015,		-0.57101,		0.651112,		0.498929            ));
-    orientations.push_back(Coordinates(0.0327016,		-0.651112,		0.57101,		0.498929            ));
-    orientations.push_back(Coordinates(0.0975452,		-0.720074,		0.481138,		0.490393            ));
-    orientations.push_back(Coordinates(0.16072,		-0.776715,		0.383033,		0.473465                ));
-    orientations.push_back(Coordinates(0.221144,		-0.820066,		0.278375,		0.448436            ));
-    orientations.push_back(Coordinates(0.277785,		-0.849385,		0.168953,		0.415735            ));
-    orientations.push_back(Coordinates(0.329673,		-0.864171,		0.0566407,		0.37592             ));
-    orientations.push_back(Coordinates(-0.473465,		0.864171,		0.0566408,		-0.16072            ));
-    orientations.push_back(Coordinates(-0.490393,		0.849385,		0.168953,		-0.0975452          ));
-    orientations.push_back(Coordinates(-0.498929,		0.820066,		0.278375,		-0.0327016          ));
-    orientations.push_back(Coordinates(-0.498929,		0.776715,		0.383033,		0.0327016           ));
-    orientations.push_back(Coordinates(-0.490393,		0.720074,		0.481138,		0.0975452           ));
-    orientations.push_back(Coordinates(-0.473465,		0.651112,		0.57101,		0.16072             ));
-    orientations.push_back(Coordinates(-0.448436,		0.57101,		0.651112,		0.221144            ));
-    orientations.push_back(Coordinates(-0.415735,		0.481138,		0.720074,		0.277785            ));
-    orientations.push_back(Coordinates(-0.37592,		0.383033,		0.776715,		0.329673            ));
-    orientations.push_back(Coordinates(-0.329673,		0.278375,		0.820066,		0.37592             ));
-    orientations.push_back(Coordinates(-0.277785,		0.168953,		0.849385,		0.415735            ));
-    orientations.push_back(Coordinates(-0.221144,		0.0566407,		0.864171,		0.448436            ));
-    orientations.push_back(Coordinates(-0.16072,		-0.0566408,		0.864171,		0.473465            ));
-    orientations.push_back(Coordinates(-0.0975451,		-0.168953,		0.849385,		0.490393            ));
-    orientations.push_back(Coordinates(-0.0327015,		-0.278375,		0.820066,		0.498929            ));
-    orientations.push_back(Coordinates(0.0327016,		-0.383033,		0.776715,		0.498929            ));
-    orientations.push_back(Coordinates(0.0975452,		-0.481138,		0.720074,		0.490393            ));
-    orientations.push_back(Coordinates(0.16072,		-0.57101,		0.651112,		0.473465                ));
-    orientations.push_back(Coordinates(0.221144,		-0.651112,		0.57101,		0.448436            ));
-    orientations.push_back(Coordinates(0.277785,		-0.720074,		0.481138,		0.415735            ));
-    orientations.push_back(Coordinates(0.329673,		-0.776715,		0.383033,		0.37592             ));
-    orientations.push_back(Coordinates(0.37592,		-0.820066,		0.278375,		0.329673                ));
-    orientations.push_back(Coordinates(0.415735,		-0.849385,		0.168953,		0.277785            ));
-    orientations.push_back(Coordinates(0.448436,		-0.864171,		0.0566407,		0.221144            ));
-    orientations.push_back(Coordinates(-0.404756,		0.910916,		0.0597046,		-0.0532871          ));
-    orientations.push_back(Coordinates(-0.408248,		0.89533,		0.178092,		2.23064e-09         ));
-    orientations.push_back(Coordinates(-0.404756,		0.864425,		0.293433,		0.0532871           ));
-    orientations.push_back(Coordinates(-0.394338,		0.818729,		0.403752,		0.105662            ));
-    orientations.push_back(Coordinates(-0.377172,		0.759024,		0.507164,		0.15623             ));
-    orientations.push_back(Coordinates(-0.353553,		0.686333,		0.601898,		0.204124            ));
-    orientations.push_back(Coordinates(-0.323885,		0.601898,		0.686333,		0.248526            ));
-    orientations.push_back(Coordinates(-0.288675,		0.507164,		0.759024,		0.288675            ));
-    orientations.push_back(Coordinates(-0.248526,		0.403752,		0.818729,		0.323885            ));
-    orientations.push_back(Coordinates(-0.204124,		0.293433,		0.864425,		0.353553            ));
-    orientations.push_back(Coordinates(-0.15623,		0.178092,		0.89533,		0.377172            ));
-    orientations.push_back(Coordinates(-0.105662,		0.0597046,		0.910916,		0.394338            ));
-    orientations.push_back(Coordinates(-0.0532871,		-0.0597047,		0.910916,		0.404756            ));
-    orientations.push_back(Coordinates(2.00757e-08,		-0.178092,		0.89533,		0.408248            ));
-    orientations.push_back(Coordinates(0.0532871,		-0.293433,		0.864425,		0.404756            ));
-    orientations.push_back(Coordinates(0.105662,		-0.403753,		0.818729,		0.394338            ));
-    orientations.push_back(Coordinates(0.15623,		-0.507164,		0.759024,		0.377172                ));
-    orientations.push_back(Coordinates(0.204124,		-0.601898,		0.686333,		0.353553            ));
-    orientations.push_back(Coordinates(0.248526,		-0.686333,		0.601898,		0.323885            ));
-    orientations.push_back(Coordinates(0.288675,		-0.759024,		0.507164,		0.288675            ));
-    orientations.push_back(Coordinates(0.323885,		-0.818729,		0.403752,		0.248526            ));
-    orientations.push_back(Coordinates(0.353553,		-0.864425,		0.293433,		0.204124            ));
-    orientations.push_back(Coordinates(0.377172,		-0.89533,		0.178092,		0.15623             ));
-    orientations.push_back(Coordinates(0.394338,		-0.910916,		0.0597045,		0.105662            ));
-    orientations.push_back(Coordinates(-0.353553,		0.910916,		0.0597046,		-0.204124           ));
-    orientations.push_back(Coordinates(-0.377172,		0.89533,		0.178092,		-0.15623            ));
-    orientations.push_back(Coordinates(-0.394338,		0.864425,		0.293433,		-0.105662           ));
-    orientations.push_back(Coordinates(-0.404756,		0.818729,		0.403752,		-0.0532871          ));
-    orientations.push_back(Coordinates(-0.408248,		0.759024,		0.507164,		6.69191e-09         ));
-    orientations.push_back(Coordinates(-0.404756,		0.686333,		0.601898,		0.0532871           ));
-    orientations.push_back(Coordinates(-0.394338,		0.601898,		0.686333,		0.105662            ));
-    orientations.push_back(Coordinates(-0.377172,		0.507164,		0.759024,		0.15623             ));
-    orientations.push_back(Coordinates(-0.353553,		0.403752,		0.818729,		0.204124            ));
-    orientations.push_back(Coordinates(-0.323885,		0.293433,		0.864425,		0.248526            ));
-    orientations.push_back(Coordinates(-0.288675,		0.178092,		0.89533,		0.288675            ));
-    orientations.push_back(Coordinates(-0.248526,		0.0597046,		0.910916,		0.323885            ));
-    orientations.push_back(Coordinates(-0.204124,		-0.0597047,		0.910916,		0.353553            ));
-    orientations.push_back(Coordinates(-0.15623,		-0.178092,		0.89533,		0.377172            ));
-    orientations.push_back(Coordinates(-0.105662,		-0.293433,		0.864425,		0.394338            ));
-    orientations.push_back(Coordinates(-0.0532871,		-0.403753,		0.818729,		0.404756            ));
-    orientations.push_back(Coordinates(2.4537e-08,		-0.507164,		0.759024,		0.408248            ));
-    orientations.push_back(Coordinates(0.0532871,		-0.601898,		0.686333,		0.404756            ));
-    orientations.push_back(Coordinates(0.105662,		-0.686333,		0.601898,		0.394338            ));
-    orientations.push_back(Coordinates(0.15623,		-0.759024,		0.507164,		0.377172                ));
-    orientations.push_back(Coordinates(0.204124,		-0.818729,		0.403752,		0.353553            ));
-    orientations.push_back(Coordinates(0.248526,		-0.864425,		0.293433,		0.323885            ));
-    orientations.push_back(Coordinates(0.288675,		-0.89533,		0.178092,		0.288675            ));
-    orientations.push_back(Coordinates(0.323885,		-0.910916,		0.0597045,		0.248526            ));
-    orientations.push_back(Coordinates(-0.300303,		0.949933,		0.0622619,		-0.059734           ));
-    orientations.push_back(Coordinates(-0.305531,		0.93368,		0.18572,		-0.0200255          ));
-    orientations.push_back(Coordinates(-0.305531,		0.901451,		0.306001,		0.0200255           ));
-    orientations.push_back(Coordinates(-0.300303,		0.853797,		0.421046,		0.059734            ));
-    orientations.push_back(Coordinates(-0.289937,		0.791535,		0.528887,		0.0984203           ));
-    orientations.push_back(Coordinates(-0.27461,		0.71573,		0.627679,		0.135423            ));
-    orientations.push_back(Coordinates(-0.254585,		0.627678,		0.71573,		0.170108            ));
-    orientations.push_back(Coordinates(-0.230203,		0.528887,		0.791536,		0.201883            ));
-    orientations.push_back(Coordinates(-0.201883,		0.421046,		0.853797,		0.230203            ));
-    orientations.push_back(Coordinates(-0.170108,		0.306001,		0.901451,		0.254585            ));
-    orientations.push_back(Coordinates(-0.135423,		0.18572,		0.93368,		0.27461             ));
-    orientations.push_back(Coordinates(-0.0984203,		0.0622619,		0.949933,		0.289937            ));
-    orientations.push_back(Coordinates(-0.059734,		-0.062262,		0.949933,		0.300303            ));
-    orientations.push_back(Coordinates(-0.0200255,		-0.18572,		0.93368,		0.305531            ));
-    orientations.push_back(Coordinates(0.0200256,		-0.306001,		0.901451,		0.305531            ));
-    orientations.push_back(Coordinates(0.059734,		-0.421046,		0.853797,		0.300303            ));
-    orientations.push_back(Coordinates(0.0984204,		-0.528887,		0.791535,		0.289937            ));
-    orientations.push_back(Coordinates(0.135423,		-0.627679,		0.71573,		0.27461             ));
-    orientations.push_back(Coordinates(0.170108,		-0.71573,		0.627678,		0.254585            ));
-    orientations.push_back(Coordinates(0.201883,		-0.791536,		0.528887,		0.230203            ));
-    orientations.push_back(Coordinates(0.230203,		-0.853797,		0.421046,		0.201883            ));
-    orientations.push_back(Coordinates(0.254585,		-0.901451,		0.306001,		0.170108            ));
-    orientations.push_back(Coordinates(0.27461,		-0.93368,		0.18572,		0.135423                ));
-    orientations.push_back(Coordinates(0.289937,		-0.949933,		0.0622618,		0.0984203           ));
-    orientations.push_back(Coordinates(-0.221144,		0.864171,		0.0566408,		-0.448436           ));
-    orientations.push_back(Coordinates(-0.277785,		0.849385,		0.168953,		-0.415735           ));
-    orientations.push_back(Coordinates(-0.329673,		0.820066,		0.278375,		-0.37592            ));
-    orientations.push_back(Coordinates(-0.37592,		0.776715,		0.383033,		-0.329673           ));
-    orientations.push_back(Coordinates(-0.415735,		0.720074,		0.481138,		-0.277785           ));
-    orientations.push_back(Coordinates(-0.448436,		0.651112,		0.57101,		-0.221144           ));
-    orientations.push_back(Coordinates(-0.473465,		0.57101,		0.651112,		-0.16072            ));
-    orientations.push_back(Coordinates(-0.490393,		0.481138,		0.720074,		-0.0975451          ));
-    orientations.push_back(Coordinates(-0.498929,		0.383033,		0.776715,		-0.0327015          ));
-    orientations.push_back(Coordinates(-0.498929,		0.278375,		0.820066,		0.0327016           ));
-    orientations.push_back(Coordinates(-0.490393,		0.168953,		0.849385,		0.0975452           ));
-    orientations.push_back(Coordinates(-0.473465,		0.0566407,		0.864171,		0.16072             ));
-    orientations.push_back(Coordinates(-0.448436,		-0.0566408,		0.864171,		0.221144            ));
-    orientations.push_back(Coordinates(-0.415735,		-0.168953,		0.849385,		0.277785            ));
-    orientations.push_back(Coordinates(-0.37592,		-0.278375,		0.820066,		0.329673            ));
-    orientations.push_back(Coordinates(-0.329673,		-0.383033,		0.776715,		0.37592             ));
-    orientations.push_back(Coordinates(-0.277785,		-0.481138,		0.720074,		0.415735            ));
-    orientations.push_back(Coordinates(-0.221144,		-0.57101,		0.651112,		0.448436            ));
-    orientations.push_back(Coordinates(-0.16072,		-0.651112,		0.57101,		0.473465            ));
-    orientations.push_back(Coordinates(-0.0975451,		-0.720074,		0.481138,		0.490393            ));
-    orientations.push_back(Coordinates(-0.0327015,		-0.776715,		0.383033,		0.498929            ));
-    orientations.push_back(Coordinates(0.0327016,		-0.820066,		0.278375,		0.498929            ));
-    orientations.push_back(Coordinates(0.0975452,		-0.849385,		0.168953,		0.490393            ));
-    orientations.push_back(Coordinates(0.16072,		-0.864171,		0.0566407,		0.473465                ));
-    orientations.push_back(Coordinates(-0.248526,		0.910916,		0.0597046,		-0.323885           ));
-    orientations.push_back(Coordinates(-0.288675,		0.89533,		0.178092,		-0.288675           ));
-    orientations.push_back(Coordinates(-0.323885,		0.864425,		0.293433,		-0.248526           ));
-    orientations.push_back(Coordinates(-0.353553,		0.818729,		0.403752,		-0.204124           ));
-    orientations.push_back(Coordinates(-0.377172,		0.759024,		0.507164,		-0.15623            ));
-    orientations.push_back(Coordinates(-0.394338,		0.686333,		0.601898,		-0.105662           ));
-    orientations.push_back(Coordinates(-0.404756,		0.601898,		0.686333,		-0.0532871          ));
-    orientations.push_back(Coordinates(-0.408248,		0.507164,		0.759024,		1.11532e-08         ));
-    orientations.push_back(Coordinates(-0.404756,		0.403752,		0.818729,		0.0532871           ));
-    orientations.push_back(Coordinates(-0.394338,		0.293433,		0.864425,		0.105662            ));
-    orientations.push_back(Coordinates(-0.377172,		0.178092,		0.89533,		0.15623             ));
-    orientations.push_back(Coordinates(-0.353553,		0.0597046,		0.910916,		0.204124            ));
-    orientations.push_back(Coordinates(-0.323885,		-0.0597047,		0.910916,		0.248526            ));
-    orientations.push_back(Coordinates(-0.288675,		-0.178092,		0.89533,		0.288675            ));
-    orientations.push_back(Coordinates(-0.248526,		-0.293433,		0.864425,		0.323885            ));
-    orientations.push_back(Coordinates(-0.204124,		-0.403753,		0.818729,		0.353553            ));
-    orientations.push_back(Coordinates(-0.15623,		-0.507164,		0.759024,		0.377172            ));
-    orientations.push_back(Coordinates(-0.105662,		-0.601898,		0.686333,		0.394338            ));
-    orientations.push_back(Coordinates(-0.0532871,		-0.686333,		0.601898,		0.404756            ));
-    orientations.push_back(Coordinates(2.89983e-08,		-0.759024,		0.507164,		0.408248            ));
-    orientations.push_back(Coordinates(0.0532871,		-0.818729,		0.403752,		0.404756            ));
-    orientations.push_back(Coordinates(0.105662,		-0.864425,		0.293433,		0.394338            ));
-    orientations.push_back(Coordinates(0.15623,		-0.89533,		0.178092,		0.377172                ));
-    orientations.push_back(Coordinates(0.204124,		-0.910916,		0.0597045,		0.353553            ));
-    orientations.push_back(Coordinates(-0.105662,		0.910916,		0.0597046,		-0.394338           ));
-    orientations.push_back(Coordinates(-0.15623,		0.89533,		0.178092,		-0.377172           ));
-    orientations.push_back(Coordinates(-0.204124,		0.864425,		0.293433,		-0.353553           ));
-    orientations.push_back(Coordinates(-0.248526,		0.818729,		0.403752,		-0.323885           ));
-    orientations.push_back(Coordinates(-0.288675,		0.759024,		0.507164,		-0.288675           ));
-    orientations.push_back(Coordinates(-0.323885,		0.686333,		0.601898,		-0.248526           ));
-    orientations.push_back(Coordinates(-0.353553,		0.601898,		0.686333,		-0.204124           ));
-    orientations.push_back(Coordinates(-0.377172,		0.507164,		0.759024,		-0.15623            ));
-    orientations.push_back(Coordinates(-0.394338,		0.403752,		0.818729,		-0.105662           ));
-    orientations.push_back(Coordinates(-0.404756,		0.293433,		0.864425,		-0.0532871          ));
-    orientations.push_back(Coordinates(-0.408248,		0.178092,		0.89533,		1.56145e-08         ));
-    orientations.push_back(Coordinates(-0.404756,		0.0597046,		0.910916,		0.0532871           ));
-    orientations.push_back(Coordinates(-0.394338,		-0.0597047,		0.910916,		0.105662            ));
-    orientations.push_back(Coordinates(-0.377172,		-0.178092,		0.89533,		0.15623             ));
-    orientations.push_back(Coordinates(-0.353553,		-0.293433,		0.864425,		0.204124            ));
-    orientations.push_back(Coordinates(-0.323885,		-0.403753,		0.818729,		0.248526            ));
-    orientations.push_back(Coordinates(-0.288675,		-0.507164,		0.759024,		0.288675            ));
-    orientations.push_back(Coordinates(-0.248526,		-0.601898,		0.686333,		0.323885            ));
-    orientations.push_back(Coordinates(-0.204124,		-0.686333,		0.601898,		0.353553            ));
-    orientations.push_back(Coordinates(-0.15623,		-0.759024,		0.507164,		0.377172            ));
-    orientations.push_back(Coordinates(-0.105662,		-0.818729,		0.403752,		0.394338            ));
-    orientations.push_back(Coordinates(-0.0532871,		-0.864425,		0.293433,		0.404756            ));
-    orientations.push_back(Coordinates(3.34596e-08,		-0.89533,		0.178092,		0.408248            ));
-    orientations.push_back(Coordinates(0.0532871,		-0.910916,		0.0597045,		0.404756            ));
-    orientations.push_back(Coordinates(-0.0984203,		0.949933,		0.0622619,		-0.289937           ));
-    orientations.push_back(Coordinates(-0.135423,		0.93368,		0.18572,		-0.27461            ));
-    orientations.push_back(Coordinates(-0.170108,		0.901451,		0.306001,		-0.254585           ));
-    orientations.push_back(Coordinates(-0.201883,		0.853797,		0.421046,		-0.230203           ));
-    orientations.push_back(Coordinates(-0.230203,		0.791535,		0.528887,		-0.201883           ));
-    orientations.push_back(Coordinates(-0.254585,		0.71573,		0.627679,		-0.170108           ));
-    orientations.push_back(Coordinates(-0.27461,		0.627678,		0.71573,		-0.135423           ));
-    orientations.push_back(Coordinates(-0.289937,		0.528887,		0.791536,		-0.0984203          ));
-    orientations.push_back(Coordinates(-0.300303,		0.421046,		0.853797,		-0.059734           ));
-    orientations.push_back(Coordinates(-0.305531,		0.306001,		0.901451,		-0.0200255          ));
-    orientations.push_back(Coordinates(-0.305531,		0.18572,		0.93368,		0.0200255           ));
-    orientations.push_back(Coordinates(-0.300303,		0.0622619,		0.949933,		0.059734            ));
-    orientations.push_back(Coordinates(-0.289937,		-0.062262,		0.949933,		0.0984203           ));
-    orientations.push_back(Coordinates(-0.27461,		-0.18572,		0.93368,		0.135423            ));
-    orientations.push_back(Coordinates(-0.254585,		-0.306001,		0.901451,		0.170108            ));
-    orientations.push_back(Coordinates(-0.230203,		-0.421046,		0.853797,		0.201883            ));
-    orientations.push_back(Coordinates(-0.201883,		-0.528887,		0.791535,		0.230203            ));
-    orientations.push_back(Coordinates(-0.170108,		-0.627679,		0.71573,		0.254585            ));
-    orientations.push_back(Coordinates(-0.135423,		-0.71573,		0.627678,		0.27461             ));
-    orientations.push_back(Coordinates(-0.0984203,		-0.791536,		0.528887,		0.289937            ));
-    orientations.push_back(Coordinates(-0.0597339,		-0.853797,		0.421046,		0.300303            ));
-    orientations.push_back(Coordinates(-0.0200255,		-0.901451,		0.306001,		0.305531            ));
-    orientations.push_back(Coordinates(0.0200256,		-0.93368,		0.18572,		0.305531            ));
-    orientations.push_back(Coordinates(0.059734,		-0.949933,		0.0622618,		0.300303            ));
-    orientations.push_back(Coordinates(-0.230203,		0.949933,		0.0622619,		-0.201883           ));
-    orientations.push_back(Coordinates(-0.254585,		0.93368,		0.18572,		-0.170108           ));
-    orientations.push_back(Coordinates(-0.27461,		0.901451,		0.306001,		-0.135423           ));
-    orientations.push_back(Coordinates(-0.289937,		0.853797,		0.421046,		-0.0984203          ));
-    orientations.push_back(Coordinates(-0.300303,		0.791535,		0.528887,		-0.059734           ));
-    orientations.push_back(Coordinates(-0.305531,		0.71573,		0.627679,		-0.0200255          ));
-    orientations.push_back(Coordinates(-0.305531,		0.627678,		0.71573,		0.0200255           ));
-    orientations.push_back(Coordinates(-0.300303,		0.528887,		0.791536,		0.059734            ));
-    orientations.push_back(Coordinates(-0.289937,		0.421046,		0.853797,		0.0984203           ));
-    orientations.push_back(Coordinates(-0.27461,		0.306001,		0.901451,		0.135423            ));
-    orientations.push_back(Coordinates(-0.254585,		0.18572,		0.93368,		0.170108            ));
-    orientations.push_back(Coordinates(-0.230203,		0.0622619,		0.949933,		0.201883            ));
-    orientations.push_back(Coordinates(-0.201883,		-0.062262,		0.949933,		0.230203            ));
-    orientations.push_back(Coordinates(-0.170108,		-0.18572,		0.93368,		0.254585            ));
-    orientations.push_back(Coordinates(-0.135423,		-0.306001,		0.901451,		0.27461             ));
-    orientations.push_back(Coordinates(-0.0984203,		-0.421046,		0.853797,		0.289937            ));
-    orientations.push_back(Coordinates(-0.0597339,		-0.528887,		0.791535,		0.300303            ));
-    orientations.push_back(Coordinates(-0.0200255,		-0.627679,		0.71573,		0.305531            ));
-    orientations.push_back(Coordinates(0.0200256,		-0.71573,		0.627678,		0.305531            ));
-    orientations.push_back(Coordinates(0.059734,		-0.791536,		0.528887,		0.300303            ));
-    orientations.push_back(Coordinates(0.0984204,		-0.853797,		0.421046,		0.289937            ));
-    orientations.push_back(Coordinates(0.135423,		-0.901451,		0.306001,		0.27461             ));
-    orientations.push_back(Coordinates(0.170108,		-0.93368,		0.18572,		0.254585            ));
-    orientations.push_back(Coordinates(0.201883,		-0.949933,		0.0622618,		0.230203            ));
-    orientations.push_back(Coordinates(-0.193291,		0.976849,		0.0640261,		-0.0656136          ));
-    orientations.push_back(Coordinates(-0.200202,		0.960135,		0.190983,		-0.0398226          ));
-    orientations.push_back(Coordinates(-0.203687,		0.926993,		0.314672,		-0.0133504          ));
-    orientations.push_back(Coordinates(-0.203687,		0.877989,		0.432976,		0.0133504           ));
-    orientations.push_back(Coordinates(-0.200202,		0.813963,		0.543873,		0.0398226           ));
-    orientations.push_back(Coordinates(-0.193291,		0.73601,		0.645463,		0.0656136           ));
-    orientations.push_back(Coordinates(-0.183073,		0.645463,		0.73601,		0.0902818           ));
-    orientations.push_back(Coordinates(-0.169723,		0.543873,		0.813963,		0.113405            ));
-    orientations.push_back(Coordinates(-0.153469,		0.432976,		0.877989,		0.134588            ));
-    orientations.push_back(Coordinates(-0.134588,		0.314672,		0.926993,		0.153469            ));
-    orientations.push_back(Coordinates(-0.113405,		0.190983,		0.960135,		0.169723            ));
-    orientations.push_back(Coordinates(-0.0902818,		0.064026,		0.976849,		0.183073            ));
-    orientations.push_back(Coordinates(-0.0656135,		-0.0640261,		0.976849,		0.193291            ));
-    orientations.push_back(Coordinates(-0.0398226,		-0.190983,		0.960135,		0.200202            ));
-    orientations.push_back(Coordinates(-0.0133503,		-0.314672,		0.926993,		0.203687            ));
-    orientations.push_back(Coordinates(0.0133504,		-0.432976,		0.877989,		0.203687            ));
-    orientations.push_back(Coordinates(0.0398227,		-0.543873,		0.813963,		0.200202            ));
-    orientations.push_back(Coordinates(0.0656136,		-0.645463,		0.73601,		0.193291            ));
-    orientations.push_back(Coordinates(0.0902818,		-0.73601,		0.645463,		0.183073            ));
-    orientations.push_back(Coordinates(0.113405,		-0.813963,		0.543873,		0.169723            ));
-    orientations.push_back(Coordinates(0.134588,		-0.877989,		0.432976,		0.153469            ));
-    orientations.push_back(Coordinates(0.153469,		-0.926993,		0.314671,		0.134588            ));
-    orientations.push_back(Coordinates(0.169723,		-0.960135,		0.190983,		0.113405            ));
-    orientations.push_back(Coordinates(0.183073,		-0.976849,		0.064026,		0.0902818           ));
-    orientations.push_back(Coordinates(-0.0902818,		0.976849,		0.0640261,		-0.183073           ));
-    orientations.push_back(Coordinates(-0.113405,		0.960135,		0.190983,		-0.169723           ));
-    orientations.push_back(Coordinates(-0.134588,		0.926993,		0.314672,		-0.153469           ));
-    orientations.push_back(Coordinates(-0.153469,		0.877989,		0.432976,		-0.134588           ));
-    orientations.push_back(Coordinates(-0.169723,		0.813963,		0.543873,		-0.113405           ));
-    orientations.push_back(Coordinates(-0.183073,		0.73601,		0.645463,		-0.0902818          ));
-    orientations.push_back(Coordinates(-0.193291,		0.645463,		0.73601,		-0.0656136          ));
-    orientations.push_back(Coordinates(-0.200202,		0.543873,		0.813963,		-0.0398226          ));
-    orientations.push_back(Coordinates(-0.203687,		0.432976,		0.877989,		-0.0133504          ));
-    orientations.push_back(Coordinates(-0.203687,		0.314672,		0.926993,		0.0133504           ));
-    orientations.push_back(Coordinates(-0.200202,		0.190983,		0.960135,		0.0398227           ));
-    orientations.push_back(Coordinates(-0.193291,		0.064026,		0.976849,		0.0656136           ));
-    orientations.push_back(Coordinates(-0.183073,		-0.0640261,		0.976849,		0.0902818           ));
-    orientations.push_back(Coordinates(-0.169723,		-0.190983,		0.960135,		0.113405            ));
-    orientations.push_back(Coordinates(-0.153469,		-0.314672,		0.926993,		0.134588            ));
-    orientations.push_back(Coordinates(-0.134588,		-0.432976,		0.877989,		0.153469            ));
-    orientations.push_back(Coordinates(-0.113405,		-0.543873,		0.813963,		0.169723            ));
-    orientations.push_back(Coordinates(-0.0902818,		-0.645463,		0.73601,		0.183073            ));
-    orientations.push_back(Coordinates(-0.0656135,		-0.73601,		0.645463,		0.193291            ));
-    orientations.push_back(Coordinates(-0.0398226,		-0.813963,		0.543873,		0.200202            ));
-    orientations.push_back(Coordinates(-0.0133503,		-0.877989,		0.432976,		0.203687            ));
-    orientations.push_back(Coordinates(0.0133504,		-0.926993,		0.314671,		0.203687            ));
-    orientations.push_back(Coordinates(0.0398227,		-0.960135,		0.190983,		0.200202            ));
-    orientations.push_back(Coordinates(0.0656136,		-0.976849,		0.064026,		0.193291            ));
-    orientations.push_back(Coordinates(-0.0767343,		0.992648,		0.0650616,		-0.0672942          ));
-    orientations.push_back(Coordinates(-0.0848615,		0.975664,		0.194072,		-0.0567026          ));
-    orientations.push_back(Coordinates(-0.0915367,		0.941985,		0.319761,		-0.0451409          ));
-    orientations.push_back(Coordinates(-0.0966457,		0.892189,		0.439979,		-0.0328068          ));
-    orientations.push_back(Coordinates(-0.100101,		0.827128,		0.552669,		-0.0199113          ));
-    orientations.push_back(Coordinates(-0.101844,		0.747914,		0.655903,		-0.00667518         ));
-    orientations.push_back(Coordinates(-0.101844,		0.655903,		0.747914,		0.00667518          ));
-    orientations.push_back(Coordinates(-0.100101,		0.552669,		0.827128,		0.0199113           ));
-    orientations.push_back(Coordinates(-0.0966457,		0.439979,		0.892189,		0.0328068           ));
-    orientations.push_back(Coordinates(-0.0915367,		0.319761,		0.941985,		0.0451409           ));
-    orientations.push_back(Coordinates(-0.0848615,		0.194072,		0.975664,		0.0567027           ));
-    orientations.push_back(Coordinates(-0.0767343,		0.0650616,		0.992648,		0.0672942           ));
-    orientations.push_back(Coordinates(-0.0672942,		-0.0650616,		0.992648,		0.0767343           ));
-    orientations.push_back(Coordinates(-0.0567026,		-0.194072,		0.975664,		0.0848615           ));
-    orientations.push_back(Coordinates(-0.0451409,		-0.319761,		0.941985,		0.0915367           ));
-    orientations.push_back(Coordinates(-0.0328068,		-0.439979,		0.892189,		0.0966457           ));
-    orientations.push_back(Coordinates(-0.0199113,		-0.552669,		0.827128,		0.100101            ));
-    orientations.push_back(Coordinates(-0.00667517,		-0.655903,		0.747914,		0.101844            ));
-    orientations.push_back(Coordinates(0.00667519,		-0.747914,		0.655903,		0.101844            ));
-    orientations.push_back(Coordinates(0.0199113,		-0.827128,		0.552669,		0.100101            ));
-    orientations.push_back(Coordinates(0.0328068,		-0.892189,		0.439979,		0.0966456           ));
-    orientations.push_back(Coordinates(0.0451409,		-0.941985,		0.319761,		0.0915367           ));
-    orientations.push_back(Coordinates(0.0567027,		-0.975664,		0.194071,		0.0848615           ));
-    orientations.push_back(Coordinates(0.0672942,		-0.992648,		0.0650615,		0.0767343           ));
-    orientations.push_back(Coordinates(-0.425606,		0.762127,		0.0499525,		0.485311            ));
-    orientations.push_back(Coordinates(-0.358619,		0.749087,		0.149003,		0.536711            ));
-    orientations.push_back(Coordinates(-0.285496,		0.72323,		0.245503,		0.578929            ));
-    orientations.push_back(Coordinates(-0.207488,		0.684998,		0.337804,		0.611241            ));
-    orientations.push_back(Coordinates(-0.12593,		0.635045,		0.424324,		0.633094            ));
-    orientations.push_back(Coordinates(-0.0422175,		0.574227,		0.503584,		0.644115            ));
-    orientations.push_back(Coordinates(0.0422176,		0.503584,		0.574227,		0.644115            ));
-    orientations.push_back(Coordinates(0.12593,		0.424324,		0.635045,		0.633094                ));
-    orientations.push_back(Coordinates(0.207488,		0.337804,		0.684998,		0.611241            ));
-    orientations.push_back(Coordinates(0.285496,		0.245503,		0.72323,		0.578929            ));
-    orientations.push_back(Coordinates(0.358619,		0.149003,		0.749087,		0.536711            ));
-    orientations.push_back(Coordinates(0.425606,		0.0499524,		0.762127,		0.48531             ));
-    orientations.push_back(Coordinates(0.485311,		-0.0499525,		0.762127,		0.425606            ));
-    orientations.push_back(Coordinates(0.536711,		-0.149003,		0.749087,		0.358619            ));
-    orientations.push_back(Coordinates(0.578929,		-0.245503,		0.72323,		0.285496            ));
-    orientations.push_back(Coordinates(0.611241,		-0.337804,		0.684998,		0.207488            ));
-    orientations.push_back(Coordinates(0.633094,		-0.424324,		0.635045,		0.12593             ));
-    orientations.push_back(Coordinates(0.644115,		-0.503584,		0.574227,		0.0422175           ));
-    orientations.push_back(Coordinates(0.644115,		-0.574227,		0.503584,		-0.0422176          ));
-    orientations.push_back(Coordinates(0.633094,		-0.635045,		0.424324,		-0.12593            ));
-    orientations.push_back(Coordinates(0.611241,		-0.684998,		0.337804,		-0.207488           ));
-    orientations.push_back(Coordinates(0.578929,		-0.72323,		0.245503,		-0.285496           ));
-    orientations.push_back(Coordinates(0.536711,		-0.749087,		0.149003,		-0.358619           ));
-    orientations.push_back(Coordinates(0.48531,		-0.762127,		0.0499524,		-0.425606               ));
-    orientations.push_back(Coordinates(-0.288675,		0.814748,		0.0534014,		0.5                 ));
-    orientations.push_back(Coordinates(-0.220942,		0.800808,		0.159291,		0.533402            ));
-    orientations.push_back(Coordinates(-0.149429,		0.773165,		0.262454,		0.557678            ));
-    orientations.push_back(Coordinates(-0.0753593,		0.732294,		0.361127,		0.572411            ));
-    orientations.push_back(Coordinates(9.46379e-09,		0.678892,		0.453621,		0.57735             ));
-    orientations.push_back(Coordinates(0.0753593,		0.613875,		0.538354,		0.572411            ));
-    orientations.push_back(Coordinates(0.149429,		0.538354,		0.613875,		0.557678            ));
-    orientations.push_back(Coordinates(0.220942,		0.453621,		0.678892,		0.533402            ));
-    orientations.push_back(Coordinates(0.288675,		0.361127,		0.732294,		0.5                 ));
-    orientations.push_back(Coordinates(0.351469,		0.262454,		0.773165,		0.458043            ));
-    orientations.push_back(Coordinates(0.408248,		0.159291,		0.800808,		0.408248            ));
-    orientations.push_back(Coordinates(0.458043,		0.0534014,		0.814748,		0.351469            ));
-    orientations.push_back(Coordinates(0.5,		-0.0534015,		0.814748,		0.288675                    ));
-    orientations.push_back(Coordinates(0.533402,		-0.159291,		0.800808,		0.220942            ));
-    orientations.push_back(Coordinates(0.557678,		-0.262454,		0.773165,		0.149429            ));
-    orientations.push_back(Coordinates(0.572411,		-0.361127,		0.732294,		0.0753593           ));
-    orientations.push_back(Coordinates(0.57735,		-0.453621,		0.678892,		-3.47006e-08            ));
-    orientations.push_back(Coordinates(0.572411,		-0.538354,		0.613875,		-0.0753594          ));
-    orientations.push_back(Coordinates(0.557678,		-0.613875,		0.538354,		-0.149429           ));
-    orientations.push_back(Coordinates(0.533402,		-0.678892,		0.453621,		-0.220942           ));
-    orientations.push_back(Coordinates(0.5,		-0.732294,		0.361127,		-0.288675                   ));
-    orientations.push_back(Coordinates(0.458043,		-0.773165,		0.262454,		-0.351469           ));
-    orientations.push_back(Coordinates(0.408248,		-0.800808,		0.159291,		-0.408248           ));
-    orientations.push_back(Coordinates(0.351469,		-0.814748,		0.0534014,		-0.458043           ));
-    orientations.push_back(Coordinates(-0.458043,		0.814748,		0.0534014,		0.351469            ));
-    orientations.push_back(Coordinates(-0.408248,		0.800808,		0.159291,		0.408248            ));
-    orientations.push_back(Coordinates(-0.351469,		0.773165,		0.262454,		0.458043            ));
-    orientations.push_back(Coordinates(-0.288675,		0.732294,		0.361127,		0.5                 ));
-    orientations.push_back(Coordinates(-0.220942,		0.678892,		0.453621,		0.533402            ));
-    orientations.push_back(Coordinates(-0.149429,		0.613875,		0.538354,		0.557678            ));
-    orientations.push_back(Coordinates(-0.0753593,		0.538354,		0.613875,		0.572411            ));
-    orientations.push_back(Coordinates(1.5773e-08,		0.453621,		0.678892,		0.57735             ));
-    orientations.push_back(Coordinates(0.0753593,		0.361127,		0.732294,		0.572411            ));
-    orientations.push_back(Coordinates(0.149429,		0.262454,		0.773165,		0.557678            ));
-    orientations.push_back(Coordinates(0.220942,		0.159291,		0.800808,		0.533402            ));
-    orientations.push_back(Coordinates(0.288675,		0.0534014,		0.814748,		0.5                 ));
-    orientations.push_back(Coordinates(0.351469,		-0.0534015,		0.814748,		0.458043            ));
-    orientations.push_back(Coordinates(0.408248,		-0.159291,		0.800808,		0.408248            ));
-    orientations.push_back(Coordinates(0.458043,		-0.262454,		0.773165,		0.351469            ));
-    orientations.push_back(Coordinates(0.5,		-0.361127,		0.732294,		0.288675                    ));
-    orientations.push_back(Coordinates(0.533402,		-0.453621,		0.678892,		0.220942            ));
-    orientations.push_back(Coordinates(0.557678,		-0.538354,		0.613875,		0.149429            ));
-    orientations.push_back(Coordinates(0.572411,		-0.613875,		0.538354,		0.0753593           ));
-    orientations.push_back(Coordinates(0.57735,		-0.678892,		0.453621,		-4.10098e-08            ));
-    orientations.push_back(Coordinates(0.572411,		-0.732294,		0.361127,		-0.0753594          ));
-    orientations.push_back(Coordinates(0.557678,		-0.773165,		0.262454,		-0.149429           ));
-    orientations.push_back(Coordinates(0.533402,		-0.800808,		0.159291,		-0.220942           ));
-    orientations.push_back(Coordinates(0.5,		-0.814748,		0.0534014,		-0.288675                   ));
-    orientations.push_back(Coordinates(-0.329673,		0.864171,		0.0566408,		0.37592             ));
-    orientations.push_back(Coordinates(-0.277785,		0.849385,		0.168953,		0.415735            ));
-    orientations.push_back(Coordinates(-0.221144,		0.820066,		0.278375,		0.448436            ));
-    orientations.push_back(Coordinates(-0.16072,		0.776715,		0.383033,		0.473465            ));
-    orientations.push_back(Coordinates(-0.0975452,		0.720074,		0.481138,		0.490393            ));
-    orientations.push_back(Coordinates(-0.0327016,		0.651112,		0.57101,		0.498929            ));
-    orientations.push_back(Coordinates(0.0327016,		0.57101,		0.651112,		0.498929            ));
-    orientations.push_back(Coordinates(0.0975452,		0.481138,		0.720074,		0.490393            ));
-    orientations.push_back(Coordinates(0.16072,		0.383033,		0.776715,		0.473465                ));
-    orientations.push_back(Coordinates(0.221144,		0.278375,		0.820066,		0.448436            ));
-    orientations.push_back(Coordinates(0.277785,		0.168953,		0.849385,		0.415735            ));
-    orientations.push_back(Coordinates(0.329673,		0.0566407,		0.864171,		0.37592             ));
-    orientations.push_back(Coordinates(0.37592,		-0.0566408,		0.864171,		0.329673                ));
-    orientations.push_back(Coordinates(0.415735,		-0.168953,		0.849385,		0.277785            ));
-    orientations.push_back(Coordinates(0.448436,		-0.278375,		0.820066,		0.221144            ));
-    orientations.push_back(Coordinates(0.473465,		-0.383033,		0.776715,		0.16072             ));
-    orientations.push_back(Coordinates(0.490393,		-0.481138,		0.720074,		0.0975451           ));
-    orientations.push_back(Coordinates(0.498929,		-0.57101,		0.651112,		0.0327015           ));
-    orientations.push_back(Coordinates(0.498929,		-0.651112,		0.57101,		-0.0327016          ));
-    orientations.push_back(Coordinates(0.490393,		-0.720074,		0.481138,		-0.0975452          ));
-    orientations.push_back(Coordinates(0.473465,		-0.776715,		0.383033,		-0.16072            ));
-    orientations.push_back(Coordinates(0.448436,		-0.820066,		0.278375,		-0.221144           ));
-    orientations.push_back(Coordinates(0.415735,		-0.849385,		0.168953,		-0.277785           ));
-    orientations.push_back(Coordinates(0.37592,		-0.864171,		0.0566407,		-0.329673               ));
-    orientations.push_back(Coordinates(-0.16072,		0.864171,		0.0566408,		0.473465            ));
-    orientations.push_back(Coordinates(-0.0975452,		0.849385,		0.168953,		0.490393            ));
-    orientations.push_back(Coordinates(-0.0327016,		0.820066,		0.278375,		0.498929            ));
-    orientations.push_back(Coordinates(0.0327016,		0.776715,		0.383033,		0.498929            ));
-    orientations.push_back(Coordinates(0.0975452,		0.720074,		0.481138,		0.490393            ));
-    orientations.push_back(Coordinates(0.16072,		0.651112,		0.57101,		0.473465                ));
-    orientations.push_back(Coordinates(0.221144,		0.57101,		0.651112,		0.448436            ));
-    orientations.push_back(Coordinates(0.277785,		0.481138,		0.720074,		0.415735            ));
-    orientations.push_back(Coordinates(0.329673,		0.383033,		0.776715,		0.37592             ));
-    orientations.push_back(Coordinates(0.37592,		0.278375,		0.820066,		0.329673                ));
-    orientations.push_back(Coordinates(0.415735,		0.168953,		0.849385,		0.277785            ));
-    orientations.push_back(Coordinates(0.448436,		0.0566407,		0.864171,		0.221144            ));
-    orientations.push_back(Coordinates(0.473465,		-0.0566408,		0.864171,		0.16072             ));
-    orientations.push_back(Coordinates(0.490393,		-0.168953,		0.849385,		0.0975451           ));
-    orientations.push_back(Coordinates(0.498929,		-0.278375,		0.820066,		0.0327015           ));
-    orientations.push_back(Coordinates(0.498929,		-0.383033,		0.776715,		-0.0327016          ));
-    orientations.push_back(Coordinates(0.490393,		-0.481138,		0.720074,		-0.0975452          ));
-    orientations.push_back(Coordinates(0.473465,		-0.57101,		0.651112,		-0.16072            ));
-    orientations.push_back(Coordinates(0.448436,		-0.651112,		0.57101,		-0.221144           ));
-    orientations.push_back(Coordinates(0.415735,		-0.720074,		0.481138,		-0.277785           ));
-    orientations.push_back(Coordinates(0.37592,		-0.776715,		0.383033,		-0.329673               ));
-    orientations.push_back(Coordinates(0.329673,		-0.820066,		0.278375,		-0.37592            ));
-    orientations.push_back(Coordinates(0.277785,		-0.849385,		0.168953,		-0.415735           ));
-    orientations.push_back(Coordinates(0.221144,		-0.864171,		0.0566407,		-0.448436           ));
-    orientations.push_back(Coordinates(-0.0532871,		0.910916,		0.0597046,		0.404756            ));
-    orientations.push_back(Coordinates(2.23064e-09,		0.89533,		0.178092,		0.408248            ));
-    orientations.push_back(Coordinates(0.0532871,		0.864425,		0.293433,		0.404756            ));
-    orientations.push_back(Coordinates(0.105662,		0.818729,		0.403752,		0.394338            ));
-    orientations.push_back(Coordinates(0.15623,		0.759024,		0.507164,		0.377172                ));
-    orientations.push_back(Coordinates(0.204124,		0.686333,		0.601898,		0.353553            ));
-    orientations.push_back(Coordinates(0.248526,		0.601898,		0.686333,		0.323885            ));
-    orientations.push_back(Coordinates(0.288675,		0.507164,		0.759024,		0.288675            ));
-    orientations.push_back(Coordinates(0.323885,		0.403752,		0.818729,		0.248526            ));
-    orientations.push_back(Coordinates(0.353553,		0.293433,		0.864425,		0.204124            ));
-    orientations.push_back(Coordinates(0.377172,		0.178092,		0.89533,		0.15623             ));
-    orientations.push_back(Coordinates(0.394338,		0.0597046,		0.910916,		0.105662            ));
-    orientations.push_back(Coordinates(0.404756,		-0.0597047,		0.910916,		0.0532871           ));
-    orientations.push_back(Coordinates(0.408248,		-0.178092,		0.89533,		-2.00757e-08        ));
-    orientations.push_back(Coordinates(0.404756,		-0.293433,		0.864425,		-0.0532871          ));
-    orientations.push_back(Coordinates(0.394338,		-0.403753,		0.818729,		-0.105662           ));
-    orientations.push_back(Coordinates(0.377172,		-0.507164,		0.759024,		-0.15623            ));
-    orientations.push_back(Coordinates(0.353553,		-0.601898,		0.686333,		-0.204124           ));
-    orientations.push_back(Coordinates(0.323885,		-0.686333,		0.601898,		-0.248526           ));
-    orientations.push_back(Coordinates(0.288675,		-0.759024,		0.507164,		-0.288675           ));
-    orientations.push_back(Coordinates(0.248526,		-0.818729,		0.403752,		-0.323885           ));
-    orientations.push_back(Coordinates(0.204124,		-0.864425,		0.293433,		-0.353553           ));
-    orientations.push_back(Coordinates(0.15623,		-0.89533,		0.178092,		-0.377172               ));
-    orientations.push_back(Coordinates(0.105662,		-0.910916,		0.0597045,		-0.394338           ));
-    orientations.push_back(Coordinates(-0.204124,		0.910916,		0.0597046,		0.353553            ));
-    orientations.push_back(Coordinates(-0.15623,		0.89533,		0.178092,		0.377172            ));
-    orientations.push_back(Coordinates(-0.105662,		0.864425,		0.293433,		0.394338            ));
-    orientations.push_back(Coordinates(-0.0532871,		0.818729,		0.403752,		0.404756            ));
-    orientations.push_back(Coordinates(6.69191e-09,		0.759024,		0.507164,		0.408248            ));
-    orientations.push_back(Coordinates(0.0532871,		0.686333,		0.601898,		0.404756            ));
-    orientations.push_back(Coordinates(0.105662,		0.601898,		0.686333,		0.394338            ));
-    orientations.push_back(Coordinates(0.15623,		0.507164,		0.759024,		0.377172                ));
-    orientations.push_back(Coordinates(0.204124,		0.403752,		0.818729,		0.353553            ));
-    orientations.push_back(Coordinates(0.248526,		0.293433,		0.864425,		0.323885            ));
-    orientations.push_back(Coordinates(0.288675,		0.178092,		0.89533,		0.288675            ));
-    orientations.push_back(Coordinates(0.323885,		0.0597046,		0.910916,		0.248526            ));
-    orientations.push_back(Coordinates(0.353553,		-0.0597047,		0.910916,		0.204124            ));
-    orientations.push_back(Coordinates(0.377172,		-0.178092,		0.89533,		0.15623             ));
-    orientations.push_back(Coordinates(0.394338,		-0.293433,		0.864425,		0.105662            ));
-    orientations.push_back(Coordinates(0.404756,		-0.403753,		0.818729,		0.0532871           ));
-    orientations.push_back(Coordinates(0.408248,		-0.507164,		0.759024,		-2.4537e-08         ));
-    orientations.push_back(Coordinates(0.404756,		-0.601898,		0.686333,		-0.0532871          ));
-    orientations.push_back(Coordinates(0.394338,		-0.686333,		0.601898,		-0.105662           ));
-    orientations.push_back(Coordinates(0.377172,		-0.759024,		0.507164,		-0.15623            ));
-    orientations.push_back(Coordinates(0.353553,		-0.818729,		0.403752,		-0.204124           ));
-    orientations.push_back(Coordinates(0.323885,		-0.864425,		0.293433,		-0.248526           ));
-    orientations.push_back(Coordinates(0.288675,		-0.89533,		0.178092,		-0.288675           ));
-    orientations.push_back(Coordinates(0.248526,		-0.910916,		0.0597045,		-0.323885           ));
-    orientations.push_back(Coordinates(-0.059734,		0.949933,		0.0622619,		0.300303            ));
-    orientations.push_back(Coordinates(-0.0200255,		0.93368,		0.18572,		0.305531            ));
-    orientations.push_back(Coordinates(0.0200255,		0.901451,		0.306001,		0.305531            ));
-    orientations.push_back(Coordinates(0.059734,		0.853797,		0.421046,		0.300303            ));
-    orientations.push_back(Coordinates(0.0984203,		0.791535,		0.528887,		0.289937            ));
-    orientations.push_back(Coordinates(0.135423,		0.71573,		0.627679,		0.27461             ));
-    orientations.push_back(Coordinates(0.170108,		0.627678,		0.71573,		0.254585            ));
-    orientations.push_back(Coordinates(0.201883,		0.528887,		0.791536,		0.230203            ));
-    orientations.push_back(Coordinates(0.230203,		0.421046,		0.853797,		0.201883            ));
-    orientations.push_back(Coordinates(0.254585,		0.306001,		0.901451,		0.170108            ));
-    orientations.push_back(Coordinates(0.27461,		0.18572,		0.93368,		0.135423                ));
-    orientations.push_back(Coordinates(0.289937,		0.0622619,		0.949933,		0.0984203           ));
-    orientations.push_back(Coordinates(0.300303,		-0.062262,		0.949933,		0.059734            ));
-    orientations.push_back(Coordinates(0.305531,		-0.18572,		0.93368,		0.0200255           ));
-    orientations.push_back(Coordinates(0.305531,		-0.306001,		0.901451,		-0.0200256          ));
-    orientations.push_back(Coordinates(0.300303,		-0.421046,		0.853797,		-0.059734           ));
-    orientations.push_back(Coordinates(0.289937,		-0.528887,		0.791535,		-0.0984204          ));
-    orientations.push_back(Coordinates(0.27461,		-0.627679,		0.71573,		-0.135423               ));
-    orientations.push_back(Coordinates(0.254585,		-0.71573,		0.627678,		-0.170108           ));
-    orientations.push_back(Coordinates(0.230203,		-0.791536,		0.528887,		-0.201883           ));
-    orientations.push_back(Coordinates(0.201883,		-0.853797,		0.421046,		-0.230203           ));
-    orientations.push_back(Coordinates(0.170108,		-0.901451,		0.306001,		-0.254585           ));
-    orientations.push_back(Coordinates(0.135423,		-0.93368,		0.18572,		-0.27461            ));
-    orientations.push_back(Coordinates(0.0984203,		-0.949933,		0.0622618,		-0.289937           ));
-    orientations.push_back(Coordinates(-0.448436,		0.864171,		0.0566408,		0.221144            ));
-    orientations.push_back(Coordinates(-0.415735,		0.849385,		0.168953,		0.277785            ));
-    orientations.push_back(Coordinates(-0.37592,		0.820066,		0.278375,		0.329673            ));
-    orientations.push_back(Coordinates(-0.329673,		0.776715,		0.383033,		0.37592             ));
-    orientations.push_back(Coordinates(-0.277785,		0.720074,		0.481138,		0.415735            ));
-    orientations.push_back(Coordinates(-0.221144,		0.651112,		0.57101,		0.448436            ));
-    orientations.push_back(Coordinates(-0.16072,		0.57101,		0.651112,		0.473465            ));
-    orientations.push_back(Coordinates(-0.0975451,		0.481138,		0.720074,		0.490393            ));
-    orientations.push_back(Coordinates(-0.0327015,		0.383033,		0.776715,		0.498929            ));
-    orientations.push_back(Coordinates(0.0327016,		0.278375,		0.820066,		0.498929            ));
-    orientations.push_back(Coordinates(0.0975452,		0.168953,		0.849385,		0.490393            ));
-    orientations.push_back(Coordinates(0.16072,		0.0566407,		0.864171,		0.473465                ));
-    orientations.push_back(Coordinates(0.221144,		-0.0566408,		0.864171,		0.448436            ));
-    orientations.push_back(Coordinates(0.277785,		-0.168953,		0.849385,		0.415735            ));
-    orientations.push_back(Coordinates(0.329673,		-0.278375,		0.820066,		0.37592             ));
-    orientations.push_back(Coordinates(0.37592,		-0.383033,		0.776715,		0.329673                ));
-    orientations.push_back(Coordinates(0.415735,		-0.481138,		0.720074,		0.277785            ));
-    orientations.push_back(Coordinates(0.448436,		-0.57101,		0.651112,		0.221144            ));
-    orientations.push_back(Coordinates(0.473465,		-0.651112,		0.57101,		0.16072             ));
-    orientations.push_back(Coordinates(0.490393,		-0.720074,		0.481138,		0.0975451           ));
-    orientations.push_back(Coordinates(0.498929,		-0.776715,		0.383033,		0.0327015           ));
-    orientations.push_back(Coordinates(0.498929,		-0.820066,		0.278375,		-0.0327016          ));
-    orientations.push_back(Coordinates(0.490393,		-0.849385,		0.168953,		-0.0975452          ));
-    orientations.push_back(Coordinates(0.473465,		-0.864171,		0.0566407,		-0.16072            ));
-    orientations.push_back(Coordinates(-0.323885,		0.910916,		0.0597046,		0.248526            ));
-    orientations.push_back(Coordinates(-0.288675,		0.89533,		0.178092,		0.288675            ));
-    orientations.push_back(Coordinates(-0.248526,		0.864425,		0.293433,		0.323885            ));
-    orientations.push_back(Coordinates(-0.204124,		0.818729,		0.403752,		0.353553            ));
-    orientations.push_back(Coordinates(-0.15623,		0.759024,		0.507164,		0.377172            ));
-    orientations.push_back(Coordinates(-0.105662,		0.686333,		0.601898,		0.394338            ));
-    orientations.push_back(Coordinates(-0.0532871,		0.601898,		0.686333,		0.404756            ));
-    orientations.push_back(Coordinates(1.11532e-08,		0.507164,		0.759024,		0.408248            ));
-    orientations.push_back(Coordinates(0.0532871,		0.403752,		0.818729,		0.404756            ));
-    orientations.push_back(Coordinates(0.105662,		0.293433,		0.864425,		0.394338            ));
-    orientations.push_back(Coordinates(0.15623,		0.178092,		0.89533,		0.377172                ));
-    orientations.push_back(Coordinates(0.204124,		0.0597046,		0.910916,		0.353553            ));
-    orientations.push_back(Coordinates(0.248526,		-0.0597047,		0.910916,		0.323885            ));
-    orientations.push_back(Coordinates(0.288675,		-0.178092,		0.89533,		0.288675            ));
-    orientations.push_back(Coordinates(0.323885,		-0.293433,		0.864425,		0.248526            ));
-    orientations.push_back(Coordinates(0.353553,		-0.403753,		0.818729,		0.204124            ));
-    orientations.push_back(Coordinates(0.377172,		-0.507164,		0.759024,		0.15623             ));
-    orientations.push_back(Coordinates(0.394338,		-0.601898,		0.686333,		0.105662            ));
-    orientations.push_back(Coordinates(0.404756,		-0.686333,		0.601898,		0.0532871           ));
-    orientations.push_back(Coordinates(0.408248,		-0.759024,		0.507164,		-2.89983e-08        ));
-    orientations.push_back(Coordinates(0.404756,		-0.818729,		0.403752,		-0.0532871          ));
-    orientations.push_back(Coordinates(0.394338,		-0.864425,		0.293433,		-0.105662           ));
-    orientations.push_back(Coordinates(0.377172,		-0.89533,		0.178092,		-0.15623            ));
-    orientations.push_back(Coordinates(0.353553,		-0.910916,		0.0597045,		-0.204124           ));
-    orientations.push_back(Coordinates(-0.394338,		0.910916,		0.0597046,		0.105662            ));
-    orientations.push_back(Coordinates(-0.377172,		0.89533,		0.178092,		0.15623             ));
-    orientations.push_back(Coordinates(-0.353553,		0.864425,		0.293433,		0.204124            ));
-    orientations.push_back(Coordinates(-0.323885,		0.818729,		0.403752,		0.248526            ));
-    orientations.push_back(Coordinates(-0.288675,		0.759024,		0.507164,		0.288675            ));
-    orientations.push_back(Coordinates(-0.248526,		0.686333,		0.601898,		0.323885            ));
-    orientations.push_back(Coordinates(-0.204124,		0.601898,		0.686333,		0.353553            ));
-    orientations.push_back(Coordinates(-0.15623,		0.507164,		0.759024,		0.377172            ));
-    orientations.push_back(Coordinates(-0.105662,		0.403752,		0.818729,		0.394338            ));
-    orientations.push_back(Coordinates(-0.0532871,		0.293433,		0.864425,		0.404756            ));
-    orientations.push_back(Coordinates(1.56145e-08,		0.178092,		0.89533,		0.408248            ));
-    orientations.push_back(Coordinates(0.0532871,		0.0597046,		0.910916,		0.404756            ));
-    orientations.push_back(Coordinates(0.105662,		-0.0597047,		0.910916,		0.394338            ));
-    orientations.push_back(Coordinates(0.15623,		-0.178092,		0.89533,		0.377172                ));
-    orientations.push_back(Coordinates(0.204124,		-0.293433,		0.864425,		0.353553            ));
-    orientations.push_back(Coordinates(0.248526,		-0.403753,		0.818729,		0.323885            ));
-    orientations.push_back(Coordinates(0.288675,		-0.507164,		0.759024,		0.288675            ));
-    orientations.push_back(Coordinates(0.323885,		-0.601898,		0.686333,		0.248526            ));
-    orientations.push_back(Coordinates(0.353553,		-0.686333,		0.601898,		0.204124            ));
-    orientations.push_back(Coordinates(0.377172,		-0.759024,		0.507164,		0.15623             ));
-    orientations.push_back(Coordinates(0.394338,		-0.818729,		0.403752,		0.105662            ));
-    orientations.push_back(Coordinates(0.404756,		-0.864425,		0.293433,		0.0532871           ));
-    orientations.push_back(Coordinates(0.408248,		-0.89533,		0.178092,		-3.34596e-08        ));
-    orientations.push_back(Coordinates(0.404756,		-0.910916,		0.0597045,		-0.0532871          ));
-    orientations.push_back(Coordinates(-0.289937,		0.949933,		0.0622619,		0.0984203           ));
-    orientations.push_back(Coordinates(-0.27461,		0.93368,		0.18572,		0.135423            ));
-    orientations.push_back(Coordinates(-0.254585,		0.901451,		0.306001,		0.170108            ));
-    orientations.push_back(Coordinates(-0.230203,		0.853797,		0.421046,		0.201883            ));
-    orientations.push_back(Coordinates(-0.201883,		0.791535,		0.528887,		0.230203            ));
-    orientations.push_back(Coordinates(-0.170108,		0.71573,		0.627679,		0.254585            ));
-    orientations.push_back(Coordinates(-0.135423,		0.627678,		0.71573,		0.27461             ));
-    orientations.push_back(Coordinates(-0.0984203,		0.528887,		0.791536,		0.289937            ));
-    orientations.push_back(Coordinates(-0.059734,		0.421046,		0.853797,		0.300303            ));
-    orientations.push_back(Coordinates(-0.0200255,		0.306001,		0.901451,		0.305531            ));
-    orientations.push_back(Coordinates(0.0200255,		0.18572,		0.93368,		0.305531            ));
-    orientations.push_back(Coordinates(0.059734,		0.0622619,		0.949933,		0.300303            ));
-    orientations.push_back(Coordinates(0.0984203,		-0.062262,		0.949933,		0.289937            ));
-    orientations.push_back(Coordinates(0.135423,		-0.18572,		0.93368,		0.27461             ));
-    orientations.push_back(Coordinates(0.170108,		-0.306001,		0.901451,		0.254585            ));
-    orientations.push_back(Coordinates(0.201883,		-0.421046,		0.853797,		0.230203            ));
-    orientations.push_back(Coordinates(0.230203,		-0.528887,		0.791535,		0.201883            ));
-    orientations.push_back(Coordinates(0.254585,		-0.627679,		0.71573,		0.170108            ));
-    orientations.push_back(Coordinates(0.27461,		-0.71573,		0.627678,		0.135423                ));
-    orientations.push_back(Coordinates(0.289937,		-0.791536,		0.528887,		0.0984203           ));
-    orientations.push_back(Coordinates(0.300303,		-0.853797,		0.421046,		0.0597339           ));
-    orientations.push_back(Coordinates(0.305531,		-0.901451,		0.306001,		0.0200255           ));
-    orientations.push_back(Coordinates(0.305531,		-0.93368,		0.18572,		-0.0200256          ));
-    orientations.push_back(Coordinates(0.300303,		-0.949933,		0.0622618,		-0.059734           ));
-    orientations.push_back(Coordinates(-0.201883,		0.949933,		0.0622619,		0.230203            ));
-    orientations.push_back(Coordinates(-0.170108,		0.93368,		0.18572,		0.254585            ));
-    orientations.push_back(Coordinates(-0.135423,		0.901451,		0.306001,		0.27461             ));
-    orientations.push_back(Coordinates(-0.0984203,		0.853797,		0.421046,		0.289937            ));
-    orientations.push_back(Coordinates(-0.059734,		0.791535,		0.528887,		0.300303            ));
-    orientations.push_back(Coordinates(-0.0200255,		0.71573,		0.627679,		0.305531            ));
-    orientations.push_back(Coordinates(0.0200255,		0.627678,		0.71573,		0.305531            ));
-    orientations.push_back(Coordinates(0.059734,		0.528887,		0.791536,		0.300303            ));
-    orientations.push_back(Coordinates(0.0984203,		0.421046,		0.853797,		0.289937            ));
-    orientations.push_back(Coordinates(0.135423,		0.306001,		0.901451,		0.27461             ));
-    orientations.push_back(Coordinates(0.170108,		0.18572,		0.93368,		0.254585            ));
-    orientations.push_back(Coordinates(0.201883,		0.0622619,		0.949933,		0.230203            ));
-    orientations.push_back(Coordinates(0.230203,		-0.062262,		0.949933,		0.201883            ));
-    orientations.push_back(Coordinates(0.254585,		-0.18572,		0.93368,		0.170108            ));
-    orientations.push_back(Coordinates(0.27461,		-0.306001,		0.901451,		0.135423                ));
-    orientations.push_back(Coordinates(0.289937,		-0.421046,		0.853797,		0.0984203           ));
-    orientations.push_back(Coordinates(0.300303,		-0.528887,		0.791535,		0.0597339           ));
-    orientations.push_back(Coordinates(0.305531,		-0.627679,		0.71573,		0.0200255           ));
-    orientations.push_back(Coordinates(0.305531,		-0.71573,		0.627678,		-0.0200256          ));
-    orientations.push_back(Coordinates(0.300303,		-0.791536,		0.528887,		-0.059734           ));
-    orientations.push_back(Coordinates(0.289937,		-0.853797,		0.421046,		-0.0984204          ));
-    orientations.push_back(Coordinates(0.27461,		-0.901451,		0.306001,		-0.135423               ));
-    orientations.push_back(Coordinates(0.254585,		-0.93368,		0.18572,		-0.170108           ));
-    orientations.push_back(Coordinates(0.230203,		-0.949933,		0.0622618,		-0.201883           ));
-    orientations.push_back(Coordinates(-0.0656136,		0.976849,		0.0640261,		0.193291            ));
-    orientations.push_back(Coordinates(-0.0398226,		0.960135,		0.190983,		0.200202            ));
-    orientations.push_back(Coordinates(-0.0133504,		0.926993,		0.314672,		0.203687            ));
-    orientations.push_back(Coordinates(0.0133504,		0.877989,		0.432976,		0.203687            ));
-    orientations.push_back(Coordinates(0.0398226,		0.813963,		0.543873,		0.200202            ));
-    orientations.push_back(Coordinates(0.0656136,		0.73601,		0.645463,		0.193291            ));
-    orientations.push_back(Coordinates(0.0902818,		0.645463,		0.73601,		0.183073            ));
-    orientations.push_back(Coordinates(0.113405,		0.543873,		0.813963,		0.169723            ));
-    orientations.push_back(Coordinates(0.134588,		0.432976,		0.877989,		0.153469            ));
-    orientations.push_back(Coordinates(0.153469,		0.314672,		0.926993,		0.134588            ));
-    orientations.push_back(Coordinates(0.169723,		0.190983,		0.960135,		0.113405            ));
-    orientations.push_back(Coordinates(0.183073,		0.064026,		0.976849,		0.0902818           ));
-    orientations.push_back(Coordinates(0.193291,		-0.0640261,		0.976849,		0.0656135           ));
-    orientations.push_back(Coordinates(0.200202,		-0.190983,		0.960135,		0.0398226           ));
-    orientations.push_back(Coordinates(0.203687,		-0.314672,		0.926993,		0.0133503           ));
-    orientations.push_back(Coordinates(0.203687,		-0.432976,		0.877989,		-0.0133504          ));
-    orientations.push_back(Coordinates(0.200202,		-0.543873,		0.813963,		-0.0398227          ));
-    orientations.push_back(Coordinates(0.193291,		-0.645463,		0.73601,		-0.0656136          ));
-    orientations.push_back(Coordinates(0.183073,		-0.73601,		0.645463,		-0.0902818          ));
-    orientations.push_back(Coordinates(0.169723,		-0.813963,		0.543873,		-0.113405           ));
-    orientations.push_back(Coordinates(0.153469,		-0.877989,		0.432976,		-0.134588           ));
-    orientations.push_back(Coordinates(0.134588,		-0.926993,		0.314671,		-0.153469           ));
-    orientations.push_back(Coordinates(0.113405,		-0.960135,		0.190983,		-0.169723           ));
-    orientations.push_back(Coordinates(0.0902818,		-0.976849,		0.064026,		-0.183073           ));
-    orientations.push_back(Coordinates(-0.183073,		0.976849,		0.0640261,		0.0902818           ));
-    orientations.push_back(Coordinates(-0.169723,		0.960135,		0.190983,		0.113405            ));
-    orientations.push_back(Coordinates(-0.153469,		0.926993,		0.314672,		0.134588            ));
-    orientations.push_back(Coordinates(-0.134588,		0.877989,		0.432976,		0.153469            ));
-    orientations.push_back(Coordinates(-0.113405,		0.813963,		0.543873,		0.169723            ));
-    orientations.push_back(Coordinates(-0.0902818,		0.73601,		0.645463,		0.183073            ));
-    orientations.push_back(Coordinates(-0.0656136,		0.645463,		0.73601,		0.193291            ));
-    orientations.push_back(Coordinates(-0.0398226,		0.543873,		0.813963,		0.200202            ));
-    orientations.push_back(Coordinates(-0.0133504,		0.432976,		0.877989,		0.203687            ));
-    orientations.push_back(Coordinates(0.0133504,		0.314672,		0.926993,		0.203687            ));
-    orientations.push_back(Coordinates(0.0398227,		0.190983,		0.960135,		0.200202            ));
-    orientations.push_back(Coordinates(0.0656136,		0.064026,		0.976849,		0.193291            ));
-    orientations.push_back(Coordinates(0.0902818,		-0.0640261,		0.976849,		0.183073            ));
-    orientations.push_back(Coordinates(0.113405,		-0.190983,		0.960135,		0.169723            ));
-    orientations.push_back(Coordinates(0.134588,		-0.314672,		0.926993,		0.153469            ));
-    orientations.push_back(Coordinates(0.153469,		-0.432976,		0.877989,		0.134588            ));
-    orientations.push_back(Coordinates(0.169723,		-0.543873,		0.813963,		0.113405            ));
-    orientations.push_back(Coordinates(0.183073,		-0.645463,		0.73601,		0.0902818           ));
-    orientations.push_back(Coordinates(0.193291,		-0.73601,		0.645463,		0.0656135           ));
-    orientations.push_back(Coordinates(0.200202,		-0.813963,		0.543873,		0.0398226           ));
-    orientations.push_back(Coordinates(0.203687,		-0.877989,		0.432976,		0.0133503           ));
-    orientations.push_back(Coordinates(0.203687,		-0.926993,		0.314671,		-0.0133504          ));
-    orientations.push_back(Coordinates(0.200202,		-0.960135,		0.190983,		-0.0398227          ));
-    orientations.push_back(Coordinates(0.193291,		-0.976849,		0.064026,		-0.0656136          ));
-    orientations.push_back(Coordinates(-0.0672942,		0.992648,		0.0650616,		0.0767343           ));
-    orientations.push_back(Coordinates(-0.0567026,		0.975664,		0.194072,		0.0848615           ));
-    orientations.push_back(Coordinates(-0.0451409,		0.941985,		0.319761,		0.0915367           ));
-    orientations.push_back(Coordinates(-0.0328068,		0.892189,		0.439979,		0.0966457           ));
-    orientations.push_back(Coordinates(-0.0199113,		0.827128,		0.552669,		0.100101            ));
-    orientations.push_back(Coordinates(-0.00667518,		0.747914,		0.655903,		0.101844            ));
-    orientations.push_back(Coordinates(0.00667518,		0.655903,		0.747914,		0.101844            ));
-    orientations.push_back(Coordinates(0.0199113,		0.552669,		0.827128,		0.100101            ));
-    orientations.push_back(Coordinates(0.0328068,		0.439979,		0.892189,		0.0966457           ));
-    orientations.push_back(Coordinates(0.0451409,		0.319761,		0.941985,		0.0915367           ));
-    orientations.push_back(Coordinates(0.0567027,		0.194072,		0.975664,		0.0848615           ));
-    orientations.push_back(Coordinates(0.0672942,		0.0650616,		0.992648,		0.0767343           ));
-    orientations.push_back(Coordinates(0.0767343,		-0.0650616,		0.992648,		0.0672942           ));
-    orientations.push_back(Coordinates(0.0848615,		-0.194072,		0.975664,		0.0567026           ));
-    orientations.push_back(Coordinates(0.0915367,		-0.319761,		0.941985,		0.0451409           ));
-    orientations.push_back(Coordinates(0.0966457,		-0.439979,		0.892189,		0.0328068           ));
-    orientations.push_back(Coordinates(0.100101,		-0.552669,		0.827128,		0.0199113           ));
-    orientations.push_back(Coordinates(0.101844,		-0.655903,		0.747914,		0.00667517          ));
-    orientations.push_back(Coordinates(0.101844,		-0.747914,		0.655903,		-0.00667519         ));
-    orientations.push_back(Coordinates(0.100101,		-0.827128,		0.552669,		-0.0199113          ));
-    orientations.push_back(Coordinates(0.0966456,		-0.892189,		0.439979,		-0.0328068          ));
-    orientations.push_back(Coordinates(0.0915367,		-0.941985,		0.319761,		-0.0451409          ));
-    orientations.push_back(Coordinates(0.0848615,		-0.975664,		0.194071,		-0.0567027          ));
-    orientations.push_back(Coordinates(0.0767343,		-0.992648,		0.0650615,		-0.0672942          ));
-    orientations.push_back(Coordinates(0.0566408,		0.498929,		0.0327016,		0.864171            ));
-    orientations.push_back(Coordinates(0.168953,		0.490393,		0.0975452,		0.849385            ));
-    orientations.push_back(Coordinates(0.278375,		0.473465,		0.16072,		0.820066            ));
-    orientations.push_back(Coordinates(0.383033,		0.448436,		0.221144,		0.776715            ));
-    orientations.push_back(Coordinates(0.481138,		0.415735,		0.277785,		0.720074            ));
-    orientations.push_back(Coordinates(0.57101,		0.37592,		0.329673,		0.651112                ));
-    orientations.push_back(Coordinates(0.651112,		0.329673,		0.37592,		0.57101             ));
-    orientations.push_back(Coordinates(0.720074,		0.277785,		0.415735,		0.481138            ));
-    orientations.push_back(Coordinates(0.776715,		0.221144,		0.448436,		0.383033            ));
-    orientations.push_back(Coordinates(0.820066,		0.16072,		0.473465,		0.278375            ));
-    orientations.push_back(Coordinates(0.849385,		0.0975451,		0.490393,		0.168953            ));
-    orientations.push_back(Coordinates(0.864171,		0.0327015,		0.498929,		0.0566407           ));
-    orientations.push_back(Coordinates(0.864171,		-0.0327016,		0.498929,		-0.0566408          ));
-    orientations.push_back(Coordinates(0.849385,		-0.0975452,		0.490393,		-0.168953           ));
-    orientations.push_back(Coordinates(0.820066,		-0.16072,		0.473465,		-0.278375           ));
-    orientations.push_back(Coordinates(0.776715,		-0.221144,		0.448436,		-0.383033           ));
-    orientations.push_back(Coordinates(0.720074,		-0.277785,		0.415735,		-0.481138           ));
-    orientations.push_back(Coordinates(0.651112,		-0.329673,		0.37592,		-0.57101            ));
-    orientations.push_back(Coordinates(0.57101,		-0.37592,		0.329673,		-0.651112               ));
-    orientations.push_back(Coordinates(0.481138,		-0.415735,		0.277785,		-0.720074           ));
-    orientations.push_back(Coordinates(0.383033,		-0.448436,		0.221144,		-0.776715           ));
-    orientations.push_back(Coordinates(0.278375,		-0.473465,		0.16072,		-0.820066           ));
-    orientations.push_back(Coordinates(0.168953,		-0.490393,		0.0975451,		-0.849385           ));
-    orientations.push_back(Coordinates(0.0566407,		-0.498929,		0.0327015,		-0.864171           ));
-    orientations.push_back(Coordinates(0.211325,		0.576114,		0.0377605,		0.788675            ));
-    orientations.push_back(Coordinates(0.31246,		0.566257,		0.112635,		0.754344                ));
-    orientations.push_back(Coordinates(0.408248,		0.54671,		0.185583,		0.707107            ));
-    orientations.push_back(Coordinates(0.497052,		0.51781,		0.255356,		0.64777             ));
-    orientations.push_back(Coordinates(0.57735,		0.480049,		0.320759,		0.57735                 ));
-    orientations.push_back(Coordinates(0.64777,		0.434075,		0.380673,		0.497052                ));
-    orientations.push_back(Coordinates(0.707107,		0.380673,		0.434075,		0.408248            ));
-    orientations.push_back(Coordinates(0.754344,		0.320759,		0.480049,		0.31246             ));
-    orientations.push_back(Coordinates(0.788675,		0.255355,		0.51781,		0.211325            ));
-    orientations.push_back(Coordinates(0.809511,		0.185583,		0.54671,		0.106574            ));
-    orientations.push_back(Coordinates(0.816497,		0.112635,		0.566257,		-3.12289e-08        ));
-    orientations.push_back(Coordinates(0.809511,		0.0377605,		0.576114,		-0.106574           ));
-    orientations.push_back(Coordinates(0.788675,		-0.0377605,		0.576114,		-0.211325           ));
-    orientations.push_back(Coordinates(0.754344,		-0.112635,		0.566257,		-0.31246            ));
-    orientations.push_back(Coordinates(0.707107,		-0.185583,		0.54671,		-0.408248           ));
-    orientations.push_back(Coordinates(0.64777,		-0.255356,		0.51781,		-0.497052               ));
-    orientations.push_back(Coordinates(0.57735,		-0.320759,		0.480049,		-0.57735                ));
-    orientations.push_back(Coordinates(0.497052,		-0.380674,		0.434075,		-0.64777            ));
-    orientations.push_back(Coordinates(0.408248,		-0.434075,		0.380673,		-0.707107           ));
-    orientations.push_back(Coordinates(0.31246,		-0.480049,		0.320759,		-0.754345               ));
-    orientations.push_back(Coordinates(0.211325,		-0.51781,		0.255355,		-0.788675           ));
-    orientations.push_back(Coordinates(0.106574,		-0.54671,		0.185583,		-0.809511           ));
-    orientations.push_back(Coordinates(-6.69191e-08,		-0.566257,		0.112635,		-0.816497       ));
-    orientations.push_back(Coordinates(-0.106574,		-0.576114,		0.0377605,		-0.809511           ));
-    orientations.push_back(Coordinates(-0.106574,		0.576114,		0.0377605,		0.809511            ));
-    orientations.push_back(Coordinates(4.46127e-09,		0.566257,		0.112635,		0.816497            ));
-    orientations.push_back(Coordinates(0.106574,		0.54671,		0.185583,		0.809511            ));
-    orientations.push_back(Coordinates(0.211325,		0.51781,		0.255356,		0.788675            ));
-    orientations.push_back(Coordinates(0.31246,		0.480049,		0.320759,		0.754344                ));
-    orientations.push_back(Coordinates(0.408248,		0.434075,		0.380673,		0.707107            ));
-    orientations.push_back(Coordinates(0.497052,		0.380673,		0.434075,		0.64777             ));
-    orientations.push_back(Coordinates(0.57735,		0.320759,		0.480049,		0.57735                 ));
-    orientations.push_back(Coordinates(0.64777,		0.255355,		0.51781,		0.497052                ));
-    orientations.push_back(Coordinates(0.707107,		0.185583,		0.54671,		0.408248            ));
-    orientations.push_back(Coordinates(0.754344,		0.112635,		0.566257,		0.31246             ));
-    orientations.push_back(Coordinates(0.788675,		0.0377605,		0.576114,		0.211325            ));
-    orientations.push_back(Coordinates(0.809511,		-0.0377605,		0.576114,		0.106574            ));
-    orientations.push_back(Coordinates(0.816497,		-0.112635,		0.566257,		-4.01515e-08        ));
-    orientations.push_back(Coordinates(0.809511,		-0.185583,		0.54671,		-0.106574           ));
-    orientations.push_back(Coordinates(0.788675,		-0.255356,		0.51781,		-0.211325           ));
-    orientations.push_back(Coordinates(0.754344,		-0.320759,		0.480049,		-0.31246            ));
-    orientations.push_back(Coordinates(0.707107,		-0.380674,		0.434075,		-0.408248           ));
-    orientations.push_back(Coordinates(0.64777,		-0.434075,		0.380673,		-0.497052               ));
-    orientations.push_back(Coordinates(0.57735,		-0.480049,		0.320759,		-0.57735                ));
-    orientations.push_back(Coordinates(0.497052,		-0.51781,		0.255355,		-0.64777            ));
-    orientations.push_back(Coordinates(0.408248,		-0.54671,		0.185583,		-0.707107           ));
-    orientations.push_back(Coordinates(0.31246,		-0.566257,		0.112635,		-0.754345               ));
-    orientations.push_back(Coordinates(0.211325,		-0.576114,		0.0377605,		-0.788675           ));
-    orientations.push_back(Coordinates(0.0499525,		0.644115,		0.0422175,		0.762127            ));
-    orientations.push_back(Coordinates(0.149003,		0.633094,		0.12593,		0.749087            ));
-    orientations.push_back(Coordinates(0.245503,		0.611241,		0.207488,		0.72323             ));
-    orientations.push_back(Coordinates(0.337804,		0.578929,		0.285496,		0.684998            ));
-    orientations.push_back(Coordinates(0.424324,		0.536711,		0.358619,		0.635045            ));
-    orientations.push_back(Coordinates(0.503584,		0.485311,		0.425606,		0.574227            ));
-    orientations.push_back(Coordinates(0.574227,		0.425606,		0.485311,		0.503584            ));
-    orientations.push_back(Coordinates(0.635045,		0.358619,		0.536711,		0.424324            ));
-    orientations.push_back(Coordinates(0.684998,		0.285496,		0.578929,		0.337804            ));
-    orientations.push_back(Coordinates(0.72323,		0.207488,		0.611241,		0.245503                ));
-    orientations.push_back(Coordinates(0.749087,		0.12593,		0.633094,		0.149003            ));
-    orientations.push_back(Coordinates(0.762127,		0.0422175,		0.644115,		0.0499524           ));
-    orientations.push_back(Coordinates(0.762127,		-0.0422176,		0.644115,		-0.0499525          ));
-    orientations.push_back(Coordinates(0.749087,		-0.12593,		0.633094,		-0.149003           ));
-    orientations.push_back(Coordinates(0.72323,		-0.207488,		0.611241,		-0.245503               ));
-    orientations.push_back(Coordinates(0.684998,		-0.285496,		0.578929,		-0.337804           ));
-    orientations.push_back(Coordinates(0.635045,		-0.358619,		0.536711,		-0.424324           ));
-    orientations.push_back(Coordinates(0.574227,		-0.425606,		0.48531,		-0.503584           ));
-    orientations.push_back(Coordinates(0.503584,		-0.485311,		0.425606,		-0.574227           ));
-    orientations.push_back(Coordinates(0.424324,		-0.536711,		0.358619,		-0.635045           ));
-    orientations.push_back(Coordinates(0.337804,		-0.578929,		0.285496,		-0.684998           ));
-    orientations.push_back(Coordinates(0.245503,		-0.611241,		0.207488,		-0.72323            ));
-    orientations.push_back(Coordinates(0.149003,		-0.633094,		0.12593,		-0.749087           ));
-    orientations.push_back(Coordinates(0.0499524,		-0.644115,		0.0422175,		-0.762127           ));
-    orientations.push_back(Coordinates(0.337804,		0.644115,		0.0422175,		0.684998            ));
-    orientations.push_back(Coordinates(0.424324,		0.633094,		0.12593,		0.635045            ));
-    orientations.push_back(Coordinates(0.503584,		0.611241,		0.207488,		0.574227            ));
-    orientations.push_back(Coordinates(0.574227,		0.578929,		0.285496,		0.503584            ));
-    orientations.push_back(Coordinates(0.635045,		0.536711,		0.358619,		0.424324            ));
-    orientations.push_back(Coordinates(0.684998,		0.485311,		0.425606,		0.337804            ));
-    orientations.push_back(Coordinates(0.72323,		0.425606,		0.485311,		0.245503                ));
-    orientations.push_back(Coordinates(0.749087,		0.358619,		0.536711,		0.149003            ));
-    orientations.push_back(Coordinates(0.762127,		0.285496,		0.578929,		0.0499524           ));
-    orientations.push_back(Coordinates(0.762127,		0.207488,		0.611241,		-0.0499525          ));
-    orientations.push_back(Coordinates(0.749087,		0.12593,		0.633094,		-0.149003           ));
-    orientations.push_back(Coordinates(0.72323,		0.0422175,		0.644115,		-0.245503               ));
-    orientations.push_back(Coordinates(0.684998,		-0.0422176,		0.644115,		-0.337804           ));
-    orientations.push_back(Coordinates(0.635045,		-0.12593,		0.633094,		-0.424324           ));
-    orientations.push_back(Coordinates(0.574227,		-0.207488,		0.611241,		-0.503584           ));
-    orientations.push_back(Coordinates(0.503584,		-0.285496,		0.578929,		-0.574227           ));
-    orientations.push_back(Coordinates(0.424324,		-0.358619,		0.536711,		-0.635045           ));
-    orientations.push_back(Coordinates(0.337804,		-0.425606,		0.48531,		-0.684998           ));
-    orientations.push_back(Coordinates(0.245503,		-0.485311,		0.425606,		-0.72323            ));
-    orientations.push_back(Coordinates(0.149003,		-0.536711,		0.358619,		-0.749087           ));
-    orientations.push_back(Coordinates(0.0499524,		-0.578929,		0.285496,		-0.762127           ));
-    orientations.push_back(Coordinates(-0.0499525,		-0.611241,		0.207488,		-0.762127           ));
-    orientations.push_back(Coordinates(-0.149003,		-0.633094,		0.12593,		-0.749087           ));
-    orientations.push_back(Coordinates(-0.245504,		-0.644115,		0.0422175,		-0.72323            ));
-    orientations.push_back(Coordinates(0.430459,		0.705593,		0.046247,		0.560986            ));
-    orientations.push_back(Coordinates(0.5,		0.69352,		0.13795,		0.5                         ));
-    orientations.push_back(Coordinates(0.560986,		0.669581,		0.227292,		0.430459            ));
-    orientations.push_back(Coordinates(0.612372,		0.634185,		0.312745,		0.353553            ));
-    orientations.push_back(Coordinates(0.653281,		0.587938,		0.392847,		0.270598            ));
-    orientations.push_back(Coordinates(0.683013,		0.531631,		0.466228,		0.183013            ));
-    orientations.push_back(Coordinates(0.701057,		0.466228,		0.531631,		0.0922959           ));
-    orientations.push_back(Coordinates(0.707107,		0.392847,		0.587938,		-1.93179e-08        ));
-    orientations.push_back(Coordinates(0.701057,		0.312745,		0.634185,		-0.092296           ));
-    orientations.push_back(Coordinates(0.683013,		0.227292,		0.669581,		-0.183013           ));
-    orientations.push_back(Coordinates(0.653281,		0.13795,		0.69352,		-0.270598           ));
-    orientations.push_back(Coordinates(0.612372,		0.046247,		0.705593,		-0.353553           ));
-    orientations.push_back(Coordinates(0.560986,		-0.046247,		0.705593,		-0.430459           ));
-    orientations.push_back(Coordinates(0.5,		-0.13795,		0.69352,		-0.5                        ));
-    orientations.push_back(Coordinates(0.430459,		-0.227292,		0.669581,		-0.560986           ));
-    orientations.push_back(Coordinates(0.353553,		-0.312745,		0.634185,		-0.612372           ));
-    orientations.push_back(Coordinates(0.270598,		-0.392848,		0.587938,		-0.653281           ));
-    orientations.push_back(Coordinates(0.183013,		-0.466228,		0.531631,		-0.683013           ));
-    orientations.push_back(Coordinates(0.0922959,		-0.531631,		0.466228,		-0.701057           ));
-    orientations.push_back(Coordinates(-5.02265e-08,		-0.587938,		0.392847,		-0.707107       ));
-    orientations.push_back(Coordinates(-0.092296,		-0.634185,		0.312745,		-0.701057           ));
-    orientations.push_back(Coordinates(-0.183013,		-0.669581,		0.227292,		-0.683013           ));
-    orientations.push_back(Coordinates(-0.270598,		-0.69352,		0.13795,		-0.653281           ));
-    orientations.push_back(Coordinates(-0.353553,		-0.705593,		0.0462469,		-0.612372           ));
-    orientations.push_back(Coordinates(0.183013,		0.705593,		0.046247,		0.683013            ));
-    orientations.push_back(Coordinates(0.270598,		0.69352,		0.13795,		0.653281            ));
-    orientations.push_back(Coordinates(0.353553,		0.669581,		0.227292,		0.612372            ));
-    orientations.push_back(Coordinates(0.430459,		0.634185,		0.312745,		0.560986            ));
-    orientations.push_back(Coordinates(0.5,		0.587938,		0.392847,		0.5                         ));
-    orientations.push_back(Coordinates(0.560986,		0.531631,		0.466228,		0.430459            ));
-    orientations.push_back(Coordinates(0.612372,		0.466228,		0.531631,		0.353553            ));
-    orientations.push_back(Coordinates(0.653281,		0.392847,		0.587938,		0.270598            ));
-    orientations.push_back(Coordinates(0.683013,		0.312745,		0.634185,		0.183013            ));
-    orientations.push_back(Coordinates(0.701057,		0.227292,		0.669581,		0.0922959           ));
-    orientations.push_back(Coordinates(0.707107,		0.13795,		0.69352,		-2.7045e-08         ));
-    orientations.push_back(Coordinates(0.701057,		0.046247,		0.705593,		-0.092296           ));
-    orientations.push_back(Coordinates(0.683013,		-0.046247,		0.705593,		-0.183013           ));
-    orientations.push_back(Coordinates(0.653281,		-0.13795,		0.69352,		-0.270598           ));
-    orientations.push_back(Coordinates(0.612372,		-0.227292,		0.669581,		-0.353553           ));
-    orientations.push_back(Coordinates(0.560986,		-0.312745,		0.634185,		-0.430459           ));
-    orientations.push_back(Coordinates(0.5,		-0.392848,		0.587938,		-0.5                        ));
-    orientations.push_back(Coordinates(0.430459,		-0.466228,		0.531631,		-0.560986           ));
-    orientations.push_back(Coordinates(0.353553,		-0.531631,		0.466228,		-0.612372           ));
-    orientations.push_back(Coordinates(0.270598,		-0.587938,		0.392847,		-0.653282           ));
-    orientations.push_back(Coordinates(0.183013,		-0.634185,		0.312745,		-0.683013           ));
-    orientations.push_back(Coordinates(0.0922959,		-0.669581,		0.227292,		-0.701057           ));
-    orientations.push_back(Coordinates(-5.79537e-08,		-0.69352,		0.13795,		-0.707107       ));
-    orientations.push_back(Coordinates(-0.092296,		-0.705593,		0.0462469,		-0.701057           ));
-    orientations.push_back(Coordinates(0.285496,		0.762127,		0.0499525,		0.578929            ));
-    orientations.push_back(Coordinates(0.358619,		0.749087,		0.149003,		0.536711            ));
-    orientations.push_back(Coordinates(0.425606,		0.72323,		0.245503,		0.485311            ));
-    orientations.push_back(Coordinates(0.485311,		0.684998,		0.337804,		0.425606            ));
-    orientations.push_back(Coordinates(0.536711,		0.635045,		0.424324,		0.358619            ));
-    orientations.push_back(Coordinates(0.578929,		0.574227,		0.503584,		0.285496            ));
-    orientations.push_back(Coordinates(0.611241,		0.503584,		0.574227,		0.207488            ));
-    orientations.push_back(Coordinates(0.633094,		0.424324,		0.635045,		0.12593             ));
-    orientations.push_back(Coordinates(0.644115,		0.337804,		0.684998,		0.0422175           ));
-    orientations.push_back(Coordinates(0.644115,		0.245503,		0.72323,		-0.0422176          ));
-    orientations.push_back(Coordinates(0.633094,		0.149003,		0.749087,		-0.12593            ));
-    orientations.push_back(Coordinates(0.611241,		0.0499524,		0.762127,		-0.207488           ));
-    orientations.push_back(Coordinates(0.578929,		-0.0499525,		0.762127,		-0.285496           ));
-    orientations.push_back(Coordinates(0.536711,		-0.149003,		0.749087,		-0.358619           ));
-    orientations.push_back(Coordinates(0.48531,		-0.245503,		0.72323,		-0.425606               ));
-    orientations.push_back(Coordinates(0.425606,		-0.337804,		0.684998,		-0.485311           ));
-    orientations.push_back(Coordinates(0.358619,		-0.424324,		0.635045,		-0.536711           ));
-    orientations.push_back(Coordinates(0.285496,		-0.503584,		0.574227,		-0.578929           ));
-    orientations.push_back(Coordinates(0.207488,		-0.574227,		0.503584,		-0.611241           ));
-    orientations.push_back(Coordinates(0.12593,		-0.635045,		0.424324,		-0.633094               ));
-    orientations.push_back(Coordinates(0.0422175,		-0.684998,		0.337804,		-0.644115           ));
-    orientations.push_back(Coordinates(-0.0422176,		-0.72323,		0.245503,		-0.644115           ));
-    orientations.push_back(Coordinates(-0.12593,		-0.749087,		0.149003,		-0.633094           ));
-    orientations.push_back(Coordinates(-0.207488,		-0.762127,		0.0499524,		-0.611241           ));
-    orientations.push_back(Coordinates(-0.245503,		0.644115,		0.0422175,		0.72323             ));
-    orientations.push_back(Coordinates(-0.149003,		0.633094,		0.12593,		0.749087            ));
-    orientations.push_back(Coordinates(-0.0499525,		0.611241,		0.207488,		0.762127            ));
-    orientations.push_back(Coordinates(0.0499525,		0.578929,		0.285496,		0.762127            ));
-    orientations.push_back(Coordinates(0.149003,		0.536711,		0.358619,		0.749087            ));
-    orientations.push_back(Coordinates(0.245503,		0.485311,		0.425606,		0.72323             ));
-    orientations.push_back(Coordinates(0.337804,		0.425606,		0.485311,		0.684998            ));
-    orientations.push_back(Coordinates(0.424324,		0.358619,		0.536711,		0.635045            ));
-    orientations.push_back(Coordinates(0.503584,		0.285496,		0.578929,		0.574227            ));
-    orientations.push_back(Coordinates(0.574227,		0.207488,		0.611241,		0.503584            ));
-    orientations.push_back(Coordinates(0.635045,		0.12593,		0.633094,		0.424324            ));
-    orientations.push_back(Coordinates(0.684998,		0.0422175,		0.644115,		0.337804            ));
-    orientations.push_back(Coordinates(0.72323,		-0.0422176,		0.644115,		0.245503                ));
-    orientations.push_back(Coordinates(0.749087,		-0.12593,		0.633094,		0.149003            ));
-    orientations.push_back(Coordinates(0.762127,		-0.207488,		0.611241,		0.0499524           ));
-    orientations.push_back(Coordinates(0.762127,		-0.285496,		0.578929,		-0.0499525          ));
-    orientations.push_back(Coordinates(0.749087,		-0.358619,		0.536711,		-0.149003           ));
-    orientations.push_back(Coordinates(0.72323,		-0.425606,		0.48531,		-0.245503               ));
-    orientations.push_back(Coordinates(0.684998,		-0.485311,		0.425606,		-0.337804           ));
-    orientations.push_back(Coordinates(0.635045,		-0.536711,		0.358619,		-0.424324           ));
-    orientations.push_back(Coordinates(0.574227,		-0.578929,		0.285496,		-0.503584           ));
-    orientations.push_back(Coordinates(0.503584,		-0.611241,		0.207488,		-0.574227           ));
-    orientations.push_back(Coordinates(0.424324,		-0.633094,		0.12593,		-0.635045           ));
-    orientations.push_back(Coordinates(0.337804,		-0.644115,		0.0422175,		-0.684998           ));
-    orientations.push_back(Coordinates(-0.092296,		0.705593,		0.046247,		0.701057            ));
-    orientations.push_back(Coordinates(3.86358e-09,		0.69352,		0.13795,		0.707107            ));
-    orientations.push_back(Coordinates(0.092296,		0.669581,		0.227292,		0.701057            ));
-    orientations.push_back(Coordinates(0.183013,		0.634185,		0.312745,		0.683013            ));
-    orientations.push_back(Coordinates(0.270598,		0.587938,		0.392847,		0.653281            ));
-    orientations.push_back(Coordinates(0.353553,		0.531631,		0.466228,		0.612372            ));
-    orientations.push_back(Coordinates(0.430459,		0.466228,		0.531631,		0.560986            ));
-    orientations.push_back(Coordinates(0.5,		0.392847,		0.587938,		0.5                         ));
-    orientations.push_back(Coordinates(0.560986,		0.312745,		0.634185,		0.430459            ));
-    orientations.push_back(Coordinates(0.612372,		0.227292,		0.669581,		0.353553            ));
-    orientations.push_back(Coordinates(0.653281,		0.13795,		0.69352,		0.270598            ));
-    orientations.push_back(Coordinates(0.683013,		0.046247,		0.705593,		0.183013            ));
-    orientations.push_back(Coordinates(0.701057,		-0.046247,		0.705593,		0.0922959           ));
-    orientations.push_back(Coordinates(0.707107,		-0.13795,		0.69352,		-3.47722e-08        ));
-    orientations.push_back(Coordinates(0.701057,		-0.227292,		0.669581,		-0.092296           ));
-    orientations.push_back(Coordinates(0.683013,		-0.312745,		0.634185,		-0.183013           ));
-    orientations.push_back(Coordinates(0.653281,		-0.392848,		0.587938,		-0.270598           ));
-    orientations.push_back(Coordinates(0.612372,		-0.466228,		0.531631,		-0.353553           ));
-    orientations.push_back(Coordinates(0.560985,		-0.531631,		0.466228,		-0.430459           ));
-    orientations.push_back(Coordinates(0.5,		-0.587938,		0.392847,		-0.5                        ));
-    orientations.push_back(Coordinates(0.430459,		-0.634185,		0.312745,		-0.560986           ));
-    orientations.push_back(Coordinates(0.353553,		-0.669581,		0.227292,		-0.612372           ));
-    orientations.push_back(Coordinates(0.270598,		-0.69352,		0.13795,		-0.653282           ));
-    orientations.push_back(Coordinates(0.183013,		-0.705593,		0.0462469,		-0.683013           ));
-    orientations.push_back(Coordinates(-0.353553,		0.705593,		0.046247,		0.612372            ));
-    orientations.push_back(Coordinates(-0.270598,		0.69352,		0.13795,		0.653281            ));
-    orientations.push_back(Coordinates(-0.183013,		0.669581,		0.227292,		0.683013            ));
-    orientations.push_back(Coordinates(-0.0922959,		0.634185,		0.312745,		0.701057            ));
-    orientations.push_back(Coordinates(1.15907e-08,		0.587938,		0.392847,		0.707107            ));
-    orientations.push_back(Coordinates(0.092296,		0.531631,		0.466228,		0.701057            ));
-    orientations.push_back(Coordinates(0.183013,		0.466228,		0.531631,		0.683013            ));
-    orientations.push_back(Coordinates(0.270598,		0.392847,		0.587938,		0.653281            ));
-    orientations.push_back(Coordinates(0.353553,		0.312745,		0.634185,		0.612372            ));
-    orientations.push_back(Coordinates(0.430459,		0.227292,		0.669581,		0.560986            ));
-    orientations.push_back(Coordinates(0.5,		0.13795,		0.69352,		0.5                         ));
-    orientations.push_back(Coordinates(0.560986,		0.046247,		0.705593,		0.430459            ));
-    orientations.push_back(Coordinates(0.612372,		-0.046247,		0.705593,		0.353553            ));
-    orientations.push_back(Coordinates(0.653281,		-0.13795,		0.69352,		0.270598            ));
-    orientations.push_back(Coordinates(0.683013,		-0.227292,		0.669581,		0.183013            ));
-    orientations.push_back(Coordinates(0.701057,		-0.312745,		0.634185,		0.0922959           ));
-    orientations.push_back(Coordinates(0.707107,		-0.392848,		0.587938,		-4.24994e-08        ));
-    orientations.push_back(Coordinates(0.701057,		-0.466228,		0.531631,		-0.092296           ));
-    orientations.push_back(Coordinates(0.683013,		-0.531631,		0.466228,		-0.183013           ));
-    orientations.push_back(Coordinates(0.653281,		-0.587938,		0.392847,		-0.270598           ));
-    orientations.push_back(Coordinates(0.612372,		-0.634185,		0.312745,		-0.353553           ));
-    orientations.push_back(Coordinates(0.560985,		-0.669581,		0.227292,		-0.430459           ));
-    orientations.push_back(Coordinates(0.5,		-0.69352,		0.13795,		-0.5                        ));
-    orientations.push_back(Coordinates(0.430459,		-0.705593,		0.0462469,		-0.560986           ));
-    orientations.push_back(Coordinates(-0.207488,		0.762127,		0.0499525,		0.611241            ));
-    orientations.push_back(Coordinates(-0.12593,		0.749087,		0.149003,		0.633094            ));
-    orientations.push_back(Coordinates(-0.0422175,		0.72323,		0.245503,		0.644115            ));
-    orientations.push_back(Coordinates(0.0422175,		0.684998,		0.337804,		0.644115            ));
-    orientations.push_back(Coordinates(0.12593,		0.635045,		0.424324,		0.633094                ));
-    orientations.push_back(Coordinates(0.207488,		0.574227,		0.503584,		0.611241            ));
-    orientations.push_back(Coordinates(0.285496,		0.503584,		0.574227,		0.578929            ));
-    orientations.push_back(Coordinates(0.358619,		0.424324,		0.635045,		0.536711            ));
-    orientations.push_back(Coordinates(0.425606,		0.337804,		0.684998,		0.48531             ));
-    orientations.push_back(Coordinates(0.485311,		0.245503,		0.72323,		0.425606            ));
-    orientations.push_back(Coordinates(0.536711,		0.149003,		0.749087,		0.358619            ));
-    orientations.push_back(Coordinates(0.578929,		0.0499524,		0.762127,		0.285496            ));
-    orientations.push_back(Coordinates(0.611241,		-0.0499525,		0.762127,		0.207488            ));
-    orientations.push_back(Coordinates(0.633094,		-0.149003,		0.749087,		0.12593             ));
-    orientations.push_back(Coordinates(0.644115,		-0.245503,		0.72323,		0.0422175           ));
-    orientations.push_back(Coordinates(0.644115,		-0.337804,		0.684998,		-0.0422176          ));
-    orientations.push_back(Coordinates(0.633094,		-0.424324,		0.635045,		-0.12593            ));
-    orientations.push_back(Coordinates(0.611241,		-0.503584,		0.574227,		-0.207488           ));
-    orientations.push_back(Coordinates(0.578929,		-0.574227,		0.503584,		-0.285496           ));
-    orientations.push_back(Coordinates(0.536711,		-0.635045,		0.424324,		-0.358619           ));
-    orientations.push_back(Coordinates(0.48531,		-0.684998,		0.337804,		-0.425606               ));
-    orientations.push_back(Coordinates(0.425606,		-0.72323,		0.245503,		-0.485311           ));
-    orientations.push_back(Coordinates(0.358619,		-0.749087,		0.149003,		-0.536711           ));
-    orientations.push_back(Coordinates(0.285496,		-0.762127,		0.0499524,		-0.578929           ));
-    orientations.push_back(Coordinates(0.0422175,		0.762127,		0.0499525,		0.644115            ));
-    orientations.push_back(Coordinates(0.12593,		0.749087,		0.149003,		0.633094                ));
-    orientations.push_back(Coordinates(0.207488,		0.72323,		0.245503,		0.611241            ));
-    orientations.push_back(Coordinates(0.285496,		0.684998,		0.337804,		0.578929            ));
-    orientations.push_back(Coordinates(0.358619,		0.635045,		0.424324,		0.536711            ));
-    orientations.push_back(Coordinates(0.425606,		0.574227,		0.503584,		0.485311            ));
-    orientations.push_back(Coordinates(0.485311,		0.503584,		0.574227,		0.425606            ));
-    orientations.push_back(Coordinates(0.536711,		0.424324,		0.635045,		0.358619            ));
-    orientations.push_back(Coordinates(0.578929,		0.337804,		0.684998,		0.285496            ));
-    orientations.push_back(Coordinates(0.611241,		0.245503,		0.72323,		0.207488            ));
-    orientations.push_back(Coordinates(0.633094,		0.149003,		0.749087,		0.12593             ));
-    orientations.push_back(Coordinates(0.644115,		0.0499524,		0.762127,		0.0422175           ));
-    orientations.push_back(Coordinates(0.644115,		-0.0499525,		0.762127,		-0.0422176          ));
-    orientations.push_back(Coordinates(0.633094,		-0.149003,		0.749087,		-0.12593            ));
-    orientations.push_back(Coordinates(0.611241,		-0.245503,		0.72323,		-0.207488           ));
-    orientations.push_back(Coordinates(0.578929,		-0.337804,		0.684998,		-0.285496           ));
-    orientations.push_back(Coordinates(0.536711,		-0.424324,		0.635045,		-0.358619           ));
-    orientations.push_back(Coordinates(0.48531,		-0.503584,		0.574227,		-0.425606               ));
-    orientations.push_back(Coordinates(0.425606,		-0.574227,		0.503584,		-0.485311           ));
-    orientations.push_back(Coordinates(0.358619,		-0.635045,		0.424324,		-0.536711           ));
-    orientations.push_back(Coordinates(0.285496,		-0.684998,		0.337804,		-0.578929           ));
-    orientations.push_back(Coordinates(0.207488,		-0.72323,		0.245503,		-0.611241           ));
-    orientations.push_back(Coordinates(0.12593,		-0.749087,		0.149003,		-0.633094               ));
-    orientations.push_back(Coordinates(0.0422175,		-0.762127,		0.0499524,		-0.644115           ));
-    orientations.push_back(Coordinates(0.149429,		0.814748,		0.0534014,		0.557678            ));
-    orientations.push_back(Coordinates(0.220942,		0.800808,		0.159291,		0.533402            ));
-    orientations.push_back(Coordinates(0.288675,		0.773165,		0.262454,		0.5                 ));
-    orientations.push_back(Coordinates(0.351469,		0.732294,		0.361127,		0.458043            ));
-    orientations.push_back(Coordinates(0.408248,		0.678892,		0.453621,		0.408248            ));
-    orientations.push_back(Coordinates(0.458043,		0.613875,		0.538354,		0.351469            ));
-    orientations.push_back(Coordinates(0.5,		0.538354,		0.613875,		0.288675                    ));
-    orientations.push_back(Coordinates(0.533402,		0.453621,		0.678892,		0.220942            ));
-    orientations.push_back(Coordinates(0.557678,		0.361127,		0.732294,		0.149429            ));
-    orientations.push_back(Coordinates(0.572411,		0.262454,		0.773165,		0.0753593           ));
-    orientations.push_back(Coordinates(0.57735,		0.159291,		0.800808,		-2.20822e-08            ));
-    orientations.push_back(Coordinates(0.572411,		0.0534014,		0.814748,		-0.0753594          ));
-    orientations.push_back(Coordinates(0.557678,		-0.0534015,		0.814748,		-0.149429           ));
-    orientations.push_back(Coordinates(0.533402,		-0.159291,		0.800808,		-0.220942           ));
-    orientations.push_back(Coordinates(0.5,		-0.262454,		0.773165,		-0.288675                   ));
-    orientations.push_back(Coordinates(0.458043,		-0.361127,		0.732294,		-0.351469           ));
-    orientations.push_back(Coordinates(0.408248,		-0.453621,		0.678892,		-0.408248           ));
-    orientations.push_back(Coordinates(0.351469,		-0.538354,		0.613875,		-0.458043           ));
-    orientations.push_back(Coordinates(0.288675,		-0.613875,		0.538354,		-0.5                ));
-    orientations.push_back(Coordinates(0.220942,		-0.678892,		0.453621,		-0.533402           ));
-    orientations.push_back(Coordinates(0.149429,		-0.732294,		0.361127,		-0.557678           ));
-    orientations.push_back(Coordinates(0.0753593,		-0.773165,		0.262454,		-0.572411           ));
-    orientations.push_back(Coordinates(-4.7319e-08,		-0.800808,		0.159291,		-0.57735            ));
-    orientations.push_back(Coordinates(-0.0753594,		-0.814748,		0.0534014,		-0.572411           ));
-    orientations.push_back(Coordinates(-0.0753593,		0.814748,		0.0534014,		0.572411            ));
-    orientations.push_back(Coordinates(3.1546e-09,		0.800808,		0.159291,		0.57735             ));
-    orientations.push_back(Coordinates(0.0753593,		0.773165,		0.262454,		0.572411            ));
-    orientations.push_back(Coordinates(0.149429,		0.732294,		0.361127,		0.557678            ));
-    orientations.push_back(Coordinates(0.220942,		0.678892,		0.453621,		0.533402            ));
-    orientations.push_back(Coordinates(0.288675,		0.613875,		0.538354,		0.5                 ));
-    orientations.push_back(Coordinates(0.351469,		0.538354,		0.613875,		0.458043            ));
-    orientations.push_back(Coordinates(0.408248,		0.453621,		0.678892,		0.408248            ));
-    orientations.push_back(Coordinates(0.458043,		0.361127,		0.732294,		0.351469            ));
-    orientations.push_back(Coordinates(0.5,		0.262454,		0.773165,		0.288675                    ));
-    orientations.push_back(Coordinates(0.533402,		0.159291,		0.800808,		0.220942            ));
-    orientations.push_back(Coordinates(0.557678,		0.0534014,		0.814748,		0.149429            ));
-    orientations.push_back(Coordinates(0.572411,		-0.0534015,		0.814748,		0.0753593           ));
-    orientations.push_back(Coordinates(0.57735,		-0.159291,		0.800808,		-2.83914e-08            ));
-    orientations.push_back(Coordinates(0.572411,		-0.262454,		0.773165,		-0.0753594          ));
-    orientations.push_back(Coordinates(0.557678,		-0.361127,		0.732294,		-0.149429           ));
-    orientations.push_back(Coordinates(0.533402,		-0.453621,		0.678892,		-0.220942           ));
-    orientations.push_back(Coordinates(0.5,		-0.538354,		0.613875,		-0.288675                   ));
-    orientations.push_back(Coordinates(0.458043,		-0.613875,		0.538354,		-0.351469           ));
-    orientations.push_back(Coordinates(0.408248,		-0.678892,		0.453621,		-0.408248           ));
-    orientations.push_back(Coordinates(0.351469,		-0.732294,		0.361127,		-0.458043           ));
-    orientations.push_back(Coordinates(0.288675,		-0.773165,		0.262454,		-0.5                ));
-    orientations.push_back(Coordinates(0.220942,		-0.800808,		0.159291,		-0.533402           ));
-    orientations.push_back(Coordinates(0.149429,		-0.814748,		0.0534014,		-0.557678           ));
-    orientations.push_back(Coordinates(0.0327016,		0.864171,		0.0566408,		0.498929            ));
-    orientations.push_back(Coordinates(0.0975452,		0.849385,		0.168953,		0.490393            ));
-    orientations.push_back(Coordinates(0.16072,		0.820066,		0.278375,		0.473465                ));
-    orientations.push_back(Coordinates(0.221144,		0.776715,		0.383033,		0.448436            ));
-    orientations.push_back(Coordinates(0.277785,		0.720074,		0.481138,		0.415735            ));
-    orientations.push_back(Coordinates(0.329673,		0.651112,		0.57101,		0.37592             ));
-    orientations.push_back(Coordinates(0.37592,		0.57101,		0.651112,		0.329673                ));
-    orientations.push_back(Coordinates(0.415735,		0.481138,		0.720074,		0.277785            ));
-    orientations.push_back(Coordinates(0.448436,		0.383033,		0.776715,		0.221144            ));
-    orientations.push_back(Coordinates(0.473465,		0.278375,		0.820066,		0.16072             ));
-    orientations.push_back(Coordinates(0.490393,		0.168953,		0.849385,		0.0975451           ));
-    orientations.push_back(Coordinates(0.498929,		0.0566407,		0.864171,		0.0327015           ));
-    orientations.push_back(Coordinates(0.498929,		-0.0566408,		0.864171,		-0.0327016          ));
-    orientations.push_back(Coordinates(0.490393,		-0.168953,		0.849385,		-0.0975452          ));
-    orientations.push_back(Coordinates(0.473465,		-0.278375,		0.820066,		-0.16072            ));
-    orientations.push_back(Coordinates(0.448436,		-0.383033,		0.776715,		-0.221144           ));
-    orientations.push_back(Coordinates(0.415735,		-0.481138,		0.720074,		-0.277785           ));
-    orientations.push_back(Coordinates(0.37592,		-0.57101,		0.651112,		-0.329673               ));
-    orientations.push_back(Coordinates(0.329673,		-0.651112,		0.57101,		-0.37592            ));
-    orientations.push_back(Coordinates(0.277785,		-0.720074,		0.481138,		-0.415735           ));
-    orientations.push_back(Coordinates(0.221144,		-0.776715,		0.383033,		-0.448436           ));
-    orientations.push_back(Coordinates(0.16072,		-0.820066,		0.278375,		-0.473465               ));
-    orientations.push_back(Coordinates(0.0975451,		-0.849385,		0.168953,		-0.490393           ));
-    orientations.push_back(Coordinates(0.0327015,		-0.864171,		0.0566407,		-0.498929           ));
-    orientations.push_back(Coordinates(0.864171,		0.498929,		0.0327016,		-0.0566408          ));
-    orientations.push_back(Coordinates(0.849385,		0.490393,		0.0975452,		-0.168953           ));
-    orientations.push_back(Coordinates(0.820066,		0.473465,		0.16072,		-0.278375           ));
-    orientations.push_back(Coordinates(0.776715,		0.448436,		0.221144,		-0.383033           ));
-    orientations.push_back(Coordinates(0.720074,		0.415735,		0.277785,		-0.481138           ));
-    orientations.push_back(Coordinates(0.651112,		0.37592,		0.329673,		-0.57101            ));
-    orientations.push_back(Coordinates(0.57101,		0.329673,		0.37592,		-0.651112               ));
-    orientations.push_back(Coordinates(0.481138,		0.277785,		0.415735,		-0.720074           ));
-    orientations.push_back(Coordinates(0.383033,		0.221144,		0.448436,		-0.776715           ));
-    orientations.push_back(Coordinates(0.278375,		0.16072,		0.473465,		-0.820066           ));
-    orientations.push_back(Coordinates(0.168953,		0.0975451,		0.490393,		-0.849385           ));
-    orientations.push_back(Coordinates(0.0566407,		0.0327015,		0.498929,		-0.864171           ));
-    orientations.push_back(Coordinates(-0.0566408,		-0.0327016,		0.498929,		-0.864171           ));
-    orientations.push_back(Coordinates(-0.168953,		-0.0975452,		0.490393,		-0.849385           ));
-    orientations.push_back(Coordinates(-0.278375,		-0.16072,		0.473465,		-0.820066           ));
-    orientations.push_back(Coordinates(-0.383033,		-0.221144,		0.448436,		-0.776715           ));
-    orientations.push_back(Coordinates(-0.481138,		-0.277785,		0.415735,		-0.720074           ));
-    orientations.push_back(Coordinates(-0.57101,		-0.329673,		0.37592,		-0.651112           ));
-    orientations.push_back(Coordinates(-0.651112,		-0.37592,		0.329673,		-0.57101            ));
-    orientations.push_back(Coordinates(-0.720074,		-0.415735,		0.277785,		-0.481138           ));
-    orientations.push_back(Coordinates(-0.776715,		-0.448436,		0.221144,		-0.383033           ));
-    orientations.push_back(Coordinates(-0.820066,		-0.473465,		0.16072,		-0.278375           ));
-    orientations.push_back(Coordinates(-0.849385,		-0.490393,		0.0975451,		-0.168953           ));
-    orientations.push_back(Coordinates(-0.864171,		-0.498929,		0.0327015,		-0.0566407          ));
-    orientations.push_back(Coordinates(0.788675,		0.576114,		0.0377605,		-0.211325           ));
-    orientations.push_back(Coordinates(0.754344,		0.566257,		0.112635,		-0.31246            ));
-    orientations.push_back(Coordinates(0.707107,		0.54671,		0.185583,		-0.408248           ));
-    orientations.push_back(Coordinates(0.64777,		0.51781,		0.255356,		-0.497052               ));
-    orientations.push_back(Coordinates(0.57735,		0.480049,		0.320759,		-0.57735                ));
-    orientations.push_back(Coordinates(0.497052,		0.434075,		0.380673,		-0.64777            ));
-    orientations.push_back(Coordinates(0.408248,		0.380673,		0.434075,		-0.707107           ));
-    orientations.push_back(Coordinates(0.31246,		0.320759,		0.480049,		-0.754344               ));
-    orientations.push_back(Coordinates(0.211325,		0.255355,		0.51781,		-0.788675           ));
-    orientations.push_back(Coordinates(0.106574,		0.185583,		0.54671,		-0.809511           ));
-    orientations.push_back(Coordinates(-3.12289e-08,		0.112635,		0.566257,		-0.816497       ));
-    orientations.push_back(Coordinates(-0.106574,		0.0377605,		0.576114,		-0.809511           ));
-    orientations.push_back(Coordinates(-0.211325,		-0.0377605,		0.576114,		-0.788675           ));
-    orientations.push_back(Coordinates(-0.31246,		-0.112635,		0.566257,		-0.754344           ));
-    orientations.push_back(Coordinates(-0.408248,		-0.185583,		0.54671,		-0.707107           ));
-    orientations.push_back(Coordinates(-0.497052,		-0.255356,		0.51781,		-0.64777            ));
-    orientations.push_back(Coordinates(-0.57735,		-0.320759,		0.480049,		-0.57735            ));
-    orientations.push_back(Coordinates(-0.64777,		-0.380674,		0.434075,		-0.497052           ));
-    orientations.push_back(Coordinates(-0.707107,		-0.434075,		0.380673,		-0.408248           ));
-    orientations.push_back(Coordinates(-0.754345,		-0.480049,		0.320759,		-0.31246            ));
-    orientations.push_back(Coordinates(-0.788675,		-0.51781,		0.255355,		-0.211325           ));
-    orientations.push_back(Coordinates(-0.809511,		-0.54671,		0.185583,		-0.106574           ));
-    orientations.push_back(Coordinates(-0.816497,		-0.566257,		0.112635,		6.69191e-08         ));
-    orientations.push_back(Coordinates(-0.809511,		-0.576114,		0.0377605,		0.106574            ));
-    orientations.push_back(Coordinates(0.809511,		0.576114,		0.0377605,		0.106574            ));
-    orientations.push_back(Coordinates(0.816497,		0.566257,		0.112635,		-4.46128e-09        ));
-    orientations.push_back(Coordinates(0.809511,		0.54671,		0.185583,		-0.106574           ));
-    orientations.push_back(Coordinates(0.788675,		0.51781,		0.255356,		-0.211325           ));
-    orientations.push_back(Coordinates(0.754344,		0.480049,		0.320759,		-0.31246            ));
-    orientations.push_back(Coordinates(0.707107,		0.434075,		0.380673,		-0.408248           ));
-    orientations.push_back(Coordinates(0.64777,		0.380673,		0.434075,		-0.497052               ));
-    orientations.push_back(Coordinates(0.57735,		0.320759,		0.480049,		-0.57735                ));
-    orientations.push_back(Coordinates(0.497052,		0.255355,		0.51781,		-0.64777            ));
-    orientations.push_back(Coordinates(0.408248,		0.185583,		0.54671,		-0.707107           ));
-    orientations.push_back(Coordinates(0.31246,		0.112635,		0.566257,		-0.754344               ));
-    orientations.push_back(Coordinates(0.211325,		0.0377605,		0.576114,		-0.788675           ));
-    orientations.push_back(Coordinates(0.106574,		-0.0377605,		0.576114,		-0.809511           ));
-    orientations.push_back(Coordinates(-4.01515e-08,		-0.112635,		0.566257,		-0.816497       ));
-    orientations.push_back(Coordinates(-0.106574,		-0.185583,		0.54671,		-0.809511           ));
-    orientations.push_back(Coordinates(-0.211325,		-0.255356,		0.51781,		-0.788675           ));
-    orientations.push_back(Coordinates(-0.31246,		-0.320759,		0.480049,		-0.754344           ));
-    orientations.push_back(Coordinates(-0.408248,		-0.380674,		0.434075,		-0.707107           ));
-    orientations.push_back(Coordinates(-0.497052,		-0.434075,		0.380673,		-0.64777            ));
-    orientations.push_back(Coordinates(-0.57735,		-0.480049,		0.320759,		-0.57735            ));
-    orientations.push_back(Coordinates(-0.64777,		-0.51781,		0.255355,		-0.497052           ));
-    orientations.push_back(Coordinates(-0.707107,		-0.54671,		0.185583,		-0.408248           ));
-    orientations.push_back(Coordinates(-0.754345,		-0.566257,		0.112635,		-0.31246            ));
-    orientations.push_back(Coordinates(-0.788675,		-0.576114,		0.0377605,		-0.211325           ));
-    orientations.push_back(Coordinates(0.762127,		0.644115,		0.0422175,		-0.0499525          ));
-    orientations.push_back(Coordinates(0.749087,		0.633094,		0.12593,		-0.149003           ));
-    orientations.push_back(Coordinates(0.72323,		0.611241,		0.207488,		-0.245503               ));
-    orientations.push_back(Coordinates(0.684998,		0.578929,		0.285496,		-0.337804           ));
-    orientations.push_back(Coordinates(0.635045,		0.536711,		0.358619,		-0.424324           ));
-    orientations.push_back(Coordinates(0.574227,		0.485311,		0.425606,		-0.503584           ));
-    orientations.push_back(Coordinates(0.503584,		0.425606,		0.485311,		-0.574227           ));
-    orientations.push_back(Coordinates(0.424324,		0.358619,		0.536711,		-0.635045           ));
-    orientations.push_back(Coordinates(0.337804,		0.285496,		0.578929,		-0.684998           ));
-    orientations.push_back(Coordinates(0.245503,		0.207488,		0.611241,		-0.72323            ));
-    orientations.push_back(Coordinates(0.149003,		0.12593,		0.633094,		-0.749087           ));
-    orientations.push_back(Coordinates(0.0499524,		0.0422175,		0.644115,		-0.762127           ));
-    orientations.push_back(Coordinates(-0.0499525,		-0.0422176,		0.644115,		-0.762127           ));
-    orientations.push_back(Coordinates(-0.149003,		-0.12593,		0.633094,		-0.749087           ));
-    orientations.push_back(Coordinates(-0.245503,		-0.207488,		0.611241,		-0.72323            ));
-    orientations.push_back(Coordinates(-0.337804,		-0.285496,		0.578929,		-0.684998           ));
-    orientations.push_back(Coordinates(-0.424324,		-0.358619,		0.536711,		-0.635045           ));
-    orientations.push_back(Coordinates(-0.503584,		-0.425606,		0.48531,		-0.574227           ));
-    orientations.push_back(Coordinates(-0.574227,		-0.485311,		0.425606,		-0.503584           ));
-    orientations.push_back(Coordinates(-0.635045,		-0.536711,		0.358619,		-0.424324           ));
-    orientations.push_back(Coordinates(-0.684998,		-0.578929,		0.285496,		-0.337804           ));
-    orientations.push_back(Coordinates(-0.72323,		-0.611241,		0.207488,		-0.245503           ));
-    orientations.push_back(Coordinates(-0.749087,		-0.633094,		0.12593,		-0.149003           ));
-    orientations.push_back(Coordinates(-0.762127,		-0.644115,		0.0422175,		-0.0499524          ));
-    orientations.push_back(Coordinates(0.684998,		0.644115,		0.0422175,		-0.337804           ));
-    orientations.push_back(Coordinates(0.635045,		0.633094,		0.12593,		-0.424324           ));
-    orientations.push_back(Coordinates(0.574227,		0.611241,		0.207488,		-0.503584           ));
-    orientations.push_back(Coordinates(0.503584,		0.578929,		0.285496,		-0.574227           ));
-    orientations.push_back(Coordinates(0.424324,		0.536711,		0.358619,		-0.635045           ));
-    orientations.push_back(Coordinates(0.337804,		0.485311,		0.425606,		-0.684998           ));
-    orientations.push_back(Coordinates(0.245503,		0.425606,		0.485311,		-0.72323            ));
-    orientations.push_back(Coordinates(0.149003,		0.358619,		0.536711,		-0.749087           ));
-    orientations.push_back(Coordinates(0.0499524,		0.285496,		0.578929,		-0.762127           ));
-    orientations.push_back(Coordinates(-0.0499525,		0.207488,		0.611241,		-0.762127           ));
-    orientations.push_back(Coordinates(-0.149003,		0.12593,		0.633094,		-0.749087           ));
-    orientations.push_back(Coordinates(-0.245503,		0.0422175,		0.644115,		-0.72323            ));
-    orientations.push_back(Coordinates(-0.337804,		-0.0422176,		0.644115,		-0.684998           ));
-    orientations.push_back(Coordinates(-0.424324,		-0.12593,		0.633094,		-0.635045           ));
-    orientations.push_back(Coordinates(-0.503584,		-0.207488,		0.611241,		-0.574227           ));
-    orientations.push_back(Coordinates(-0.574227,		-0.285496,		0.578929,		-0.503584           ));
-    orientations.push_back(Coordinates(-0.635045,		-0.358619,		0.536711,		-0.424324           ));
-    orientations.push_back(Coordinates(-0.684998,		-0.425606,		0.48531,		-0.337804           ));
-    orientations.push_back(Coordinates(-0.72323,		-0.485311,		0.425606,		-0.245503           ));
-    orientations.push_back(Coordinates(-0.749087,		-0.536711,		0.358619,		-0.149003           ));
-    orientations.push_back(Coordinates(-0.762127,		-0.578929,		0.285496,		-0.0499524          ));
-    orientations.push_back(Coordinates(-0.762127,		-0.611241,		0.207488,		0.0499525           ));
-    orientations.push_back(Coordinates(-0.749087,		-0.633094,		0.12593,		0.149003            ));
-    orientations.push_back(Coordinates(-0.72323,		-0.644115,		0.0422175,		0.245504            ));
-    orientations.push_back(Coordinates(0.560986,		0.705593,		0.046247,		-0.430459           ));
-    orientations.push_back(Coordinates(0.5,		0.69352,		0.13795,		-0.5                        ));
-    orientations.push_back(Coordinates(0.430459,		0.669581,		0.227292,		-0.560986           ));
-    orientations.push_back(Coordinates(0.353553,		0.634185,		0.312745,		-0.612372           ));
-    orientations.push_back(Coordinates(0.270598,		0.587938,		0.392847,		-0.653281           ));
-    orientations.push_back(Coordinates(0.183013,		0.531631,		0.466228,		-0.683013           ));
-    orientations.push_back(Coordinates(0.0922959,		0.466228,		0.531631,		-0.701057           ));
-    orientations.push_back(Coordinates(-1.93179e-08,		0.392847,		0.587938,		-0.707107       ));
-    orientations.push_back(Coordinates(-0.092296,		0.312745,		0.634185,		-0.701057           ));
-    orientations.push_back(Coordinates(-0.183013,		0.227292,		0.669581,		-0.683013           ));
-    orientations.push_back(Coordinates(-0.270598,		0.13795,		0.69352,		-0.653281           ));
-    orientations.push_back(Coordinates(-0.353553,		0.046247,		0.705593,		-0.612372           ));
-    orientations.push_back(Coordinates(-0.430459,		-0.046247,		0.705593,		-0.560986           ));
-    orientations.push_back(Coordinates(-0.5,		-0.13795,		0.69352,		-0.5                    ));
-    orientations.push_back(Coordinates(-0.560986,		-0.227292,		0.669581,		-0.430459           ));
-    orientations.push_back(Coordinates(-0.612372,		-0.312745,		0.634185,		-0.353553           ));
-    orientations.push_back(Coordinates(-0.653281,		-0.392848,		0.587938,		-0.270598           ));
-    orientations.push_back(Coordinates(-0.683013,		-0.466228,		0.531631,		-0.183013           ));
-    orientations.push_back(Coordinates(-0.701057,		-0.531631,		0.466228,		-0.0922959          ));
-    orientations.push_back(Coordinates(-0.707107,		-0.587938,		0.392847,		5.02265e-08         ));
-    orientations.push_back(Coordinates(-0.701057,		-0.634185,		0.312745,		0.092296            ));
-    orientations.push_back(Coordinates(-0.683013,		-0.669581,		0.227292,		0.183013            ));
-    orientations.push_back(Coordinates(-0.653281,		-0.69352,		0.13795,		0.270598            ));
-    orientations.push_back(Coordinates(-0.612372,		-0.705593,		0.0462469,		0.353553            ));
-    orientations.push_back(Coordinates(0.683013,		0.705593,		0.046247,		-0.183013           ));
-    orientations.push_back(Coordinates(0.653281,		0.69352,		0.13795,		-0.270598           ));
-    orientations.push_back(Coordinates(0.612372,		0.669581,		0.227292,		-0.353553           ));
-    orientations.push_back(Coordinates(0.560986,		0.634185,		0.312745,		-0.430459           ));
-    orientations.push_back(Coordinates(0.5,		0.587938,		0.392847,		-0.5                        ));
-    orientations.push_back(Coordinates(0.430459,		0.531631,		0.466228,		-0.560986           ));
-    orientations.push_back(Coordinates(0.353553,		0.466228,		0.531631,		-0.612372           ));
-    orientations.push_back(Coordinates(0.270598,		0.392847,		0.587938,		-0.653281           ));
-    orientations.push_back(Coordinates(0.183013,		0.312745,		0.634185,		-0.683013           ));
-    orientations.push_back(Coordinates(0.0922959,		0.227292,		0.669581,		-0.701057           ));
-    orientations.push_back(Coordinates(-2.7045e-08,		0.13795,		0.69352,		-0.707107           ));
-    orientations.push_back(Coordinates(-0.092296,		0.046247,		0.705593,		-0.701057           ));
-    orientations.push_back(Coordinates(-0.183013,		-0.046247,		0.705593,		-0.683013           ));
-    orientations.push_back(Coordinates(-0.270598,		-0.13795,		0.69352,		-0.653281           ));
-    orientations.push_back(Coordinates(-0.353553,		-0.227292,		0.669581,		-0.612372           ));
-    orientations.push_back(Coordinates(-0.430459,		-0.312745,		0.634185,		-0.560986           ));
-    orientations.push_back(Coordinates(-0.5,		-0.392848,		0.587938,		-0.5                    ));
-    orientations.push_back(Coordinates(-0.560986,		-0.466228,		0.531631,		-0.430459           ));
-    orientations.push_back(Coordinates(-0.612372,		-0.531631,		0.466228,		-0.353553           ));
-    orientations.push_back(Coordinates(-0.653282,		-0.587938,		0.392847,		-0.270598           ));
-    orientations.push_back(Coordinates(-0.683013,		-0.634185,		0.312745,		-0.183013           ));
-    orientations.push_back(Coordinates(-0.701057,		-0.669581,		0.227292,		-0.0922959          ));
-    orientations.push_back(Coordinates(-0.707107,		-0.69352,		0.13795,		5.79537e-08         ));
-    orientations.push_back(Coordinates(-0.701057,		-0.705593,		0.0462469,		0.092296            ));
-    orientations.push_back(Coordinates(0.578929,		0.762127,		0.0499525,		-0.285496           ));
-    orientations.push_back(Coordinates(0.536711,		0.749087,		0.149003,		-0.358619           ));
-    orientations.push_back(Coordinates(0.485311,		0.72323,		0.245503,		-0.425606           ));
-    orientations.push_back(Coordinates(0.425606,		0.684998,		0.337804,		-0.485311           ));
-    orientations.push_back(Coordinates(0.358619,		0.635045,		0.424324,		-0.536711           ));
-    orientations.push_back(Coordinates(0.285496,		0.574227,		0.503584,		-0.578929           ));
-    orientations.push_back(Coordinates(0.207488,		0.503584,		0.574227,		-0.611241           ));
-    orientations.push_back(Coordinates(0.12593,		0.424324,		0.635045,		-0.633094               ));
-    orientations.push_back(Coordinates(0.0422175,		0.337804,		0.684998,		-0.644115           ));
-    orientations.push_back(Coordinates(-0.0422176,		0.245503,		0.72323,		-0.644115           ));
-    orientations.push_back(Coordinates(-0.12593,		0.149003,		0.749087,		-0.633094           ));
-    orientations.push_back(Coordinates(-0.207488,		0.0499524,		0.762127,		-0.611241           ));
-    orientations.push_back(Coordinates(-0.285496,		-0.0499525,		0.762127,		-0.578929           ));
-    orientations.push_back(Coordinates(-0.358619,		-0.149003,		0.749087,		-0.536711           ));
-    orientations.push_back(Coordinates(-0.425606,		-0.245503,		0.72323,		-0.48531            ));
-    orientations.push_back(Coordinates(-0.485311,		-0.337804,		0.684998,		-0.425606           ));
-    orientations.push_back(Coordinates(-0.536711,		-0.424324,		0.635045,		-0.358619           ));
-    orientations.push_back(Coordinates(-0.578929,		-0.503584,		0.574227,		-0.285496           ));
-    orientations.push_back(Coordinates(-0.611241,		-0.574227,		0.503584,		-0.207488           ));
-    orientations.push_back(Coordinates(-0.633094,		-0.635045,		0.424324,		-0.12593            ));
-    orientations.push_back(Coordinates(-0.644115,		-0.684998,		0.337804,		-0.0422175          ));
-    orientations.push_back(Coordinates(-0.644115,		-0.72323,		0.245503,		0.0422176           ));
-    orientations.push_back(Coordinates(-0.633094,		-0.749087,		0.149003,		0.12593             ));
-    orientations.push_back(Coordinates(-0.611241,		-0.762127,		0.0499524,		0.207488            ));
-    orientations.push_back(Coordinates(0.72323,		0.644115,		0.0422175,		0.245503                ));
-    orientations.push_back(Coordinates(0.749087,		0.633094,		0.12593,		0.149003            ));
-    orientations.push_back(Coordinates(0.762127,		0.611241,		0.207488,		0.0499525           ));
-    orientations.push_back(Coordinates(0.762127,		0.578929,		0.285496,		-0.0499525          ));
-    orientations.push_back(Coordinates(0.749087,		0.536711,		0.358619,		-0.149003           ));
-    orientations.push_back(Coordinates(0.72323,		0.485311,		0.425606,		-0.245503               ));
-    orientations.push_back(Coordinates(0.684998,		0.425606,		0.485311,		-0.337804           ));
-    orientations.push_back(Coordinates(0.635045,		0.358619,		0.536711,		-0.424324           ));
-    orientations.push_back(Coordinates(0.574227,		0.285496,		0.578929,		-0.503584           ));
-    orientations.push_back(Coordinates(0.503584,		0.207488,		0.611241,		-0.574227           ));
-    orientations.push_back(Coordinates(0.424324,		0.12593,		0.633094,		-0.635045           ));
-    orientations.push_back(Coordinates(0.337804,		0.0422175,		0.644115,		-0.684998           ));
-    orientations.push_back(Coordinates(0.245503,		-0.0422176,		0.644115,		-0.72323            ));
-    orientations.push_back(Coordinates(0.149003,		-0.12593,		0.633094,		-0.749087           ));
-    orientations.push_back(Coordinates(0.0499524,		-0.207488,		0.611241,		-0.762127           ));
-    orientations.push_back(Coordinates(-0.0499525,		-0.285496,		0.578929,		-0.762127           ));
-    orientations.push_back(Coordinates(-0.149003,		-0.358619,		0.536711,		-0.749087           ));
-    orientations.push_back(Coordinates(-0.245503,		-0.425606,		0.48531,		-0.72323            ));
-    orientations.push_back(Coordinates(-0.337804,		-0.485311,		0.425606,		-0.684998           ));
-    orientations.push_back(Coordinates(-0.424324,		-0.536711,		0.358619,		-0.635045           ));
-    orientations.push_back(Coordinates(-0.503584,		-0.578929,		0.285496,		-0.574227           ));
-    orientations.push_back(Coordinates(-0.574227,		-0.611241,		0.207488,		-0.503584           ));
-    orientations.push_back(Coordinates(-0.635045,		-0.633094,		0.12593,		-0.424324           ));
-    orientations.push_back(Coordinates(-0.684998,		-0.644115,		0.0422175,		-0.337804           ));
-    orientations.push_back(Coordinates(0.701057,		0.705593,		0.046247,		0.092296            ));
-    orientations.push_back(Coordinates(0.707107,		0.69352,		0.13795,		-3.86358e-09        ));
-    orientations.push_back(Coordinates(0.701057,		0.669581,		0.227292,		-0.092296           ));
-    orientations.push_back(Coordinates(0.683013,		0.634185,		0.312745,		-0.183013           ));
-    orientations.push_back(Coordinates(0.653281,		0.587938,		0.392847,		-0.270598           ));
-    orientations.push_back(Coordinates(0.612372,		0.531631,		0.466228,		-0.353553           ));
-    orientations.push_back(Coordinates(0.560986,		0.466228,		0.531631,		-0.430459           ));
-    orientations.push_back(Coordinates(0.5,		0.392847,		0.587938,		-0.5                        ));
-    orientations.push_back(Coordinates(0.430459,		0.312745,		0.634185,		-0.560986           ));
-    orientations.push_back(Coordinates(0.353553,		0.227292,		0.669581,		-0.612372           ));
-    orientations.push_back(Coordinates(0.270598,		0.13795,		0.69352,		-0.653281           ));
-    orientations.push_back(Coordinates(0.183013,		0.046247,		0.705593,		-0.683013           ));
-    orientations.push_back(Coordinates(0.0922959,		-0.046247,		0.705593,		-0.701057           ));
-    orientations.push_back(Coordinates(-3.47722e-08,		-0.13795,		0.69352,		-0.707107       ));
-    orientations.push_back(Coordinates(-0.092296,		-0.227292,		0.669581,		-0.701057           ));
-    orientations.push_back(Coordinates(-0.183013,		-0.312745,		0.634185,		-0.683013           ));
-    orientations.push_back(Coordinates(-0.270598,		-0.392848,		0.587938,		-0.653281           ));
-    orientations.push_back(Coordinates(-0.353553,		-0.466228,		0.531631,		-0.612372           ));
-    orientations.push_back(Coordinates(-0.430459,		-0.531631,		0.466228,		-0.560985           ));
-    orientations.push_back(Coordinates(-0.5,		-0.587938,		0.392847,		-0.5                    ));
-    orientations.push_back(Coordinates(-0.560986,		-0.634185,		0.312745,		-0.430459           ));
-    orientations.push_back(Coordinates(-0.612372,		-0.669581,		0.227292,		-0.353553           ));
-    orientations.push_back(Coordinates(-0.653282,		-0.69352,		0.13795,		-0.270598           ));
-    orientations.push_back(Coordinates(-0.683013,		-0.705593,		0.0462469,		-0.183013           ));
-    orientations.push_back(Coordinates(0.612372,		0.705593,		0.046247,		0.353553            ));
-    orientations.push_back(Coordinates(0.653281,		0.69352,		0.13795,		0.270598            ));
-    orientations.push_back(Coordinates(0.683013,		0.669581,		0.227292,		0.183013            ));
-    orientations.push_back(Coordinates(0.701057,		0.634185,		0.312745,		0.0922959           ));
-    orientations.push_back(Coordinates(0.707107,		0.587938,		0.392847,		-1.15907e-08        ));
-    orientations.push_back(Coordinates(0.701057,		0.531631,		0.466228,		-0.092296           ));
-    orientations.push_back(Coordinates(0.683013,		0.466228,		0.531631,		-0.183013           ));
-    orientations.push_back(Coordinates(0.653281,		0.392847,		0.587938,		-0.270598           ));
-    orientations.push_back(Coordinates(0.612372,		0.312745,		0.634185,		-0.353553           ));
-    orientations.push_back(Coordinates(0.560986,		0.227292,		0.669581,		-0.430459           ));
-    orientations.push_back(Coordinates(0.5,		0.13795,		0.69352,		-0.5                        ));
-    orientations.push_back(Coordinates(0.430459,		0.046247,		0.705593,		-0.560986           ));
-    orientations.push_back(Coordinates(0.353553,		-0.046247,		0.705593,		-0.612372           ));
-    orientations.push_back(Coordinates(0.270598,		-0.13795,		0.69352,		-0.653281           ));
-    orientations.push_back(Coordinates(0.183013,		-0.227292,		0.669581,		-0.683013           ));
-    orientations.push_back(Coordinates(0.0922959,		-0.312745,		0.634185,		-0.701057           ));
-    orientations.push_back(Coordinates(-4.24994e-08,		-0.392848,		0.587938,		-0.707107       ));
-    orientations.push_back(Coordinates(-0.092296,		-0.466228,		0.531631,		-0.701057           ));
-    orientations.push_back(Coordinates(-0.183013,		-0.531631,		0.466228,		-0.683013           ));
-    orientations.push_back(Coordinates(-0.270598,		-0.587938,		0.392847,		-0.653281           ));
-    orientations.push_back(Coordinates(-0.353553,		-0.634185,		0.312745,		-0.612372           ));
-    orientations.push_back(Coordinates(-0.430459,		-0.669581,		0.227292,		-0.560985           ));
-    orientations.push_back(Coordinates(-0.5,		-0.69352,		0.13795,		-0.5                    ));
-    orientations.push_back(Coordinates(-0.560986,		-0.705593,		0.0462469,		-0.430459           ));
-    orientations.push_back(Coordinates(0.611241,		0.762127,		0.0499525,		0.207488            ));
-    orientations.push_back(Coordinates(0.633094,		0.749087,		0.149003,		0.12593             ));
-    orientations.push_back(Coordinates(0.644115,		0.72323,		0.245503,		0.0422175           ));
-    orientations.push_back(Coordinates(0.644115,		0.684998,		0.337804,		-0.0422175          ));
-    orientations.push_back(Coordinates(0.633094,		0.635045,		0.424324,		-0.12593            ));
-    orientations.push_back(Coordinates(0.611241,		0.574227,		0.503584,		-0.207488           ));
-    orientations.push_back(Coordinates(0.578929,		0.503584,		0.574227,		-0.285496           ));
-    orientations.push_back(Coordinates(0.536711,		0.424324,		0.635045,		-0.358619           ));
-    orientations.push_back(Coordinates(0.48531,		0.337804,		0.684998,		-0.425606               ));
-    orientations.push_back(Coordinates(0.425606,		0.245503,		0.72323,		-0.485311           ));
-    orientations.push_back(Coordinates(0.358619,		0.149003,		0.749087,		-0.536711           ));
-    orientations.push_back(Coordinates(0.285496,		0.0499524,		0.762127,		-0.578929           ));
-    orientations.push_back(Coordinates(0.207488,		-0.0499525,		0.762127,		-0.611241           ));
-    orientations.push_back(Coordinates(0.12593,		-0.149003,		0.749087,		-0.633094               ));
-    orientations.push_back(Coordinates(0.0422175,		-0.245503,		0.72323,		-0.644115           ));
-    orientations.push_back(Coordinates(-0.0422176,		-0.337804,		0.684998,		-0.644115           ));
-    orientations.push_back(Coordinates(-0.12593,		-0.424324,		0.635045,		-0.633094           ));
-    orientations.push_back(Coordinates(-0.207488,		-0.503584,		0.574227,		-0.611241           ));
-    orientations.push_back(Coordinates(-0.285496,		-0.574227,		0.503584,		-0.578929           ));
-    orientations.push_back(Coordinates(-0.358619,		-0.635045,		0.424324,		-0.536711           ));
-    orientations.push_back(Coordinates(-0.425606,		-0.684998,		0.337804,		-0.48531            ));
-    orientations.push_back(Coordinates(-0.485311,		-0.72323,		0.245503,		-0.425606           ));
-    orientations.push_back(Coordinates(-0.536711,		-0.749087,		0.149003,		-0.358619           ));
-    orientations.push_back(Coordinates(-0.578929,		-0.762127,		0.0499524,		-0.285496           ));
-    orientations.push_back(Coordinates(0.644115,		0.762127,		0.0499525,		-0.0422175          ));
-    orientations.push_back(Coordinates(0.633094,		0.749087,		0.149003,		-0.12593            ));
-    orientations.push_back(Coordinates(0.611241,		0.72323,		0.245503,		-0.207488           ));
-    orientations.push_back(Coordinates(0.578929,		0.684998,		0.337804,		-0.285496           ));
-    orientations.push_back(Coordinates(0.536711,		0.635045,		0.424324,		-0.358619           ));
-    orientations.push_back(Coordinates(0.485311,		0.574227,		0.503584,		-0.425606           ));
-    orientations.push_back(Coordinates(0.425606,		0.503584,		0.574227,		-0.485311           ));
-    orientations.push_back(Coordinates(0.358619,		0.424324,		0.635045,		-0.536711           ));
-    orientations.push_back(Coordinates(0.285496,		0.337804,		0.684998,		-0.578929           ));
-    orientations.push_back(Coordinates(0.207488,		0.245503,		0.72323,		-0.611241           ));
-    orientations.push_back(Coordinates(0.12593,		0.149003,		0.749087,		-0.633094               ));
-    orientations.push_back(Coordinates(0.0422175,		0.0499524,		0.762127,		-0.644115           ));
-    orientations.push_back(Coordinates(-0.0422176,		-0.0499525,		0.762127,		-0.644115           ));
-    orientations.push_back(Coordinates(-0.12593,		-0.149003,		0.749087,		-0.633094           ));
-    orientations.push_back(Coordinates(-0.207488,		-0.245503,		0.72323,		-0.611241           ));
-    orientations.push_back(Coordinates(-0.285496,		-0.337804,		0.684998,		-0.578929           ));
-    orientations.push_back(Coordinates(-0.358619,		-0.424324,		0.635045,		-0.536711           ));
-    orientations.push_back(Coordinates(-0.425606,		-0.503584,		0.574227,		-0.48531            ));
-    orientations.push_back(Coordinates(-0.485311,		-0.574227,		0.503584,		-0.425606           ));
-    orientations.push_back(Coordinates(-0.536711,		-0.635045,		0.424324,		-0.358619           ));
-    orientations.push_back(Coordinates(-0.578929,		-0.684998,		0.337804,		-0.285496           ));
-    orientations.push_back(Coordinates(-0.611241,		-0.72323,		0.245503,		-0.207488           ));
-    orientations.push_back(Coordinates(-0.633094,		-0.749087,		0.149003,		-0.12593            ));
-    orientations.push_back(Coordinates(-0.644115,		-0.762127,		0.0499524,		-0.0422175          ));
-    orientations.push_back(Coordinates(0.557678,		0.814748,		0.0534014,		-0.149429           ));
-    orientations.push_back(Coordinates(0.533402,		0.800808,		0.159291,		-0.220942           ));
-    orientations.push_back(Coordinates(0.5,		0.773165,		0.262454,		-0.288675                   ));
-    orientations.push_back(Coordinates(0.458043,		0.732294,		0.361127,		-0.351469           ));
-    orientations.push_back(Coordinates(0.408248,		0.678892,		0.453621,		-0.408248           ));
-    orientations.push_back(Coordinates(0.351469,		0.613875,		0.538354,		-0.458043           ));
-    orientations.push_back(Coordinates(0.288675,		0.538354,		0.613875,		-0.5                ));
-    orientations.push_back(Coordinates(0.220942,		0.453621,		0.678892,		-0.533402           ));
-    orientations.push_back(Coordinates(0.149429,		0.361127,		0.732294,		-0.557678           ));
-    orientations.push_back(Coordinates(0.0753593,		0.262454,		0.773165,		-0.572411           ));
-    orientations.push_back(Coordinates(-2.20822e-08,		0.159291,		0.800808,		-0.57735        ));
-    orientations.push_back(Coordinates(-0.0753594,		0.0534014,		0.814748,		-0.572411           ));
-    orientations.push_back(Coordinates(-0.149429,		-0.0534015,		0.814748,		-0.557678           ));
-    orientations.push_back(Coordinates(-0.220942,		-0.159291,		0.800808,		-0.533402           ));
-    orientations.push_back(Coordinates(-0.288675,		-0.262454,		0.773165,		-0.5                ));
-    orientations.push_back(Coordinates(-0.351469,		-0.361127,		0.732294,		-0.458043           ));
-    orientations.push_back(Coordinates(-0.408248,		-0.453621,		0.678892,		-0.408248           ));
-    orientations.push_back(Coordinates(-0.458043,		-0.538354,		0.613875,		-0.351469           ));
-    orientations.push_back(Coordinates(-0.5,		-0.613875,		0.538354,		-0.288675               ));
-    orientations.push_back(Coordinates(-0.533402,		-0.678892,		0.453621,		-0.220942           ));
-    orientations.push_back(Coordinates(-0.557678,		-0.732294,		0.361127,		-0.149429           ));
-    orientations.push_back(Coordinates(-0.572411,		-0.773165,		0.262454,		-0.0753593          ));
-    orientations.push_back(Coordinates(-0.57735,		-0.800808,		0.159291,		4.7319e-08          ));
-    orientations.push_back(Coordinates(-0.572411,		-0.814748,		0.0534014,		0.0753594           ));
-    orientations.push_back(Coordinates(0.572411,		0.814748,		0.0534014,		0.0753593           ));
-    orientations.push_back(Coordinates(0.57735,		0.800808,		0.159291,		-3.1546e-09             ));
-    orientations.push_back(Coordinates(0.572411,		0.773165,		0.262454,		-0.0753593          ));
-    orientations.push_back(Coordinates(0.557678,		0.732294,		0.361127,		-0.149429           ));
-    orientations.push_back(Coordinates(0.533402,		0.678892,		0.453621,		-0.220942           ));
-    orientations.push_back(Coordinates(0.5,		0.613875,		0.538354,		-0.288675                   ));
-    orientations.push_back(Coordinates(0.458043,		0.538354,		0.613875,		-0.351469           ));
-    orientations.push_back(Coordinates(0.408248,		0.453621,		0.678892,		-0.408248           ));
-    orientations.push_back(Coordinates(0.351469,		0.361127,		0.732294,		-0.458043           ));
-    orientations.push_back(Coordinates(0.288675,		0.262454,		0.773165,		-0.5                ));
-    orientations.push_back(Coordinates(0.220942,		0.159291,		0.800808,		-0.533402           ));
-    orientations.push_back(Coordinates(0.149429,		0.0534014,		0.814748,		-0.557678           ));
-    orientations.push_back(Coordinates(0.0753593,		-0.0534015,		0.814748,		-0.572411           ));
-    orientations.push_back(Coordinates(-2.83914e-08,		-0.159291,		0.800808,		-0.57735        ));
-    orientations.push_back(Coordinates(-0.0753594,		-0.262454,		0.773165,		-0.572411           ));
-    orientations.push_back(Coordinates(-0.149429,		-0.361127,		0.732294,		-0.557678           ));
-    orientations.push_back(Coordinates(-0.220942,		-0.453621,		0.678892,		-0.533402           ));
-    orientations.push_back(Coordinates(-0.288675,		-0.538354,		0.613875,		-0.5                ));
-    orientations.push_back(Coordinates(-0.351469,		-0.613875,		0.538354,		-0.458043           ));
-    orientations.push_back(Coordinates(-0.408248,		-0.678892,		0.453621,		-0.408248           ));
-    orientations.push_back(Coordinates(-0.458043,		-0.732294,		0.361127,		-0.351469           ));
-    orientations.push_back(Coordinates(-0.5,		-0.773165,		0.262454,		-0.288675               ));
-    orientations.push_back(Coordinates(-0.533402,		-0.800808,		0.159291,		-0.220942           ));
-    orientations.push_back(Coordinates(-0.557678,		-0.814748,		0.0534014,		-0.149429           ));
-    orientations.push_back(Coordinates(0.498929,		0.864171,		0.0566408,		-0.0327016          ));
-    orientations.push_back(Coordinates(0.490393,		0.849385,		0.168953,		-0.0975452          ));
-    orientations.push_back(Coordinates(0.473465,		0.820066,		0.278375,		-0.16072            ));
-    orientations.push_back(Coordinates(0.448436,		0.776715,		0.383033,		-0.221144           ));
-    orientations.push_back(Coordinates(0.415735,		0.720074,		0.481138,		-0.277785           ));
-    orientations.push_back(Coordinates(0.37592,		0.651112,		0.57101,		-0.329673               ));
-    orientations.push_back(Coordinates(0.329673,		0.57101,		0.651112,		-0.37592            ));
-    orientations.push_back(Coordinates(0.277785,		0.481138,		0.720074,		-0.415735           ));
-    orientations.push_back(Coordinates(0.221144,		0.383033,		0.776715,		-0.448436           ));
-    orientations.push_back(Coordinates(0.16072,		0.278375,		0.820066,		-0.473465               ));
-    orientations.push_back(Coordinates(0.0975451,		0.168953,		0.849385,		-0.490393           ));
-    orientations.push_back(Coordinates(0.0327015,		0.0566407,		0.864171,		-0.498929           ));
-    orientations.push_back(Coordinates(-0.0327016,		-0.0566408,		0.864171,		-0.498929           ));
-    orientations.push_back(Coordinates(-0.0975452,		-0.168953,		0.849385,		-0.490393           ));
-    orientations.push_back(Coordinates(-0.16072,		-0.278375,		0.820066,		-0.473465           ));
-    orientations.push_back(Coordinates(-0.221144,		-0.383033,		0.776715,		-0.448436           ));
-    orientations.push_back(Coordinates(-0.277785,		-0.481138,		0.720074,		-0.415735           ));
-    orientations.push_back(Coordinates(-0.329673,		-0.57101,		0.651112,		-0.37592            ));
-    orientations.push_back(Coordinates(-0.37592,		-0.651112,		0.57101,		-0.329673           ));
-    orientations.push_back(Coordinates(-0.415735,		-0.720074,		0.481138,		-0.277785           ));
-    orientations.push_back(Coordinates(-0.448436,		-0.776715,		0.383033,		-0.221144           ));
-    orientations.push_back(Coordinates(-0.473465,		-0.820066,		0.278375,		-0.16072            ));
-    orientations.push_back(Coordinates(-0.490393,		-0.849385,		0.168953,		-0.0975451          ));
-    orientations.push_back(Coordinates(-0.498929,		-0.864171,		0.0566407,		-0.0327015          ));
-    orientations.push_back(Coordinates(-0.0566408,		0.498929,		0.0327016,		-0.864171           ));
-    orientations.push_back(Coordinates(-0.168953,		0.490393,		0.0975452,		-0.849385           ));
-    orientations.push_back(Coordinates(-0.278375,		0.473465,		0.16072,		-0.820066           ));
-    orientations.push_back(Coordinates(-0.383033,		0.448436,		0.221144,		-0.776715           ));
-    orientations.push_back(Coordinates(-0.481138,		0.415735,		0.277785,		-0.720074           ));
-    orientations.push_back(Coordinates(-0.57101,		0.37592,		0.329673,		-0.651112           ));
-    orientations.push_back(Coordinates(-0.651112,		0.329673,		0.37592,		-0.57101            ));
-    orientations.push_back(Coordinates(-0.720074,		0.277785,		0.415735,		-0.481138           ));
-    orientations.push_back(Coordinates(-0.776715,		0.221144,		0.448436,		-0.383033           ));
-    orientations.push_back(Coordinates(-0.820066,		0.16072,		0.473465,		-0.278375           ));
-    orientations.push_back(Coordinates(-0.849385,		0.0975451,		0.490393,		-0.168953           ));
-    orientations.push_back(Coordinates(-0.864171,		0.0327015,		0.498929,		-0.0566407          ));
-    orientations.push_back(Coordinates(-0.864171,		-0.0327016,		0.498929,		0.0566408           ));
-    orientations.push_back(Coordinates(-0.849385,		-0.0975452,		0.490393,		0.168953            ));
-    orientations.push_back(Coordinates(-0.820066,		-0.16072,		0.473465,		0.278375            ));
-    orientations.push_back(Coordinates(-0.776715,		-0.221144,		0.448436,		0.383033            ));
-    orientations.push_back(Coordinates(-0.720074,		-0.277785,		0.415735,		0.481138            ));
-    orientations.push_back(Coordinates(-0.651112,		-0.329673,		0.37592,		0.57101             ));
-    orientations.push_back(Coordinates(-0.57101,		-0.37592,		0.329673,		0.651112            ));
-    orientations.push_back(Coordinates(-0.481138,		-0.415735,		0.277785,		0.720074            ));
-    orientations.push_back(Coordinates(-0.383033,		-0.448436,		0.221144,		0.776715            ));
-    orientations.push_back(Coordinates(-0.278375,		-0.473465,		0.16072,		0.820066            ));
-    orientations.push_back(Coordinates(-0.168953,		-0.490393,		0.0975451,		0.849385            ));
-    orientations.push_back(Coordinates(-0.0566407,		-0.498929,		0.0327015,		0.864171            ));
-    orientations.push_back(Coordinates(-0.211325,		0.576114,		0.0377605,		-0.788675           ));
-    orientations.push_back(Coordinates(-0.31246,		0.566257,		0.112635,		-0.754344           ));
-    orientations.push_back(Coordinates(-0.408248,		0.54671,		0.185583,		-0.707107           ));
-    orientations.push_back(Coordinates(-0.497052,		0.51781,		0.255356,		-0.64777            ));
-    orientations.push_back(Coordinates(-0.57735,		0.480049,		0.320759,		-0.57735            ));
-    orientations.push_back(Coordinates(-0.64777,		0.434075,		0.380673,		-0.497052           ));
-    orientations.push_back(Coordinates(-0.707107,		0.380673,		0.434075,		-0.408248           ));
-    orientations.push_back(Coordinates(-0.754344,		0.320759,		0.480049,		-0.31246            ));
-    orientations.push_back(Coordinates(-0.788675,		0.255355,		0.51781,		-0.211325           ));
-    orientations.push_back(Coordinates(-0.809511,		0.185583,		0.54671,		-0.106574           ));
-    orientations.push_back(Coordinates(-0.816497,		0.112635,		0.566257,		3.12289e-08         ));
-    orientations.push_back(Coordinates(-0.809511,		0.0377605,		0.576114,		0.106574            ));
-    orientations.push_back(Coordinates(-0.788675,		-0.0377605,		0.576114,		0.211325            ));
-    orientations.push_back(Coordinates(-0.754344,		-0.112635,		0.566257,		0.31246             ));
-    orientations.push_back(Coordinates(-0.707107,		-0.185583,		0.54671,		0.408248            ));
-    orientations.push_back(Coordinates(-0.64777,		-0.255356,		0.51781,		0.497052            ));
-    orientations.push_back(Coordinates(-0.57735,		-0.320759,		0.480049,		0.57735             ));
-    orientations.push_back(Coordinates(-0.497052,		-0.380674,		0.434075,		0.64777             ));
-    orientations.push_back(Coordinates(-0.408248,		-0.434075,		0.380673,		0.707107            ));
-    orientations.push_back(Coordinates(-0.31246,		-0.480049,		0.320759,		0.754345            ));
-    orientations.push_back(Coordinates(-0.211325,		-0.51781,		0.255355,		0.788675            ));
-    orientations.push_back(Coordinates(-0.106574,		-0.54671,		0.185583,		0.809511            ));
-    orientations.push_back(Coordinates(6.69191e-08,		-0.566257,		0.112635,		0.816497            ));
-    orientations.push_back(Coordinates(0.106574,		-0.576114,		0.0377605,		0.809511            ));
-    orientations.push_back(Coordinates(0.106574,		0.576114,		0.0377605,		-0.809511           ));
-    orientations.push_back(Coordinates(-4.46127e-09,		0.566257,		0.112635,		-0.816497       ));
-    orientations.push_back(Coordinates(-0.106574,		0.54671,		0.185583,		-0.809511           ));
-    orientations.push_back(Coordinates(-0.211325,		0.51781,		0.255356,		-0.788675           ));
-    orientations.push_back(Coordinates(-0.31246,		0.480049,		0.320759,		-0.754344           ));
-    orientations.push_back(Coordinates(-0.408248,		0.434075,		0.380673,		-0.707107           ));
-    orientations.push_back(Coordinates(-0.497052,		0.380673,		0.434075,		-0.64777            ));
-    orientations.push_back(Coordinates(-0.57735,		0.320759,		0.480049,		-0.57735            ));
-    orientations.push_back(Coordinates(-0.64777,		0.255355,		0.51781,		-0.497052           ));
-    orientations.push_back(Coordinates(-0.707107,		0.185583,		0.54671,		-0.408248           ));
-    orientations.push_back(Coordinates(-0.754344,		0.112635,		0.566257,		-0.31246            ));
-    orientations.push_back(Coordinates(-0.788675,		0.0377605,		0.576114,		-0.211325           ));
-    orientations.push_back(Coordinates(-0.809511,		-0.0377605,		0.576114,		-0.106574           ));
-    orientations.push_back(Coordinates(-0.816497,		-0.112635,		0.566257,		4.01515e-08         ));
-    orientations.push_back(Coordinates(-0.809511,		-0.185583,		0.54671,		0.106574            ));
-    orientations.push_back(Coordinates(-0.788675,		-0.255356,		0.51781,		0.211325            ));
-    orientations.push_back(Coordinates(-0.754344,		-0.320759,		0.480049,		0.31246             ));
-    orientations.push_back(Coordinates(-0.707107,		-0.380674,		0.434075,		0.408248            ));
-    orientations.push_back(Coordinates(-0.64777,		-0.434075,		0.380673,		0.497052            ));
-    orientations.push_back(Coordinates(-0.57735,		-0.480049,		0.320759,		0.57735             ));
-    orientations.push_back(Coordinates(-0.497052,		-0.51781,		0.255355,		0.64777             ));
-    orientations.push_back(Coordinates(-0.408248,		-0.54671,		0.185583,		0.707107            ));
-    orientations.push_back(Coordinates(-0.31246,		-0.566257,		0.112635,		0.754345            ));
-    orientations.push_back(Coordinates(-0.211325,		-0.576114,		0.0377605,		0.788675            ));
-    orientations.push_back(Coordinates(-0.0499525,		0.644115,		0.0422175,		-0.762127           ));
-    orientations.push_back(Coordinates(-0.149003,		0.633094,		0.12593,		-0.749087           ));
-    orientations.push_back(Coordinates(-0.245503,		0.611241,		0.207488,		-0.72323            ));
-    orientations.push_back(Coordinates(-0.337804,		0.578929,		0.285496,		-0.684998           ));
-    orientations.push_back(Coordinates(-0.424324,		0.536711,		0.358619,		-0.635045           ));
-    orientations.push_back(Coordinates(-0.503584,		0.485311,		0.425606,		-0.574227           ));
-    orientations.push_back(Coordinates(-0.574227,		0.425606,		0.485311,		-0.503584           ));
-    orientations.push_back(Coordinates(-0.635045,		0.358619,		0.536711,		-0.424324           ));
-    orientations.push_back(Coordinates(-0.684998,		0.285496,		0.578929,		-0.337804           ));
-    orientations.push_back(Coordinates(-0.72323,		0.207488,		0.611241,		-0.245503           ));
-    orientations.push_back(Coordinates(-0.749087,		0.12593,		0.633094,		-0.149003           ));
-    orientations.push_back(Coordinates(-0.762127,		0.0422175,		0.644115,		-0.0499524          ));
-    orientations.push_back(Coordinates(-0.762127,		-0.0422176,		0.644115,		0.0499525           ));
-    orientations.push_back(Coordinates(-0.749087,		-0.12593,		0.633094,		0.149003            ));
-    orientations.push_back(Coordinates(-0.72323,		-0.207488,		0.611241,		0.245503            ));
-    orientations.push_back(Coordinates(-0.684998,		-0.285496,		0.578929,		0.337804            ));
-    orientations.push_back(Coordinates(-0.635045,		-0.358619,		0.536711,		0.424324            ));
-    orientations.push_back(Coordinates(-0.574227,		-0.425606,		0.48531,		0.503584            ));
-    orientations.push_back(Coordinates(-0.503584,		-0.485311,		0.425606,		0.574227            ));
-    orientations.push_back(Coordinates(-0.424324,		-0.536711,		0.358619,		0.635045            ));
-    orientations.push_back(Coordinates(-0.337804,		-0.578929,		0.285496,		0.684998            ));
-    orientations.push_back(Coordinates(-0.245503,		-0.611241,		0.207488,		0.72323             ));
-    orientations.push_back(Coordinates(-0.149003,		-0.633094,		0.12593,		0.749087            ));
-    orientations.push_back(Coordinates(-0.0499524,		-0.644115,		0.0422175,		0.762127            ));
-    orientations.push_back(Coordinates(-0.337804,		0.644115,		0.0422175,		-0.684998           ));
-    orientations.push_back(Coordinates(-0.424324,		0.633094,		0.12593,		-0.635045           ));
-    orientations.push_back(Coordinates(-0.503584,		0.611241,		0.207488,		-0.574227           ));
-    orientations.push_back(Coordinates(-0.574227,		0.578929,		0.285496,		-0.503584           ));
-    orientations.push_back(Coordinates(-0.635045,		0.536711,		0.358619,		-0.424324           ));
-    orientations.push_back(Coordinates(-0.684998,		0.485311,		0.425606,		-0.337804           ));
-    orientations.push_back(Coordinates(-0.72323,		0.425606,		0.485311,		-0.245503           ));
-    orientations.push_back(Coordinates(-0.749087,		0.358619,		0.536711,		-0.149003           ));
-    orientations.push_back(Coordinates(-0.762127,		0.285496,		0.578929,		-0.0499524          ));
-    orientations.push_back(Coordinates(-0.762127,		0.207488,		0.611241,		0.0499525           ));
-    orientations.push_back(Coordinates(-0.749087,		0.12593,		0.633094,		0.149003            ));
-    orientations.push_back(Coordinates(-0.72323,		0.0422175,		0.644115,		0.245503            ));
-    orientations.push_back(Coordinates(-0.684998,		-0.0422176,		0.644115,		0.337804            ));
-    orientations.push_back(Coordinates(-0.635045,		-0.12593,		0.633094,		0.424324            ));
-    orientations.push_back(Coordinates(-0.574227,		-0.207488,		0.611241,		0.503584            ));
-    orientations.push_back(Coordinates(-0.503584,		-0.285496,		0.578929,		0.574227            ));
-    orientations.push_back(Coordinates(-0.424324,		-0.358619,		0.536711,		0.635045            ));
-    orientations.push_back(Coordinates(-0.337804,		-0.425606,		0.48531,		0.684998            ));
-    orientations.push_back(Coordinates(-0.245503,		-0.485311,		0.425606,		0.72323             ));
-    orientations.push_back(Coordinates(-0.149003,		-0.536711,		0.358619,		0.749087            ));
-    orientations.push_back(Coordinates(-0.0499524,		-0.578929,		0.285496,		0.762127            ));
-    orientations.push_back(Coordinates(0.0499525,		-0.611241,		0.207488,		0.762127            ));
-    orientations.push_back(Coordinates(0.149003,		-0.633094,		0.12593,		0.749087            ));
-    orientations.push_back(Coordinates(0.245504,		-0.644115,		0.0422175,		0.72323             ));
-    orientations.push_back(Coordinates(-0.430459,		0.705593,		0.046247,		-0.560986           ));
-    orientations.push_back(Coordinates(-0.5,		0.69352,		0.13795,		-0.5                    ));
-    orientations.push_back(Coordinates(-0.560986,		0.669581,		0.227292,		-0.430459           ));
-    orientations.push_back(Coordinates(-0.612372,		0.634185,		0.312745,		-0.353553           ));
-    orientations.push_back(Coordinates(-0.653281,		0.587938,		0.392847,		-0.270598           ));
-    orientations.push_back(Coordinates(-0.683013,		0.531631,		0.466228,		-0.183013           ));
-    orientations.push_back(Coordinates(-0.701057,		0.466228,		0.531631,		-0.0922959          ));
-    orientations.push_back(Coordinates(-0.707107,		0.392847,		0.587938,		1.93179e-08         ));
-    orientations.push_back(Coordinates(-0.701057,		0.312745,		0.634185,		0.092296            ));
-    orientations.push_back(Coordinates(-0.683013,		0.227292,		0.669581,		0.183013            ));
-    orientations.push_back(Coordinates(-0.653281,		0.13795,		0.69352,		0.270598            ));
-    orientations.push_back(Coordinates(-0.612372,		0.046247,		0.705593,		0.353553            ));
-    orientations.push_back(Coordinates(-0.560986,		-0.046247,		0.705593,		0.430459            ));
-    orientations.push_back(Coordinates(-0.5,		-0.13795,		0.69352,		0.5                     ));
-    orientations.push_back(Coordinates(-0.430459,		-0.227292,		0.669581,		0.560986            ));
-    orientations.push_back(Coordinates(-0.353553,		-0.312745,		0.634185,		0.612372            ));
-    orientations.push_back(Coordinates(-0.270598,		-0.392848,		0.587938,		0.653281            ));
-    orientations.push_back(Coordinates(-0.183013,		-0.466228,		0.531631,		0.683013            ));
-    orientations.push_back(Coordinates(-0.0922959,		-0.531631,		0.466228,		0.701057            ));
-    orientations.push_back(Coordinates(5.02265e-08,		-0.587938,		0.392847,		0.707107            ));
-    orientations.push_back(Coordinates(0.092296,		-0.634185,		0.312745,		0.701057            ));
-    orientations.push_back(Coordinates(0.183013,		-0.669581,		0.227292,		0.683013            ));
-    orientations.push_back(Coordinates(0.270598,		-0.69352,		0.13795,		0.653281            ));
-    orientations.push_back(Coordinates(0.353553,		-0.705593,		0.0462469,		0.612372            ));
-    orientations.push_back(Coordinates(-0.183013,		0.705593,		0.046247,		-0.683013           ));
-    orientations.push_back(Coordinates(-0.270598,		0.69352,		0.13795,		-0.653281           ));
-    orientations.push_back(Coordinates(-0.353553,		0.669581,		0.227292,		-0.612372           ));
-    orientations.push_back(Coordinates(-0.430459,		0.634185,		0.312745,		-0.560986           ));
-    orientations.push_back(Coordinates(-0.5,		0.587938,		0.392847,		-0.5                    ));
-    orientations.push_back(Coordinates(-0.560986,		0.531631,		0.466228,		-0.430459           ));
-    orientations.push_back(Coordinates(-0.612372,		0.466228,		0.531631,		-0.353553           ));
-    orientations.push_back(Coordinates(-0.653281,		0.392847,		0.587938,		-0.270598           ));
-    orientations.push_back(Coordinates(-0.683013,		0.312745,		0.634185,		-0.183013           ));
-    orientations.push_back(Coordinates(-0.701057,		0.227292,		0.669581,		-0.0922959          ));
-    orientations.push_back(Coordinates(-0.707107,		0.13795,		0.69352,		2.7045e-08          ));
-    orientations.push_back(Coordinates(-0.701057,		0.046247,		0.705593,		0.092296            ));
-    orientations.push_back(Coordinates(-0.683013,		-0.046247,		0.705593,		0.183013            ));
-    orientations.push_back(Coordinates(-0.653281,		-0.13795,		0.69352,		0.270598            ));
-    orientations.push_back(Coordinates(-0.612372,		-0.227292,		0.669581,		0.353553            ));
-    orientations.push_back(Coordinates(-0.560986,		-0.312745,		0.634185,		0.430459            ));
-    orientations.push_back(Coordinates(-0.5,		-0.392848,		0.587938,		0.5                     ));
-    orientations.push_back(Coordinates(-0.430459,		-0.466228,		0.531631,		0.560986            ));
-    orientations.push_back(Coordinates(-0.353553,		-0.531631,		0.466228,		0.612372            ));
-    orientations.push_back(Coordinates(-0.270598,		-0.587938,		0.392847,		0.653282            ));
-    orientations.push_back(Coordinates(-0.183013,		-0.634185,		0.312745,		0.683013            ));
-    orientations.push_back(Coordinates(-0.0922959,		-0.669581,		0.227292,		0.701057            ));
-    orientations.push_back(Coordinates(5.79537e-08,		-0.69352,		0.13795,		0.707107            ));
-    orientations.push_back(Coordinates(0.092296,		-0.705593,		0.0462469,		0.701057            ));
-    orientations.push_back(Coordinates(-0.285496,		0.762127,		0.0499525,		-0.578929           ));
-    orientations.push_back(Coordinates(-0.358619,		0.749087,		0.149003,		-0.536711           ));
-    orientations.push_back(Coordinates(-0.425606,		0.72323,		0.245503,		-0.485311           ));
-    orientations.push_back(Coordinates(-0.485311,		0.684998,		0.337804,		-0.425606           ));
-    orientations.push_back(Coordinates(-0.536711,		0.635045,		0.424324,		-0.358619           ));
-    orientations.push_back(Coordinates(-0.578929,		0.574227,		0.503584,		-0.285496           ));
-    orientations.push_back(Coordinates(-0.611241,		0.503584,		0.574227,		-0.207488           ));
-    orientations.push_back(Coordinates(-0.633094,		0.424324,		0.635045,		-0.12593            ));
-    orientations.push_back(Coordinates(-0.644115,		0.337804,		0.684998,		-0.0422175          ));
-    orientations.push_back(Coordinates(-0.644115,		0.245503,		0.72323,		0.0422176           ));
-    orientations.push_back(Coordinates(-0.633094,		0.149003,		0.749087,		0.12593             ));
-    orientations.push_back(Coordinates(-0.611241,		0.0499524,		0.762127,		0.207488            ));
-    orientations.push_back(Coordinates(-0.578929,		-0.0499525,		0.762127,		0.285496            ));
-    orientations.push_back(Coordinates(-0.536711,		-0.149003,		0.749087,		0.358619            ));
-    orientations.push_back(Coordinates(-0.48531,		-0.245503,		0.72323,		0.425606            ));
-    orientations.push_back(Coordinates(-0.425606,		-0.337804,		0.684998,		0.485311            ));
-    orientations.push_back(Coordinates(-0.358619,		-0.424324,		0.635045,		0.536711            ));
-    orientations.push_back(Coordinates(-0.285496,		-0.503584,		0.574227,		0.578929            ));
-    orientations.push_back(Coordinates(-0.207488,		-0.574227,		0.503584,		0.611241            ));
-    orientations.push_back(Coordinates(-0.12593,		-0.635045,		0.424324,		0.633094            ));
-    orientations.push_back(Coordinates(-0.0422175,		-0.684998,		0.337804,		0.644115            ));
-    orientations.push_back(Coordinates(0.0422176,		-0.72323,		0.245503,		0.644115            ));
-    orientations.push_back(Coordinates(0.12593,		-0.749087,		0.149003,		0.633094                ));
-    orientations.push_back(Coordinates(0.207488,		-0.762127,		0.0499524,		0.611241            ));
-    orientations.push_back(Coordinates(0.245503,		0.644115,		0.0422175,		-0.72323            ));
-    orientations.push_back(Coordinates(0.149003,		0.633094,		0.12593,		-0.749087           ));
-    orientations.push_back(Coordinates(0.0499525,		0.611241,		0.207488,		-0.762127           ));
-    orientations.push_back(Coordinates(-0.0499525,		0.578929,		0.285496,		-0.762127           ));
-    orientations.push_back(Coordinates(-0.149003,		0.536711,		0.358619,		-0.749087           ));
-    orientations.push_back(Coordinates(-0.245503,		0.485311,		0.425606,		-0.72323            ));
-    orientations.push_back(Coordinates(-0.337804,		0.425606,		0.485311,		-0.684998           ));
-    orientations.push_back(Coordinates(-0.424324,		0.358619,		0.536711,		-0.635045           ));
-    orientations.push_back(Coordinates(-0.503584,		0.285496,		0.578929,		-0.574227           ));
-    orientations.push_back(Coordinates(-0.574227,		0.207488,		0.611241,		-0.503584           ));
-    orientations.push_back(Coordinates(-0.635045,		0.12593,		0.633094,		-0.424324           ));
-    orientations.push_back(Coordinates(-0.684998,		0.0422175,		0.644115,		-0.337804           ));
-    orientations.push_back(Coordinates(-0.72323,		-0.0422176,		0.644115,		-0.245503           ));
-    orientations.push_back(Coordinates(-0.749087,		-0.12593,		0.633094,		-0.149003           ));
-    orientations.push_back(Coordinates(-0.762127,		-0.207488,		0.611241,		-0.0499524          ));
-    orientations.push_back(Coordinates(-0.762127,		-0.285496,		0.578929,		0.0499525           ));
-    orientations.push_back(Coordinates(-0.749087,		-0.358619,		0.536711,		0.149003            ));
-    orientations.push_back(Coordinates(-0.72323,		-0.425606,		0.48531,		0.245503            ));
-    orientations.push_back(Coordinates(-0.684998,		-0.485311,		0.425606,		0.337804            ));
-    orientations.push_back(Coordinates(-0.635045,		-0.536711,		0.358619,		0.424324            ));
-    orientations.push_back(Coordinates(-0.574227,		-0.578929,		0.285496,		0.503584            ));
-    orientations.push_back(Coordinates(-0.503584,		-0.611241,		0.207488,		0.574227            ));
-    orientations.push_back(Coordinates(-0.424324,		-0.633094,		0.12593,		0.635045            ));
-    orientations.push_back(Coordinates(-0.337804,		-0.644115,		0.0422175,		0.684998            ));
-    orientations.push_back(Coordinates(0.092296,		0.705593,		0.046247,		-0.701057           ));
-    orientations.push_back(Coordinates(-3.86358e-09,		0.69352,		0.13795,		-0.707107       ));
-    orientations.push_back(Coordinates(-0.092296,		0.669581,		0.227292,		-0.701057           ));
-    orientations.push_back(Coordinates(-0.183013,		0.634185,		0.312745,		-0.683013           ));
-    orientations.push_back(Coordinates(-0.270598,		0.587938,		0.392847,		-0.653281           ));
-    orientations.push_back(Coordinates(-0.353553,		0.531631,		0.466228,		-0.612372           ));
-    orientations.push_back(Coordinates(-0.430459,		0.466228,		0.531631,		-0.560986           ));
-    orientations.push_back(Coordinates(-0.5,		0.392847,		0.587938,		-0.5                    ));
-    orientations.push_back(Coordinates(-0.560986,		0.312745,		0.634185,		-0.430459           ));
-    orientations.push_back(Coordinates(-0.612372,		0.227292,		0.669581,		-0.353553           ));
-    orientations.push_back(Coordinates(-0.653281,		0.13795,		0.69352,		-0.270598           ));
-    orientations.push_back(Coordinates(-0.683013,		0.046247,		0.705593,		-0.183013           ));
-    orientations.push_back(Coordinates(-0.701057,		-0.046247,		0.705593,		-0.0922959          ));
-    orientations.push_back(Coordinates(-0.707107,		-0.13795,		0.69352,		3.47722e-08         ));
-    orientations.push_back(Coordinates(-0.701057,		-0.227292,		0.669581,		0.092296            ));
-    orientations.push_back(Coordinates(-0.683013,		-0.312745,		0.634185,		0.183013            ));
-    orientations.push_back(Coordinates(-0.653281,		-0.392848,		0.587938,		0.270598            ));
-    orientations.push_back(Coordinates(-0.612372,		-0.466228,		0.531631,		0.353553            ));
-    orientations.push_back(Coordinates(-0.560985,		-0.531631,		0.466228,		0.430459            ));
-    orientations.push_back(Coordinates(-0.5,		-0.587938,		0.392847,		0.5                     ));
-    orientations.push_back(Coordinates(-0.430459,		-0.634185,		0.312745,		0.560986            ));
-    orientations.push_back(Coordinates(-0.353553,		-0.669581,		0.227292,		0.612372            ));
-    orientations.push_back(Coordinates(-0.270598,		-0.69352,		0.13795,		0.653282            ));
-    orientations.push_back(Coordinates(-0.183013,		-0.705593,		0.0462469,		0.683013            ));
-    orientations.push_back(Coordinates(0.353553,		0.705593,		0.046247,		-0.612372           ));
-    orientations.push_back(Coordinates(0.270598,		0.69352,		0.13795,		-0.653281           ));
-    orientations.push_back(Coordinates(0.183013,		0.669581,		0.227292,		-0.683013           ));
-    orientations.push_back(Coordinates(0.0922959,		0.634185,		0.312745,		-0.701057           ));
-    orientations.push_back(Coordinates(-1.15907e-08,		0.587938,		0.392847,		-0.707107       ));
-    orientations.push_back(Coordinates(-0.092296,		0.531631,		0.466228,		-0.701057           ));
-    orientations.push_back(Coordinates(-0.183013,		0.466228,		0.531631,		-0.683013           ));
-    orientations.push_back(Coordinates(-0.270598,		0.392847,		0.587938,		-0.653281           ));
-    orientations.push_back(Coordinates(-0.353553,		0.312745,		0.634185,		-0.612372           ));
-    orientations.push_back(Coordinates(-0.430459,		0.227292,		0.669581,		-0.560986           ));
-    orientations.push_back(Coordinates(-0.5,		0.13795,		0.69352,		-0.5                    ));
-    orientations.push_back(Coordinates(-0.560986,		0.046247,		0.705593,		-0.430459           ));
-    orientations.push_back(Coordinates(-0.612372,		-0.046247,		0.705593,		-0.353553           ));
-    orientations.push_back(Coordinates(-0.653281,		-0.13795,		0.69352,		-0.270598           ));
-    orientations.push_back(Coordinates(-0.683013,		-0.227292,		0.669581,		-0.183013           ));
-    orientations.push_back(Coordinates(-0.701057,		-0.312745,		0.634185,		-0.0922959          ));
-    orientations.push_back(Coordinates(-0.707107,		-0.392848,		0.587938,		4.24994e-08         ));
-    orientations.push_back(Coordinates(-0.701057,		-0.466228,		0.531631,		0.092296            ));
-    orientations.push_back(Coordinates(-0.683013,		-0.531631,		0.466228,		0.183013            ));
-    orientations.push_back(Coordinates(-0.653281,		-0.587938,		0.392847,		0.270598            ));
-    orientations.push_back(Coordinates(-0.612372,		-0.634185,		0.312745,		0.353553            ));
-    orientations.push_back(Coordinates(-0.560985,		-0.669581,		0.227292,		0.430459            ));
-    orientations.push_back(Coordinates(-0.5,		-0.69352,		0.13795,		0.5                     ));
-    orientations.push_back(Coordinates(-0.430459,		-0.705593,		0.0462469,		0.560986            ));
-    orientations.push_back(Coordinates(0.207488,		0.762127,		0.0499525,		-0.611241           ));
-    orientations.push_back(Coordinates(0.12593,		0.749087,		0.149003,		-0.633094               ));
-    orientations.push_back(Coordinates(0.0422175,		0.72323,		0.245503,		-0.644115           ));
-    orientations.push_back(Coordinates(-0.0422175,		0.684998,		0.337804,		-0.644115           ));
-    orientations.push_back(Coordinates(-0.12593,		0.635045,		0.424324,		-0.633094           ));
-    orientations.push_back(Coordinates(-0.207488,		0.574227,		0.503584,		-0.611241           ));
-    orientations.push_back(Coordinates(-0.285496,		0.503584,		0.574227,		-0.578929           ));
-    orientations.push_back(Coordinates(-0.358619,		0.424324,		0.635045,		-0.536711           ));
-    orientations.push_back(Coordinates(-0.425606,		0.337804,		0.684998,		-0.48531            ));
-    orientations.push_back(Coordinates(-0.485311,		0.245503,		0.72323,		-0.425606           ));
-    orientations.push_back(Coordinates(-0.536711,		0.149003,		0.749087,		-0.358619           ));
-    orientations.push_back(Coordinates(-0.578929,		0.0499524,		0.762127,		-0.285496           ));
-    orientations.push_back(Coordinates(-0.611241,		-0.0499525,		0.762127,		-0.207488           ));
-    orientations.push_back(Coordinates(-0.633094,		-0.149003,		0.749087,		-0.12593            ));
-    orientations.push_back(Coordinates(-0.644115,		-0.245503,		0.72323,		-0.0422175          ));
-    orientations.push_back(Coordinates(-0.644115,		-0.337804,		0.684998,		0.0422176           ));
-    orientations.push_back(Coordinates(-0.633094,		-0.424324,		0.635045,		0.12593             ));
-    orientations.push_back(Coordinates(-0.611241,		-0.503584,		0.574227,		0.207488            ));
-    orientations.push_back(Coordinates(-0.578929,		-0.574227,		0.503584,		0.285496            ));
-    orientations.push_back(Coordinates(-0.536711,		-0.635045,		0.424324,		0.358619            ));
-    orientations.push_back(Coordinates(-0.48531,		-0.684998,		0.337804,		0.425606            ));
-    orientations.push_back(Coordinates(-0.425606,		-0.72323,		0.245503,		0.485311            ));
-    orientations.push_back(Coordinates(-0.358619,		-0.749087,		0.149003,		0.536711            ));
-    orientations.push_back(Coordinates(-0.285496,		-0.762127,		0.0499524,		0.578929            ));
-    orientations.push_back(Coordinates(-0.0422175,		0.762127,		0.0499525,		-0.644115           ));
-    orientations.push_back(Coordinates(-0.12593,		0.749087,		0.149003,		-0.633094           ));
-    orientations.push_back(Coordinates(-0.207488,		0.72323,		0.245503,		-0.611241           ));
-    orientations.push_back(Coordinates(-0.285496,		0.684998,		0.337804,		-0.578929           ));
-    orientations.push_back(Coordinates(-0.358619,		0.635045,		0.424324,		-0.536711           ));
-    orientations.push_back(Coordinates(-0.425606,		0.574227,		0.503584,		-0.485311           ));
-    orientations.push_back(Coordinates(-0.485311,		0.503584,		0.574227,		-0.425606           ));
-    orientations.push_back(Coordinates(-0.536711,		0.424324,		0.635045,		-0.358619           ));
-    orientations.push_back(Coordinates(-0.578929,		0.337804,		0.684998,		-0.285496           ));
-    orientations.push_back(Coordinates(-0.611241,		0.245503,		0.72323,		-0.207488           ));
-    orientations.push_back(Coordinates(-0.633094,		0.149003,		0.749087,		-0.12593            ));
-    orientations.push_back(Coordinates(-0.644115,		0.0499524,		0.762127,		-0.0422175          ));
-    orientations.push_back(Coordinates(-0.644115,		-0.0499525,		0.762127,		0.0422176           ));
-    orientations.push_back(Coordinates(-0.633094,		-0.149003,		0.749087,		0.12593             ));
-    orientations.push_back(Coordinates(-0.611241,		-0.245503,		0.72323,		0.207488            ));
-    orientations.push_back(Coordinates(-0.578929,		-0.337804,		0.684998,		0.285496            ));
-    orientations.push_back(Coordinates(-0.536711,		-0.424324,		0.635045,		0.358619            ));
-    orientations.push_back(Coordinates(-0.48531,		-0.503584,		0.574227,		0.425606            ));
-    orientations.push_back(Coordinates(-0.425606,		-0.574227,		0.503584,		0.485311            ));
-    orientations.push_back(Coordinates(-0.358619,		-0.635045,		0.424324,		0.536711            ));
-    orientations.push_back(Coordinates(-0.285496,		-0.684998,		0.337804,		0.578929            ));
-    orientations.push_back(Coordinates(-0.207488,		-0.72323,		0.245503,		0.611241            ));
-    orientations.push_back(Coordinates(-0.12593,		-0.749087,		0.149003,		0.633094            ));
-    orientations.push_back(Coordinates(-0.0422175,		-0.762127,		0.0499524,		0.644115            ));
-    orientations.push_back(Coordinates(-0.149429,		0.814748,		0.0534014,		-0.557678           ));
-    orientations.push_back(Coordinates(-0.220942,		0.800808,		0.159291,		-0.533402           ));
-    orientations.push_back(Coordinates(-0.288675,		0.773165,		0.262454,		-0.5                ));
-    orientations.push_back(Coordinates(-0.351469,		0.732294,		0.361127,		-0.458043           ));
-    orientations.push_back(Coordinates(-0.408248,		0.678892,		0.453621,		-0.408248           ));
-    orientations.push_back(Coordinates(-0.458043,		0.613875,		0.538354,		-0.351469           ));
-    orientations.push_back(Coordinates(-0.5,		0.538354,		0.613875,		-0.288675               ));
-    orientations.push_back(Coordinates(-0.533402,		0.453621,		0.678892,		-0.220942           ));
-    orientations.push_back(Coordinates(-0.557678,		0.361127,		0.732294,		-0.149429           ));
-    orientations.push_back(Coordinates(-0.572411,		0.262454,		0.773165,		-0.0753593          ));
-    orientations.push_back(Coordinates(-0.57735,		0.159291,		0.800808,		2.20822e-08         ));
-    orientations.push_back(Coordinates(-0.572411,		0.0534014,		0.814748,		0.0753594           ));
-    orientations.push_back(Coordinates(-0.557678,		-0.0534015,		0.814748,		0.149429            ));
-    orientations.push_back(Coordinates(-0.533402,		-0.159291,		0.800808,		0.220942            ));
-    orientations.push_back(Coordinates(-0.5,		-0.262454,		0.773165,		0.288675                ));
-    orientations.push_back(Coordinates(-0.458043,		-0.361127,		0.732294,		0.351469            ));
-    orientations.push_back(Coordinates(-0.408248,		-0.453621,		0.678892,		0.408248            ));
-    orientations.push_back(Coordinates(-0.351469,		-0.538354,		0.613875,		0.458043            ));
-    orientations.push_back(Coordinates(-0.288675,		-0.613875,		0.538354,		0.5                 ));
-    orientations.push_back(Coordinates(-0.220942,		-0.678892,		0.453621,		0.533402            ));
-    orientations.push_back(Coordinates(-0.149429,		-0.732294,		0.361127,		0.557678            ));
-    orientations.push_back(Coordinates(-0.0753593,		-0.773165,		0.262454,		0.572411            ));
-    orientations.push_back(Coordinates(4.7319e-08,		-0.800808,		0.159291,		0.57735             ));
-    orientations.push_back(Coordinates(0.0753594,		-0.814748,		0.0534014,		0.572411            ));
-    orientations.push_back(Coordinates(0.0753593,		0.814748,		0.0534014,		-0.572411           ));
-    orientations.push_back(Coordinates(-3.1546e-09,		0.800808,		0.159291,		-0.57735            ));
-    orientations.push_back(Coordinates(-0.0753593,		0.773165,		0.262454,		-0.572411           ));
-    orientations.push_back(Coordinates(-0.149429,		0.732294,		0.361127,		-0.557678           ));
-    orientations.push_back(Coordinates(-0.220942,		0.678892,		0.453621,		-0.533402           ));
-    orientations.push_back(Coordinates(-0.288675,		0.613875,		0.538354,		-0.5                ));
-    orientations.push_back(Coordinates(-0.351469,		0.538354,		0.613875,		-0.458043           ));
-    orientations.push_back(Coordinates(-0.408248,		0.453621,		0.678892,		-0.408248           ));
-    orientations.push_back(Coordinates(-0.458043,		0.361127,		0.732294,		-0.351469           ));
-    orientations.push_back(Coordinates(-0.5,		0.262454,		0.773165,		-0.288675               ));
-    orientations.push_back(Coordinates(-0.533402,		0.159291,		0.800808,		-0.220942           ));
-    orientations.push_back(Coordinates(-0.557678,		0.0534014,		0.814748,		-0.149429           ));
-    orientations.push_back(Coordinates(-0.572411,		-0.0534015,		0.814748,		-0.0753593          ));
-    orientations.push_back(Coordinates(-0.57735,		-0.159291,		0.800808,		2.83914e-08         ));
-    orientations.push_back(Coordinates(-0.572411,		-0.262454,		0.773165,		0.0753594           ));
-    orientations.push_back(Coordinates(-0.557678,		-0.361127,		0.732294,		0.149429            ));
-    orientations.push_back(Coordinates(-0.533402,		-0.453621,		0.678892,		0.220942            ));
-    orientations.push_back(Coordinates(-0.5,		-0.538354,		0.613875,		0.288675                ));
-    orientations.push_back(Coordinates(-0.458043,		-0.613875,		0.538354,		0.351469            ));
-    orientations.push_back(Coordinates(-0.408248,		-0.678892,		0.453621,		0.408248            ));
-    orientations.push_back(Coordinates(-0.351469,		-0.732294,		0.361127,		0.458043            ));
-    orientations.push_back(Coordinates(-0.288675,		-0.773165,		0.262454,		0.5                 ));
-    orientations.push_back(Coordinates(-0.220942,		-0.800808,		0.159291,		0.533402            ));
-    orientations.push_back(Coordinates(-0.149429,		-0.814748,		0.0534014,		0.557678            ));
-    orientations.push_back(Coordinates(-0.0327016,		0.864171,		0.0566408,		-0.498929           ));
-    orientations.push_back(Coordinates(-0.0975452,		0.849385,		0.168953,		-0.490393           ));
-    orientations.push_back(Coordinates(-0.16072,		0.820066,		0.278375,		-0.473465           ));
-    orientations.push_back(Coordinates(-0.221144,		0.776715,		0.383033,		-0.448436           ));
-    orientations.push_back(Coordinates(-0.277785,		0.720074,		0.481138,		-0.415735           ));
-    orientations.push_back(Coordinates(-0.329673,		0.651112,		0.57101,		-0.37592            ));
-    orientations.push_back(Coordinates(-0.37592,		0.57101,		0.651112,		-0.329673           ));
-    orientations.push_back(Coordinates(-0.415735,		0.481138,		0.720074,		-0.277785           ));
-    orientations.push_back(Coordinates(-0.448436,		0.383033,		0.776715,		-0.221144           ));
-    orientations.push_back(Coordinates(-0.473465,		0.278375,		0.820066,		-0.16072            ));
-    orientations.push_back(Coordinates(-0.490393,		0.168953,		0.849385,		-0.0975451          ));
-    orientations.push_back(Coordinates(-0.498929,		0.0566407,		0.864171,		-0.0327015          ));
-    orientations.push_back(Coordinates(-0.498929,		-0.0566408,		0.864171,		0.0327016           ));
-    orientations.push_back(Coordinates(-0.490393,		-0.168953,		0.849385,		0.0975452           ));
-    orientations.push_back(Coordinates(-0.473465,		-0.278375,		0.820066,		0.16072             ));
-    orientations.push_back(Coordinates(-0.448436,		-0.383033,		0.776715,		0.221144            ));
-    orientations.push_back(Coordinates(-0.415735,		-0.481138,		0.720074,		0.277785            ));
-    orientations.push_back(Coordinates(-0.37592,		-0.57101,		0.651112,		0.329673            ));
-    orientations.push_back(Coordinates(-0.329673,		-0.651112,		0.57101,		0.37592             ));
-    orientations.push_back(Coordinates(-0.277785,		-0.720074,		0.481138,		0.415735            ));
-    orientations.push_back(Coordinates(-0.221144,		-0.776715,		0.383033,		0.448436            ));
-    orientations.push_back(Coordinates(-0.16072,		-0.820066,		0.278375,		0.473465            ));
-    orientations.push_back(Coordinates(-0.0975451,		-0.849385,		0.168953,		0.490393            ));
-    orientations.push_back(Coordinates(-0.0327015,		-0.864171,		0.0566407,		0.498929            ));
-    orientations.push_back(Coordinates(-0.864171,		0.498929,		0.0327016,		0.0566408           ));
-    orientations.push_back(Coordinates(-0.849385,		0.490393,		0.0975452,		0.168953            ));
-    orientations.push_back(Coordinates(-0.820066,		0.473465,		0.16072,		0.278375            ));
-    orientations.push_back(Coordinates(-0.776715,		0.448436,		0.221144,		0.383033            ));
-    orientations.push_back(Coordinates(-0.720074,		0.415735,		0.277785,		0.481138            ));
-    orientations.push_back(Coordinates(-0.651112,		0.37592,		0.329673,		0.57101             ));
-    orientations.push_back(Coordinates(-0.57101,		0.329673,		0.37592,		0.651112            ));
-    orientations.push_back(Coordinates(-0.481138,		0.277785,		0.415735,		0.720074            ));
-    orientations.push_back(Coordinates(-0.383033,		0.221144,		0.448436,		0.776715            ));
-    orientations.push_back(Coordinates(-0.278375,		0.16072,		0.473465,		0.820066            ));
-    orientations.push_back(Coordinates(-0.168953,		0.0975451,		0.490393,		0.849385            ));
-    orientations.push_back(Coordinates(-0.0566407,		0.0327015,		0.498929,		0.864171            ));
-    orientations.push_back(Coordinates(0.0566408,		-0.0327016,		0.498929,		0.864171            ));
-    orientations.push_back(Coordinates(0.168953,		-0.0975452,		0.490393,		0.849385            ));
-    orientations.push_back(Coordinates(0.278375,		-0.16072,		0.473465,		0.820066            ));
-    orientations.push_back(Coordinates(0.383033,		-0.221144,		0.448436,		0.776715            ));
-    orientations.push_back(Coordinates(0.481138,		-0.277785,		0.415735,		0.720074            ));
-    orientations.push_back(Coordinates(0.57101,		-0.329673,		0.37592,		0.651112                ));
-    orientations.push_back(Coordinates(0.651112,		-0.37592,		0.329673,		0.57101             ));
-    orientations.push_back(Coordinates(0.720074,		-0.415735,		0.277785,		0.481138            ));
-    orientations.push_back(Coordinates(0.776715,		-0.448436,		0.221144,		0.383033            ));
-    orientations.push_back(Coordinates(0.820066,		-0.473465,		0.16072,		0.278375            ));
-    orientations.push_back(Coordinates(0.849385,		-0.490393,		0.0975451,		0.168953            ));
-    orientations.push_back(Coordinates(0.864171,		-0.498929,		0.0327015,		0.0566407           ));
-    orientations.push_back(Coordinates(-0.788675,		0.576114,		0.0377605,		0.211325            ));
-    orientations.push_back(Coordinates(-0.754344,		0.566257,		0.112635,		0.31246             ));
-    orientations.push_back(Coordinates(-0.707107,		0.54671,		0.185583,		0.408248            ));
-    orientations.push_back(Coordinates(-0.64777,		0.51781,		0.255356,		0.497052            ));
-    orientations.push_back(Coordinates(-0.57735,		0.480049,		0.320759,		0.57735             ));
-    orientations.push_back(Coordinates(-0.497052,		0.434075,		0.380673,		0.64777             ));
-    orientations.push_back(Coordinates(-0.408248,		0.380673,		0.434075,		0.707107            ));
-    orientations.push_back(Coordinates(-0.31246,		0.320759,		0.480049,		0.754344            ));
-    orientations.push_back(Coordinates(-0.211325,		0.255355,		0.51781,		0.788675            ));
-    orientations.push_back(Coordinates(-0.106574,		0.185583,		0.54671,		0.809511            ));
-    orientations.push_back(Coordinates(3.12289e-08,		0.112635,		0.566257,		0.816497            ));
-    orientations.push_back(Coordinates(0.106574,		0.0377605,		0.576114,		0.809511            ));
-    orientations.push_back(Coordinates(0.211325,		-0.0377605,		0.576114,		0.788675            ));
-    orientations.push_back(Coordinates(0.31246,		-0.112635,		0.566257,		0.754344                ));
-    orientations.push_back(Coordinates(0.408248,		-0.185583,		0.54671,		0.707107            ));
-    orientations.push_back(Coordinates(0.497052,		-0.255356,		0.51781,		0.64777             ));
-    orientations.push_back(Coordinates(0.57735,		-0.320759,		0.480049,		0.57735                 ));
-    orientations.push_back(Coordinates(0.64777,		-0.380674,		0.434075,		0.497052                ));
-    orientations.push_back(Coordinates(0.707107,		-0.434075,		0.380673,		0.408248            ));
-    orientations.push_back(Coordinates(0.754345,		-0.480049,		0.320759,		0.31246             ));
-    orientations.push_back(Coordinates(0.788675,		-0.51781,		0.255355,		0.211325            ));
-    orientations.push_back(Coordinates(0.809511,		-0.54671,		0.185583,		0.106574            ));
-    orientations.push_back(Coordinates(0.816497,		-0.566257,		0.112635,		-6.69191e-08        ));
-    orientations.push_back(Coordinates(0.809511,		-0.576114,		0.0377605,		-0.106574           ));
-    orientations.push_back(Coordinates(-0.809511,		0.576114,		0.0377605,		-0.106574           ));
-    orientations.push_back(Coordinates(-0.816497,		0.566257,		0.112635,		4.46127e-09         ));
-    orientations.push_back(Coordinates(-0.809511,		0.54671,		0.185583,		0.106574            ));
-    orientations.push_back(Coordinates(-0.788675,		0.51781,		0.255356,		0.211325            ));
-    orientations.push_back(Coordinates(-0.754344,		0.480049,		0.320759,		0.31246             ));
-    orientations.push_back(Coordinates(-0.707107,		0.434075,		0.380673,		0.408248            ));
-    orientations.push_back(Coordinates(-0.64777,		0.380673,		0.434075,		0.497052            ));
-    orientations.push_back(Coordinates(-0.57735,		0.320759,		0.480049,		0.57735             ));
-    orientations.push_back(Coordinates(-0.497052,		0.255355,		0.51781,		0.64777             ));
-    orientations.push_back(Coordinates(-0.408248,		0.185583,		0.54671,		0.707107            ));
-    orientations.push_back(Coordinates(-0.31246,		0.112635,		0.566257,		0.754344            ));
-    orientations.push_back(Coordinates(-0.211325,		0.0377605,		0.576114,		0.788675            ));
-    orientations.push_back(Coordinates(-0.106574,		-0.0377605,		0.576114,		0.809511            ));
-    orientations.push_back(Coordinates(4.01515e-08,		-0.112635,		0.566257,		0.816497            ));
-    orientations.push_back(Coordinates(0.106574,		-0.185583,		0.54671,		0.809511            ));
-    orientations.push_back(Coordinates(0.211325,		-0.255356,		0.51781,		0.788675            ));
-    orientations.push_back(Coordinates(0.31246,		-0.320759,		0.480049,		0.754344                ));
-    orientations.push_back(Coordinates(0.408248,		-0.380674,		0.434075,		0.707107            ));
-    orientations.push_back(Coordinates(0.497052,		-0.434075,		0.380673,		0.64777             ));
-    orientations.push_back(Coordinates(0.57735,		-0.480049,		0.320759,		0.57735                 ));
-    orientations.push_back(Coordinates(0.64777,		-0.51781,		0.255355,		0.497052                ));
-    orientations.push_back(Coordinates(0.707107,		-0.54671,		0.185583,		0.408248            ));
-    orientations.push_back(Coordinates(0.754345,		-0.566257,		0.112635,		0.31246             ));
-    orientations.push_back(Coordinates(0.788675,		-0.576114,		0.0377605,		0.211325            ));
-    orientations.push_back(Coordinates(-0.762127,		0.644115,		0.0422175,		0.0499525           ));
-    orientations.push_back(Coordinates(-0.749087,		0.633094,		0.12593,		0.149003            ));
-    orientations.push_back(Coordinates(-0.72323,		0.611241,		0.207488,		0.245503            ));
-    orientations.push_back(Coordinates(-0.684998,		0.578929,		0.285496,		0.337804            ));
-    orientations.push_back(Coordinates(-0.635045,		0.536711,		0.358619,		0.424324            ));
-    orientations.push_back(Coordinates(-0.574227,		0.485311,		0.425606,		0.503584            ));
-    orientations.push_back(Coordinates(-0.503584,		0.425606,		0.485311,		0.574227            ));
-    orientations.push_back(Coordinates(-0.424324,		0.358619,		0.536711,		0.635045            ));
-    orientations.push_back(Coordinates(-0.337804,		0.285496,		0.578929,		0.684998            ));
-    orientations.push_back(Coordinates(-0.245503,		0.207488,		0.611241,		0.72323             ));
-    orientations.push_back(Coordinates(-0.149003,		0.12593,		0.633094,		0.749087            ));
-    orientations.push_back(Coordinates(-0.0499524,		0.0422175,		0.644115,		0.762127            ));
-    orientations.push_back(Coordinates(0.0499525,		-0.0422176,		0.644115,		0.762127            ));
-    orientations.push_back(Coordinates(0.149003,		-0.12593,		0.633094,		0.749087            ));
-    orientations.push_back(Coordinates(0.245503,		-0.207488,		0.611241,		0.72323             ));
-    orientations.push_back(Coordinates(0.337804,		-0.285496,		0.578929,		0.684998            ));
-    orientations.push_back(Coordinates(0.424324,		-0.358619,		0.536711,		0.635045            ));
-    orientations.push_back(Coordinates(0.503584,		-0.425606,		0.48531,		0.574227            ));
-    orientations.push_back(Coordinates(0.574227,		-0.485311,		0.425606,		0.503584            ));
-    orientations.push_back(Coordinates(0.635045,		-0.536711,		0.358619,		0.424324            ));
-    orientations.push_back(Coordinates(0.684998,		-0.578929,		0.285496,		0.337804            ));
-    orientations.push_back(Coordinates(0.72323,		-0.611241,		0.207488,		0.245503                ));
-    orientations.push_back(Coordinates(0.749087,		-0.633094,		0.12593,		0.149003            ));
-    orientations.push_back(Coordinates(0.762127,		-0.644115,		0.0422175,		0.0499524           ));
-    orientations.push_back(Coordinates(-0.684998,		0.644115,		0.0422175,		0.337804            ));
-    orientations.push_back(Coordinates(-0.635045,		0.633094,		0.12593,		0.424324            ));
-    orientations.push_back(Coordinates(-0.574227,		0.611241,		0.207488,		0.503584            ));
-    orientations.push_back(Coordinates(-0.503584,		0.578929,		0.285496,		0.574227            ));
-    orientations.push_back(Coordinates(-0.424324,		0.536711,		0.358619,		0.635045            ));
-    orientations.push_back(Coordinates(-0.337804,		0.485311,		0.425606,		0.684998            ));
-    orientations.push_back(Coordinates(-0.245503,		0.425606,		0.485311,		0.72323             ));
-    orientations.push_back(Coordinates(-0.149003,		0.358619,		0.536711,		0.749087            ));
-    orientations.push_back(Coordinates(-0.0499524,		0.285496,		0.578929,		0.762127            ));
-    orientations.push_back(Coordinates(0.0499525,		0.207488,		0.611241,		0.762127            ));
-    orientations.push_back(Coordinates(0.149003,		0.12593,		0.633094,		0.749087            ));
-    orientations.push_back(Coordinates(0.245503,		0.0422175,		0.644115,		0.72323             ));
-    orientations.push_back(Coordinates(0.337804,		-0.0422176,		0.644115,		0.684998            ));
-    orientations.push_back(Coordinates(0.424324,		-0.12593,		0.633094,		0.635045            ));
-    orientations.push_back(Coordinates(0.503584,		-0.207488,		0.611241,		0.574227            ));
-    orientations.push_back(Coordinates(0.574227,		-0.285496,		0.578929,		0.503584            ));
-    orientations.push_back(Coordinates(0.635045,		-0.358619,		0.536711,		0.424324            ));
-    orientations.push_back(Coordinates(0.684998,		-0.425606,		0.48531,		0.337804            ));
-    orientations.push_back(Coordinates(0.72323,		-0.485311,		0.425606,		0.245503                ));
-    orientations.push_back(Coordinates(0.749087,		-0.536711,		0.358619,		0.149003            ));
-    orientations.push_back(Coordinates(0.762127,		-0.578929,		0.285496,		0.0499524           ));
-    orientations.push_back(Coordinates(0.762127,		-0.611241,		0.207488,		-0.0499525          ));
-    orientations.push_back(Coordinates(0.749087,		-0.633094,		0.12593,		-0.149003           ));
-    orientations.push_back(Coordinates(0.72323,		-0.644115,		0.0422175,		-0.245504               ));
-    orientations.push_back(Coordinates(-0.560986,		0.705593,		0.046247,		0.430459            ));
-    orientations.push_back(Coordinates(-0.5,		0.69352,		0.13795,		0.5                     ));
-    orientations.push_back(Coordinates(-0.430459,		0.669581,		0.227292,		0.560986            ));
-    orientations.push_back(Coordinates(-0.353553,		0.634185,		0.312745,		0.612372            ));
-    orientations.push_back(Coordinates(-0.270598,		0.587938,		0.392847,		0.653281            ));
-    orientations.push_back(Coordinates(-0.183013,		0.531631,		0.466228,		0.683013            ));
-    orientations.push_back(Coordinates(-0.0922959,		0.466228,		0.531631,		0.701057            ));
-    orientations.push_back(Coordinates(1.93179e-08,		0.392847,		0.587938,		0.707107            ));
-    orientations.push_back(Coordinates(0.092296,		0.312745,		0.634185,		0.701057            ));
-    orientations.push_back(Coordinates(0.183013,		0.227292,		0.669581,		0.683013            ));
-    orientations.push_back(Coordinates(0.270598,		0.13795,		0.69352,		0.653281            ));
-    orientations.push_back(Coordinates(0.353553,		0.046247,		0.705593,		0.612372            ));
-    orientations.push_back(Coordinates(0.430459,		-0.046247,		0.705593,		0.560986            ));
-    orientations.push_back(Coordinates(0.5,		-0.13795,		0.69352,		0.5                         ));
-    orientations.push_back(Coordinates(0.560986,		-0.227292,		0.669581,		0.430459            ));
-    orientations.push_back(Coordinates(0.612372,		-0.312745,		0.634185,		0.353553            ));
-    orientations.push_back(Coordinates(0.653281,		-0.392848,		0.587938,		0.270598            ));
-    orientations.push_back(Coordinates(0.683013,		-0.466228,		0.531631,		0.183013            ));
-    orientations.push_back(Coordinates(0.701057,		-0.531631,		0.466228,		0.0922959           ));
-    orientations.push_back(Coordinates(0.707107,		-0.587938,		0.392847,		-5.02265e-08        ));
-    orientations.push_back(Coordinates(0.701057,		-0.634185,		0.312745,		-0.092296           ));
-    orientations.push_back(Coordinates(0.683013,		-0.669581,		0.227292,		-0.183013           ));
-    orientations.push_back(Coordinates(0.653281,		-0.69352,		0.13795,		-0.270598           ));
-    orientations.push_back(Coordinates(0.612372,		-0.705593,		0.0462469,		-0.353553           ));
-    orientations.push_back(Coordinates(-0.683013,		0.705593,		0.046247,		0.183013            ));
-    orientations.push_back(Coordinates(-0.653281,		0.69352,		0.13795,		0.270598            ));
-    orientations.push_back(Coordinates(-0.612372,		0.669581,		0.227292,		0.353553            ));
-    orientations.push_back(Coordinates(-0.560986,		0.634185,		0.312745,		0.430459            ));
-    orientations.push_back(Coordinates(-0.5,		0.587938,		0.392847,		0.5                     ));
-    orientations.push_back(Coordinates(-0.430459,		0.531631,		0.466228,		0.560986            ));
-    orientations.push_back(Coordinates(-0.353553,		0.466228,		0.531631,		0.612372            ));
-    orientations.push_back(Coordinates(-0.270598,		0.392847,		0.587938,		0.653281            ));
-    orientations.push_back(Coordinates(-0.183013,		0.312745,		0.634185,		0.683013            ));
-    orientations.push_back(Coordinates(-0.0922959,		0.227292,		0.669581,		0.701057            ));
-    orientations.push_back(Coordinates(2.7045e-08,		0.13795,		0.69352,		0.707107            ));
-    orientations.push_back(Coordinates(0.092296,		0.046247,		0.705593,		0.701057            ));
-    orientations.push_back(Coordinates(0.183013,		-0.046247,		0.705593,		0.683013            ));
-    orientations.push_back(Coordinates(0.270598,		-0.13795,		0.69352,		0.653281            ));
-    orientations.push_back(Coordinates(0.353553,		-0.227292,		0.669581,		0.612372            ));
-    orientations.push_back(Coordinates(0.430459,		-0.312745,		0.634185,		0.560986            ));
-    orientations.push_back(Coordinates(0.5,		-0.392848,		0.587938,		0.5                         ));
-    orientations.push_back(Coordinates(0.560986,		-0.466228,		0.531631,		0.430459            ));
-    orientations.push_back(Coordinates(0.612372,		-0.531631,		0.466228,		0.353553            ));
-    orientations.push_back(Coordinates(0.653282,		-0.587938,		0.392847,		0.270598            ));
-    orientations.push_back(Coordinates(0.683013,		-0.634185,		0.312745,		0.183013            ));
-    orientations.push_back(Coordinates(0.701057,		-0.669581,		0.227292,		0.0922959           ));
-    orientations.push_back(Coordinates(0.707107,		-0.69352,		0.13795,		-5.79537e-08        ));
-    orientations.push_back(Coordinates(0.701057,		-0.705593,		0.0462469,		-0.092296           ));
-    orientations.push_back(Coordinates(-0.578929,		0.762127,		0.0499525,		0.285496            ));
-    orientations.push_back(Coordinates(-0.536711,		0.749087,		0.149003,		0.358619            ));
-    orientations.push_back(Coordinates(-0.485311,		0.72323,		0.245503,		0.425606            ));
-    orientations.push_back(Coordinates(-0.425606,		0.684998,		0.337804,		0.485311            ));
-    orientations.push_back(Coordinates(-0.358619,		0.635045,		0.424324,		0.536711            ));
-    orientations.push_back(Coordinates(-0.285496,		0.574227,		0.503584,		0.578929            ));
-    orientations.push_back(Coordinates(-0.207488,		0.503584,		0.574227,		0.611241            ));
-    orientations.push_back(Coordinates(-0.12593,		0.424324,		0.635045,		0.633094            ));
-    orientations.push_back(Coordinates(-0.0422175,		0.337804,		0.684998,		0.644115            ));
-    orientations.push_back(Coordinates(0.0422176,		0.245503,		0.72323,		0.644115            ));
-    orientations.push_back(Coordinates(0.12593,		0.149003,		0.749087,		0.633094                ));
-    orientations.push_back(Coordinates(0.207488,		0.0499524,		0.762127,		0.611241            ));
-    orientations.push_back(Coordinates(0.285496,		-0.0499525,		0.762127,		0.578929            ));
-    orientations.push_back(Coordinates(0.358619,		-0.149003,		0.749087,		0.536711            ));
-    orientations.push_back(Coordinates(0.425606,		-0.245503,		0.72323,		0.48531             ));
-    orientations.push_back(Coordinates(0.485311,		-0.337804,		0.684998,		0.425606            ));
-    orientations.push_back(Coordinates(0.536711,		-0.424324,		0.635045,		0.358619            ));
-    orientations.push_back(Coordinates(0.578929,		-0.503584,		0.574227,		0.285496            ));
-    orientations.push_back(Coordinates(0.611241,		-0.574227,		0.503584,		0.207488            ));
-    orientations.push_back(Coordinates(0.633094,		-0.635045,		0.424324,		0.12593             ));
-    orientations.push_back(Coordinates(0.644115,		-0.684998,		0.337804,		0.0422175           ));
-    orientations.push_back(Coordinates(0.644115,		-0.72323,		0.245503,		-0.0422176          ));
-    orientations.push_back(Coordinates(0.633094,		-0.749087,		0.149003,		-0.12593            ));
-    orientations.push_back(Coordinates(0.611241,		-0.762127,		0.0499524,		-0.207488           ));
-    orientations.push_back(Coordinates(-0.72323,		0.644115,		0.0422175,		-0.245503           ));
-    orientations.push_back(Coordinates(-0.749087,		0.633094,		0.12593,		-0.149003           ));
-    orientations.push_back(Coordinates(-0.762127,		0.611241,		0.207488,		-0.0499525          ));
-    orientations.push_back(Coordinates(-0.762127,		0.578929,		0.285496,		0.0499525           ));
-    orientations.push_back(Coordinates(-0.749087,		0.536711,		0.358619,		0.149003            ));
-    orientations.push_back(Coordinates(-0.72323,		0.485311,		0.425606,		0.245503            ));
-    orientations.push_back(Coordinates(-0.684998,		0.425606,		0.485311,		0.337804            ));
-    orientations.push_back(Coordinates(-0.635045,		0.358619,		0.536711,		0.424324            ));
-    orientations.push_back(Coordinates(-0.574227,		0.285496,		0.578929,		0.503584            ));
-    orientations.push_back(Coordinates(-0.503584,		0.207488,		0.611241,		0.574227            ));
-    orientations.push_back(Coordinates(-0.424324,		0.12593,		0.633094,		0.635045            ));
-    orientations.push_back(Coordinates(-0.337804,		0.0422175,		0.644115,		0.684998            ));
-    orientations.push_back(Coordinates(-0.245503,		-0.0422176,		0.644115,		0.72323             ));
-    orientations.push_back(Coordinates(-0.149003,		-0.12593,		0.633094,		0.749087            ));
-    orientations.push_back(Coordinates(-0.0499524,		-0.207488,		0.611241,		0.762127            ));
-    orientations.push_back(Coordinates(0.0499525,		-0.285496,		0.578929,		0.762127            ));
-    orientations.push_back(Coordinates(0.149003,		-0.358619,		0.536711,		0.749087            ));
-    orientations.push_back(Coordinates(0.245503,		-0.425606,		0.48531,		0.72323             ));
-    orientations.push_back(Coordinates(0.337804,		-0.485311,		0.425606,		0.684998            ));
-    orientations.push_back(Coordinates(0.424324,		-0.536711,		0.358619,		0.635045            ));
-    orientations.push_back(Coordinates(0.503584,		-0.578929,		0.285496,		0.574227            ));
-    orientations.push_back(Coordinates(0.574227,		-0.611241,		0.207488,		0.503584            ));
-    orientations.push_back(Coordinates(0.635045,		-0.633094,		0.12593,		0.424324            ));
-    orientations.push_back(Coordinates(0.684998,		-0.644115,		0.0422175,		0.337804            ));
-    orientations.push_back(Coordinates(-0.701057,		0.705593,		0.046247,		-0.092296           ));
-    orientations.push_back(Coordinates(-0.707107,		0.69352,		0.13795,		3.86358e-09         ));
-    orientations.push_back(Coordinates(-0.701057,		0.669581,		0.227292,		0.092296            ));
-    orientations.push_back(Coordinates(-0.683013,		0.634185,		0.312745,		0.183013            ));
-    orientations.push_back(Coordinates(-0.653281,		0.587938,		0.392847,		0.270598            ));
-    orientations.push_back(Coordinates(-0.612372,		0.531631,		0.466228,		0.353553            ));
-    orientations.push_back(Coordinates(-0.560986,		0.466228,		0.531631,		0.430459            ));
-    orientations.push_back(Coordinates(-0.5,		0.392847,		0.587938,		0.5                     ));
-    orientations.push_back(Coordinates(-0.430459,		0.312745,		0.634185,		0.560986            ));
-    orientations.push_back(Coordinates(-0.353553,		0.227292,		0.669581,		0.612372            ));
-    orientations.push_back(Coordinates(-0.270598,		0.13795,		0.69352,		0.653281            ));
-    orientations.push_back(Coordinates(-0.183013,		0.046247,		0.705593,		0.683013            ));
-    orientations.push_back(Coordinates(-0.0922959,		-0.046247,		0.705593,		0.701057            ));
-    orientations.push_back(Coordinates(3.47722e-08,		-0.13795,		0.69352,		0.707107            ));
-    orientations.push_back(Coordinates(0.092296,		-0.227292,		0.669581,		0.701057            ));
-    orientations.push_back(Coordinates(0.183013,		-0.312745,		0.634185,		0.683013            ));
-    orientations.push_back(Coordinates(0.270598,		-0.392848,		0.587938,		0.653281            ));
-    orientations.push_back(Coordinates(0.353553,		-0.466228,		0.531631,		0.612372            ));
-    orientations.push_back(Coordinates(0.430459,		-0.531631,		0.466228,		0.560985            ));
-    orientations.push_back(Coordinates(0.5,		-0.587938,		0.392847,		0.5                         ));
-    orientations.push_back(Coordinates(0.560986,		-0.634185,		0.312745,		0.430459            ));
-    orientations.push_back(Coordinates(0.612372,		-0.669581,		0.227292,		0.353553            ));
-    orientations.push_back(Coordinates(0.653282,		-0.69352,		0.13795,		0.270598            ));
-    orientations.push_back(Coordinates(0.683013,		-0.705593,		0.0462469,		0.183013            ));
-    orientations.push_back(Coordinates(-0.612372,		0.705593,		0.046247,		-0.353553           ));
-    orientations.push_back(Coordinates(-0.653281,		0.69352,		0.13795,		-0.270598           ));
-    orientations.push_back(Coordinates(-0.683013,		0.669581,		0.227292,		-0.183013           ));
-    orientations.push_back(Coordinates(-0.701057,		0.634185,		0.312745,		-0.0922959          ));
-    orientations.push_back(Coordinates(-0.707107,		0.587938,		0.392847,		1.15907e-08         ));
-    orientations.push_back(Coordinates(-0.701057,		0.531631,		0.466228,		0.092296            ));
-    orientations.push_back(Coordinates(-0.683013,		0.466228,		0.531631,		0.183013            ));
-    orientations.push_back(Coordinates(-0.653281,		0.392847,		0.587938,		0.270598            ));
-    orientations.push_back(Coordinates(-0.612372,		0.312745,		0.634185,		0.353553            ));
-    orientations.push_back(Coordinates(-0.560986,		0.227292,		0.669581,		0.430459            ));
-    orientations.push_back(Coordinates(-0.5,		0.13795,		0.69352,		0.5                     ));
-    orientations.push_back(Coordinates(-0.430459,		0.046247,		0.705593,		0.560986            ));
-    orientations.push_back(Coordinates(-0.353553,		-0.046247,		0.705593,		0.612372            ));
-    orientations.push_back(Coordinates(-0.270598,		-0.13795,		0.69352,		0.653281            ));
-    orientations.push_back(Coordinates(-0.183013,		-0.227292,		0.669581,		0.683013            ));
-    orientations.push_back(Coordinates(-0.0922959,		-0.312745,		0.634185,		0.701057            ));
-    orientations.push_back(Coordinates(4.24994e-08,		-0.392848,		0.587938,		0.707107            ));
-    orientations.push_back(Coordinates(0.092296,		-0.466228,		0.531631,		0.701057            ));
-    orientations.push_back(Coordinates(0.183013,		-0.531631,		0.466228,		0.683013            ));
-    orientations.push_back(Coordinates(0.270598,		-0.587938,		0.392847,		0.653281            ));
-    orientations.push_back(Coordinates(0.353553,		-0.634185,		0.312745,		0.612372            ));
-    orientations.push_back(Coordinates(0.430459,		-0.669581,		0.227292,		0.560985            ));
-    orientations.push_back(Coordinates(0.5,		-0.69352,		0.13795,		0.5                         ));
-    orientations.push_back(Coordinates(0.560986,		-0.705593,		0.0462469,		0.430459            ));
-    orientations.push_back(Coordinates(-0.611241,		0.762127,		0.0499525,		-0.207488           ));
-    orientations.push_back(Coordinates(-0.633094,		0.749087,		0.149003,		-0.12593            ));
-    orientations.push_back(Coordinates(-0.644115,		0.72323,		0.245503,		-0.0422175          ));
-    orientations.push_back(Coordinates(-0.644115,		0.684998,		0.337804,		0.0422175           ));
-    orientations.push_back(Coordinates(-0.633094,		0.635045,		0.424324,		0.12593             ));
-    orientations.push_back(Coordinates(-0.611241,		0.574227,		0.503584,		0.207488            ));
-    orientations.push_back(Coordinates(-0.578929,		0.503584,		0.574227,		0.285496            ));
-    orientations.push_back(Coordinates(-0.536711,		0.424324,		0.635045,		0.358619            ));
-    orientations.push_back(Coordinates(-0.48531,		0.337804,		0.684998,		0.425606            ));
-    orientations.push_back(Coordinates(-0.425606,		0.245503,		0.72323,		0.485311            ));
-    orientations.push_back(Coordinates(-0.358619,		0.149003,		0.749087,		0.536711            ));
-    orientations.push_back(Coordinates(-0.285496,		0.0499524,		0.762127,		0.578929            ));
-    orientations.push_back(Coordinates(-0.207488,		-0.0499525,		0.762127,		0.611241            ));
-    orientations.push_back(Coordinates(-0.12593,		-0.149003,		0.749087,		0.633094            ));
-    orientations.push_back(Coordinates(-0.0422175,		-0.245503,		0.72323,		0.644115            ));
-    orientations.push_back(Coordinates(0.0422176,		-0.337804,		0.684998,		0.644115            ));
-    orientations.push_back(Coordinates(0.12593,		-0.424324,		0.635045,		0.633094                ));
-    orientations.push_back(Coordinates(0.207488,		-0.503584,		0.574227,		0.611241            ));
-    orientations.push_back(Coordinates(0.285496,		-0.574227,		0.503584,		0.578929            ));
-    orientations.push_back(Coordinates(0.358619,		-0.635045,		0.424324,		0.536711            ));
-    orientations.push_back(Coordinates(0.425606,		-0.684998,		0.337804,		0.48531             ));
-    orientations.push_back(Coordinates(0.485311,		-0.72323,		0.245503,		0.425606            ));
-    orientations.push_back(Coordinates(0.536711,		-0.749087,		0.149003,		0.358619            ));
-    orientations.push_back(Coordinates(0.578929,		-0.762127,		0.0499524,		0.285496            ));
-    orientations.push_back(Coordinates(-0.644115,		0.762127,		0.0499525,		0.0422175           ));
-    orientations.push_back(Coordinates(-0.633094,		0.749087,		0.149003,		0.12593             ));
-    orientations.push_back(Coordinates(-0.611241,		0.72323,		0.245503,		0.207488            ));
-    orientations.push_back(Coordinates(-0.578929,		0.684998,		0.337804,		0.285496            ));
-    orientations.push_back(Coordinates(-0.536711,		0.635045,		0.424324,		0.358619            ));
-    orientations.push_back(Coordinates(-0.485311,		0.574227,		0.503584,		0.425606            ));
-    orientations.push_back(Coordinates(-0.425606,		0.503584,		0.574227,		0.485311            ));
-    orientations.push_back(Coordinates(-0.358619,		0.424324,		0.635045,		0.536711            ));
-    orientations.push_back(Coordinates(-0.285496,		0.337804,		0.684998,		0.578929            ));
-    orientations.push_back(Coordinates(-0.207488,		0.245503,		0.72323,		0.611241            ));
-    orientations.push_back(Coordinates(-0.12593,		0.149003,		0.749087,		0.633094            ));
-    orientations.push_back(Coordinates(-0.0422175,		0.0499524,		0.762127,		0.644115            ));
-    orientations.push_back(Coordinates(0.0422176,		-0.0499525,		0.762127,		0.644115            ));
-    orientations.push_back(Coordinates(0.12593,		-0.149003,		0.749087,		0.633094                ));
-    orientations.push_back(Coordinates(0.207488,		-0.245503,		0.72323,		0.611241            ));
-    orientations.push_back(Coordinates(0.285496,		-0.337804,		0.684998,		0.578929            ));
-    orientations.push_back(Coordinates(0.358619,		-0.424324,		0.635045,		0.536711            ));
-    orientations.push_back(Coordinates(0.425606,		-0.503584,		0.574227,		0.48531             ));
-    orientations.push_back(Coordinates(0.485311,		-0.574227,		0.503584,		0.425606            ));
-    orientations.push_back(Coordinates(0.536711,		-0.635045,		0.424324,		0.358619            ));
-    orientations.push_back(Coordinates(0.578929,		-0.684998,		0.337804,		0.285496            ));
-    orientations.push_back(Coordinates(0.611241,		-0.72323,		0.245503,		0.207488            ));
-    orientations.push_back(Coordinates(0.633094,		-0.749087,		0.149003,		0.12593             ));
-    orientations.push_back(Coordinates(0.644115,		-0.762127,		0.0499524,		0.0422175           ));
-    orientations.push_back(Coordinates(-0.557678,		0.814748,		0.0534014,		0.149429            ));
-    orientations.push_back(Coordinates(-0.533402,		0.800808,		0.159291,		0.220942            ));
-    orientations.push_back(Coordinates(-0.5,		0.773165,		0.262454,		0.288675                ));
-    orientations.push_back(Coordinates(-0.458043,		0.732294,		0.361127,		0.351469            ));
-    orientations.push_back(Coordinates(-0.408248,		0.678892,		0.453621,		0.408248            ));
-    orientations.push_back(Coordinates(-0.351469,		0.613875,		0.538354,		0.458043            ));
-    orientations.push_back(Coordinates(-0.288675,		0.538354,		0.613875,		0.5                 ));
-    orientations.push_back(Coordinates(-0.220942,		0.453621,		0.678892,		0.533402            ));
-    orientations.push_back(Coordinates(-0.149429,		0.361127,		0.732294,		0.557678            ));
-    orientations.push_back(Coordinates(-0.0753593,		0.262454,		0.773165,		0.572411            ));
-    orientations.push_back(Coordinates(2.20822e-08,		0.159291,		0.800808,		0.57735             ));
-    orientations.push_back(Coordinates(0.0753594,		0.0534014,		0.814748,		0.572411            ));
-    orientations.push_back(Coordinates(0.149429,		-0.0534015,		0.814748,		0.557678            ));
-    orientations.push_back(Coordinates(0.220942,		-0.159291,		0.800808,		0.533402            ));
-    orientations.push_back(Coordinates(0.288675,		-0.262454,		0.773165,		0.5                 ));
-    orientations.push_back(Coordinates(0.351469,		-0.361127,		0.732294,		0.458043            ));
-    orientations.push_back(Coordinates(0.408248,		-0.453621,		0.678892,		0.408248            ));
-    orientations.push_back(Coordinates(0.458043,		-0.538354,		0.613875,		0.351469            ));
-    orientations.push_back(Coordinates(0.5,		-0.613875,		0.538354,		0.288675                    ));
-    orientations.push_back(Coordinates(0.533402,		-0.678892,		0.453621,		0.220942            ));
-    orientations.push_back(Coordinates(0.557678,		-0.732294,		0.361127,		0.149429            ));
-    orientations.push_back(Coordinates(0.572411,		-0.773165,		0.262454,		0.0753593           ));
-    orientations.push_back(Coordinates(0.57735,		-0.800808,		0.159291,		-4.7319e-08             ));
-    orientations.push_back(Coordinates(0.572411,		-0.814748,		0.0534014,		-0.0753594          ));
-    orientations.push_back(Coordinates(-0.572411,		0.814748,		0.0534014,		-0.0753593          ));
-    orientations.push_back(Coordinates(-0.57735,		0.800808,		0.159291,		3.1546e-09          ));
-    orientations.push_back(Coordinates(-0.572411,		0.773165,		0.262454,		0.0753593           ));
-    orientations.push_back(Coordinates(-0.557678,		0.732294,		0.361127,		0.149429            ));
-    orientations.push_back(Coordinates(-0.533402,		0.678892,		0.453621,		0.220942            ));
-    orientations.push_back(Coordinates(-0.5,		0.613875,		0.538354,		0.288675                ));
-    orientations.push_back(Coordinates(-0.458043,		0.538354,		0.613875,		0.351469            ));
-    orientations.push_back(Coordinates(-0.408248,		0.453621,		0.678892,		0.408248            ));
-    orientations.push_back(Coordinates(-0.351469,		0.361127,		0.732294,		0.458043            ));
-    orientations.push_back(Coordinates(-0.288675,		0.262454,		0.773165,		0.5                 ));
-    orientations.push_back(Coordinates(-0.220942,		0.159291,		0.800808,		0.533402            ));
-    orientations.push_back(Coordinates(-0.149429,		0.0534014,		0.814748,		0.557678            ));
-    orientations.push_back(Coordinates(-0.0753593,		-0.0534015,		0.814748,		0.572411            ));
-    orientations.push_back(Coordinates(2.83914e-08,		-0.159291,		0.800808,		0.57735             ));
-    orientations.push_back(Coordinates(0.0753594,		-0.262454,		0.773165,		0.572411            ));
-    orientations.push_back(Coordinates(0.149429,		-0.361127,		0.732294,		0.557678            ));
-    orientations.push_back(Coordinates(0.220942,		-0.453621,		0.678892,		0.533402            ));
-    orientations.push_back(Coordinates(0.288675,		-0.538354,		0.613875,		0.5                 ));
-    orientations.push_back(Coordinates(0.351469,		-0.613875,		0.538354,		0.458043            ));
-    orientations.push_back(Coordinates(0.408248,		-0.678892,		0.453621,		0.408248            ));
-    orientations.push_back(Coordinates(0.458043,		-0.732294,		0.361127,		0.351469            ));
-    orientations.push_back(Coordinates(0.5,		-0.773165,		0.262454,		0.288675                    ));
-    orientations.push_back(Coordinates(0.533402,		-0.800808,		0.159291,		0.220942            ));
-    orientations.push_back(Coordinates(0.557678,		-0.814748,		0.0534014,		0.149429            ));
-    orientations.push_back(Coordinates(-0.498929,		0.864171,		0.0566408,		0.0327016           ));
-    orientations.push_back(Coordinates(-0.490393,		0.849385,		0.168953,		0.0975452           ));
-    orientations.push_back(Coordinates(-0.473465,		0.820066,		0.278375,		0.16072             ));
-    orientations.push_back(Coordinates(-0.448436,		0.776715,		0.383033,		0.221144            ));
-    orientations.push_back(Coordinates(-0.415735,		0.720074,		0.481138,		0.277785            ));
-    orientations.push_back(Coordinates(-0.37592,		0.651112,		0.57101,		0.329673            ));
-    orientations.push_back(Coordinates(-0.329673,		0.57101,		0.651112,		0.37592             ));
-    orientations.push_back(Coordinates(-0.277785,		0.481138,		0.720074,		0.415735            ));
-    orientations.push_back(Coordinates(-0.221144,		0.383033,		0.776715,		0.448436            ));
-    orientations.push_back(Coordinates(-0.16072,		0.278375,		0.820066,		0.473465            ));
-    orientations.push_back(Coordinates(-0.0975451,		0.168953,		0.849385,		0.490393            ));
-    orientations.push_back(Coordinates(-0.0327015,		0.0566407,		0.864171,		0.498929            ));
-    orientations.push_back(Coordinates(0.0327016,		-0.0566408,		0.864171,		0.498929            ));
-    orientations.push_back(Coordinates(0.0975452,		-0.168953,		0.849385,		0.490393            ));
-    orientations.push_back(Coordinates(0.16072,		-0.278375,		0.820066,		0.473465                ));
-    orientations.push_back(Coordinates(0.221144,		-0.383033,		0.776715,		0.448436            ));
-    orientations.push_back(Coordinates(0.277785,		-0.481138,		0.720074,		0.415735            ));
-    orientations.push_back(Coordinates(0.329673,		-0.57101,		0.651112,		0.37592             ));
-    orientations.push_back(Coordinates(0.37592,		-0.651112,		0.57101,		0.329673                ));
-    orientations.push_back(Coordinates(0.415735,		-0.720074,		0.481138,		0.277785            ));
-    orientations.push_back(Coordinates(0.448436,		-0.776715,		0.383033,		0.221144            ));
-    orientations.push_back(Coordinates(0.473465,		-0.820066,		0.278375,		0.16072             ));
-    orientations.push_back(Coordinates(0.490393,		-0.849385,		0.168953,		0.0975451           ));
-    orientations.push_back(Coordinates(0.498929,		-0.864171,		0.0566407,		0.0327015           ));
-    orientations.push_back(Coordinates(0.747914,		0.101844,		0.00667518,		0.655903            ));
-    orientations.push_back(Coordinates(0.827128,		0.100101,		0.0199113,		0.552669            ));
-    orientations.push_back(Coordinates(0.892189,		0.0966457,		0.0328068,		0.439979            ));
-    orientations.push_back(Coordinates(0.941985,		0.0915367,		0.0451409,		0.319761            ));
-    orientations.push_back(Coordinates(0.975664,		0.0848615,		0.0567027,		0.194072            ));
-    orientations.push_back(Coordinates(0.992648,		0.0767343,		0.0672942,		0.0650616           ));
-    orientations.push_back(Coordinates(0.992648,		0.0672942,		0.0767343,		-0.0650616          ));
-    orientations.push_back(Coordinates(0.975664,		0.0567026,		0.0848615,		-0.194072           ));
-    orientations.push_back(Coordinates(0.941985,		0.0451409,		0.0915367,		-0.319761           ));
-    orientations.push_back(Coordinates(0.892189,		0.0328068,		0.0966457,		-0.439979           ));
-    orientations.push_back(Coordinates(0.827128,		0.0199113,		0.100101,		-0.552669           ));
-    orientations.push_back(Coordinates(0.747914,		0.00667517,		0.101844,		-0.655903           ));
-    orientations.push_back(Coordinates(0.655903,		-0.00667518,		0.101844,		-0.747914       ));
-    orientations.push_back(Coordinates(0.552669,		-0.0199113,		0.100101,		-0.827128           ));
-    orientations.push_back(Coordinates(0.439979,		-0.0328068,		0.0966456,		-0.892189           ));
-    orientations.push_back(Coordinates(0.319761,		-0.0451409,		0.0915367,		-0.941985           ));
-    orientations.push_back(Coordinates(0.194072,		-0.0567027,		0.0848615,		-0.975664           ));
-    orientations.push_back(Coordinates(0.0650615,		-0.0672942,		0.0767343,		-0.992648           ));
-    orientations.push_back(Coordinates(-0.0650617,		-0.0767343,		0.0672942,		-0.992648           ));
-    orientations.push_back(Coordinates(-0.194072,		-0.0848615,		0.0567026,		-0.975664           ));
-    orientations.push_back(Coordinates(-0.319761,		-0.0915367,		0.0451409,		-0.941985           ));
-    orientations.push_back(Coordinates(-0.439979,		-0.0966457,		0.0328068,		-0.892189           ));
-    orientations.push_back(Coordinates(-0.552669,		-0.100101,		0.0199113,		-0.827128           ));
-    orientations.push_back(Coordinates(-0.655903,		-0.101844,		0.00667517,		-0.747914           ));
-    orientations.push_back(Coordinates(0.926993,		0.203687,		0.0133504,		0.314672            ));
-    orientations.push_back(Coordinates(0.960135,		0.200202,		0.0398226,		0.190983            ));
-    orientations.push_back(Coordinates(0.976849,		0.193291,		0.0656136,		0.0640261           ));
-    orientations.push_back(Coordinates(0.976849,		0.183073,		0.0902818,		-0.0640261          ));
-    orientations.push_back(Coordinates(0.960135,		0.169723,		0.113405,		-0.190983           ));
-    orientations.push_back(Coordinates(0.926993,		0.153469,		0.134588,		-0.314672           ));
-    orientations.push_back(Coordinates(0.877989,		0.134588,		0.153469,		-0.432976           ));
-    orientations.push_back(Coordinates(0.813963,		0.113405,		0.169723,		-0.543873           ));
-    orientations.push_back(Coordinates(0.73601,		0.0902818,		0.183073,		-0.645463               ));
-    orientations.push_back(Coordinates(0.645463,		0.0656135,		0.193291,		-0.73601            ));
-    orientations.push_back(Coordinates(0.543873,		0.0398226,		0.200202,		-0.813963           ));
-    orientations.push_back(Coordinates(0.432976,		0.0133503,		0.203687,		-0.877989           ));
-    orientations.push_back(Coordinates(0.314672,		-0.0133504,		0.203687,		-0.926993           ));
-    orientations.push_back(Coordinates(0.190983,		-0.0398227,		0.200202,		-0.960135           ));
-    orientations.push_back(Coordinates(0.064026,		-0.0656136,		0.193291,		-0.976849           ));
-    orientations.push_back(Coordinates(-0.0640261,		-0.0902818,		0.183073,		-0.976849           ));
-    orientations.push_back(Coordinates(-0.190983,		-0.113405,		0.169723,		-0.960135           ));
-    orientations.push_back(Coordinates(-0.314672,		-0.134588,		0.153469,		-0.926993           ));
-    orientations.push_back(Coordinates(-0.432976,		-0.153469,		0.134588,		-0.877989           ));
-    orientations.push_back(Coordinates(-0.543873,		-0.169723,		0.113405,		-0.813963           ));
-    orientations.push_back(Coordinates(-0.645463,		-0.183073,		0.0902818,		-0.73601            ));
-    orientations.push_back(Coordinates(-0.73601,		-0.193291,		0.0656135,		-0.645463           ));
-    orientations.push_back(Coordinates(-0.813963,		-0.200202,		0.0398226,		-0.543873           ));
-    orientations.push_back(Coordinates(-0.877989,		-0.203687,		0.0133503,		-0.432976           ));
-    orientations.push_back(Coordinates(0.432976,		0.203687,		0.0133504,		0.877989            ));
-    orientations.push_back(Coordinates(0.543873,		0.200202,		0.0398226,		0.813963            ));
-    orientations.push_back(Coordinates(0.645463,		0.193291,		0.0656136,		0.73601             ));
-    orientations.push_back(Coordinates(0.73601,		0.183073,		0.0902818,		0.645463                ));
-    orientations.push_back(Coordinates(0.813963,		0.169723,		0.113405,		0.543873            ));
-    orientations.push_back(Coordinates(0.877989,		0.153469,		0.134588,		0.432976            ));
-    orientations.push_back(Coordinates(0.926993,		0.134588,		0.153469,		0.314672            ));
-    orientations.push_back(Coordinates(0.960135,		0.113405,		0.169723,		0.190983            ));
-    orientations.push_back(Coordinates(0.976849,		0.0902818,		0.183073,		0.064026            ));
-    orientations.push_back(Coordinates(0.976849,		0.0656135,		0.193291,		-0.0640261          ));
-    orientations.push_back(Coordinates(0.960135,		0.0398226,		0.200202,		-0.190983           ));
-    orientations.push_back(Coordinates(0.926993,		0.0133503,		0.203687,		-0.314672           ));
-    orientations.push_back(Coordinates(0.877989,		-0.0133504,		0.203687,		-0.432976           ));
-    orientations.push_back(Coordinates(0.813963,		-0.0398227,		0.200202,		-0.543873           ));
-    orientations.push_back(Coordinates(0.73601,		-0.0656136,		0.193291,		-0.645463               ));
-    orientations.push_back(Coordinates(0.645463,		-0.0902818,		0.183073,		-0.73601            ));
-    orientations.push_back(Coordinates(0.543873,		-0.113405,		0.169723,		-0.813963           ));
-    orientations.push_back(Coordinates(0.432976,		-0.134588,		0.153469,		-0.877989           ));
-    orientations.push_back(Coordinates(0.314671,		-0.153469,		0.134588,		-0.926993           ));
-    orientations.push_back(Coordinates(0.190983,		-0.169723,		0.113405,		-0.960135           ));
-    orientations.push_back(Coordinates(0.064026,		-0.183073,		0.0902818,		-0.976849           ));
-    orientations.push_back(Coordinates(-0.0640261,		-0.193291,		0.0656135,		-0.976849           ));
-    orientations.push_back(Coordinates(-0.190983,		-0.200202,		0.0398226,		-0.960135           ));
-    orientations.push_back(Coordinates(-0.314672,		-0.203687,		0.0133503,		-0.926992           ));
-    orientations.push_back(Coordinates(0.71573,		0.305531,		0.0200255,		0.627679                ));
-    orientations.push_back(Coordinates(0.791535,		0.300303,		0.059734,		0.528887            ));
-    orientations.push_back(Coordinates(0.853797,		0.289937,		0.0984203,		0.421046            ));
-    orientations.push_back(Coordinates(0.901451,		0.27461,		0.135423,		0.306001            ));
-    orientations.push_back(Coordinates(0.93368,		0.254585,		0.170108,		0.18572                 ));
-    orientations.push_back(Coordinates(0.949933,		0.230203,		0.201883,		0.0622619           ));
-    orientations.push_back(Coordinates(0.949933,		0.201883,		0.230203,		-0.0622619          ));
-    orientations.push_back(Coordinates(0.93368,		0.170108,		0.254585,		-0.18572                ));
-    orientations.push_back(Coordinates(0.901451,		0.135423,		0.27461,		-0.306001           ));
-    orientations.push_back(Coordinates(0.853797,		0.0984203,		0.289937,		-0.421046           ));
-    orientations.push_back(Coordinates(0.791535,		0.059734,		0.300303,		-0.528887           ));
-    orientations.push_back(Coordinates(0.71573,		0.0200255,		0.305531,		-0.627679               ));
-    orientations.push_back(Coordinates(0.627678,		-0.0200256,		0.305531,		-0.71573            ));
-    orientations.push_back(Coordinates(0.528887,		-0.059734,		0.300303,		-0.791536           ));
-    orientations.push_back(Coordinates(0.421046,		-0.0984203,		0.289937,		-0.853797           ));
-    orientations.push_back(Coordinates(0.306001,		-0.135423,		0.27461,		-0.901451           ));
-    orientations.push_back(Coordinates(0.18572,		-0.170108,		0.254585,		-0.93368                ));
-    orientations.push_back(Coordinates(0.0622619,		-0.201883,		0.230203,		-0.949933           ));
-    orientations.push_back(Coordinates(-0.062262,		-0.230203,		0.201883,		-0.949933           ));
-    orientations.push_back(Coordinates(-0.185721,		-0.254585,		0.170108,		-0.93368            ));
-    orientations.push_back(Coordinates(-0.306001,		-0.27461,		0.135423,		-0.901451           ));
-    orientations.push_back(Coordinates(-0.421046,		-0.289937,		0.0984203,		-0.853797           ));
-    orientations.push_back(Coordinates(-0.528887,		-0.300303,		0.0597339,		-0.791535           ));
-    orientations.push_back(Coordinates(-0.627679,		-0.305531,		0.0200255,		-0.71573            ));
-    orientations.push_back(Coordinates(0.93368,		0.305531,		0.0200255,		0.18572                 ));
-    orientations.push_back(Coordinates(0.949933,		0.300303,		0.059734,		0.0622619           ));
-    orientations.push_back(Coordinates(0.949933,		0.289937,		0.0984203,		-0.0622619          ));
-    orientations.push_back(Coordinates(0.93368,		0.27461,		0.135423,		-0.18572                ));
-    orientations.push_back(Coordinates(0.901451,		0.254585,		0.170108,		-0.306001           ));
-    orientations.push_back(Coordinates(0.853797,		0.230203,		0.201883,		-0.421046           ));
-    orientations.push_back(Coordinates(0.791535,		0.201883,		0.230203,		-0.528887           ));
-    orientations.push_back(Coordinates(0.71573,		0.170108,		0.254585,		-0.627679               ));
-    orientations.push_back(Coordinates(0.627678,		0.135423,		0.27461,		-0.71573            ));
-    orientations.push_back(Coordinates(0.528887,		0.0984203,		0.289937,		-0.791536           ));
-    orientations.push_back(Coordinates(0.421046,		0.059734,		0.300303,		-0.853797           ));
-    orientations.push_back(Coordinates(0.306001,		0.0200255,		0.305531,		-0.901451           ));
-    orientations.push_back(Coordinates(0.18572,		-0.0200256,		0.305531,		-0.93368                ));
-    orientations.push_back(Coordinates(0.0622619,		-0.059734,		0.300303,		-0.949933           ));
-    orientations.push_back(Coordinates(-0.062262,		-0.0984203,		0.289937,		-0.949933           ));
-    orientations.push_back(Coordinates(-0.185721,		-0.135423,		0.27461,		-0.93368            ));
-    orientations.push_back(Coordinates(-0.306001,		-0.170108,		0.254585,		-0.901451           ));
-    orientations.push_back(Coordinates(-0.421046,		-0.201883,		0.230203,		-0.853797           ));
-    orientations.push_back(Coordinates(-0.528887,		-0.230203,		0.201883,		-0.791535           ));
-    orientations.push_back(Coordinates(-0.627679,		-0.254585,		0.170108,		-0.71573            ));
-    orientations.push_back(Coordinates(-0.71573,		-0.27461,		0.135423,		-0.627678           ));
-    orientations.push_back(Coordinates(-0.791536,		-0.289937,		0.0984203,		-0.528887           ));
-    orientations.push_back(Coordinates(-0.853797,		-0.300303,		0.0597339,		-0.421046           ));
-    orientations.push_back(Coordinates(-0.901451,		-0.305531,		0.0200255,		-0.306001           ));
-    orientations.push_back(Coordinates(0.905061,		0.407374,		0.0267007,		0.119154            ));
-    orientations.push_back(Coordinates(0.912871,		0.400404,		0.0796453,		-4.98786e-09        ));
-    orientations.push_back(Coordinates(0.905061,		0.386583,		0.131227,		-0.119154           ));
-    orientations.push_back(Coordinates(0.881766,		0.366147,		0.180564,		-0.236268           ));
-    orientations.push_back(Coordinates(0.843383,		0.339446,		0.226811,		-0.349341           ));
-    orientations.push_back(Coordinates(0.790569,		0.306937,		0.269177,		-0.456435           ));
-    orientations.push_back(Coordinates(0.724229,		0.269177,		0.306937,		-0.555721           ));
-    orientations.push_back(Coordinates(0.645497,		0.226811,		0.339446,		-0.645497           ));
-    orientations.push_back(Coordinates(0.555721,		0.180564,		0.366147,		-0.724229           ));
-    orientations.push_back(Coordinates(0.456435,		0.131227,		0.386583,		-0.790569           ));
-    orientations.push_back(Coordinates(0.349341,		0.0796453,		0.400404,		-0.843383           ));
-    orientations.push_back(Coordinates(0.236268,		0.0267007,		0.407374,		-0.881766           ));
-    orientations.push_back(Coordinates(0.119154,		-0.0267007,		0.407374,		-0.905061           ));
-    orientations.push_back(Coordinates(-4.48907e-08,		-0.0796453,		0.400404,		-0.912871       ));
-    orientations.push_back(Coordinates(-0.119154,		-0.131227,		0.386583,		-0.905061           ));
-    orientations.push_back(Coordinates(-0.236268,		-0.180564,		0.366147,		-0.881766           ));
-    orientations.push_back(Coordinates(-0.349341,		-0.226811,		0.339446,		-0.843383           ));
-    orientations.push_back(Coordinates(-0.456436,		-0.269177,		0.306937,		-0.790569           ));
-    orientations.push_back(Coordinates(-0.555721,		-0.306937,		0.269177,		-0.724229           ));
-    orientations.push_back(Coordinates(-0.645497,		-0.339446,		0.226811,		-0.645497           ));
-    orientations.push_back(Coordinates(-0.724229,		-0.366147,		0.180564,		-0.555721           ));
-    orientations.push_back(Coordinates(-0.790569,		-0.386583,		0.131227,		-0.456435           ));
-    orientations.push_back(Coordinates(-0.843383,		-0.400404,		0.0796453,		-0.349341           ));
-    orientations.push_back(Coordinates(-0.881766,		-0.407374,		0.0267007,		-0.236268           ));
-    orientations.push_back(Coordinates(0.790569,		0.407374,		0.0267007,		0.456435            ));
-    orientations.push_back(Coordinates(0.843383,		0.400404,		0.0796453,		0.349341            ));
-    orientations.push_back(Coordinates(0.881766,		0.386583,		0.131227,		0.236268            ));
-    orientations.push_back(Coordinates(0.905061,		0.366147,		0.180564,		0.119154            ));
-    orientations.push_back(Coordinates(0.912871,		0.339446,		0.226811,		-1.49636e-08        ));
-    orientations.push_back(Coordinates(0.905061,		0.306937,		0.269177,		-0.119154           ));
-    orientations.push_back(Coordinates(0.881766,		0.269177,		0.306937,		-0.236268           ));
-    orientations.push_back(Coordinates(0.843383,		0.226811,		0.339446,		-0.349341           ));
-    orientations.push_back(Coordinates(0.790569,		0.180564,		0.366147,		-0.456435           ));
-    orientations.push_back(Coordinates(0.724229,		0.131227,		0.386583,		-0.555721           ));
-    orientations.push_back(Coordinates(0.645497,		0.0796453,		0.400404,		-0.645497           ));
-    orientations.push_back(Coordinates(0.555721,		0.0267007,		0.407374,		-0.724229           ));
-    orientations.push_back(Coordinates(0.456435,		-0.0267007,		0.407374,		-0.790569           ));
-    orientations.push_back(Coordinates(0.349341,		-0.0796453,		0.400404,		-0.843383           ));
-    orientations.push_back(Coordinates(0.236268,		-0.131227,		0.386583,		-0.881766           ));
-    orientations.push_back(Coordinates(0.119154,		-0.180564,		0.366147,		-0.905061           ));
-    orientations.push_back(Coordinates(-5.48664e-08,		-0.226811,		0.339446,		-0.912871       ));
-    orientations.push_back(Coordinates(-0.119154,		-0.269177,		0.306937,		-0.905061           ));
-    orientations.push_back(Coordinates(-0.236268,		-0.306937,		0.269177,		-0.881766           ));
-    orientations.push_back(Coordinates(-0.349341,		-0.339446,		0.226811,		-0.843383           ));
-    orientations.push_back(Coordinates(-0.456436,		-0.366147,		0.180564,		-0.790569           ));
-    orientations.push_back(Coordinates(-0.555721,		-0.386583,		0.131227,		-0.724229           ));
-    orientations.push_back(Coordinates(-0.645497,		-0.400404,		0.0796453,		-0.645497           ));
-    orientations.push_back(Coordinates(-0.724229,		-0.407374,		0.0267007,		-0.555721           ));
-    orientations.push_back(Coordinates(0.820066,		0.498929,		0.0327016,		0.278375            ));
-    orientations.push_back(Coordinates(0.849385,		0.490393,		0.0975452,		0.168953            ));
-    orientations.push_back(Coordinates(0.864171,		0.473465,		0.16072,		0.0566408           ));
-    orientations.push_back(Coordinates(0.864171,		0.448436,		0.221144,		-0.0566408          ));
-    orientations.push_back(Coordinates(0.849385,		0.415735,		0.277785,		-0.168953           ));
-    orientations.push_back(Coordinates(0.820066,		0.37592,		0.329673,		-0.278375           ));
-    orientations.push_back(Coordinates(0.776715,		0.329673,		0.37592,		-0.383033           ));
-    orientations.push_back(Coordinates(0.720074,		0.277785,		0.415735,		-0.481138           ));
-    orientations.push_back(Coordinates(0.651112,		0.221144,		0.448436,		-0.57101            ));
-    orientations.push_back(Coordinates(0.57101,		0.16072,		0.473465,		-0.651112               ));
-    orientations.push_back(Coordinates(0.481138,		0.0975451,		0.490393,		-0.720074           ));
-    orientations.push_back(Coordinates(0.383033,		0.0327015,		0.498929,		-0.776715           ));
-    orientations.push_back(Coordinates(0.278375,		-0.0327016,		0.498929,		-0.820066           ));
-    orientations.push_back(Coordinates(0.168953,		-0.0975452,		0.490393,		-0.849385           ));
-    orientations.push_back(Coordinates(0.0566407,		-0.16072,		0.473465,		-0.864171           ));
-    orientations.push_back(Coordinates(-0.0566408,		-0.221144,		0.448436,		-0.864171           ));
-    orientations.push_back(Coordinates(-0.168953,		-0.277785,		0.415735,		-0.849385           ));
-    orientations.push_back(Coordinates(-0.278375,		-0.329673,		0.37592,		-0.820066           ));
-    orientations.push_back(Coordinates(-0.383033,		-0.37592,		0.329673,		-0.776715           ));
-    orientations.push_back(Coordinates(-0.481138,		-0.415735,		0.277785,		-0.720074           ));
-    orientations.push_back(Coordinates(-0.57101,		-0.448436,		0.221144,		-0.651112           ));
-    orientations.push_back(Coordinates(-0.651112,		-0.473465,		0.16072,		-0.57101            ));
-    orientations.push_back(Coordinates(-0.720074,		-0.490393,		0.0975451,		-0.481138           ));
-    orientations.push_back(Coordinates(-0.776715,		-0.498929,		0.0327015,		-0.383033           ));
-    orientations.push_back(Coordinates(0.306001,		0.305531,		0.0200255,		0.901451            ));
-    orientations.push_back(Coordinates(0.421046,		0.300303,		0.059734,		0.853797            ));
-    orientations.push_back(Coordinates(0.528887,		0.289937,		0.0984203,		0.791535            ));
-    orientations.push_back(Coordinates(0.627679,		0.27461,		0.135423,		0.71573             ));
-    orientations.push_back(Coordinates(0.71573,		0.254585,		0.170108,		0.627679                ));
-    orientations.push_back(Coordinates(0.791535,		0.230203,		0.201883,		0.528887            ));
-    orientations.push_back(Coordinates(0.853797,		0.201883,		0.230203,		0.421046            ));
-    orientations.push_back(Coordinates(0.901451,		0.170108,		0.254585,		0.306001            ));
-    orientations.push_back(Coordinates(0.93368,		0.135423,		0.27461,		0.18572                 ));
-    orientations.push_back(Coordinates(0.949933,		0.0984203,		0.289937,		0.0622619           ));
-    orientations.push_back(Coordinates(0.949933,		0.059734,		0.300303,		-0.062262           ));
-    orientations.push_back(Coordinates(0.93368,		0.0200255,		0.305531,		-0.18572                ));
-    orientations.push_back(Coordinates(0.901451,		-0.0200256,		0.305531,		-0.306001           ));
-    orientations.push_back(Coordinates(0.853797,		-0.059734,		0.300303,		-0.421046           ));
-    orientations.push_back(Coordinates(0.791535,		-0.0984203,		0.289937,		-0.528887           ));
-    orientations.push_back(Coordinates(0.71573,		-0.135423,		0.27461,		-0.627679               ));
-    orientations.push_back(Coordinates(0.627678,		-0.170108,		0.254585,		-0.71573            ));
-    orientations.push_back(Coordinates(0.528887,		-0.201883,		0.230203,		-0.791536           ));
-    orientations.push_back(Coordinates(0.421046,		-0.230203,		0.201883,		-0.853797           ));
-    orientations.push_back(Coordinates(0.306001,		-0.254585,		0.170108,		-0.901451           ));
-    orientations.push_back(Coordinates(0.18572,		-0.27461,		0.135423,		-0.93368                ));
-    orientations.push_back(Coordinates(0.0622618,		-0.289937,		0.0984203,		-0.949933           ));
-    orientations.push_back(Coordinates(-0.062262,		-0.300303,		0.0597339,		-0.949933           ));
-    orientations.push_back(Coordinates(-0.185721,		-0.305531,		0.0200255,		-0.93368            ));
-    orientations.push_back(Coordinates(0.555721,		0.407374,		0.0267007,		0.724229            ));
-    orientations.push_back(Coordinates(0.645497,		0.400404,		0.0796453,		0.645497            ));
-    orientations.push_back(Coordinates(0.724229,		0.386583,		0.131227,		0.555721            ));
-    orientations.push_back(Coordinates(0.790569,		0.366147,		0.180564,		0.456435            ));
-    orientations.push_back(Coordinates(0.843383,		0.339446,		0.226811,		0.349341            ));
-    orientations.push_back(Coordinates(0.881766,		0.306937,		0.269177,		0.236268            ));
-    orientations.push_back(Coordinates(0.905061,		0.269177,		0.306937,		0.119154            ));
-    orientations.push_back(Coordinates(0.912871,		0.226811,		0.339446,		-2.49393e-08        ));
-    orientations.push_back(Coordinates(0.905061,		0.180564,		0.366147,		-0.119154           ));
-    orientations.push_back(Coordinates(0.881766,		0.131227,		0.386583,		-0.236268           ));
-    orientations.push_back(Coordinates(0.843383,		0.0796453,		0.400404,		-0.349341           ));
-    orientations.push_back(Coordinates(0.790569,		0.0267007,		0.407374,		-0.456435           ));
-    orientations.push_back(Coordinates(0.724229,		-0.0267007,		0.407374,		-0.555721           ));
-    orientations.push_back(Coordinates(0.645497,		-0.0796453,		0.400404,		-0.645497           ));
-    orientations.push_back(Coordinates(0.555721,		-0.131227,		0.386583,		-0.724229           ));
-    orientations.push_back(Coordinates(0.456435,		-0.180564,		0.366147,		-0.790569           ));
-    orientations.push_back(Coordinates(0.349341,		-0.226811,		0.339446,		-0.843383           ));
-    orientations.push_back(Coordinates(0.236268,		-0.269177,		0.306937,		-0.881766           ));
-    orientations.push_back(Coordinates(0.119154,		-0.306937,		0.269177,		-0.905061           ));
-    orientations.push_back(Coordinates(-6.48421e-08,		-0.339446,		0.226811,		-0.912871       ));
-    orientations.push_back(Coordinates(-0.119154,		-0.366147,		0.180564,		-0.905061           ));
-    orientations.push_back(Coordinates(-0.236268,		-0.386583,		0.131227,		-0.881766           ));
-    orientations.push_back(Coordinates(-0.349341,		-0.400404,		0.0796453,		-0.843383           ));
-    orientations.push_back(Coordinates(-0.456436,		-0.407374,		0.0267007,		-0.790569           ));
-    orientations.push_back(Coordinates(0.236268,		0.407374,		0.0267007,		0.881766            ));
-    orientations.push_back(Coordinates(0.349341,		0.400404,		0.0796453,		0.843383            ));
-    orientations.push_back(Coordinates(0.456435,		0.386583,		0.131227,		0.790569            ));
-    orientations.push_back(Coordinates(0.555721,		0.366147,		0.180564,		0.724229            ));
-    orientations.push_back(Coordinates(0.645497,		0.339446,		0.226811,		0.645497            ));
-    orientations.push_back(Coordinates(0.724229,		0.306937,		0.269177,		0.555721            ));
-    orientations.push_back(Coordinates(0.790569,		0.269177,		0.306937,		0.456435            ));
-    orientations.push_back(Coordinates(0.843383,		0.226811,		0.339446,		0.349341            ));
-    orientations.push_back(Coordinates(0.881766,		0.180564,		0.366147,		0.236268            ));
-    orientations.push_back(Coordinates(0.905061,		0.131227,		0.386583,		0.119154            ));
-    orientations.push_back(Coordinates(0.912871,		0.0796453,		0.400404,		-3.4915e-08         ));
-    orientations.push_back(Coordinates(0.905061,		0.0267007,		0.407374,		-0.119154           ));
-    orientations.push_back(Coordinates(0.881766,		-0.0267007,		0.407374,		-0.236268           ));
-    orientations.push_back(Coordinates(0.843383,		-0.0796453,		0.400404,		-0.349341           ));
-    orientations.push_back(Coordinates(0.790569,		-0.131227,		0.386583,		-0.456436           ));
-    orientations.push_back(Coordinates(0.724229,		-0.180564,		0.366147,		-0.555721           ));
-    orientations.push_back(Coordinates(0.645497,		-0.226811,		0.339446,		-0.645497           ));
-    orientations.push_back(Coordinates(0.555721,		-0.269177,		0.306937,		-0.724229           ));
-    orientations.push_back(Coordinates(0.456435,		-0.306937,		0.269177,		-0.790569           ));
-    orientations.push_back(Coordinates(0.349341,		-0.339446,		0.226811,		-0.843383           ));
-    orientations.push_back(Coordinates(0.236268,		-0.366147,		0.180564,		-0.881766           ));
-    orientations.push_back(Coordinates(0.119153,		-0.386583,		0.131227,		-0.905061           ));
-    orientations.push_back(Coordinates(-7.48179e-08,		-0.400404,		0.0796453,		-0.912871       ));
-    orientations.push_back(Coordinates(-0.119154,		-0.407374,		0.0267007,		-0.905061           ));
-    orientations.push_back(Coordinates(0.383033,		0.498929,		0.0327016,		0.776715            ));
-    orientations.push_back(Coordinates(0.481138,		0.490393,		0.0975452,		0.720074            ));
-    orientations.push_back(Coordinates(0.57101,		0.473465,		0.16072,		0.651112                ));
-    orientations.push_back(Coordinates(0.651112,		0.448436,		0.221144,		0.57101             ));
-    orientations.push_back(Coordinates(0.720074,		0.415735,		0.277785,		0.481138            ));
-    orientations.push_back(Coordinates(0.776715,		0.37592,		0.329673,		0.383033            ));
-    orientations.push_back(Coordinates(0.820066,		0.329673,		0.37592,		0.278375            ));
-    orientations.push_back(Coordinates(0.849385,		0.277785,		0.415735,		0.168953            ));
-    orientations.push_back(Coordinates(0.864171,		0.221144,		0.448436,		0.0566407           ));
-    orientations.push_back(Coordinates(0.864171,		0.16072,		0.473465,		-0.0566408          ));
-    orientations.push_back(Coordinates(0.849385,		0.0975451,		0.490393,		-0.168953           ));
-    orientations.push_back(Coordinates(0.820066,		0.0327015,		0.498929,		-0.278375           ));
-    orientations.push_back(Coordinates(0.776715,		-0.0327016,		0.498929,		-0.383033           ));
-    orientations.push_back(Coordinates(0.720074,		-0.0975452,		0.490393,		-0.481138           ));
-    orientations.push_back(Coordinates(0.651112,		-0.16072,		0.473465,		-0.57101            ));
-    orientations.push_back(Coordinates(0.57101,		-0.221144,		0.448436,		-0.651112               ));
-    orientations.push_back(Coordinates(0.481138,		-0.277785,		0.415735,		-0.720074           ));
-    orientations.push_back(Coordinates(0.383033,		-0.329673,		0.37592,		-0.776715           ));
-    orientations.push_back(Coordinates(0.278375,		-0.37592,		0.329673,		-0.820066           ));
-    orientations.push_back(Coordinates(0.168953,		-0.415735,		0.277785,		-0.849385           ));
-    orientations.push_back(Coordinates(0.0566407,		-0.448436,		0.221144,		-0.864171           ));
-    orientations.push_back(Coordinates(-0.0566408,		-0.473465,		0.16072,		-0.864171           ));
-    orientations.push_back(Coordinates(-0.168953,		-0.490393,		0.0975451,		-0.849385           ));
-    orientations.push_back(Coordinates(-0.278375,		-0.498929,		0.0327015,		-0.820066           ));
-    orientations.push_back(Coordinates(0.651112,		0.498929,		0.0327016,		0.57101             ));
-    orientations.push_back(Coordinates(0.720074,		0.490393,		0.0975452,		0.481138            ));
-    orientations.push_back(Coordinates(0.776715,		0.473465,		0.16072,		0.383033            ));
-    orientations.push_back(Coordinates(0.820066,		0.448436,		0.221144,		0.278375            ));
-    orientations.push_back(Coordinates(0.849385,		0.415735,		0.277785,		0.168953            ));
-    orientations.push_back(Coordinates(0.864171,		0.37592,		0.329673,		0.0566408           ));
-    orientations.push_back(Coordinates(0.864171,		0.329673,		0.37592,		-0.0566408          ));
-    orientations.push_back(Coordinates(0.849385,		0.277785,		0.415735,		-0.168953           ));
-    orientations.push_back(Coordinates(0.820066,		0.221144,		0.448436,		-0.278375           ));
-    orientations.push_back(Coordinates(0.776715,		0.16072,		0.473465,		-0.383033           ));
-    orientations.push_back(Coordinates(0.720074,		0.0975451,		0.490393,		-0.481138           ));
-    orientations.push_back(Coordinates(0.651112,		0.0327015,		0.498929,		-0.57101            ));
-    orientations.push_back(Coordinates(0.57101,		-0.0327016,		0.498929,		-0.651112               ));
-    orientations.push_back(Coordinates(0.481138,		-0.0975452,		0.490393,		-0.720074           ));
-    orientations.push_back(Coordinates(0.383033,		-0.16072,		0.473465,		-0.776715           ));
-    orientations.push_back(Coordinates(0.278375,		-0.221144,		0.448436,		-0.820066           ));
-    orientations.push_back(Coordinates(0.168953,		-0.277785,		0.415735,		-0.849385           ));
-    orientations.push_back(Coordinates(0.0566407,		-0.329673,		0.37592,		-0.864171           ));
-    orientations.push_back(Coordinates(-0.0566408,		-0.37592,		0.329673,		-0.864171           ));
-    orientations.push_back(Coordinates(-0.168953,		-0.415735,		0.277785,		-0.849385           ));
-    orientations.push_back(Coordinates(-0.278375,		-0.448436,		0.221144,		-0.820066           ));
-    orientations.push_back(Coordinates(-0.383033,		-0.473465,		0.16072,		-0.776715           ));
-    orientations.push_back(Coordinates(-0.481138,		-0.490393,		0.0975451,		-0.720074           ));
-    orientations.push_back(Coordinates(-0.57101,		-0.498929,		0.0327015,		-0.651112           ));
-    orientations.push_back(Coordinates(0.707107,		0.576114,		0.0377605,		0.408248            ));
-    orientations.push_back(Coordinates(0.754344,		0.566257,		0.112635,		0.31246             ));
-    orientations.push_back(Coordinates(0.788675,		0.54671,		0.185583,		0.211325            ));
-    orientations.push_back(Coordinates(0.809511,		0.51781,		0.255356,		0.106574            ));
-    orientations.push_back(Coordinates(0.816497,		0.480049,		0.320759,		-1.33838e-08        ));
-    orientations.push_back(Coordinates(0.809511,		0.434075,		0.380673,		-0.106574           ));
-    orientations.push_back(Coordinates(0.788675,		0.380673,		0.434075,		-0.211325           ));
-    orientations.push_back(Coordinates(0.754344,		0.320759,		0.480049,		-0.31246            ));
-    orientations.push_back(Coordinates(0.707107,		0.255355,		0.51781,		-0.408248           ));
-    orientations.push_back(Coordinates(0.64777,		0.185583,		0.54671,		-0.497052               ));
-    orientations.push_back(Coordinates(0.57735,		0.112635,		0.566257,		-0.57735                ));
-    orientations.push_back(Coordinates(0.497052,		0.0377605,		0.576114,		-0.64777            ));
-    orientations.push_back(Coordinates(0.408248,		-0.0377605,		0.576114,		-0.707107           ));
-    orientations.push_back(Coordinates(0.31246,		-0.112635,		0.566257,		-0.754344               ));
-    orientations.push_back(Coordinates(0.211325,		-0.185583,		0.54671,		-0.788675           ));
-    orientations.push_back(Coordinates(0.106574,		-0.255356,		0.51781,		-0.809511           ));
-    orientations.push_back(Coordinates(-4.9074e-08,		-0.320759,		0.480049,		-0.816497           ));
-    orientations.push_back(Coordinates(-0.106574,		-0.380674,		0.434075,		-0.809511           ));
-    orientations.push_back(Coordinates(-0.211325,		-0.434075,		0.380673,		-0.788675           ));
-    orientations.push_back(Coordinates(-0.31246,		-0.480049,		0.320759,		-0.754344           ));
-    orientations.push_back(Coordinates(-0.408248,		-0.51781,		0.255355,		-0.707107           ));
-    orientations.push_back(Coordinates(-0.497052,		-0.54671,		0.185583,		-0.64777            ));
-    orientations.push_back(Coordinates(-0.57735,		-0.566257,		0.112635,		-0.57735            ));
-    orientations.push_back(Coordinates(-0.64777,		-0.576114,		0.0377605,		-0.497052           ));
-    orientations.push_back(Coordinates(0.497052,		0.576114,		0.0377605,		0.64777             ));
-    orientations.push_back(Coordinates(0.57735,		0.566257,		0.112635,		0.57735                 ));
-    orientations.push_back(Coordinates(0.64777,		0.54671,		0.185583,		0.497052                ));
-    orientations.push_back(Coordinates(0.707107,		0.51781,		0.255356,		0.408248            ));
-    orientations.push_back(Coordinates(0.754344,		0.480049,		0.320759,		0.31246             ));
-    orientations.push_back(Coordinates(0.788675,		0.434075,		0.380673,		0.211325            ));
-    orientations.push_back(Coordinates(0.809511,		0.380673,		0.434075,		0.106574            ));
-    orientations.push_back(Coordinates(0.816497,		0.320759,		0.480049,		-2.23064e-08        ));
-    orientations.push_back(Coordinates(0.809511,		0.255355,		0.51781,		-0.106574           ));
-    orientations.push_back(Coordinates(0.788675,		0.185583,		0.54671,		-0.211325           ));
-    orientations.push_back(Coordinates(0.754344,		0.112635,		0.566257,		-0.31246            ));
-    orientations.push_back(Coordinates(0.707107,		0.0377605,		0.576114,		-0.408248           ));
-    orientations.push_back(Coordinates(0.64777,		-0.0377605,		0.576114,		-0.497052               ));
-    orientations.push_back(Coordinates(0.57735,		-0.112635,		0.566257,		-0.57735                ));
-    orientations.push_back(Coordinates(0.497052,		-0.185583,		0.54671,		-0.64777            ));
-    orientations.push_back(Coordinates(0.408248,		-0.255356,		0.51781,		-0.707107           ));
-    orientations.push_back(Coordinates(0.31246,		-0.320759,		0.480049,		-0.754344               ));
-    orientations.push_back(Coordinates(0.211325,		-0.380674,		0.434075,		-0.788675           ));
-    orientations.push_back(Coordinates(0.106574,		-0.434075,		0.380673,		-0.809511           ));
-    orientations.push_back(Coordinates(-5.79966e-08,		-0.480049,		0.320759,		-0.816497       ));
-    orientations.push_back(Coordinates(-0.106574,		-0.51781,		0.255355,		-0.809511           ));
-    orientations.push_back(Coordinates(-0.211325,		-0.54671,		0.185583,		-0.788675           ));
-    orientations.push_back(Coordinates(-0.31246,		-0.566257,		0.112635,		-0.754344           ));
-    orientations.push_back(Coordinates(-0.408248,		-0.576114,		0.0377605,		-0.707107           ));
-    orientations.push_back(Coordinates(0.574227,		0.644115,		0.0422175,		0.503584            ));
-    orientations.push_back(Coordinates(0.635045,		0.633094,		0.12593,		0.424324            ));
-    orientations.push_back(Coordinates(0.684998,		0.611241,		0.207488,		0.337804            ));
-    orientations.push_back(Coordinates(0.72323,		0.578929,		0.285496,		0.245503                ));
-    orientations.push_back(Coordinates(0.749087,		0.536711,		0.358619,		0.149003            ));
-    orientations.push_back(Coordinates(0.762127,		0.485311,		0.425606,		0.0499524           ));
-    orientations.push_back(Coordinates(0.762127,		0.425606,		0.485311,		-0.0499525          ));
-    orientations.push_back(Coordinates(0.749087,		0.358619,		0.536711,		-0.149003           ));
-    orientations.push_back(Coordinates(0.72323,		0.285496,		0.578929,		-0.245503               ));
-    orientations.push_back(Coordinates(0.684998,		0.207488,		0.611241,		-0.337804           ));
-    orientations.push_back(Coordinates(0.635045,		0.12593,		0.633094,		-0.424324           ));
-    orientations.push_back(Coordinates(0.574227,		0.0422175,		0.644115,		-0.503584           ));
-    orientations.push_back(Coordinates(0.503584,		-0.0422176,		0.644115,		-0.574227           ));
-    orientations.push_back(Coordinates(0.424324,		-0.12593,		0.633094,		-0.635045           ));
-    orientations.push_back(Coordinates(0.337804,		-0.207488,		0.611241,		-0.684998           ));
-    orientations.push_back(Coordinates(0.245503,		-0.285496,		0.578929,		-0.72323            ));
-    orientations.push_back(Coordinates(0.149003,		-0.358619,		0.536711,		-0.749087           ));
-    orientations.push_back(Coordinates(0.0499524,		-0.425606,		0.48531,		-0.762127           ));
-    orientations.push_back(Coordinates(-0.0499525,		-0.485311,		0.425606,		-0.762127           ));
-    orientations.push_back(Coordinates(-0.149003,		-0.536711,		0.358619,		-0.749087           ));
-    orientations.push_back(Coordinates(-0.245504,		-0.578929,		0.285496,		-0.72323            ));
-    orientations.push_back(Coordinates(-0.337804,		-0.611241,		0.207488,		-0.684998           ));
-    orientations.push_back(Coordinates(-0.424324,		-0.633094,		0.12593,		-0.635045           ));
-    orientations.push_back(Coordinates(-0.503584,		-0.644115,		0.0422175,		-0.574227           ));
-    orientations.push_back(Coordinates(0.655903,		0.101844,		0.00667518,		-0.747914           ));
-    orientations.push_back(Coordinates(0.552669,		0.100101,		0.0199113,		-0.827128           ));
-    orientations.push_back(Coordinates(0.439979,		0.0966457,		0.0328068,		-0.892189           ));
-    orientations.push_back(Coordinates(0.319761,		0.0915367,		0.0451409,		-0.941985           ));
-    orientations.push_back(Coordinates(0.194072,		0.0848615,		0.0567027,		-0.975664           ));
-    orientations.push_back(Coordinates(0.0650616,		0.0767343,		0.0672942,		-0.992648           ));
-    orientations.push_back(Coordinates(-0.0650616,		0.0672942,		0.0767343,		-0.992648           ));
-    orientations.push_back(Coordinates(-0.194072,		0.0567026,		0.0848615,		-0.975664           ));
-    orientations.push_back(Coordinates(-0.319761,		0.0451409,		0.0915367,		-0.941985           ));
-    orientations.push_back(Coordinates(-0.439979,		0.0328068,		0.0966457,		-0.892189           ));
-    orientations.push_back(Coordinates(-0.552669,		0.0199113,		0.100101,		-0.827128           ));
-    orientations.push_back(Coordinates(-0.655903,		0.00667517,		0.101844,		-0.747914           ));
-    orientations.push_back(Coordinates(-0.747914,		-0.00667518,		0.101844,		-0.655903       ));
-    orientations.push_back(Coordinates(-0.827128,		-0.0199113,		0.100101,		-0.552669           ));
-    orientations.push_back(Coordinates(-0.892189,		-0.0328068,		0.0966456,		-0.439979           ));
-    orientations.push_back(Coordinates(-0.941985,		-0.0451409,		0.0915367,		-0.319761           ));
-    orientations.push_back(Coordinates(-0.975664,		-0.0567027,		0.0848615,		-0.194072           ));
-    orientations.push_back(Coordinates(-0.992648,		-0.0672942,		0.0767343,		-0.0650615          ));
-    orientations.push_back(Coordinates(-0.992648,		-0.0767343,		0.0672942,		0.0650617           ));
-    orientations.push_back(Coordinates(-0.975664,		-0.0848615,		0.0567026,		0.194072            ));
-    orientations.push_back(Coordinates(-0.941985,		-0.0915367,		0.0451409,		0.319761            ));
-    orientations.push_back(Coordinates(-0.892189,		-0.0966457,		0.0328068,		0.439979            ));
-    orientations.push_back(Coordinates(-0.827128,		-0.100101,		0.0199113,		0.552669            ));
-    orientations.push_back(Coordinates(-0.747914,		-0.101844,		0.00667517,		0.655903            ));
-    orientations.push_back(Coordinates(0.314672,		0.203687,		0.0133504,		-0.926993           ));
-    orientations.push_back(Coordinates(0.190983,		0.200202,		0.0398226,		-0.960135           ));
-    orientations.push_back(Coordinates(0.0640261,		0.193291,		0.0656136,		-0.976849           ));
-    orientations.push_back(Coordinates(-0.0640261,		0.183073,		0.0902818,		-0.976849           ));
-    orientations.push_back(Coordinates(-0.190983,		0.169723,		0.113405,		-0.960135           ));
-    orientations.push_back(Coordinates(-0.314672,		0.153469,		0.134588,		-0.926993           ));
-    orientations.push_back(Coordinates(-0.432976,		0.134588,		0.153469,		-0.877989           ));
-    orientations.push_back(Coordinates(-0.543873,		0.113405,		0.169723,		-0.813963           ));
-    orientations.push_back(Coordinates(-0.645463,		0.0902818,		0.183073,		-0.73601            ));
-    orientations.push_back(Coordinates(-0.73601,		0.0656135,		0.193291,		-0.645463           ));
-    orientations.push_back(Coordinates(-0.813963,		0.0398226,		0.200202,		-0.543873           ));
-    orientations.push_back(Coordinates(-0.877989,		0.0133503,		0.203687,		-0.432976           ));
-    orientations.push_back(Coordinates(-0.926993,		-0.0133504,		0.203687,		-0.314672           ));
-    orientations.push_back(Coordinates(-0.960135,		-0.0398227,		0.200202,		-0.190983           ));
-    orientations.push_back(Coordinates(-0.976849,		-0.0656136,		0.193291,		-0.064026           ));
-    orientations.push_back(Coordinates(-0.976849,		-0.0902818,		0.183073,		0.0640261           ));
-    orientations.push_back(Coordinates(-0.960135,		-0.113405,		0.169723,		0.190983            ));
-    orientations.push_back(Coordinates(-0.926993,		-0.134588,		0.153469,		0.314672            ));
-    orientations.push_back(Coordinates(-0.877989,		-0.153469,		0.134588,		0.432976            ));
-    orientations.push_back(Coordinates(-0.813963,		-0.169723,		0.113405,		0.543873            ));
-    orientations.push_back(Coordinates(-0.73601,		-0.183073,		0.0902818,		0.645463            ));
-    orientations.push_back(Coordinates(-0.645463,		-0.193291,		0.0656135,		0.73601             ));
-    orientations.push_back(Coordinates(-0.543873,		-0.200202,		0.0398226,		0.813963            ));
-    orientations.push_back(Coordinates(-0.432976,		-0.203687,		0.0133503,		0.877989            ));
-    orientations.push_back(Coordinates(0.877989,		0.203687,		0.0133504,		-0.432976           ));
-    orientations.push_back(Coordinates(0.813963,		0.200202,		0.0398226,		-0.543873           ));
-    orientations.push_back(Coordinates(0.73601,		0.193291,		0.0656136,		-0.645463               ));
-    orientations.push_back(Coordinates(0.645463,		0.183073,		0.0902818,		-0.73601            ));
-    orientations.push_back(Coordinates(0.543873,		0.169723,		0.113405,		-0.813963           ));
-    orientations.push_back(Coordinates(0.432976,		0.153469,		0.134588,		-0.877989           ));
-    orientations.push_back(Coordinates(0.314672,		0.134588,		0.153469,		-0.926993           ));
-    orientations.push_back(Coordinates(0.190983,		0.113405,		0.169723,		-0.960135           ));
-    orientations.push_back(Coordinates(0.064026,		0.0902818,		0.183073,		-0.976849           ));
-    orientations.push_back(Coordinates(-0.0640261,		0.0656135,		0.193291,		-0.976849           ));
-    orientations.push_back(Coordinates(-0.190983,		0.0398226,		0.200202,		-0.960135           ));
-    orientations.push_back(Coordinates(-0.314672,		0.0133503,		0.203687,		-0.926993           ));
-    orientations.push_back(Coordinates(-0.432976,		-0.0133504,		0.203687,		-0.877989           ));
-    orientations.push_back(Coordinates(-0.543873,		-0.0398227,		0.200202,		-0.813963           ));
-    orientations.push_back(Coordinates(-0.645463,		-0.0656136,		0.193291,		-0.73601            ));
-    orientations.push_back(Coordinates(-0.73601,		-0.0902818,		0.183073,		-0.645463           ));
-    orientations.push_back(Coordinates(-0.813963,		-0.113405,		0.169723,		-0.543873           ));
-    orientations.push_back(Coordinates(-0.877989,		-0.134588,		0.153469,		-0.432976           ));
-    orientations.push_back(Coordinates(-0.926993,		-0.153469,		0.134588,		-0.314671           ));
-    orientations.push_back(Coordinates(-0.960135,		-0.169723,		0.113405,		-0.190983           ));
-    orientations.push_back(Coordinates(-0.976849,		-0.183073,		0.0902818,		-0.064026           ));
-    orientations.push_back(Coordinates(-0.976849,		-0.193291,		0.0656135,		0.0640261           ));
-    orientations.push_back(Coordinates(-0.960135,		-0.200202,		0.0398226,		0.190983            ));
-    orientations.push_back(Coordinates(-0.926992,		-0.203687,		0.0133503,		0.314672            ));
-    orientations.push_back(Coordinates(0.627679,		0.305531,		0.0200255,		-0.71573            ));
-    orientations.push_back(Coordinates(0.528887,		0.300303,		0.059734,		-0.791535           ));
-    orientations.push_back(Coordinates(0.421046,		0.289937,		0.0984203,		-0.853797           ));
-    orientations.push_back(Coordinates(0.306001,		0.27461,		0.135423,		-0.901451           ));
-    orientations.push_back(Coordinates(0.18572,		0.254585,		0.170108,		-0.93368                ));
-    orientations.push_back(Coordinates(0.0622619,		0.230203,		0.201883,		-0.949933           ));
-    orientations.push_back(Coordinates(-0.0622619,		0.201883,		0.230203,		-0.949933           ));
-    orientations.push_back(Coordinates(-0.18572,		0.170108,		0.254585,		-0.93368            ));
-    orientations.push_back(Coordinates(-0.306001,		0.135423,		0.27461,		-0.901451           ));
-    orientations.push_back(Coordinates(-0.421046,		0.0984203,		0.289937,		-0.853797           ));
-    orientations.push_back(Coordinates(-0.528887,		0.059734,		0.300303,		-0.791535           ));
-    orientations.push_back(Coordinates(-0.627679,		0.0200255,		0.305531,		-0.71573            ));
-    orientations.push_back(Coordinates(-0.71573,		-0.0200256,		0.305531,		-0.627678           ));
-    orientations.push_back(Coordinates(-0.791536,		-0.059734,		0.300303,		-0.528887           ));
-    orientations.push_back(Coordinates(-0.853797,		-0.0984203,		0.289937,		-0.421046           ));
-    orientations.push_back(Coordinates(-0.901451,		-0.135423,		0.27461,		-0.306001           ));
-    orientations.push_back(Coordinates(-0.93368,		-0.170108,		0.254585,		-0.18572            ));
-    orientations.push_back(Coordinates(-0.949933,		-0.201883,		0.230203,		-0.0622619          ));
-    orientations.push_back(Coordinates(-0.949933,		-0.230203,		0.201883,		0.062262            ));
-    orientations.push_back(Coordinates(-0.93368,		-0.254585,		0.170108,		0.185721            ));
-    orientations.push_back(Coordinates(-0.901451,		-0.27461,		0.135423,		0.306001            ));
-    orientations.push_back(Coordinates(-0.853797,		-0.289937,		0.0984203,		0.421046            ));
-    orientations.push_back(Coordinates(-0.791535,		-0.300303,		0.0597339,		0.528887            ));
-    orientations.push_back(Coordinates(-0.71573,		-0.305531,		0.0200255,		0.627679            ));
-    orientations.push_back(Coordinates(0.18572,		0.305531,		0.0200255,		-0.93368                ));
-    orientations.push_back(Coordinates(0.0622619,		0.300303,		0.059734,		-0.949933           ));
-    orientations.push_back(Coordinates(-0.0622619,		0.289937,		0.0984203,		-0.949933           ));
-    orientations.push_back(Coordinates(-0.18572,		0.27461,		0.135423,		-0.93368            ));
-    orientations.push_back(Coordinates(-0.306001,		0.254585,		0.170108,		-0.901451           ));
-    orientations.push_back(Coordinates(-0.421046,		0.230203,		0.201883,		-0.853797           ));
-    orientations.push_back(Coordinates(-0.528887,		0.201883,		0.230203,		-0.791535           ));
-    orientations.push_back(Coordinates(-0.627679,		0.170108,		0.254585,		-0.71573            ));
-    orientations.push_back(Coordinates(-0.71573,		0.135423,		0.27461,		-0.627678           ));
-    orientations.push_back(Coordinates(-0.791536,		0.0984203,		0.289937,		-0.528887           ));
-    orientations.push_back(Coordinates(-0.853797,		0.059734,		0.300303,		-0.421046           ));
-    orientations.push_back(Coordinates(-0.901451,		0.0200255,		0.305531,		-0.306001           ));
-    orientations.push_back(Coordinates(-0.93368,		-0.0200256,		0.305531,		-0.18572            ));
-    orientations.push_back(Coordinates(-0.949933,		-0.059734,		0.300303,		-0.0622619          ));
-    orientations.push_back(Coordinates(-0.949933,		-0.0984203,		0.289937,		0.062262            ));
-    orientations.push_back(Coordinates(-0.93368,		-0.135423,		0.27461,		0.185721            ));
-    orientations.push_back(Coordinates(-0.901451,		-0.170108,		0.254585,		0.306001            ));
-    orientations.push_back(Coordinates(-0.853797,		-0.201883,		0.230203,		0.421046            ));
-    orientations.push_back(Coordinates(-0.791535,		-0.230203,		0.201883,		0.528887            ));
-    orientations.push_back(Coordinates(-0.71573,		-0.254585,		0.170108,		0.627679            ));
-    orientations.push_back(Coordinates(-0.627678,		-0.27461,		0.135423,		0.71573             ));
-    orientations.push_back(Coordinates(-0.528887,		-0.289937,		0.0984203,		0.791536            ));
-    orientations.push_back(Coordinates(-0.421046,		-0.300303,		0.0597339,		0.853797            ));
-    orientations.push_back(Coordinates(-0.306001,		-0.305531,		0.0200255,		0.901451            ));
-    orientations.push_back(Coordinates(0.119154,		0.407374,		0.0267007,		-0.905061           ));
-    orientations.push_back(Coordinates(-4.98786e-09,		0.400404,		0.0796453,		-0.912871       ));
-    orientations.push_back(Coordinates(-0.119154,		0.386583,		0.131227,		-0.905061           ));
-    orientations.push_back(Coordinates(-0.236268,		0.366147,		0.180564,		-0.881766           ));
-    orientations.push_back(Coordinates(-0.349341,		0.339446,		0.226811,		-0.843383           ));
-    orientations.push_back(Coordinates(-0.456435,		0.306937,		0.269177,		-0.790569           ));
-    orientations.push_back(Coordinates(-0.555721,		0.269177,		0.306937,		-0.724229           ));
-    orientations.push_back(Coordinates(-0.645497,		0.226811,		0.339446,		-0.645497           ));
-    orientations.push_back(Coordinates(-0.724229,		0.180564,		0.366147,		-0.555721           ));
-    orientations.push_back(Coordinates(-0.790569,		0.131227,		0.386583,		-0.456435           ));
-    orientations.push_back(Coordinates(-0.843383,		0.0796453,		0.400404,		-0.349341           ));
-    orientations.push_back(Coordinates(-0.881766,		0.0267007,		0.407374,		-0.236268           ));
-    orientations.push_back(Coordinates(-0.905061,		-0.0267007,		0.407374,		-0.119154           ));
-    orientations.push_back(Coordinates(-0.912871,		-0.0796453,		0.400404,		4.48907e-08         ));
-    orientations.push_back(Coordinates(-0.905061,		-0.131227,		0.386583,		0.119154            ));
-    orientations.push_back(Coordinates(-0.881766,		-0.180564,		0.366147,		0.236268            ));
-    orientations.push_back(Coordinates(-0.843383,		-0.226811,		0.339446,		0.349341            ));
-    orientations.push_back(Coordinates(-0.790569,		-0.269177,		0.306937,		0.456436            ));
-    orientations.push_back(Coordinates(-0.724229,		-0.306937,		0.269177,		0.555721            ));
-    orientations.push_back(Coordinates(-0.645497,		-0.339446,		0.226811,		0.645497            ));
-    orientations.push_back(Coordinates(-0.555721,		-0.366147,		0.180564,		0.724229            ));
-    orientations.push_back(Coordinates(-0.456435,		-0.386583,		0.131227,		0.790569            ));
-    orientations.push_back(Coordinates(-0.349341,		-0.400404,		0.0796453,		0.843383            ));
-    orientations.push_back(Coordinates(-0.236268,		-0.407374,		0.0267007,		0.881766            ));
-    orientations.push_back(Coordinates(0.456435,		0.407374,		0.0267007,		-0.790569           ));
-    orientations.push_back(Coordinates(0.349341,		0.400404,		0.0796453,		-0.843383           ));
-    orientations.push_back(Coordinates(0.236268,		0.386583,		0.131227,		-0.881766           ));
-    orientations.push_back(Coordinates(0.119154,		0.366147,		0.180564,		-0.905061           ));
-    orientations.push_back(Coordinates(-1.49636e-08,		0.339446,		0.226811,		-0.912871       ));
-    orientations.push_back(Coordinates(-0.119154,		0.306937,		0.269177,		-0.905061           ));
-    orientations.push_back(Coordinates(-0.236268,		0.269177,		0.306937,		-0.881766           ));
-    orientations.push_back(Coordinates(-0.349341,		0.226811,		0.339446,		-0.843383           ));
-    orientations.push_back(Coordinates(-0.456435,		0.180564,		0.366147,		-0.790569           ));
-    orientations.push_back(Coordinates(-0.555721,		0.131227,		0.386583,		-0.724229           ));
-    orientations.push_back(Coordinates(-0.645497,		0.0796453,		0.400404,		-0.645497           ));
-    orientations.push_back(Coordinates(-0.724229,		0.0267007,		0.407374,		-0.555721           ));
-    orientations.push_back(Coordinates(-0.790569,		-0.0267007,		0.407374,		-0.456435           ));
-    orientations.push_back(Coordinates(-0.843383,		-0.0796453,		0.400404,		-0.349341           ));
-    orientations.push_back(Coordinates(-0.881766,		-0.131227,		0.386583,		-0.236268           ));
-    orientations.push_back(Coordinates(-0.905061,		-0.180564,		0.366147,		-0.119154           ));
-    orientations.push_back(Coordinates(-0.912871,		-0.226811,		0.339446,		5.48664e-08         ));
-    orientations.push_back(Coordinates(-0.905061,		-0.269177,		0.306937,		0.119154            ));
-    orientations.push_back(Coordinates(-0.881766,		-0.306937,		0.269177,		0.236268            ));
-    orientations.push_back(Coordinates(-0.843383,		-0.339446,		0.226811,		0.349341            ));
-    orientations.push_back(Coordinates(-0.790569,		-0.366147,		0.180564,		0.456436            ));
-    orientations.push_back(Coordinates(-0.724229,		-0.386583,		0.131227,		0.555721            ));
-    orientations.push_back(Coordinates(-0.645497,		-0.400404,		0.0796453,		0.645497            ));
-    orientations.push_back(Coordinates(-0.555721,		-0.407374,		0.0267007,		0.724229            ));
-    orientations.push_back(Coordinates(0.278375,		0.498929,		0.0327016,		-0.820066           ));
-    orientations.push_back(Coordinates(0.168953,		0.490393,		0.0975452,		-0.849385           ));
-    orientations.push_back(Coordinates(0.0566408,		0.473465,		0.16072,		-0.864171           ));
-    orientations.push_back(Coordinates(-0.0566408,		0.448436,		0.221144,		-0.864171           ));
-    orientations.push_back(Coordinates(-0.168953,		0.415735,		0.277785,		-0.849385           ));
-    orientations.push_back(Coordinates(-0.278375,		0.37592,		0.329673,		-0.820066           ));
-    orientations.push_back(Coordinates(-0.383033,		0.329673,		0.37592,		-0.776715           ));
-    orientations.push_back(Coordinates(-0.481138,		0.277785,		0.415735,		-0.720074           ));
-    orientations.push_back(Coordinates(-0.57101,		0.221144,		0.448436,		-0.651112           ));
-    orientations.push_back(Coordinates(-0.651112,		0.16072,		0.473465,		-0.57101            ));
-    orientations.push_back(Coordinates(-0.720074,		0.0975451,		0.490393,		-0.481138           ));
-    orientations.push_back(Coordinates(-0.776715,		0.0327015,		0.498929,		-0.383033           ));
-    orientations.push_back(Coordinates(-0.820066,		-0.0327016,		0.498929,		-0.278375           ));
-    orientations.push_back(Coordinates(-0.849385,		-0.0975452,		0.490393,		-0.168953           ));
-    orientations.push_back(Coordinates(-0.864171,		-0.16072,		0.473465,		-0.0566407          ));
-    orientations.push_back(Coordinates(-0.864171,		-0.221144,		0.448436,		0.0566408           ));
-    orientations.push_back(Coordinates(-0.849385,		-0.277785,		0.415735,		0.168953            ));
-    orientations.push_back(Coordinates(-0.820066,		-0.329673,		0.37592,		0.278375            ));
-    orientations.push_back(Coordinates(-0.776715,		-0.37592,		0.329673,		0.383033            ));
-    orientations.push_back(Coordinates(-0.720074,		-0.415735,		0.277785,		0.481138            ));
-    orientations.push_back(Coordinates(-0.651112,		-0.448436,		0.221144,		0.57101             ));
-    orientations.push_back(Coordinates(-0.57101,		-0.473465,		0.16072,		0.651112            ));
-    orientations.push_back(Coordinates(-0.481138,		-0.490393,		0.0975451,		0.720074            ));
-    orientations.push_back(Coordinates(-0.383033,		-0.498929,		0.0327015,		0.776715            ));
-    orientations.push_back(Coordinates(0.901451,		0.305531,		0.0200255,		-0.306001           ));
-    orientations.push_back(Coordinates(0.853797,		0.300303,		0.059734,		-0.421046           ));
-    orientations.push_back(Coordinates(0.791535,		0.289937,		0.0984203,		-0.528887           ));
-    orientations.push_back(Coordinates(0.71573,		0.27461,		0.135423,		-0.627679               ));
-    orientations.push_back(Coordinates(0.627679,		0.254585,		0.170108,		-0.71573            ));
-    orientations.push_back(Coordinates(0.528887,		0.230203,		0.201883,		-0.791535           ));
-    orientations.push_back(Coordinates(0.421046,		0.201883,		0.230203,		-0.853797           ));
-    orientations.push_back(Coordinates(0.306001,		0.170108,		0.254585,		-0.901451           ));
-    orientations.push_back(Coordinates(0.18572,		0.135423,		0.27461,		-0.93368                ));
-    orientations.push_back(Coordinates(0.0622619,		0.0984203,		0.289937,		-0.949933           ));
-    orientations.push_back(Coordinates(-0.062262,		0.059734,		0.300303,		-0.949933           ));
-    orientations.push_back(Coordinates(-0.18572,		0.0200255,		0.305531,		-0.93368            ));
-    orientations.push_back(Coordinates(-0.306001,		-0.0200256,		0.305531,		-0.901451           ));
-    orientations.push_back(Coordinates(-0.421046,		-0.059734,		0.300303,		-0.853797           ));
-    orientations.push_back(Coordinates(-0.528887,		-0.0984203,		0.289937,		-0.791535           ));
-    orientations.push_back(Coordinates(-0.627679,		-0.135423,		0.27461,		-0.71573            ));
-    orientations.push_back(Coordinates(-0.71573,		-0.170108,		0.254585,		-0.627678           ));
-    orientations.push_back(Coordinates(-0.791536,		-0.201883,		0.230203,		-0.528887           ));
-    orientations.push_back(Coordinates(-0.853797,		-0.230203,		0.201883,		-0.421046           ));
-    orientations.push_back(Coordinates(-0.901451,		-0.254585,		0.170108,		-0.306001           ));
-    orientations.push_back(Coordinates(-0.93368,		-0.27461,		0.135423,		-0.18572            ));
-    orientations.push_back(Coordinates(-0.949933,		-0.289937,		0.0984203,		-0.0622618          ));
-    orientations.push_back(Coordinates(-0.949933,		-0.300303,		0.0597339,		0.062262            ));
-    orientations.push_back(Coordinates(-0.93368,		-0.305531,		0.0200255,		0.185721            ));
-    orientations.push_back(Coordinates(0.724229,		0.407374,		0.0267007,		-0.555721           ));
-    orientations.push_back(Coordinates(0.645497,		0.400404,		0.0796453,		-0.645497           ));
-    orientations.push_back(Coordinates(0.555721,		0.386583,		0.131227,		-0.724229           ));
-    orientations.push_back(Coordinates(0.456435,		0.366147,		0.180564,		-0.790569           ));
-    orientations.push_back(Coordinates(0.349341,		0.339446,		0.226811,		-0.843383           ));
-    orientations.push_back(Coordinates(0.236268,		0.306937,		0.269177,		-0.881766           ));
-    orientations.push_back(Coordinates(0.119154,		0.269177,		0.306937,		-0.905061           ));
-    orientations.push_back(Coordinates(-2.49393e-08,		0.226811,		0.339446,		-0.912871       ));
-    orientations.push_back(Coordinates(-0.119154,		0.180564,		0.366147,		-0.905061           ));
-    orientations.push_back(Coordinates(-0.236268,		0.131227,		0.386583,		-0.881766           ));
-    orientations.push_back(Coordinates(-0.349341,		0.0796453,		0.400404,		-0.843383           ));
-    orientations.push_back(Coordinates(-0.456435,		0.0267007,		0.407374,		-0.790569           ));
-    orientations.push_back(Coordinates(-0.555721,		-0.0267007,		0.407374,		-0.724229           ));
-    orientations.push_back(Coordinates(-0.645497,		-0.0796453,		0.400404,		-0.645497           ));
-    orientations.push_back(Coordinates(-0.724229,		-0.131227,		0.386583,		-0.555721           ));
-    orientations.push_back(Coordinates(-0.790569,		-0.180564,		0.366147,		-0.456435           ));
-    orientations.push_back(Coordinates(-0.843383,		-0.226811,		0.339446,		-0.349341           ));
-    orientations.push_back(Coordinates(-0.881766,		-0.269177,		0.306937,		-0.236268           ));
-    orientations.push_back(Coordinates(-0.905061,		-0.306937,		0.269177,		-0.119154           ));
-    orientations.push_back(Coordinates(-0.912871,		-0.339446,		0.226811,		6.48421e-08         ));
-    orientations.push_back(Coordinates(-0.905061,		-0.366147,		0.180564,		0.119154            ));
-    orientations.push_back(Coordinates(-0.881766,		-0.386583,		0.131227,		0.236268            ));
-    orientations.push_back(Coordinates(-0.843383,		-0.400404,		0.0796453,		0.349341            ));
-    orientations.push_back(Coordinates(-0.790569,		-0.407374,		0.0267007,		0.456436            ));
-    orientations.push_back(Coordinates(0.881766,		0.407374,		0.0267007,		-0.236268           ));
-    orientations.push_back(Coordinates(0.843383,		0.400404,		0.0796453,		-0.349341           ));
-    orientations.push_back(Coordinates(0.790569,		0.386583,		0.131227,		-0.456435           ));
-    orientations.push_back(Coordinates(0.724229,		0.366147,		0.180564,		-0.555721           ));
-    orientations.push_back(Coordinates(0.645497,		0.339446,		0.226811,		-0.645497           ));
-    orientations.push_back(Coordinates(0.555721,		0.306937,		0.269177,		-0.724229           ));
-    orientations.push_back(Coordinates(0.456435,		0.269177,		0.306937,		-0.790569           ));
-    orientations.push_back(Coordinates(0.349341,		0.226811,		0.339446,		-0.843383           ));
-    orientations.push_back(Coordinates(0.236268,		0.180564,		0.366147,		-0.881766           ));
-    orientations.push_back(Coordinates(0.119154,		0.131227,		0.386583,		-0.905061           ));
-    orientations.push_back(Coordinates(-3.4915e-08,		0.0796453,		0.400404,		-0.912871           ));
-    orientations.push_back(Coordinates(-0.119154,		0.0267007,		0.407374,		-0.905061           ));
-    orientations.push_back(Coordinates(-0.236268,		-0.0267007,		0.407374,		-0.881766           ));
-    orientations.push_back(Coordinates(-0.349341,		-0.0796453,		0.400404,		-0.843383           ));
-    orientations.push_back(Coordinates(-0.456436,		-0.131227,		0.386583,		-0.790569           ));
-    orientations.push_back(Coordinates(-0.555721,		-0.180564,		0.366147,		-0.724229           ));
-    orientations.push_back(Coordinates(-0.645497,		-0.226811,		0.339446,		-0.645497           ));
-    orientations.push_back(Coordinates(-0.724229,		-0.269177,		0.306937,		-0.555721           ));
-    orientations.push_back(Coordinates(-0.790569,		-0.306937,		0.269177,		-0.456435           ));
-    orientations.push_back(Coordinates(-0.843383,		-0.339446,		0.226811,		-0.349341           ));
-    orientations.push_back(Coordinates(-0.881766,		-0.366147,		0.180564,		-0.236268           ));
-    orientations.push_back(Coordinates(-0.905061,		-0.386583,		0.131227,		-0.119153           ));
-    orientations.push_back(Coordinates(-0.912871,		-0.400404,		0.0796453,		7.48179e-08         ));
-    orientations.push_back(Coordinates(-0.905061,		-0.407374,		0.0267007,		0.119154            ));
-    orientations.push_back(Coordinates(0.776715,		0.498929,		0.0327016,		-0.383033           ));
-    orientations.push_back(Coordinates(0.720074,		0.490393,		0.0975452,		-0.481138           ));
-    orientations.push_back(Coordinates(0.651112,		0.473465,		0.16072,		-0.57101            ));
-    orientations.push_back(Coordinates(0.57101,		0.448436,		0.221144,		-0.651112               ));
-    orientations.push_back(Coordinates(0.481138,		0.415735,		0.277785,		-0.720074           ));
-    orientations.push_back(Coordinates(0.383033,		0.37592,		0.329673,		-0.776715           ));
-    orientations.push_back(Coordinates(0.278375,		0.329673,		0.37592,		-0.820066           ));
-    orientations.push_back(Coordinates(0.168953,		0.277785,		0.415735,		-0.849385           ));
-    orientations.push_back(Coordinates(0.0566407,		0.221144,		0.448436,		-0.864171           ));
-    orientations.push_back(Coordinates(-0.0566408,		0.16072,		0.473465,		-0.864171           ));
-    orientations.push_back(Coordinates(-0.168953,		0.0975451,		0.490393,		-0.849385           ));
-    orientations.push_back(Coordinates(-0.278375,		0.0327015,		0.498929,		-0.820066           ));
-    orientations.push_back(Coordinates(-0.383033,		-0.0327016,		0.498929,		-0.776715           ));
-    orientations.push_back(Coordinates(-0.481138,		-0.0975452,		0.490393,		-0.720074           ));
-    orientations.push_back(Coordinates(-0.57101,		-0.16072,		0.473465,		-0.651112           ));
-    orientations.push_back(Coordinates(-0.651112,		-0.221144,		0.448436,		-0.57101            ));
-    orientations.push_back(Coordinates(-0.720074,		-0.277785,		0.415735,		-0.481138           ));
-    orientations.push_back(Coordinates(-0.776715,		-0.329673,		0.37592,		-0.383033           ));
-    orientations.push_back(Coordinates(-0.820066,		-0.37592,		0.329673,		-0.278375           ));
-    orientations.push_back(Coordinates(-0.849385,		-0.415735,		0.277785,		-0.168953           ));
-    orientations.push_back(Coordinates(-0.864171,		-0.448436,		0.221144,		-0.0566407          ));
-    orientations.push_back(Coordinates(-0.864171,		-0.473465,		0.16072,		0.0566408           ));
-    orientations.push_back(Coordinates(-0.849385,		-0.490393,		0.0975451,		0.168953            ));
-    orientations.push_back(Coordinates(-0.820066,		-0.498929,		0.0327015,		0.278375            ));
-    orientations.push_back(Coordinates(0.57101,		0.498929,		0.0327016,		-0.651112               ));
-    orientations.push_back(Coordinates(0.481138,		0.490393,		0.0975452,		-0.720074           ));
-    orientations.push_back(Coordinates(0.383033,		0.473465,		0.16072,		-0.776715           ));
-    orientations.push_back(Coordinates(0.278375,		0.448436,		0.221144,		-0.820066           ));
-    orientations.push_back(Coordinates(0.168953,		0.415735,		0.277785,		-0.849385           ));
-    orientations.push_back(Coordinates(0.0566408,		0.37592,		0.329673,		-0.864171           ));
-    orientations.push_back(Coordinates(-0.0566408,		0.329673,		0.37592,		-0.864171           ));
-    orientations.push_back(Coordinates(-0.168953,		0.277785,		0.415735,		-0.849385           ));
-    orientations.push_back(Coordinates(-0.278375,		0.221144,		0.448436,		-0.820066           ));
-    orientations.push_back(Coordinates(-0.383033,		0.16072,		0.473465,		-0.776715           ));
-    orientations.push_back(Coordinates(-0.481138,		0.0975451,		0.490393,		-0.720074           ));
-    orientations.push_back(Coordinates(-0.57101,		0.0327015,		0.498929,		-0.651112           ));
-    orientations.push_back(Coordinates(-0.651112,		-0.0327016,		0.498929,		-0.57101            ));
-    orientations.push_back(Coordinates(-0.720074,		-0.0975452,		0.490393,		-0.481138           ));
-    orientations.push_back(Coordinates(-0.776715,		-0.16072,		0.473465,		-0.383033           ));
-    orientations.push_back(Coordinates(-0.820066,		-0.221144,		0.448436,		-0.278375           ));
-    orientations.push_back(Coordinates(-0.849385,		-0.277785,		0.415735,		-0.168953           ));
-    orientations.push_back(Coordinates(-0.864171,		-0.329673,		0.37592,		-0.0566407          ));
-    orientations.push_back(Coordinates(-0.864171,		-0.37592,		0.329673,		0.0566408           ));
-    orientations.push_back(Coordinates(-0.849385,		-0.415735,		0.277785,		0.168953            ));
-    orientations.push_back(Coordinates(-0.820066,		-0.448436,		0.221144,		0.278375            ));
-    orientations.push_back(Coordinates(-0.776715,		-0.473465,		0.16072,		0.383033            ));
-    orientations.push_back(Coordinates(-0.720074,		-0.490393,		0.0975451,		0.481138            ));
-    orientations.push_back(Coordinates(-0.651112,		-0.498929,		0.0327015,		0.57101             ));
-    orientations.push_back(Coordinates(0.408248,		0.576114,		0.0377605,		-0.707107           ));
-    orientations.push_back(Coordinates(0.31246,		0.566257,		0.112635,		-0.754344               ));
-    orientations.push_back(Coordinates(0.211325,		0.54671,		0.185583,		-0.788675           ));
-    orientations.push_back(Coordinates(0.106574,		0.51781,		0.255356,		-0.809511           ));
-    orientations.push_back(Coordinates(-1.33838e-08,		0.480049,		0.320759,		-0.816497       ));
-    orientations.push_back(Coordinates(-0.106574,		0.434075,		0.380673,		-0.809511           ));
-    orientations.push_back(Coordinates(-0.211325,		0.380673,		0.434075,		-0.788675           ));
-    orientations.push_back(Coordinates(-0.31246,		0.320759,		0.480049,		-0.754344           ));
-    orientations.push_back(Coordinates(-0.408248,		0.255355,		0.51781,		-0.707107           ));
-    orientations.push_back(Coordinates(-0.497052,		0.185583,		0.54671,		-0.64777            ));
-    orientations.push_back(Coordinates(-0.57735,		0.112635,		0.566257,		-0.57735            ));
-    orientations.push_back(Coordinates(-0.64777,		0.0377605,		0.576114,		-0.497052           ));
-    orientations.push_back(Coordinates(-0.707107,		-0.0377605,		0.576114,		-0.408248           ));
-    orientations.push_back(Coordinates(-0.754344,		-0.112635,		0.566257,		-0.31246            ));
-    orientations.push_back(Coordinates(-0.788675,		-0.185583,		0.54671,		-0.211325           ));
-    orientations.push_back(Coordinates(-0.809511,		-0.255356,		0.51781,		-0.106574           ));
-    orientations.push_back(Coordinates(-0.816497,		-0.320759,		0.480049,		4.9074e-08          ));
-    orientations.push_back(Coordinates(-0.809511,		-0.380674,		0.434075,		0.106574            ));
-    orientations.push_back(Coordinates(-0.788675,		-0.434075,		0.380673,		0.211325            ));
-    orientations.push_back(Coordinates(-0.754344,		-0.480049,		0.320759,		0.31246             ));
-    orientations.push_back(Coordinates(-0.707107,		-0.51781,		0.255355,		0.408248            ));
-    orientations.push_back(Coordinates(-0.64777,		-0.54671,		0.185583,		0.497052            ));
-    orientations.push_back(Coordinates(-0.57735,		-0.566257,		0.112635,		0.57735             ));
-    orientations.push_back(Coordinates(-0.497052,		-0.576114,		0.0377605,		0.64777             ));
-    orientations.push_back(Coordinates(0.64777,		0.576114,		0.0377605,		-0.497052               ));
-    orientations.push_back(Coordinates(0.57735,		0.566257,		0.112635,		-0.57735                ));
-    orientations.push_back(Coordinates(0.497052,		0.54671,		0.185583,		-0.64777            ));
-    orientations.push_back(Coordinates(0.408248,		0.51781,		0.255356,		-0.707107           ));
-    orientations.push_back(Coordinates(0.31246,		0.480049,		0.320759,		-0.754344               ));
-    orientations.push_back(Coordinates(0.211325,		0.434075,		0.380673,		-0.788675           ));
-    orientations.push_back(Coordinates(0.106574,		0.380673,		0.434075,		-0.809511           ));
-    orientations.push_back(Coordinates(-2.23064e-08,		0.320759,		0.480049,		-0.816497       ));
-    orientations.push_back(Coordinates(-0.106574,		0.255355,		0.51781,		-0.809511           ));
-    orientations.push_back(Coordinates(-0.211325,		0.185583,		0.54671,		-0.788675           ));
-    orientations.push_back(Coordinates(-0.31246,		0.112635,		0.566257,		-0.754344           ));
-    orientations.push_back(Coordinates(-0.408248,		0.0377605,		0.576114,		-0.707107           ));
-    orientations.push_back(Coordinates(-0.497052,		-0.0377605,		0.576114,		-0.64777            ));
-    orientations.push_back(Coordinates(-0.57735,		-0.112635,		0.566257,		-0.57735            ));
-    orientations.push_back(Coordinates(-0.64777,		-0.185583,		0.54671,		-0.497052           ));
-    orientations.push_back(Coordinates(-0.707107,		-0.255356,		0.51781,		-0.408248           ));
-    orientations.push_back(Coordinates(-0.754344,		-0.320759,		0.480049,		-0.31246            ));
-    orientations.push_back(Coordinates(-0.788675,		-0.380674,		0.434075,		-0.211325           ));
-    orientations.push_back(Coordinates(-0.809511,		-0.434075,		0.380673,		-0.106574           ));
-    orientations.push_back(Coordinates(-0.816497,		-0.480049,		0.320759,		5.79966e-08         ));
-    orientations.push_back(Coordinates(-0.809511,		-0.51781,		0.255355,		0.106574            ));
-    orientations.push_back(Coordinates(-0.788675,		-0.54671,		0.185583,		0.211325            ));
-    orientations.push_back(Coordinates(-0.754344,		-0.566257,		0.112635,		0.31246             ));
-    orientations.push_back(Coordinates(-0.707107,		-0.576114,		0.0377605,		0.408248            ));
-    orientations.push_back(Coordinates(0.503584,		0.644115,		0.0422175,		-0.574227           ));
-    orientations.push_back(Coordinates(0.424324,		0.633094,		0.12593,		-0.635045           ));
-    orientations.push_back(Coordinates(0.337804,		0.611241,		0.207488,		-0.684998           ));
-    orientations.push_back(Coordinates(0.245503,		0.578929,		0.285496,		-0.72323            ));
-    orientations.push_back(Coordinates(0.149003,		0.536711,		0.358619,		-0.749087           ));
-    orientations.push_back(Coordinates(0.0499524,		0.485311,		0.425606,		-0.762127           ));
-    orientations.push_back(Coordinates(-0.0499525,		0.425606,		0.485311,		-0.762127           ));
-    orientations.push_back(Coordinates(-0.149003,		0.358619,		0.536711,		-0.749087           ));
-    orientations.push_back(Coordinates(-0.245503,		0.285496,		0.578929,		-0.72323            ));
-    orientations.push_back(Coordinates(-0.337804,		0.207488,		0.611241,		-0.684998           ));
-    orientations.push_back(Coordinates(-0.424324,		0.12593,		0.633094,		-0.635045           ));
-    orientations.push_back(Coordinates(-0.503584,		0.0422175,		0.644115,		-0.574227           ));
-    orientations.push_back(Coordinates(-0.574227,		-0.0422176,		0.644115,		-0.503584           ));
-    orientations.push_back(Coordinates(-0.635045,		-0.12593,		0.633094,		-0.424324           ));
-    orientations.push_back(Coordinates(-0.684998,		-0.207488,		0.611241,		-0.337804           ));
-    orientations.push_back(Coordinates(-0.72323,		-0.285496,		0.578929,		-0.245503           ));
-    orientations.push_back(Coordinates(-0.749087,		-0.358619,		0.536711,		-0.149003           ));
-    orientations.push_back(Coordinates(-0.762127,		-0.425606,		0.48531,		-0.0499524          ));
-    orientations.push_back(Coordinates(-0.762127,		-0.485311,		0.425606,		0.0499525           ));
-    orientations.push_back(Coordinates(-0.749087,		-0.536711,		0.358619,		0.149003            ));
-    orientations.push_back(Coordinates(-0.72323,		-0.578929,		0.285496,		0.245504            ));
-    orientations.push_back(Coordinates(-0.684998,		-0.611241,		0.207488,		0.337804            ));
-    orientations.push_back(Coordinates(-0.635045,		-0.633094,		0.12593,		0.424324            ));
-    orientations.push_back(Coordinates(-0.574227,		-0.644115,		0.0422175,		0.503584            ));
-    orientations.push_back(Coordinates(-0.747914,		0.101844,		0.00667518,		-0.655903           ));
-    orientations.push_back(Coordinates(-0.827128,		0.100101,		0.0199113,		-0.552669           ));
-    orientations.push_back(Coordinates(-0.892189,		0.0966457,		0.0328068,		-0.439979           ));
-    orientations.push_back(Coordinates(-0.941985,		0.0915367,		0.0451409,		-0.319761           ));
-    orientations.push_back(Coordinates(-0.975664,		0.0848615,		0.0567027,		-0.194072           ));
-    orientations.push_back(Coordinates(-0.992648,		0.0767343,		0.0672942,		-0.0650616          ));
-    orientations.push_back(Coordinates(-0.992648,		0.0672942,		0.0767343,		0.0650616           ));
-    orientations.push_back(Coordinates(-0.975664,		0.0567026,		0.0848615,		0.194072            ));
-    orientations.push_back(Coordinates(-0.941985,		0.0451409,		0.0915367,		0.319761            ));
-    orientations.push_back(Coordinates(-0.892189,		0.0328068,		0.0966457,		0.439979            ));
-    orientations.push_back(Coordinates(-0.827128,		0.0199113,		0.100101,		0.552669            ));
-    orientations.push_back(Coordinates(-0.747914,		0.00667517,		0.101844,		0.655903            ));
-    orientations.push_back(Coordinates(-0.655903,		-0.00667518,		0.101844,		0.747914        ));
-    orientations.push_back(Coordinates(-0.552669,		-0.0199113,		0.100101,		0.827128            ));
-    orientations.push_back(Coordinates(-0.439979,		-0.0328068,		0.0966456,		0.892189            ));
-    orientations.push_back(Coordinates(-0.319761,		-0.0451409,		0.0915367,		0.941985            ));
-    orientations.push_back(Coordinates(-0.194072,		-0.0567027,		0.0848615,		0.975664            ));
-    orientations.push_back(Coordinates(-0.0650615,		-0.0672942,		0.0767343,		0.992648            ));
-    orientations.push_back(Coordinates(0.0650617,		-0.0767343,		0.0672942,		0.992648            ));
-    orientations.push_back(Coordinates(0.194072,		-0.0848615,		0.0567026,		0.975664            ));
-    orientations.push_back(Coordinates(0.319761,		-0.0915367,		0.0451409,		0.941985            ));
-    orientations.push_back(Coordinates(0.439979,		-0.0966457,		0.0328068,		0.892189            ));
-    orientations.push_back(Coordinates(0.552669,		-0.100101,		0.0199113,		0.827128            ));
-    orientations.push_back(Coordinates(0.655903,		-0.101844,		0.00667517,		0.747914            ));
-    orientations.push_back(Coordinates(-0.926993,		0.203687,		0.0133504,		-0.314672           ));
-    orientations.push_back(Coordinates(-0.960135,		0.200202,		0.0398226,		-0.190983           ));
-    orientations.push_back(Coordinates(-0.976849,		0.193291,		0.0656136,		-0.0640261          ));
-    orientations.push_back(Coordinates(-0.976849,		0.183073,		0.0902818,		0.0640261           ));
-    orientations.push_back(Coordinates(-0.960135,		0.169723,		0.113405,		0.190983            ));
-    orientations.push_back(Coordinates(-0.926993,		0.153469,		0.134588,		0.314672            ));
-    orientations.push_back(Coordinates(-0.877989,		0.134588,		0.153469,		0.432976            ));
-    orientations.push_back(Coordinates(-0.813963,		0.113405,		0.169723,		0.543873            ));
-    orientations.push_back(Coordinates(-0.73601,		0.0902818,		0.183073,		0.645463            ));
-    orientations.push_back(Coordinates(-0.645463,		0.0656135,		0.193291,		0.73601             ));
-    orientations.push_back(Coordinates(-0.543873,		0.0398226,		0.200202,		0.813963            ));
-    orientations.push_back(Coordinates(-0.432976,		0.0133503,		0.203687,		0.877989            ));
-    orientations.push_back(Coordinates(-0.314672,		-0.0133504,		0.203687,		0.926993            ));
-    orientations.push_back(Coordinates(-0.190983,		-0.0398227,		0.200202,		0.960135            ));
-    orientations.push_back(Coordinates(-0.064026,		-0.0656136,		0.193291,		0.976849            ));
-    orientations.push_back(Coordinates(0.0640261,		-0.0902818,		0.183073,		0.976849            ));
-    orientations.push_back(Coordinates(0.190983,		-0.113405,		0.169723,		0.960135            ));
-    orientations.push_back(Coordinates(0.314672,		-0.134588,		0.153469,		0.926993            ));
-    orientations.push_back(Coordinates(0.432976,		-0.153469,		0.134588,		0.877989            ));
-    orientations.push_back(Coordinates(0.543873,		-0.169723,		0.113405,		0.813963            ));
-    orientations.push_back(Coordinates(0.645463,		-0.183073,		0.0902818,		0.73601             ));
-    orientations.push_back(Coordinates(0.73601,		-0.193291,		0.0656135,		0.645463                ));
-    orientations.push_back(Coordinates(0.813963,		-0.200202,		0.0398226,		0.543873            ));
-    orientations.push_back(Coordinates(0.877989,		-0.203687,		0.0133503,		0.432976            ));
-    orientations.push_back(Coordinates(-0.432976,		0.203687,		0.0133504,		-0.877989           ));
-    orientations.push_back(Coordinates(-0.543873,		0.200202,		0.0398226,		-0.813963           ));
-    orientations.push_back(Coordinates(-0.645463,		0.193291,		0.0656136,		-0.73601            ));
-    orientations.push_back(Coordinates(-0.73601,		0.183073,		0.0902818,		-0.645463           ));
-    orientations.push_back(Coordinates(-0.813963,		0.169723,		0.113405,		-0.543873           ));
-    orientations.push_back(Coordinates(-0.877989,		0.153469,		0.134588,		-0.432976           ));
-    orientations.push_back(Coordinates(-0.926993,		0.134588,		0.153469,		-0.314672           ));
-    orientations.push_back(Coordinates(-0.960135,		0.113405,		0.169723,		-0.190983           ));
-    orientations.push_back(Coordinates(-0.976849,		0.0902818,		0.183073,		-0.064026           ));
-    orientations.push_back(Coordinates(-0.976849,		0.0656135,		0.193291,		0.0640261           ));
-    orientations.push_back(Coordinates(-0.960135,		0.0398226,		0.200202,		0.190983            ));
-    orientations.push_back(Coordinates(-0.926993,		0.0133503,		0.203687,		0.314672            ));
-    orientations.push_back(Coordinates(-0.877989,		-0.0133504,		0.203687,		0.432976            ));
-    orientations.push_back(Coordinates(-0.813963,		-0.0398227,		0.200202,		0.543873            ));
-    orientations.push_back(Coordinates(-0.73601,		-0.0656136,		0.193291,		0.645463            ));
-    orientations.push_back(Coordinates(-0.645463,		-0.0902818,		0.183073,		0.73601             ));
-    orientations.push_back(Coordinates(-0.543873,		-0.113405,		0.169723,		0.813963            ));
-    orientations.push_back(Coordinates(-0.432976,		-0.134588,		0.153469,		0.877989            ));
-    orientations.push_back(Coordinates(-0.314671,		-0.153469,		0.134588,		0.926993            ));
-    orientations.push_back(Coordinates(-0.190983,		-0.169723,		0.113405,		0.960135            ));
-    orientations.push_back(Coordinates(-0.064026,		-0.183073,		0.0902818,		0.976849            ));
-    orientations.push_back(Coordinates(0.0640261,		-0.193291,		0.0656135,		0.976849            ));
-    orientations.push_back(Coordinates(0.190983,		-0.200202,		0.0398226,		0.960135            ));
-    orientations.push_back(Coordinates(0.314672,		-0.203687,		0.0133503,		0.926992            ));
-    orientations.push_back(Coordinates(-0.71573,		0.305531,		0.0200255,		-0.627679           ));
-    orientations.push_back(Coordinates(-0.791535,		0.300303,		0.059734,		-0.528887           ));
-    orientations.push_back(Coordinates(-0.853797,		0.289937,		0.0984203,		-0.421046           ));
-    orientations.push_back(Coordinates(-0.901451,		0.27461,		0.135423,		-0.306001           ));
-    orientations.push_back(Coordinates(-0.93368,		0.254585,		0.170108,		-0.18572            ));
-    orientations.push_back(Coordinates(-0.949933,		0.230203,		0.201883,		-0.0622619          ));
-    orientations.push_back(Coordinates(-0.949933,		0.201883,		0.230203,		0.0622619           ));
-    orientations.push_back(Coordinates(-0.93368,		0.170108,		0.254585,		0.18572             ));
-    orientations.push_back(Coordinates(-0.901451,		0.135423,		0.27461,		0.306001            ));
-    orientations.push_back(Coordinates(-0.853797,		0.0984203,		0.289937,		0.421046            ));
-    orientations.push_back(Coordinates(-0.791535,		0.059734,		0.300303,		0.528887            ));
-    orientations.push_back(Coordinates(-0.71573,		0.0200255,		0.305531,		0.627679            ));
-    orientations.push_back(Coordinates(-0.627678,		-0.0200256,		0.305531,		0.71573             ));
-    orientations.push_back(Coordinates(-0.528887,		-0.059734,		0.300303,		0.791536            ));
-    orientations.push_back(Coordinates(-0.421046,		-0.0984203,		0.289937,		0.853797            ));
-    orientations.push_back(Coordinates(-0.306001,		-0.135423,		0.27461,		0.901451            ));
-    orientations.push_back(Coordinates(-0.18572,		-0.170108,		0.254585,		0.93368             ));
-    orientations.push_back(Coordinates(-0.0622619,		-0.201883,		0.230203,		0.949933            ));
-    orientations.push_back(Coordinates(0.062262,		-0.230203,		0.201883,		0.949933            ));
-    orientations.push_back(Coordinates(0.185721,		-0.254585,		0.170108,		0.93368             ));
-    orientations.push_back(Coordinates(0.306001,		-0.27461,		0.135423,		0.901451            ));
-    orientations.push_back(Coordinates(0.421046,		-0.289937,		0.0984203,		0.853797            ));
-    orientations.push_back(Coordinates(0.528887,		-0.300303,		0.0597339,		0.791535            ));
-    orientations.push_back(Coordinates(0.627679,		-0.305531,		0.0200255,		0.71573             ));
-    orientations.push_back(Coordinates(-0.93368,		0.305531,		0.0200255,		-0.18572            ));
-    orientations.push_back(Coordinates(-0.949933,		0.300303,		0.059734,		-0.0622619          ));
-    orientations.push_back(Coordinates(-0.949933,		0.289937,		0.0984203,		0.0622619           ));
-    orientations.push_back(Coordinates(-0.93368,		0.27461,		0.135423,		0.18572             ));
-    orientations.push_back(Coordinates(-0.901451,		0.254585,		0.170108,		0.306001            ));
-    orientations.push_back(Coordinates(-0.853797,		0.230203,		0.201883,		0.421046            ));
-    orientations.push_back(Coordinates(-0.791535,		0.201883,		0.230203,		0.528887            ));
-    orientations.push_back(Coordinates(-0.71573,		0.170108,		0.254585,		0.627679            ));
-    orientations.push_back(Coordinates(-0.627678,		0.135423,		0.27461,		0.71573             ));
-    orientations.push_back(Coordinates(-0.528887,		0.0984203,		0.289937,		0.791536            ));
-    orientations.push_back(Coordinates(-0.421046,		0.059734,		0.300303,		0.853797            ));
-    orientations.push_back(Coordinates(-0.306001,		0.0200255,		0.305531,		0.901451            ));
-    orientations.push_back(Coordinates(-0.18572,		-0.0200256,		0.305531,		0.93368             ));
-    orientations.push_back(Coordinates(-0.0622619,		-0.059734,		0.300303,		0.949933            ));
-    orientations.push_back(Coordinates(0.062262,		-0.0984203,		0.289937,		0.949933            ));
-    orientations.push_back(Coordinates(0.185721,		-0.135423,		0.27461,		0.93368             ));
-    orientations.push_back(Coordinates(0.306001,		-0.170108,		0.254585,		0.901451            ));
-    orientations.push_back(Coordinates(0.421046,		-0.201883,		0.230203,		0.853797            ));
-    orientations.push_back(Coordinates(0.528887,		-0.230203,		0.201883,		0.791535            ));
-    orientations.push_back(Coordinates(0.627679,		-0.254585,		0.170108,		0.71573             ));
-    orientations.push_back(Coordinates(0.71573,		-0.27461,		0.135423,		0.627678                ));
-    orientations.push_back(Coordinates(0.791536,		-0.289937,		0.0984203,		0.528887            ));
-    orientations.push_back(Coordinates(0.853797,		-0.300303,		0.0597339,		0.421046            ));
-    orientations.push_back(Coordinates(0.901451,		-0.305531,		0.0200255,		0.306001            ));
-    orientations.push_back(Coordinates(-0.905061,		0.407374,		0.0267007,		-0.119154           ));
-    orientations.push_back(Coordinates(-0.912871,		0.400404,		0.0796453,		4.98786e-09         ));
-    orientations.push_back(Coordinates(-0.905061,		0.386583,		0.131227,		0.119154            ));
-    orientations.push_back(Coordinates(-0.881766,		0.366147,		0.180564,		0.236268            ));
-    orientations.push_back(Coordinates(-0.843383,		0.339446,		0.226811,		0.349341            ));
-    orientations.push_back(Coordinates(-0.790569,		0.306937,		0.269177,		0.456435            ));
-    orientations.push_back(Coordinates(-0.724229,		0.269177,		0.306937,		0.555721            ));
-    orientations.push_back(Coordinates(-0.645497,		0.226811,		0.339446,		0.645497            ));
-    orientations.push_back(Coordinates(-0.555721,		0.180564,		0.366147,		0.724229            ));
-    orientations.push_back(Coordinates(-0.456435,		0.131227,		0.386583,		0.790569            ));
-    orientations.push_back(Coordinates(-0.349341,		0.0796453,		0.400404,		0.843383            ));
-    orientations.push_back(Coordinates(-0.236268,		0.0267007,		0.407374,		0.881766            ));
-    orientations.push_back(Coordinates(-0.119154,		-0.0267007,		0.407374,		0.905061            ));
-    orientations.push_back(Coordinates(4.48907e-08,		-0.0796453,		0.400404,		0.912871            ));
-    orientations.push_back(Coordinates(0.119154,		-0.131227,		0.386583,		0.905061            ));
-    orientations.push_back(Coordinates(0.236268,		-0.180564,		0.366147,		0.881766            ));
-    orientations.push_back(Coordinates(0.349341,		-0.226811,		0.339446,		0.843383            ));
-    orientations.push_back(Coordinates(0.456436,		-0.269177,		0.306937,		0.790569            ));
-    orientations.push_back(Coordinates(0.555721,		-0.306937,		0.269177,		0.724229            ));
-    orientations.push_back(Coordinates(0.645497,		-0.339446,		0.226811,		0.645497            ));
-    orientations.push_back(Coordinates(0.724229,		-0.366147,		0.180564,		0.555721            ));
-    orientations.push_back(Coordinates(0.790569,		-0.386583,		0.131227,		0.456435            ));
-    orientations.push_back(Coordinates(0.843383,		-0.400404,		0.0796453,		0.349341            ));
-    orientations.push_back(Coordinates(0.881766,		-0.407374,		0.0267007,		0.236268            ));
-    orientations.push_back(Coordinates(-0.790569,		0.407374,		0.0267007,		-0.456435           ));
-    orientations.push_back(Coordinates(-0.843383,		0.400404,		0.0796453,		-0.349341           ));
-    orientations.push_back(Coordinates(-0.881766,		0.386583,		0.131227,		-0.236268           ));
-    orientations.push_back(Coordinates(-0.905061,		0.366147,		0.180564,		-0.119154           ));
-    orientations.push_back(Coordinates(-0.912871,		0.339446,		0.226811,		1.49636e-08         ));
-    orientations.push_back(Coordinates(-0.905061,		0.306937,		0.269177,		0.119154            ));
-    orientations.push_back(Coordinates(-0.881766,		0.269177,		0.306937,		0.236268            ));
-    orientations.push_back(Coordinates(-0.843383,		0.226811,		0.339446,		0.349341            ));
-    orientations.push_back(Coordinates(-0.790569,		0.180564,		0.366147,		0.456435            ));
-    orientations.push_back(Coordinates(-0.724229,		0.131227,		0.386583,		0.555721            ));
-    orientations.push_back(Coordinates(-0.645497,		0.0796453,		0.400404,		0.645497            ));
-    orientations.push_back(Coordinates(-0.555721,		0.0267007,		0.407374,		0.724229            ));
-    orientations.push_back(Coordinates(-0.456435,		-0.0267007,		0.407374,		0.790569            ));
-    orientations.push_back(Coordinates(-0.349341,		-0.0796453,		0.400404,		0.843383            ));
-    orientations.push_back(Coordinates(-0.236268,		-0.131227,		0.386583,		0.881766            ));
-    orientations.push_back(Coordinates(-0.119154,		-0.180564,		0.366147,		0.905061            ));
-    orientations.push_back(Coordinates(5.48664e-08,		-0.226811,		0.339446,		0.912871            ));
-    orientations.push_back(Coordinates(0.119154,		-0.269177,		0.306937,		0.905061            ));
-    orientations.push_back(Coordinates(0.236268,		-0.306937,		0.269177,		0.881766            ));
-    orientations.push_back(Coordinates(0.349341,		-0.339446,		0.226811,		0.843383            ));
-    orientations.push_back(Coordinates(0.456436,		-0.366147,		0.180564,		0.790569            ));
-    orientations.push_back(Coordinates(0.555721,		-0.386583,		0.131227,		0.724229            ));
-    orientations.push_back(Coordinates(0.645497,		-0.400404,		0.0796453,		0.645497            ));
-    orientations.push_back(Coordinates(0.724229,		-0.407374,		0.0267007,		0.555721            ));
-    orientations.push_back(Coordinates(-0.820066,		0.498929,		0.0327016,		-0.278375           ));
-    orientations.push_back(Coordinates(-0.849385,		0.490393,		0.0975452,		-0.168953           ));
-    orientations.push_back(Coordinates(-0.864171,		0.473465,		0.16072,		-0.0566408          ));
-    orientations.push_back(Coordinates(-0.864171,		0.448436,		0.221144,		0.0566408           ));
-    orientations.push_back(Coordinates(-0.849385,		0.415735,		0.277785,		0.168953            ));
-    orientations.push_back(Coordinates(-0.820066,		0.37592,		0.329673,		0.278375            ));
-    orientations.push_back(Coordinates(-0.776715,		0.329673,		0.37592,		0.383033            ));
-    orientations.push_back(Coordinates(-0.720074,		0.277785,		0.415735,		0.481138            ));
-    orientations.push_back(Coordinates(-0.651112,		0.221144,		0.448436,		0.57101             ));
-    orientations.push_back(Coordinates(-0.57101,		0.16072,		0.473465,		0.651112            ));
-    orientations.push_back(Coordinates(-0.481138,		0.0975451,		0.490393,		0.720074            ));
-    orientations.push_back(Coordinates(-0.383033,		0.0327015,		0.498929,		0.776715            ));
-    orientations.push_back(Coordinates(-0.278375,		-0.0327016,		0.498929,		0.820066            ));
-    orientations.push_back(Coordinates(-0.168953,		-0.0975452,		0.490393,		0.849385            ));
-    orientations.push_back(Coordinates(-0.0566407,		-0.16072,		0.473465,		0.864171            ));
-    orientations.push_back(Coordinates(0.0566408,		-0.221144,		0.448436,		0.864171            ));
-    orientations.push_back(Coordinates(0.168953,		-0.277785,		0.415735,		0.849385            ));
-    orientations.push_back(Coordinates(0.278375,		-0.329673,		0.37592,		0.820066            ));
-    orientations.push_back(Coordinates(0.383033,		-0.37592,		0.329673,		0.776715            ));
-    orientations.push_back(Coordinates(0.481138,		-0.415735,		0.277785,		0.720074            ));
-    orientations.push_back(Coordinates(0.57101,		-0.448436,		0.221144,		0.651112                ));
-    orientations.push_back(Coordinates(0.651112,		-0.473465,		0.16072,		0.57101             ));
-    orientations.push_back(Coordinates(0.720074,		-0.490393,		0.0975451,		0.481138            ));
-    orientations.push_back(Coordinates(0.776715,		-0.498929,		0.0327015,		0.383033            ));
-    orientations.push_back(Coordinates(-0.306001,		0.305531,		0.0200255,		-0.901451           ));
-    orientations.push_back(Coordinates(-0.421046,		0.300303,		0.059734,		-0.853797           ));
-    orientations.push_back(Coordinates(-0.528887,		0.289937,		0.0984203,		-0.791535           ));
-    orientations.push_back(Coordinates(-0.627679,		0.27461,		0.135423,		-0.71573            ));
-    orientations.push_back(Coordinates(-0.71573,		0.254585,		0.170108,		-0.627679           ));
-    orientations.push_back(Coordinates(-0.791535,		0.230203,		0.201883,		-0.528887           ));
-    orientations.push_back(Coordinates(-0.853797,		0.201883,		0.230203,		-0.421046           ));
-    orientations.push_back(Coordinates(-0.901451,		0.170108,		0.254585,		-0.306001           ));
-    orientations.push_back(Coordinates(-0.93368,		0.135423,		0.27461,		-0.18572            ));
-    orientations.push_back(Coordinates(-0.949933,		0.0984203,		0.289937,		-0.0622619          ));
-    orientations.push_back(Coordinates(-0.949933,		0.059734,		0.300303,		0.062262            ));
-    orientations.push_back(Coordinates(-0.93368,		0.0200255,		0.305531,		0.18572             ));
-    orientations.push_back(Coordinates(-0.901451,		-0.0200256,		0.305531,		0.306001            ));
-    orientations.push_back(Coordinates(-0.853797,		-0.059734,		0.300303,		0.421046            ));
-    orientations.push_back(Coordinates(-0.791535,		-0.0984203,		0.289937,		0.528887            ));
-    orientations.push_back(Coordinates(-0.71573,		-0.135423,		0.27461,		0.627679            ));
-    orientations.push_back(Coordinates(-0.627678,		-0.170108,		0.254585,		0.71573             ));
-    orientations.push_back(Coordinates(-0.528887,		-0.201883,		0.230203,		0.791536            ));
-    orientations.push_back(Coordinates(-0.421046,		-0.230203,		0.201883,		0.853797            ));
-    orientations.push_back(Coordinates(-0.306001,		-0.254585,		0.170108,		0.901451            ));
-    orientations.push_back(Coordinates(-0.18572,		-0.27461,		0.135423,		0.93368             ));
-    orientations.push_back(Coordinates(-0.0622618,		-0.289937,		0.0984203,		0.949933            ));
-    orientations.push_back(Coordinates(0.062262,		-0.300303,		0.0597339,		0.949933            ));
-    orientations.push_back(Coordinates(0.185721,		-0.305531,		0.0200255,		0.93368             ));
-    orientations.push_back(Coordinates(-0.555721,		0.407374,		0.0267007,		-0.724229           ));
-    orientations.push_back(Coordinates(-0.645497,		0.400404,		0.0796453,		-0.645497           ));
-    orientations.push_back(Coordinates(-0.724229,		0.386583,		0.131227,		-0.555721           ));
-    orientations.push_back(Coordinates(-0.790569,		0.366147,		0.180564,		-0.456435           ));
-    orientations.push_back(Coordinates(-0.843383,		0.339446,		0.226811,		-0.349341           ));
-    orientations.push_back(Coordinates(-0.881766,		0.306937,		0.269177,		-0.236268           ));
-    orientations.push_back(Coordinates(-0.905061,		0.269177,		0.306937,		-0.119154           ));
-    orientations.push_back(Coordinates(-0.912871,		0.226811,		0.339446,		2.49393e-08         ));
-    orientations.push_back(Coordinates(-0.905061,		0.180564,		0.366147,		0.119154            ));
-    orientations.push_back(Coordinates(-0.881766,		0.131227,		0.386583,		0.236268            ));
-    orientations.push_back(Coordinates(-0.843383,		0.0796453,		0.400404,		0.349341            ));
-    orientations.push_back(Coordinates(-0.790569,		0.0267007,		0.407374,		0.456435            ));
-    orientations.push_back(Coordinates(-0.724229,		-0.0267007,		0.407374,		0.555721            ));
-    orientations.push_back(Coordinates(-0.645497,		-0.0796453,		0.400404,		0.645497            ));
-    orientations.push_back(Coordinates(-0.555721,		-0.131227,		0.386583,		0.724229            ));
-    orientations.push_back(Coordinates(-0.456435,		-0.180564,		0.366147,		0.790569            ));
-    orientations.push_back(Coordinates(-0.349341,		-0.226811,		0.339446,		0.843383            ));
-    orientations.push_back(Coordinates(-0.236268,		-0.269177,		0.306937,		0.881766            ));
-    orientations.push_back(Coordinates(-0.119154,		-0.306937,		0.269177,		0.905061            ));
-    orientations.push_back(Coordinates(6.48421e-08,		-0.339446,		0.226811,		0.912871            ));
-    orientations.push_back(Coordinates(0.119154,		-0.366147,		0.180564,		0.905061            ));
-    orientations.push_back(Coordinates(0.236268,		-0.386583,		0.131227,		0.881766            ));
-    orientations.push_back(Coordinates(0.349341,		-0.400404,		0.0796453,		0.843383            ));
-    orientations.push_back(Coordinates(0.456436,		-0.407374,		0.0267007,		0.790569            ));
-    orientations.push_back(Coordinates(-0.236268,		0.407374,		0.0267007,		-0.881766           ));
-    orientations.push_back(Coordinates(-0.349341,		0.400404,		0.0796453,		-0.843383           ));
-    orientations.push_back(Coordinates(-0.456435,		0.386583,		0.131227,		-0.790569           ));
-    orientations.push_back(Coordinates(-0.555721,		0.366147,		0.180564,		-0.724229           ));
-    orientations.push_back(Coordinates(-0.645497,		0.339446,		0.226811,		-0.645497           ));
-    orientations.push_back(Coordinates(-0.724229,		0.306937,		0.269177,		-0.555721           ));
-    orientations.push_back(Coordinates(-0.790569,		0.269177,		0.306937,		-0.456435           ));
-    orientations.push_back(Coordinates(-0.843383,		0.226811,		0.339446,		-0.349341           ));
-    orientations.push_back(Coordinates(-0.881766,		0.180564,		0.366147,		-0.236268           ));
-    orientations.push_back(Coordinates(-0.905061,		0.131227,		0.386583,		-0.119154           ));
-    orientations.push_back(Coordinates(-0.912871,		0.0796453,		0.400404,		3.4915e-08          ));
-    orientations.push_back(Coordinates(-0.905061,		0.0267007,		0.407374,		0.119154            ));
-    orientations.push_back(Coordinates(-0.881766,		-0.0267007,		0.407374,		0.236268            ));
-    orientations.push_back(Coordinates(-0.843383,		-0.0796453,		0.400404,		0.349341            ));
-    orientations.push_back(Coordinates(-0.790569,		-0.131227,		0.386583,		0.456436            ));
-    orientations.push_back(Coordinates(-0.724229,		-0.180564,		0.366147,		0.555721            ));
-    orientations.push_back(Coordinates(-0.645497,		-0.226811,		0.339446,		0.645497            ));
-    orientations.push_back(Coordinates(-0.555721,		-0.269177,		0.306937,		0.724229            ));
-    orientations.push_back(Coordinates(-0.456435,		-0.306937,		0.269177,		0.790569            ));
-    orientations.push_back(Coordinates(-0.349341,		-0.339446,		0.226811,		0.843383            ));
-    orientations.push_back(Coordinates(-0.236268,		-0.366147,		0.180564,		0.881766            ));
-    orientations.push_back(Coordinates(-0.119153,		-0.386583,		0.131227,		0.905061            ));
-    orientations.push_back(Coordinates(7.48179e-08,		-0.400404,		0.0796453,		0.912871            ));
-    orientations.push_back(Coordinates(0.119154,		-0.407374,		0.0267007,		0.905061            ));
-    orientations.push_back(Coordinates(-0.383033,		0.498929,		0.0327016,		-0.776715           ));
-    orientations.push_back(Coordinates(-0.481138,		0.490393,		0.0975452,		-0.720074           ));
-    orientations.push_back(Coordinates(-0.57101,		0.473465,		0.16072,		-0.651112           ));
-    orientations.push_back(Coordinates(-0.651112,		0.448436,		0.221144,		-0.57101            ));
-    orientations.push_back(Coordinates(-0.720074,		0.415735,		0.277785,		-0.481138           ));
-    orientations.push_back(Coordinates(-0.776715,		0.37592,		0.329673,		-0.383033           ));
-    orientations.push_back(Coordinates(-0.820066,		0.329673,		0.37592,		-0.278375           ));
-    orientations.push_back(Coordinates(-0.849385,		0.277785,		0.415735,		-0.168953           ));
-    orientations.push_back(Coordinates(-0.864171,		0.221144,		0.448436,		-0.0566407          ));
-    orientations.push_back(Coordinates(-0.864171,		0.16072,		0.473465,		0.0566408           ));
-    orientations.push_back(Coordinates(-0.849385,		0.0975451,		0.490393,		0.168953            ));
-    orientations.push_back(Coordinates(-0.820066,		0.0327015,		0.498929,		0.278375            ));
-    orientations.push_back(Coordinates(-0.776715,		-0.0327016,		0.498929,		0.383033            ));
-    orientations.push_back(Coordinates(-0.720074,		-0.0975452,		0.490393,		0.481138            ));
-    orientations.push_back(Coordinates(-0.651112,		-0.16072,		0.473465,		0.57101             ));
-    orientations.push_back(Coordinates(-0.57101,		-0.221144,		0.448436,		0.651112            ));
-    orientations.push_back(Coordinates(-0.481138,		-0.277785,		0.415735,		0.720074            ));
-    orientations.push_back(Coordinates(-0.383033,		-0.329673,		0.37592,		0.776715            ));
-    orientations.push_back(Coordinates(-0.278375,		-0.37592,		0.329673,		0.820066            ));
-    orientations.push_back(Coordinates(-0.168953,		-0.415735,		0.277785,		0.849385            ));
-    orientations.push_back(Coordinates(-0.0566407,		-0.448436,		0.221144,		0.864171            ));
-    orientations.push_back(Coordinates(0.0566408,		-0.473465,		0.16072,		0.864171            ));
-    orientations.push_back(Coordinates(0.168953,		-0.490393,		0.0975451,		0.849385            ));
-    orientations.push_back(Coordinates(0.278375,		-0.498929,		0.0327015,		0.820066            ));
-    orientations.push_back(Coordinates(-0.651112,		0.498929,		0.0327016,		-0.57101            ));
-    orientations.push_back(Coordinates(-0.720074,		0.490393,		0.0975452,		-0.481138           ));
-    orientations.push_back(Coordinates(-0.776715,		0.473465,		0.16072,		-0.383033           ));
-    orientations.push_back(Coordinates(-0.820066,		0.448436,		0.221144,		-0.278375           ));
-    orientations.push_back(Coordinates(-0.849385,		0.415735,		0.277785,		-0.168953           ));
-    orientations.push_back(Coordinates(-0.864171,		0.37592,		0.329673,		-0.0566408          ));
-    orientations.push_back(Coordinates(-0.864171,		0.329673,		0.37592,		0.0566408           ));
-    orientations.push_back(Coordinates(-0.849385,		0.277785,		0.415735,		0.168953            ));
-    orientations.push_back(Coordinates(-0.820066,		0.221144,		0.448436,		0.278375            ));
-    orientations.push_back(Coordinates(-0.776715,		0.16072,		0.473465,		0.383033            ));
-    orientations.push_back(Coordinates(-0.720074,		0.0975451,		0.490393,		0.481138            ));
-    orientations.push_back(Coordinates(-0.651112,		0.0327015,		0.498929,		0.57101             ));
-    orientations.push_back(Coordinates(-0.57101,		-0.0327016,		0.498929,		0.651112            ));
-    orientations.push_back(Coordinates(-0.481138,		-0.0975452,		0.490393,		0.720074            ));
-    orientations.push_back(Coordinates(-0.383033,		-0.16072,		0.473465,		0.776715            ));
-    orientations.push_back(Coordinates(-0.278375,		-0.221144,		0.448436,		0.820066            ));
-    orientations.push_back(Coordinates(-0.168953,		-0.277785,		0.415735,		0.849385            ));
-    orientations.push_back(Coordinates(-0.0566407,		-0.329673,		0.37592,		0.864171            ));
-    orientations.push_back(Coordinates(0.0566408,		-0.37592,		0.329673,		0.864171            ));
-    orientations.push_back(Coordinates(0.168953,		-0.415735,		0.277785,		0.849385            ));
-    orientations.push_back(Coordinates(0.278375,		-0.448436,		0.221144,		0.820066            ));
-    orientations.push_back(Coordinates(0.383033,		-0.473465,		0.16072,		0.776715            ));
-    orientations.push_back(Coordinates(0.481138,		-0.490393,		0.0975451,		0.720074            ));
-    orientations.push_back(Coordinates(0.57101,		-0.498929,		0.0327015,		0.651112                ));
-    orientations.push_back(Coordinates(-0.707107,		0.576114,		0.0377605,		-0.408248           ));
-    orientations.push_back(Coordinates(-0.754344,		0.566257,		0.112635,		-0.31246            ));
-    orientations.push_back(Coordinates(-0.788675,		0.54671,		0.185583,		-0.211325           ));
-    orientations.push_back(Coordinates(-0.809511,		0.51781,		0.255356,		-0.106574           ));
-    orientations.push_back(Coordinates(-0.816497,		0.480049,		0.320759,		1.33838e-08         ));
-    orientations.push_back(Coordinates(-0.809511,		0.434075,		0.380673,		0.106574            ));
-    orientations.push_back(Coordinates(-0.788675,		0.380673,		0.434075,		0.211325            ));
-    orientations.push_back(Coordinates(-0.754344,		0.320759,		0.480049,		0.31246             ));
-    orientations.push_back(Coordinates(-0.707107,		0.255355,		0.51781,		0.408248            ));
-    orientations.push_back(Coordinates(-0.64777,		0.185583,		0.54671,		0.497052            ));
-    orientations.push_back(Coordinates(-0.57735,		0.112635,		0.566257,		0.57735             ));
-    orientations.push_back(Coordinates(-0.497052,		0.0377605,		0.576114,		0.64777             ));
-    orientations.push_back(Coordinates(-0.408248,		-0.0377605,		0.576114,		0.707107            ));
-    orientations.push_back(Coordinates(-0.31246,		-0.112635,		0.566257,		0.754344            ));
-    orientations.push_back(Coordinates(-0.211325,		-0.185583,		0.54671,		0.788675            ));
-    orientations.push_back(Coordinates(-0.106574,		-0.255356,		0.51781,		0.809511            ));
-    orientations.push_back(Coordinates(4.9074e-08,		-0.320759,		0.480049,		0.816497            ));
-    orientations.push_back(Coordinates(0.106574,		-0.380674,		0.434075,		0.809511            ));
-    orientations.push_back(Coordinates(0.211325,		-0.434075,		0.380673,		0.788675            ));
-    orientations.push_back(Coordinates(0.31246,		-0.480049,		0.320759,		0.754344                ));
-    orientations.push_back(Coordinates(0.408248,		-0.51781,		0.255355,		0.707107            ));
-    orientations.push_back(Coordinates(0.497052,		-0.54671,		0.185583,		0.64777             ));
-    orientations.push_back(Coordinates(0.57735,		-0.566257,		0.112635,		0.57735                 ));
-    orientations.push_back(Coordinates(0.64777,		-0.576114,		0.0377605,		0.497052                ));
-    orientations.push_back(Coordinates(-0.497052,		0.576114,		0.0377605,		-0.64777            ));
-    orientations.push_back(Coordinates(-0.57735,		0.566257,		0.112635,		-0.57735            ));
-    orientations.push_back(Coordinates(-0.64777,		0.54671,		0.185583,		-0.497052           ));
-    orientations.push_back(Coordinates(-0.707107,		0.51781,		0.255356,		-0.408248           ));
-    orientations.push_back(Coordinates(-0.754344,		0.480049,		0.320759,		-0.31246            ));
-    orientations.push_back(Coordinates(-0.788675,		0.434075,		0.380673,		-0.211325           ));
-    orientations.push_back(Coordinates(-0.809511,		0.380673,		0.434075,		-0.106574           ));
-    orientations.push_back(Coordinates(-0.816497,		0.320759,		0.480049,		2.23064e-08         ));
-    orientations.push_back(Coordinates(-0.809511,		0.255355,		0.51781,		0.106574            ));
-    orientations.push_back(Coordinates(-0.788675,		0.185583,		0.54671,		0.211325            ));
-    orientations.push_back(Coordinates(-0.754344,		0.112635,		0.566257,		0.31246             ));
-    orientations.push_back(Coordinates(-0.707107,		0.0377605,		0.576114,		0.408248            ));
-    orientations.push_back(Coordinates(-0.64777,		-0.0377605,		0.576114,		0.497052            ));
-    orientations.push_back(Coordinates(-0.57735,		-0.112635,		0.566257,		0.57735             ));
-    orientations.push_back(Coordinates(-0.497052,		-0.185583,		0.54671,		0.64777             ));
-    orientations.push_back(Coordinates(-0.408248,		-0.255356,		0.51781,		0.707107            ));
-    orientations.push_back(Coordinates(-0.31246,		-0.320759,		0.480049,		0.754344            ));
-    orientations.push_back(Coordinates(-0.211325,		-0.380674,		0.434075,		0.788675            ));
-    orientations.push_back(Coordinates(-0.106574,		-0.434075,		0.380673,		0.809511            ));
-    orientations.push_back(Coordinates(5.79966e-08,		-0.480049,		0.320759,		0.816497            ));
-    orientations.push_back(Coordinates(0.106574,		-0.51781,		0.255355,		0.809511            ));
-    orientations.push_back(Coordinates(0.211325,		-0.54671,		0.185583,		0.788675            ));
-    orientations.push_back(Coordinates(0.31246,		-0.566257,		0.112635,		0.754344                ));
-    orientations.push_back(Coordinates(0.408248,		-0.576114,		0.0377605,		0.707107            ));
-    orientations.push_back(Coordinates(-0.574227,		0.644115,		0.0422175,		-0.503584           ));
-    orientations.push_back(Coordinates(-0.635045,		0.633094,		0.12593,		-0.424324           ));
-    orientations.push_back(Coordinates(-0.684998,		0.611241,		0.207488,		-0.337804           ));
-    orientations.push_back(Coordinates(-0.72323,		0.578929,		0.285496,		-0.245503           ));
-    orientations.push_back(Coordinates(-0.749087,		0.536711,		0.358619,		-0.149003           ));
-    orientations.push_back(Coordinates(-0.762127,		0.485311,		0.425606,		-0.0499524          ));
-    orientations.push_back(Coordinates(-0.762127,		0.425606,		0.485311,		0.0499525           ));
-    orientations.push_back(Coordinates(-0.749087,		0.358619,		0.536711,		0.149003            ));
-    orientations.push_back(Coordinates(-0.72323,		0.285496,		0.578929,		0.245503            ));
-    orientations.push_back(Coordinates(-0.684998,		0.207488,		0.611241,		0.337804            ));
-    orientations.push_back(Coordinates(-0.635045,		0.12593,		0.633094,		0.424324            ));
-    orientations.push_back(Coordinates(-0.574227,		0.0422175,		0.644115,		0.503584            ));
-    orientations.push_back(Coordinates(-0.503584,		-0.0422176,		0.644115,		0.574227            ));
-    orientations.push_back(Coordinates(-0.424324,		-0.12593,		0.633094,		0.635045            ));
-    orientations.push_back(Coordinates(-0.337804,		-0.207488,		0.611241,		0.684998            ));
-    orientations.push_back(Coordinates(-0.245503,		-0.285496,		0.578929,		0.72323             ));
-    orientations.push_back(Coordinates(-0.149003,		-0.358619,		0.536711,		0.749087            ));
-    orientations.push_back(Coordinates(-0.0499524,		-0.425606,		0.48531,		0.762127            ));
-    orientations.push_back(Coordinates(0.0499525,		-0.485311,		0.425606,		0.762127            ));
-    orientations.push_back(Coordinates(0.149003,		-0.536711,		0.358619,		0.749087            ));
-    orientations.push_back(Coordinates(0.245504,		-0.578929,		0.285496,		0.72323             ));
-    orientations.push_back(Coordinates(0.337804,		-0.611241,		0.207488,		0.684998            ));
-    orientations.push_back(Coordinates(0.424324,		-0.633094,		0.12593,		0.635045            ));
-    orientations.push_back(Coordinates(0.503584,		-0.644115,		0.0422175,		0.574227            ));
-    orientations.push_back(Coordinates(-0.655903,		0.101844,		0.00667518,		0.747914            ));
-    orientations.push_back(Coordinates(-0.552669,		0.100101,		0.0199113,		0.827128            ));
-    orientations.push_back(Coordinates(-0.439979,		0.0966457,		0.0328068,		0.892189            ));
-    orientations.push_back(Coordinates(-0.319761,		0.0915367,		0.0451409,		0.941985            ));
-    orientations.push_back(Coordinates(-0.194072,		0.0848615,		0.0567027,		0.975664            ));
-    orientations.push_back(Coordinates(-0.0650616,		0.0767343,		0.0672942,		0.992648            ));
-    orientations.push_back(Coordinates(0.0650616,		0.0672942,		0.0767343,		0.992648            ));
-    orientations.push_back(Coordinates(0.194072,		0.0567026,		0.0848615,		0.975664            ));
-    orientations.push_back(Coordinates(0.319761,		0.0451409,		0.0915367,		0.941985            ));
-    orientations.push_back(Coordinates(0.439979,		0.0328068,		0.0966457,		0.892189            ));
-    orientations.push_back(Coordinates(0.552669,		0.0199113,		0.100101,		0.827128            ));
-    orientations.push_back(Coordinates(0.655903,		0.00667517,		0.101844,		0.747914            ));
-    orientations.push_back(Coordinates(0.747914,		-0.00667518,		0.101844,		0.655903        ));
-    orientations.push_back(Coordinates(0.827128,		-0.0199113,		0.100101,		0.552669            ));
-    orientations.push_back(Coordinates(0.892189,		-0.0328068,		0.0966456,		0.439979            ));
-    orientations.push_back(Coordinates(0.941985,		-0.0451409,		0.0915367,		0.319761            ));
-    orientations.push_back(Coordinates(0.975664,		-0.0567027,		0.0848615,		0.194072            ));
-    orientations.push_back(Coordinates(0.992648,		-0.0672942,		0.0767343,		0.0650615           ));
-    orientations.push_back(Coordinates(0.992648,		-0.0767343,		0.0672942,		-0.0650617          ));
-    orientations.push_back(Coordinates(0.975664,		-0.0848615,		0.0567026,		-0.194072           ));
-    orientations.push_back(Coordinates(0.941985,		-0.0915367,		0.0451409,		-0.319761           ));
-    orientations.push_back(Coordinates(0.892189,		-0.0966457,		0.0328068,		-0.439979           ));
-    orientations.push_back(Coordinates(0.827128,		-0.100101,		0.0199113,		-0.552669           ));
-    orientations.push_back(Coordinates(0.747914,		-0.101844,		0.00667517,		-0.655903           ));
-    orientations.push_back(Coordinates(-0.314672,		0.203687,		0.0133504,		0.926993            ));
-    orientations.push_back(Coordinates(-0.190983,		0.200202,		0.0398226,		0.960135            ));
-    orientations.push_back(Coordinates(-0.0640261,		0.193291,		0.0656136,		0.976849            ));
-    orientations.push_back(Coordinates(0.0640261,		0.183073,		0.0902818,		0.976849            ));
-    orientations.push_back(Coordinates(0.190983,		0.169723,		0.113405,		0.960135            ));
-    orientations.push_back(Coordinates(0.314672,		0.153469,		0.134588,		0.926993            ));
-    orientations.push_back(Coordinates(0.432976,		0.134588,		0.153469,		0.877989            ));
-    orientations.push_back(Coordinates(0.543873,		0.113405,		0.169723,		0.813963            ));
-    orientations.push_back(Coordinates(0.645463,		0.0902818,		0.183073,		0.73601             ));
-    orientations.push_back(Coordinates(0.73601,		0.0656135,		0.193291,		0.645463                ));
-    orientations.push_back(Coordinates(0.813963,		0.0398226,		0.200202,		0.543873            ));
-    orientations.push_back(Coordinates(0.877989,		0.0133503,		0.203687,		0.432976            ));
-    orientations.push_back(Coordinates(0.926993,		-0.0133504,		0.203687,		0.314672            ));
-    orientations.push_back(Coordinates(0.960135,		-0.0398227,		0.200202,		0.190983            ));
-    orientations.push_back(Coordinates(0.976849,		-0.0656136,		0.193291,		0.064026            ));
-    orientations.push_back(Coordinates(0.976849,		-0.0902818,		0.183073,		-0.0640261          ));
-    orientations.push_back(Coordinates(0.960135,		-0.113405,		0.169723,		-0.190983           ));
-    orientations.push_back(Coordinates(0.926993,		-0.134588,		0.153469,		-0.314672           ));
-    orientations.push_back(Coordinates(0.877989,		-0.153469,		0.134588,		-0.432976           ));
-    orientations.push_back(Coordinates(0.813963,		-0.169723,		0.113405,		-0.543873           ));
-    orientations.push_back(Coordinates(0.73601,		-0.183073,		0.0902818,		-0.645463               ));
-    orientations.push_back(Coordinates(0.645463,		-0.193291,		0.0656135,		-0.73601            ));
-    orientations.push_back(Coordinates(0.543873,		-0.200202,		0.0398226,		-0.813963           ));
-    orientations.push_back(Coordinates(0.432976,		-0.203687,		0.0133503,		-0.877989           ));
-    orientations.push_back(Coordinates(-0.877989,		0.203687,		0.0133504,		0.432976            ));
-    orientations.push_back(Coordinates(-0.813963,		0.200202,		0.0398226,		0.543873            ));
-    orientations.push_back(Coordinates(-0.73601,		0.193291,		0.0656136,		0.645463            ));
-    orientations.push_back(Coordinates(-0.645463,		0.183073,		0.0902818,		0.73601             ));
-    orientations.push_back(Coordinates(-0.543873,		0.169723,		0.113405,		0.813963            ));
-    orientations.push_back(Coordinates(-0.432976,		0.153469,		0.134588,		0.877989            ));
-    orientations.push_back(Coordinates(-0.314672,		0.134588,		0.153469,		0.926993            ));
-    orientations.push_back(Coordinates(-0.190983,		0.113405,		0.169723,		0.960135            ));
-    orientations.push_back(Coordinates(-0.064026,		0.0902818,		0.183073,		0.976849            ));
-    orientations.push_back(Coordinates(0.0640261,		0.0656135,		0.193291,		0.976849            ));
-    orientations.push_back(Coordinates(0.190983,		0.0398226,		0.200202,		0.960135            ));
-    orientations.push_back(Coordinates(0.314672,		0.0133503,		0.203687,		0.926993            ));
-    orientations.push_back(Coordinates(0.432976,		-0.0133504,		0.203687,		0.877989            ));
-    orientations.push_back(Coordinates(0.543873,		-0.0398227,		0.200202,		0.813963            ));
-    orientations.push_back(Coordinates(0.645463,		-0.0656136,		0.193291,		0.73601             ));
-    orientations.push_back(Coordinates(0.73601,		-0.0902818,		0.183073,		0.645463                ));
-    orientations.push_back(Coordinates(0.813963,		-0.113405,		0.169723,		0.543873            ));
-    orientations.push_back(Coordinates(0.877989,		-0.134588,		0.153469,		0.432976            ));
-    orientations.push_back(Coordinates(0.926993,		-0.153469,		0.134588,		0.314671            ));
-    orientations.push_back(Coordinates(0.960135,		-0.169723,		0.113405,		0.190983            ));
-    orientations.push_back(Coordinates(0.976849,		-0.183073,		0.0902818,		0.064026            ));
-    orientations.push_back(Coordinates(0.976849,		-0.193291,		0.0656135,		-0.0640261          ));
-    orientations.push_back(Coordinates(0.960135,		-0.200202,		0.0398226,		-0.190983           ));
-    orientations.push_back(Coordinates(0.926992,		-0.203687,		0.0133503,		-0.314672           ));
-    orientations.push_back(Coordinates(-0.627679,		0.305531,		0.0200255,		0.71573             ));
-    orientations.push_back(Coordinates(-0.528887,		0.300303,		0.059734,		0.791535            ));
-    orientations.push_back(Coordinates(-0.421046,		0.289937,		0.0984203,		0.853797            ));
-    orientations.push_back(Coordinates(-0.306001,		0.27461,		0.135423,		0.901451            ));
-    orientations.push_back(Coordinates(-0.18572,		0.254585,		0.170108,		0.93368             ));
-    orientations.push_back(Coordinates(-0.0622619,		0.230203,		0.201883,		0.949933            ));
-    orientations.push_back(Coordinates(0.0622619,		0.201883,		0.230203,		0.949933            ));
-    orientations.push_back(Coordinates(0.18572,		0.170108,		0.254585,		0.93368                 ));
-    orientations.push_back(Coordinates(0.306001,		0.135423,		0.27461,		0.901451            ));
-    orientations.push_back(Coordinates(0.421046,		0.0984203,		0.289937,		0.853797            ));
-    orientations.push_back(Coordinates(0.528887,		0.059734,		0.300303,		0.791535            ));
-    orientations.push_back(Coordinates(0.627679,		0.0200255,		0.305531,		0.71573             ));
-    orientations.push_back(Coordinates(0.71573,		-0.0200256,		0.305531,		0.627678                ));
-    orientations.push_back(Coordinates(0.791536,		-0.059734,		0.300303,		0.528887            ));
-    orientations.push_back(Coordinates(0.853797,		-0.0984203,		0.289937,		0.421046            ));
-    orientations.push_back(Coordinates(0.901451,		-0.135423,		0.27461,		0.306001            ));
-    orientations.push_back(Coordinates(0.93368,		-0.170108,		0.254585,		0.18572                 ));
-    orientations.push_back(Coordinates(0.949933,		-0.201883,		0.230203,		0.0622619           ));
-    orientations.push_back(Coordinates(0.949933,		-0.230203,		0.201883,		-0.062262           ));
-    orientations.push_back(Coordinates(0.93368,		-0.254585,		0.170108,		-0.185721               ));
-    orientations.push_back(Coordinates(0.901451,		-0.27461,		0.135423,		-0.306001           ));
-    orientations.push_back(Coordinates(0.853797,		-0.289937,		0.0984203,		-0.421046           ));
-    orientations.push_back(Coordinates(0.791535,		-0.300303,		0.0597339,		-0.528887           ));
-    orientations.push_back(Coordinates(0.71573,		-0.305531,		0.0200255,		-0.627679               ));
-    orientations.push_back(Coordinates(-0.18572,		0.305531,		0.0200255,		0.93368             ));
-    orientations.push_back(Coordinates(-0.0622619,		0.300303,		0.059734,		0.949933            ));
-    orientations.push_back(Coordinates(0.0622619,		0.289937,		0.0984203,		0.949933            ));
-    orientations.push_back(Coordinates(0.18572,		0.27461,		0.135423,		0.93368                 ));
-    orientations.push_back(Coordinates(0.306001,		0.254585,		0.170108,		0.901451            ));
-    orientations.push_back(Coordinates(0.421046,		0.230203,		0.201883,		0.853797            ));
-    orientations.push_back(Coordinates(0.528887,		0.201883,		0.230203,		0.791535            ));
-    orientations.push_back(Coordinates(0.627679,		0.170108,		0.254585,		0.71573             ));
-    orientations.push_back(Coordinates(0.71573,		0.135423,		0.27461,		0.627678                ));
-    orientations.push_back(Coordinates(0.791536,		0.0984203,		0.289937,		0.528887            ));
-    orientations.push_back(Coordinates(0.853797,		0.059734,		0.300303,		0.421046            ));
-    orientations.push_back(Coordinates(0.901451,		0.0200255,		0.305531,		0.306001            ));
-    orientations.push_back(Coordinates(0.93368,		-0.0200256,		0.305531,		0.18572                 ));
-    orientations.push_back(Coordinates(0.949933,		-0.059734,		0.300303,		0.0622619           ));
-    orientations.push_back(Coordinates(0.949933,		-0.0984203,		0.289937,		-0.062262           ));
-    orientations.push_back(Coordinates(0.93368,		-0.135423,		0.27461,		-0.185721               ));
-    orientations.push_back(Coordinates(0.901451,		-0.170108,		0.254585,		-0.306001           ));
-    orientations.push_back(Coordinates(0.853797,		-0.201883,		0.230203,		-0.421046           ));
-    orientations.push_back(Coordinates(0.791535,		-0.230203,		0.201883,		-0.528887           ));
-    orientations.push_back(Coordinates(0.71573,		-0.254585,		0.170108,		-0.627679               ));
-    orientations.push_back(Coordinates(0.627678,		-0.27461,		0.135423,		-0.71573            ));
-    orientations.push_back(Coordinates(0.528887,		-0.289937,		0.0984203,		-0.791536           ));
-    orientations.push_back(Coordinates(0.421046,		-0.300303,		0.0597339,		-0.853797           ));
-    orientations.push_back(Coordinates(0.306001,		-0.305531,		0.0200255,		-0.901451           ));
-    orientations.push_back(Coordinates(-0.119154,		0.407374,		0.0267007,		0.905061            ));
-    orientations.push_back(Coordinates(4.98786e-09,		0.400404,		0.0796453,		0.912871            ));
-    orientations.push_back(Coordinates(0.119154,		0.386583,		0.131227,		0.905061            ));
-    orientations.push_back(Coordinates(0.236268,		0.366147,		0.180564,		0.881766            ));
-    orientations.push_back(Coordinates(0.349341,		0.339446,		0.226811,		0.843383            ));
-    orientations.push_back(Coordinates(0.456435,		0.306937,		0.269177,		0.790569            ));
-    orientations.push_back(Coordinates(0.555721,		0.269177,		0.306937,		0.724229            ));
-    orientations.push_back(Coordinates(0.645497,		0.226811,		0.339446,		0.645497            ));
-    orientations.push_back(Coordinates(0.724229,		0.180564,		0.366147,		0.555721            ));
-    orientations.push_back(Coordinates(0.790569,		0.131227,		0.386583,		0.456435            ));
-    orientations.push_back(Coordinates(0.843383,		0.0796453,		0.400404,		0.349341            ));
-    orientations.push_back(Coordinates(0.881766,		0.0267007,		0.407374,		0.236268            ));
-    orientations.push_back(Coordinates(0.905061,		-0.0267007,		0.407374,		0.119154            ));
-    orientations.push_back(Coordinates(0.912871,		-0.0796453,		0.400404,		-4.48907e-08        ));
-    orientations.push_back(Coordinates(0.905061,		-0.131227,		0.386583,		-0.119154           ));
-    orientations.push_back(Coordinates(0.881766,		-0.180564,		0.366147,		-0.236268           ));
-    orientations.push_back(Coordinates(0.843383,		-0.226811,		0.339446,		-0.349341           ));
-    orientations.push_back(Coordinates(0.790569,		-0.269177,		0.306937,		-0.456436           ));
-    orientations.push_back(Coordinates(0.724229,		-0.306937,		0.269177,		-0.555721           ));
-    orientations.push_back(Coordinates(0.645497,		-0.339446,		0.226811,		-0.645497           ));
-    orientations.push_back(Coordinates(0.555721,		-0.366147,		0.180564,		-0.724229           ));
-    orientations.push_back(Coordinates(0.456435,		-0.386583,		0.131227,		-0.790569           ));
-    orientations.push_back(Coordinates(0.349341,		-0.400404,		0.0796453,		-0.843383           ));
-    orientations.push_back(Coordinates(0.236268,		-0.407374,		0.0267007,		-0.881766           ));
-    orientations.push_back(Coordinates(-0.456435,		0.407374,		0.0267007,		0.790569            ));
-    orientations.push_back(Coordinates(-0.349341,		0.400404,		0.0796453,		0.843383            ));
-    orientations.push_back(Coordinates(-0.236268,		0.386583,		0.131227,		0.881766            ));
-    orientations.push_back(Coordinates(-0.119154,		0.366147,		0.180564,		0.905061            ));
-    orientations.push_back(Coordinates(1.49636e-08,		0.339446,		0.226811,		0.912871            ));
-    orientations.push_back(Coordinates(0.119154,		0.306937,		0.269177,		0.905061            ));
-    orientations.push_back(Coordinates(0.236268,		0.269177,		0.306937,		0.881766            ));
-    orientations.push_back(Coordinates(0.349341,		0.226811,		0.339446,		0.843383            ));
-    orientations.push_back(Coordinates(0.456435,		0.180564,		0.366147,		0.790569            ));
-    orientations.push_back(Coordinates(0.555721,		0.131227,		0.386583,		0.724229            ));
-    orientations.push_back(Coordinates(0.645497,		0.0796453,		0.400404,		0.645497            ));
-    orientations.push_back(Coordinates(0.724229,		0.0267007,		0.407374,		0.555721            ));
-    orientations.push_back(Coordinates(0.790569,		-0.0267007,		0.407374,		0.456435            ));
-    orientations.push_back(Coordinates(0.843383,		-0.0796453,		0.400404,		0.349341            ));
-    orientations.push_back(Coordinates(0.881766,		-0.131227,		0.386583,		0.236268            ));
-    orientations.push_back(Coordinates(0.905061,		-0.180564,		0.366147,		0.119154            ));
-    orientations.push_back(Coordinates(0.912871,		-0.226811,		0.339446,		-5.48664e-08        ));
-    orientations.push_back(Coordinates(0.905061,		-0.269177,		0.306937,		-0.119154           ));
-    orientations.push_back(Coordinates(0.881766,		-0.306937,		0.269177,		-0.236268           ));
-    orientations.push_back(Coordinates(0.843383,		-0.339446,		0.226811,		-0.349341           ));
-    orientations.push_back(Coordinates(0.790569,		-0.366147,		0.180564,		-0.456436           ));
-    orientations.push_back(Coordinates(0.724229,		-0.386583,		0.131227,		-0.555721           ));
-    orientations.push_back(Coordinates(0.645497,		-0.400404,		0.0796453,		-0.645497           ));
-    orientations.push_back(Coordinates(0.555721,		-0.407374,		0.0267007,		-0.724229           ));
-    orientations.push_back(Coordinates(-0.278375,		0.498929,		0.0327016,		0.820066            ));
-    orientations.push_back(Coordinates(-0.168953,		0.490393,		0.0975452,		0.849385            ));
-    orientations.push_back(Coordinates(-0.0566408,		0.473465,		0.16072,		0.864171            ));
-    orientations.push_back(Coordinates(0.0566408,		0.448436,		0.221144,		0.864171            ));
-    orientations.push_back(Coordinates(0.168953,		0.415735,		0.277785,		0.849385            ));
-    orientations.push_back(Coordinates(0.278375,		0.37592,		0.329673,		0.820066            ));
-    orientations.push_back(Coordinates(0.383033,		0.329673,		0.37592,		0.776715            ));
-    orientations.push_back(Coordinates(0.481138,		0.277785,		0.415735,		0.720074            ));
-    orientations.push_back(Coordinates(0.57101,		0.221144,		0.448436,		0.651112                ));
-    orientations.push_back(Coordinates(0.651112,		0.16072,		0.473465,		0.57101             ));
-    orientations.push_back(Coordinates(0.720074,		0.0975451,		0.490393,		0.481138            ));
-    orientations.push_back(Coordinates(0.776715,		0.0327015,		0.498929,		0.383033            ));
-    orientations.push_back(Coordinates(0.820066,		-0.0327016,		0.498929,		0.278375            ));
-    orientations.push_back(Coordinates(0.849385,		-0.0975452,		0.490393,		0.168953            ));
-    orientations.push_back(Coordinates(0.864171,		-0.16072,		0.473465,		0.0566407           ));
-    orientations.push_back(Coordinates(0.864171,		-0.221144,		0.448436,		-0.0566408          ));
-    orientations.push_back(Coordinates(0.849385,		-0.277785,		0.415735,		-0.168953           ));
-    orientations.push_back(Coordinates(0.820066,		-0.329673,		0.37592,		-0.278375           ));
-    orientations.push_back(Coordinates(0.776715,		-0.37592,		0.329673,		-0.383033           ));
-    orientations.push_back(Coordinates(0.720074,		-0.415735,		0.277785,		-0.481138           ));
-    orientations.push_back(Coordinates(0.651112,		-0.448436,		0.221144,		-0.57101            ));
-    orientations.push_back(Coordinates(0.57101,		-0.473465,		0.16072,		-0.651112               ));
-    orientations.push_back(Coordinates(0.481138,		-0.490393,		0.0975451,		-0.720074           ));
-    orientations.push_back(Coordinates(0.383033,		-0.498929,		0.0327015,		-0.776715           ));
-    orientations.push_back(Coordinates(-0.901451,		0.305531,		0.0200255,		0.306001            ));
-    orientations.push_back(Coordinates(-0.853797,		0.300303,		0.059734,		0.421046            ));
-    orientations.push_back(Coordinates(-0.791535,		0.289937,		0.0984203,		0.528887            ));
-    orientations.push_back(Coordinates(-0.71573,		0.27461,		0.135423,		0.627679            ));
-    orientations.push_back(Coordinates(-0.627679,		0.254585,		0.170108,		0.71573             ));
-    orientations.push_back(Coordinates(-0.528887,		0.230203,		0.201883,		0.791535            ));
-    orientations.push_back(Coordinates(-0.421046,		0.201883,		0.230203,		0.853797            ));
-    orientations.push_back(Coordinates(-0.306001,		0.170108,		0.254585,		0.901451            ));
-    orientations.push_back(Coordinates(-0.18572,		0.135423,		0.27461,		0.93368             ));
-    orientations.push_back(Coordinates(-0.0622619,		0.0984203,		0.289937,		0.949933            ));
-    orientations.push_back(Coordinates(0.062262,		0.059734,		0.300303,		0.949933            ));
-    orientations.push_back(Coordinates(0.18572,		0.0200255,		0.305531,		0.93368                 ));
-    orientations.push_back(Coordinates(0.306001,		-0.0200256,		0.305531,		0.901451            ));
-    orientations.push_back(Coordinates(0.421046,		-0.059734,		0.300303,		0.853797            ));
-    orientations.push_back(Coordinates(0.528887,		-0.0984203,		0.289937,		0.791535            ));
-    orientations.push_back(Coordinates(0.627679,		-0.135423,		0.27461,		0.71573             ));
-    orientations.push_back(Coordinates(0.71573,		-0.170108,		0.254585,		0.627678                ));
-    orientations.push_back(Coordinates(0.791536,		-0.201883,		0.230203,		0.528887            ));
-    orientations.push_back(Coordinates(0.853797,		-0.230203,		0.201883,		0.421046            ));
-    orientations.push_back(Coordinates(0.901451,		-0.254585,		0.170108,		0.306001            ));
-    orientations.push_back(Coordinates(0.93368,		-0.27461,		0.135423,		0.18572                 ));
-    orientations.push_back(Coordinates(0.949933,		-0.289937,		0.0984203,		0.0622618           ));
-    orientations.push_back(Coordinates(0.949933,		-0.300303,		0.0597339,		-0.062262           ));
-    orientations.push_back(Coordinates(0.93368,		-0.305531,		0.0200255,		-0.185721               ));
-    orientations.push_back(Coordinates(-0.724229,		0.407374,		0.0267007,		0.555721            ));
-    orientations.push_back(Coordinates(-0.645497,		0.400404,		0.0796453,		0.645497            ));
-    orientations.push_back(Coordinates(-0.555721,		0.386583,		0.131227,		0.724229            ));
-    orientations.push_back(Coordinates(-0.456435,		0.366147,		0.180564,		0.790569            ));
-    orientations.push_back(Coordinates(-0.349341,		0.339446,		0.226811,		0.843383            ));
-    orientations.push_back(Coordinates(-0.236268,		0.306937,		0.269177,		0.881766            ));
-    orientations.push_back(Coordinates(-0.119154,		0.269177,		0.306937,		0.905061            ));
-    orientations.push_back(Coordinates(2.49393e-08,		0.226811,		0.339446,		0.912871            ));
-    orientations.push_back(Coordinates(0.119154,		0.180564,		0.366147,		0.905061            ));
-    orientations.push_back(Coordinates(0.236268,		0.131227,		0.386583,		0.881766            ));
-    orientations.push_back(Coordinates(0.349341,		0.0796453,		0.400404,		0.843383            ));
-    orientations.push_back(Coordinates(0.456435,		0.0267007,		0.407374,		0.790569            ));
-    orientations.push_back(Coordinates(0.555721,		-0.0267007,		0.407374,		0.724229            ));
-    orientations.push_back(Coordinates(0.645497,		-0.0796453,		0.400404,		0.645497            ));
-    orientations.push_back(Coordinates(0.724229,		-0.131227,		0.386583,		0.555721            ));
-    orientations.push_back(Coordinates(0.790569,		-0.180564,		0.366147,		0.456435            ));
-    orientations.push_back(Coordinates(0.843383,		-0.226811,		0.339446,		0.349341            ));
-    orientations.push_back(Coordinates(0.881766,		-0.269177,		0.306937,		0.236268            ));
-    orientations.push_back(Coordinates(0.905061,		-0.306937,		0.269177,		0.119154            ));
-    orientations.push_back(Coordinates(0.912871,		-0.339446,		0.226811,		-6.48421e-08        ));
-    orientations.push_back(Coordinates(0.905061,		-0.366147,		0.180564,		-0.119154           ));
-    orientations.push_back(Coordinates(0.881766,		-0.386583,		0.131227,		-0.236268           ));
-    orientations.push_back(Coordinates(0.843383,		-0.400404,		0.0796453,		-0.349341           ));
-    orientations.push_back(Coordinates(0.790569,		-0.407374,		0.0267007,		-0.456436           ));
-    orientations.push_back(Coordinates(-0.881766,		0.407374,		0.0267007,		0.236268            ));
-    orientations.push_back(Coordinates(-0.843383,		0.400404,		0.0796453,		0.349341            ));
-    orientations.push_back(Coordinates(-0.790569,		0.386583,		0.131227,		0.456435            ));
-    orientations.push_back(Coordinates(-0.724229,		0.366147,		0.180564,		0.555721            ));
-    orientations.push_back(Coordinates(-0.645497,		0.339446,		0.226811,		0.645497            ));
-    orientations.push_back(Coordinates(-0.555721,		0.306937,		0.269177,		0.724229            ));
-    orientations.push_back(Coordinates(-0.456435,		0.269177,		0.306937,		0.790569            ));
-    orientations.push_back(Coordinates(-0.349341,		0.226811,		0.339446,		0.843383            ));
-    orientations.push_back(Coordinates(-0.236268,		0.180564,		0.366147,		0.881766            ));
-    orientations.push_back(Coordinates(-0.119154,		0.131227,		0.386583,		0.905061            ));
-    orientations.push_back(Coordinates(3.4915e-08,		0.0796453,		0.400404,		0.912871            ));
-    orientations.push_back(Coordinates(0.119154,		0.0267007,		0.407374,		0.905061            ));
-    orientations.push_back(Coordinates(0.236268,		-0.0267007,		0.407374,		0.881766            ));
-    orientations.push_back(Coordinates(0.349341,		-0.0796453,		0.400404,		0.843383            ));
-    orientations.push_back(Coordinates(0.456436,		-0.131227,		0.386583,		0.790569            ));
-    orientations.push_back(Coordinates(0.555721,		-0.180564,		0.366147,		0.724229            ));
-    orientations.push_back(Coordinates(0.645497,		-0.226811,		0.339446,		0.645497            ));
-    orientations.push_back(Coordinates(0.724229,		-0.269177,		0.306937,		0.555721            ));
-    orientations.push_back(Coordinates(0.790569,		-0.306937,		0.269177,		0.456435            ));
-    orientations.push_back(Coordinates(0.843383,		-0.339446,		0.226811,		0.349341            ));
-    orientations.push_back(Coordinates(0.881766,		-0.366147,		0.180564,		0.236268            ));
-    orientations.push_back(Coordinates(0.905061,		-0.386583,		0.131227,		0.119153            ));
-    orientations.push_back(Coordinates(0.912871,		-0.400404,		0.0796453,		-7.48179e-08        ));
-    orientations.push_back(Coordinates(0.905061,		-0.407374,		0.0267007,		-0.119154           ));
-    orientations.push_back(Coordinates(-0.776715,		0.498929,		0.0327016,		0.383033            ));
-    orientations.push_back(Coordinates(-0.720074,		0.490393,		0.0975452,		0.481138            ));
-    orientations.push_back(Coordinates(-0.651112,		0.473465,		0.16072,		0.57101             ));
-    orientations.push_back(Coordinates(-0.57101,		0.448436,		0.221144,		0.651112            ));
-    orientations.push_back(Coordinates(-0.481138,		0.415735,		0.277785,		0.720074            ));
-    orientations.push_back(Coordinates(-0.383033,		0.37592,		0.329673,		0.776715            ));
-    orientations.push_back(Coordinates(-0.278375,		0.329673,		0.37592,		0.820066            ));
-    orientations.push_back(Coordinates(-0.168953,		0.277785,		0.415735,		0.849385            ));
-    orientations.push_back(Coordinates(-0.0566407,		0.221144,		0.448436,		0.864171            ));
-    orientations.push_back(Coordinates(0.0566408,		0.16072,		0.473465,		0.864171            ));
-    orientations.push_back(Coordinates(0.168953,		0.0975451,		0.490393,		0.849385            ));
-    orientations.push_back(Coordinates(0.278375,		0.0327015,		0.498929,		0.820066            ));
-    orientations.push_back(Coordinates(0.383033,		-0.0327016,		0.498929,		0.776715            ));
-    orientations.push_back(Coordinates(0.481138,		-0.0975452,		0.490393,		0.720074            ));
-    orientations.push_back(Coordinates(0.57101,		-0.16072,		0.473465,		0.651112                ));
-    orientations.push_back(Coordinates(0.651112,		-0.221144,		0.448436,		0.57101             ));
-    orientations.push_back(Coordinates(0.720074,		-0.277785,		0.415735,		0.481138            ));
-    orientations.push_back(Coordinates(0.776715,		-0.329673,		0.37592,		0.383033            ));
-    orientations.push_back(Coordinates(0.820066,		-0.37592,		0.329673,		0.278375            ));
-    orientations.push_back(Coordinates(0.849385,		-0.415735,		0.277785,		0.168953            ));
-    orientations.push_back(Coordinates(0.864171,		-0.448436,		0.221144,		0.0566407           ));
-    orientations.push_back(Coordinates(0.864171,		-0.473465,		0.16072,		-0.0566408          ));
-    orientations.push_back(Coordinates(0.849385,		-0.490393,		0.0975451,		-0.168953           ));
-    orientations.push_back(Coordinates(0.820066,		-0.498929,		0.0327015,		-0.278375           ));
-    orientations.push_back(Coordinates(-0.57101,		0.498929,		0.0327016,		0.651112            ));
-    orientations.push_back(Coordinates(-0.481138,		0.490393,		0.0975452,		0.720074            ));
-    orientations.push_back(Coordinates(-0.383033,		0.473465,		0.16072,		0.776715            ));
-    orientations.push_back(Coordinates(-0.278375,		0.448436,		0.221144,		0.820066            ));
-    orientations.push_back(Coordinates(-0.168953,		0.415735,		0.277785,		0.849385            ));
-    orientations.push_back(Coordinates(-0.0566408,		0.37592,		0.329673,		0.864171            ));
-    orientations.push_back(Coordinates(0.0566408,		0.329673,		0.37592,		0.864171            ));
-    orientations.push_back(Coordinates(0.168953,		0.277785,		0.415735,		0.849385            ));
-    orientations.push_back(Coordinates(0.278375,		0.221144,		0.448436,		0.820066            ));
-    orientations.push_back(Coordinates(0.383033,		0.16072,		0.473465,		0.776715            ));
-    orientations.push_back(Coordinates(0.481138,		0.0975451,		0.490393,		0.720074            ));
-    orientations.push_back(Coordinates(0.57101,		0.0327015,		0.498929,		0.651112                ));
-    orientations.push_back(Coordinates(0.651112,		-0.0327016,		0.498929,		0.57101             ));
-    orientations.push_back(Coordinates(0.720074,		-0.0975452,		0.490393,		0.481138            ));
-    orientations.push_back(Coordinates(0.776715,		-0.16072,		0.473465,		0.383033            ));
-    orientations.push_back(Coordinates(0.820066,		-0.221144,		0.448436,		0.278375            ));
-    orientations.push_back(Coordinates(0.849385,		-0.277785,		0.415735,		0.168953            ));
-    orientations.push_back(Coordinates(0.864171,		-0.329673,		0.37592,		0.0566407           ));
-    orientations.push_back(Coordinates(0.864171,		-0.37592,		0.329673,		-0.0566408          ));
-    orientations.push_back(Coordinates(0.849385,		-0.415735,		0.277785,		-0.168953           ));
-    orientations.push_back(Coordinates(0.820066,		-0.448436,		0.221144,		-0.278375           ));
-    orientations.push_back(Coordinates(0.776715,		-0.473465,		0.16072,		-0.383033           ));
-    orientations.push_back(Coordinates(0.720074,		-0.490393,		0.0975451,		-0.481138           ));
-    orientations.push_back(Coordinates(0.651112,		-0.498929,		0.0327015,		-0.57101            ));
-    orientations.push_back(Coordinates(-0.408248,		0.576114,		0.0377605,		0.707107            ));
-    orientations.push_back(Coordinates(-0.31246,		0.566257,		0.112635,		0.754344            ));
-    orientations.push_back(Coordinates(-0.211325,		0.54671,		0.185583,		0.788675            ));
-    orientations.push_back(Coordinates(-0.106574,		0.51781,		0.255356,		0.809511            ));
-    orientations.push_back(Coordinates(1.33838e-08,		0.480049,		0.320759,		0.816497            ));
-    orientations.push_back(Coordinates(0.106574,		0.434075,		0.380673,		0.809511            ));
-    orientations.push_back(Coordinates(0.211325,		0.380673,		0.434075,		0.788675            ));
-    orientations.push_back(Coordinates(0.31246,		0.320759,		0.480049,		0.754344                ));
-    orientations.push_back(Coordinates(0.408248,		0.255355,		0.51781,		0.707107            ));
-    orientations.push_back(Coordinates(0.497052,		0.185583,		0.54671,		0.64777             ));
-    orientations.push_back(Coordinates(0.57735,		0.112635,		0.566257,		0.57735                 ));
-    orientations.push_back(Coordinates(0.64777,		0.0377605,		0.576114,		0.497052                ));
-    orientations.push_back(Coordinates(0.707107,		-0.0377605,		0.576114,		0.408248            ));
-    orientations.push_back(Coordinates(0.754344,		-0.112635,		0.566257,		0.31246             ));
-    orientations.push_back(Coordinates(0.788675,		-0.185583,		0.54671,		0.211325            ));
-    orientations.push_back(Coordinates(0.809511,		-0.255356,		0.51781,		0.106574            ));
-    orientations.push_back(Coordinates(0.816497,		-0.320759,		0.480049,		-4.9074e-08         ));
-    orientations.push_back(Coordinates(0.809511,		-0.380674,		0.434075,		-0.106574           ));
-    orientations.push_back(Coordinates(0.788675,		-0.434075,		0.380673,		-0.211325           ));
-    orientations.push_back(Coordinates(0.754344,		-0.480049,		0.320759,		-0.31246            ));
-    orientations.push_back(Coordinates(0.707107,		-0.51781,		0.255355,		-0.408248           ));
-    orientations.push_back(Coordinates(0.64777,		-0.54671,		0.185583,		-0.497052               ));
-    orientations.push_back(Coordinates(0.57735,		-0.566257,		0.112635,		-0.57735                ));
-    orientations.push_back(Coordinates(0.497052,		-0.576114,		0.0377605,		-0.64777            ));
-    orientations.push_back(Coordinates(-0.64777,		0.576114,		0.0377605,		0.497052            ));
-    orientations.push_back(Coordinates(-0.57735,		0.566257,		0.112635,		0.57735             ));
-    orientations.push_back(Coordinates(-0.497052,		0.54671,		0.185583,		0.64777             ));
-    orientations.push_back(Coordinates(-0.408248,		0.51781,		0.255356,		0.707107            ));
-    orientations.push_back(Coordinates(-0.31246,		0.480049,		0.320759,		0.754344            ));
-    orientations.push_back(Coordinates(-0.211325,		0.434075,		0.380673,		0.788675            ));
-    orientations.push_back(Coordinates(-0.106574,		0.380673,		0.434075,		0.809511            ));
-    orientations.push_back(Coordinates(2.23064e-08,		0.320759,		0.480049,		0.816497            ));
-    orientations.push_back(Coordinates(0.106574,		0.255355,		0.51781,		0.809511            ));
-    orientations.push_back(Coordinates(0.211325,		0.185583,		0.54671,		0.788675            ));
-    orientations.push_back(Coordinates(0.31246,		0.112635,		0.566257,		0.754344                ));
-    orientations.push_back(Coordinates(0.408248,		0.0377605,		0.576114,		0.707107            ));
-    orientations.push_back(Coordinates(0.497052,		-0.0377605,		0.576114,		0.64777             ));
-    orientations.push_back(Coordinates(0.57735,		-0.112635,		0.566257,		0.57735                 ));
-    orientations.push_back(Coordinates(0.64777,		-0.185583,		0.54671,		0.497052                ));
-    orientations.push_back(Coordinates(0.707107,		-0.255356,		0.51781,		0.408248            ));
-    orientations.push_back(Coordinates(0.754344,		-0.320759,		0.480049,		0.31246             ));
-    orientations.push_back(Coordinates(0.788675,		-0.380674,		0.434075,		0.211325            ));
-    orientations.push_back(Coordinates(0.809511,		-0.434075,		0.380673,		0.106574            ));
-    orientations.push_back(Coordinates(0.816497,		-0.480049,		0.320759,		-5.79966e-08        ));
-    orientations.push_back(Coordinates(0.809511,		-0.51781,		0.255355,		-0.106574           ));
-    orientations.push_back(Coordinates(0.788675,		-0.54671,		0.185583,		-0.211325           ));
-    orientations.push_back(Coordinates(0.754344,		-0.566257,		0.112635,		-0.31246            ));
-    orientations.push_back(Coordinates(0.707107,		-0.576114,		0.0377605,		-0.408248           ));
-    orientations.push_back(Coordinates(-0.503584,		0.644115,		0.0422175,		0.574227            ));
-    orientations.push_back(Coordinates(-0.424324,		0.633094,		0.12593,		0.635045            ));
-    orientations.push_back(Coordinates(-0.337804,		0.611241,		0.207488,		0.684998            ));
-    orientations.push_back(Coordinates(-0.245503,		0.578929,		0.285496,		0.72323             ));
-    orientations.push_back(Coordinates(-0.149003,		0.536711,		0.358619,		0.749087            ));
-    orientations.push_back(Coordinates(-0.0499524,		0.485311,		0.425606,		0.762127            ));
-    orientations.push_back(Coordinates(0.0499525,		0.425606,		0.485311,		0.762127            ));
-    orientations.push_back(Coordinates(0.149003,		0.358619,		0.536711,		0.749087            ));
-    orientations.push_back(Coordinates(0.245503,		0.285496,		0.578929,		0.72323             ));
-    orientations.push_back(Coordinates(0.337804,		0.207488,		0.611241,		0.684998            ));
-    orientations.push_back(Coordinates(0.424324,		0.12593,		0.633094,		0.635045            ));
-    orientations.push_back(Coordinates(0.503584,		0.0422175,		0.644115,		0.574227            ));
-    orientations.push_back(Coordinates(0.574227,		-0.0422176,		0.644115,		0.503584            ));
-    orientations.push_back(Coordinates(0.635045,		-0.12593,		0.633094,		0.424324            ));
-    orientations.push_back(Coordinates(0.684998,		-0.207488,		0.611241,		0.337804            ));
-    orientations.push_back(Coordinates(0.72323,		-0.285496,		0.578929,		0.245503                ));
-    orientations.push_back(Coordinates(0.749087,		-0.358619,		0.536711,		0.149003            ));
-    orientations.push_back(Coordinates(0.762127,		-0.425606,		0.48531,		0.0499524           ));
-    orientations.push_back(Coordinates(0.762127,		-0.485311,		0.425606,		-0.0499525          ));
-    orientations.push_back(Coordinates(0.749087,		-0.536711,		0.358619,		-0.149003           ));
-    orientations.push_back(Coordinates(0.72323,		-0.578929,		0.285496,		-0.245504               ));
-    orientations.push_back(Coordinates(0.684998,		-0.611241,		0.207488,		-0.337804           ));
-    orientations.push_back(Coordinates(0.635045,		-0.633094,		0.12593,		-0.424324           ));
-    orientations.push_back(Coordinates(0.574227,		-0.644115,		0.0422175,		-0.503584           ));
+  double arr[4608*4]={
+    0.485311,		0.762127,		0.0499525,		0.425606,
+    0.536711,		0.749087,		0.149003,		0.358619,
+    0.578929,		0.72323,		0.245503,		0.285496,
+    0.611241,		0.684998,		0.337804,		0.207488,
+    0.633094,		0.635045,		0.424324,		0.12593,
+    0.644115,		0.574227,		0.503584,		0.0422175,
+    0.644115,		0.503584,		0.574227,		-0.0422176,
+    0.633094,		0.424324,		0.635045,		-0.12593,
+    0.611241,		0.337804,		0.684998,		-0.207488,
+    0.578929,		0.245503,		0.72323,		-0.285496,
+    0.536711,		0.149003,		0.749087,		-0.358619,
+    0.48531,		0.0499524,		0.762127,		-0.425606,
+    0.425606,		-0.0499525,		0.762127,		-0.485311,
+    0.358619,		-0.149003,		0.749087,		-0.536711,
+    0.285496,		-0.245503,		0.72323,		-0.578929,
+    0.207488,		-0.337804,		0.684998,		-0.611241,
+    0.12593,		-0.424324,		0.635045,		-0.633094,
+    0.0422175,		-0.503584,		0.574227,		-0.644115,
+    -0.0422176,		-0.574227,		0.503584,		-0.644115,
+    -0.12593,		-0.635045,		0.424324,		-0.633094,
+    -0.207488,		-0.684998,		0.337804,		-0.611241,
+    -0.285496,		-0.72323,		0.245503,		-0.578929,
+    -0.358619,		-0.749087,		0.149003,		-0.536711,
+    -0.425606,		-0.762127,		0.0499524,		-0.48531,
+    0.5,		0.814748,		0.0534014,		0.288675,
+    0.533402,		0.800808,		0.159291,		0.220942,
+    0.557678,		0.773165,		0.262454,		0.149429,
+    0.572411,		0.732294,		0.361127,		0.0753593,
+    0.57735,		0.678892,		0.453621,		-9.46379e-09,
+    0.572411,		0.613875,		0.538354,		-0.0753593,
+    0.557678,		0.538354,		0.613875,		-0.149429,
+    0.533402,		0.453621,		0.678892,		-0.220942,
+    0.5,		0.361127,		0.732294,		-0.288675,
+    0.458043,		0.262454,		0.773165,		-0.351469,
+    0.408248,		0.159291,		0.800808,		-0.408248,
+    0.351469,		0.0534014,		0.814748,		-0.458043,
+    0.288675,		-0.0534015,		0.814748,		-0.5,
+    0.220942,		-0.159291,		0.800808,		-0.533402,
+    0.149429,		-0.262454,		0.773165,		-0.557678,
+    0.0753593,		-0.361127,		0.732294,		-0.572411,
+    -3.47006e-08,		-0.453621,		0.678892,		-0.57735,
+    -0.0753594,		-0.538354,		0.613875,		-0.572411,
+    -0.149429,		-0.613875,		0.538354,		-0.557678,
+    -0.220942,		-0.678892,		0.453621,		-0.533402,
+    -0.288675,		-0.732294,		0.361127,		-0.5,
+    -0.351469,		-0.773165,		0.262454,		-0.458043,
+    -0.408248,		-0.800808,		0.159291,		-0.408248,
+    -0.458043,		-0.814748,		0.0534014,		-0.351469,
+    0.351469,		0.814748,		0.0534014,		0.458043,
+    0.408248,		0.800808,		0.159291,		0.408248,
+    0.458043,		0.773165,		0.262454,		0.351469,
+    0.5,		0.732294,		0.361127,		0.288675,
+    0.533402,		0.678892,		0.453621,		0.220942,
+    0.557678,		0.613875,		0.538354,		0.149429,
+    0.572411,		0.538354,		0.613875,		0.0753593,
+    0.57735,		0.453621,		0.678892,		-1.5773e-08,
+    0.572411,		0.361127,		0.732294,		-0.0753593,
+    0.557678,		0.262454,		0.773165,		-0.149429,
+    0.533402,		0.159291,		0.800808,		-0.220942,
+    0.5,		0.0534014,		0.814748,		-0.288675,
+    0.458043,		-0.0534015,		0.814748,		-0.351469,
+    0.408248,		-0.159291,		0.800808,		-0.408248,
+    0.351469,		-0.262454,		0.773165,		-0.458043,
+    0.288675,		-0.361127,		0.732294,		-0.5,
+    0.220942,		-0.453621,		0.678892,		-0.533402,
+    0.149429,		-0.538354,		0.613875,		-0.557678,
+    0.0753593,		-0.613875,		0.538354,		-0.572411,
+    -4.10098e-08,		-0.678892,		0.453621,		-0.57735,
+    -0.0753594,		-0.732294,		0.361127,		-0.572411,
+    -0.149429,		-0.773165,		0.262454,		-0.557678,
+    -0.220942,		-0.800808,		0.159291,		-0.533402,
+    -0.288675,		-0.814748,		0.0534014,		-0.5,
+    0.37592,		0.864171,		0.0566408,		0.329673,
+    0.415735,		0.849385,		0.168953,		0.277785,
+    0.448436,		0.820066,		0.278375,		0.221144,
+    0.473465,		0.776715,		0.383033,		0.16072,
+    0.490393,		0.720074,		0.481138,		0.0975452,
+    0.498929,		0.651112,		0.57101,		0.0327016,
+    0.498929,		0.57101,		0.651112,		-0.0327016,
+    0.490393,		0.481138,		0.720074,		-0.0975452,
+    0.473465,		0.383033,		0.776715,		-0.16072,
+    0.448436,		0.278375,		0.820066,		-0.221144,
+    0.415735,		0.168953,		0.849385,		-0.277785,
+    0.37592,		0.0566407,		0.864171,		-0.329673,
+    0.329673,		-0.0566408,		0.864171,		-0.37592,
+    0.277785,		-0.168953,		0.849385,		-0.415735,
+    0.221144,		-0.278375,		0.820066,		-0.448436,
+    0.16072,		-0.383033,		0.776715,		-0.473465,
+    0.0975451,		-0.481138,		0.720074,		-0.490393,
+    0.0327015,		-0.57101,		0.651112,		-0.498929,
+    -0.0327016,		-0.651112,		0.57101,		-0.498929,
+    -0.0975452,		-0.720074,		0.481138,		-0.490393,
+    -0.16072,		-0.776715,		0.383033,		-0.473465,
+    -0.221144,		-0.820066,		0.278375,		-0.448436,
+    -0.277785,		-0.849385,		0.168953,		-0.415735,
+    -0.329673,		-0.864171,		0.0566407,		-0.37592,
+    0.473465,		0.864171,		0.0566408,		0.16072,
+    0.490393,		0.849385,		0.168953,		0.0975452,
+    0.498929,		0.820066,		0.278375,		0.0327016,
+    0.498929,		0.776715,		0.383033,		-0.0327016,
+    0.490393,		0.720074,		0.481138,		-0.0975452,
+    0.473465,		0.651112,		0.57101,		-0.16072,
+    0.448436,		0.57101,		0.651112,		-0.221144,
+    0.415735,		0.481138,		0.720074,		-0.277785,
+    0.37592,		0.383033,		0.776715,		-0.329673,
+    0.329673,		0.278375,		0.820066,		-0.37592,
+    0.277785,		0.168953,		0.849385,		-0.415735,
+    0.221144,		0.0566407,		0.864171,		-0.448436,
+    0.16072,		-0.0566408,		0.864171,		-0.473465,
+    0.0975451,		-0.168953,		0.849385,		-0.490393,
+    0.0327015,		-0.278375,		0.820066,		-0.498929,
+    -0.0327016,		-0.383033,		0.776715,		-0.498929,
+    -0.0975452,		-0.481138,		0.720074,		-0.490393,
+    -0.16072,		-0.57101,		0.651112,		-0.473465,
+    -0.221144,		-0.651112,		0.57101,		-0.448436,
+    -0.277785,		-0.720074,		0.481138,		-0.415735,
+    -0.329673,		-0.776715,		0.383033,		-0.37592,
+    -0.37592,		-0.820066,		0.278375,		-0.329673,
+    -0.415735,		-0.849385,		0.168953,		-0.277785,
+    -0.448436,		-0.864171,		0.0566407,		-0.221144,
+    0.404756,		0.910916,		0.0597046,		0.0532871,
+    0.408248,		0.89533,		0.178092,		-2.23064e-09,
+    0.404756,		0.864425,		0.293433,		-0.0532871,
+    0.394338,		0.818729,		0.403752,		-0.105662,
+    0.377172,		0.759024,		0.507164,		-0.15623,
+    0.353553,		0.686333,		0.601898,		-0.204124,
+    0.323885,		0.601898,		0.686333,		-0.248526,
+    0.288675,		0.507164,		0.759024,		-0.288675,
+    0.248526,		0.403752,		0.818729,		-0.323885,
+    0.204124,		0.293433,		0.864425,		-0.353553,
+    0.15623,		0.178092,		0.89533,		-0.377172,
+    0.105662,		0.0597046,		0.910916,		-0.394338,
+    0.0532871,		-0.0597047,		0.910916,		-0.404756,
+    -2.00757e-08,		-0.178092,		0.89533,		-0.408248,
+    -0.0532871,		-0.293433,		0.864425,		-0.404756,
+    -0.105662,		-0.403753,		0.818729,		-0.394338,
+    -0.15623,		-0.507164,		0.759024,		-0.377172,
+    -0.204124,		-0.601898,		0.686333,		-0.353553,
+    -0.248526,		-0.686333,		0.601898,		-0.323885,
+    -0.288675,		-0.759024,		0.507164,		-0.288675,
+    -0.323885,		-0.818729,		0.403752,		-0.248526,
+    -0.353553,		-0.864425,		0.293433,		-0.204124,
+    -0.377172,		-0.89533,		0.178092,		-0.15623,
+    -0.394338,		-0.910916,		0.0597045,		-0.105662,
+    0.353553,		0.910916,		0.0597046,		0.204124,
+    0.377172,		0.89533,		0.178092,		0.15623,
+    0.394338,		0.864425,		0.293433,		0.105662,
+    0.404756,		0.818729,		0.403752,		0.0532871,
+    0.408248,		0.759024,		0.507164,		-6.69191e-09,
+    0.404756,		0.686333,		0.601898,		-0.0532871,
+    0.394338,		0.601898,		0.686333,		-0.105662,
+    0.377172,		0.507164,		0.759024,		-0.15623,
+    0.353553,		0.403752,		0.818729,		-0.204124,
+    0.323885,		0.293433,		0.864425,		-0.248526,
+    0.288675,		0.178092,		0.89533,		-0.288675,
+    0.248526,		0.0597046,		0.910916,		-0.323885,
+    0.204124,		-0.0597047,		0.910916,		-0.353553,
+    0.15623,		-0.178092,		0.89533,		-0.377172,
+    0.105662,		-0.293433,		0.864425,		-0.394338,
+    0.0532871,		-0.403753,		0.818729,		-0.404756,
+    -2.4537e-08,		-0.507164,		0.759024,		-0.408248,
+    -0.0532871,		-0.601898,		0.686333,		-0.404756,
+    -0.105662,		-0.686333,		0.601898,		-0.394338,
+    -0.15623,		-0.759024,		0.507164,		-0.377172,
+    -0.204124,		-0.818729,		0.403752,		-0.353553,
+    -0.248526,		-0.864425,		0.293433,		-0.323885,
+    -0.288675,		-0.89533,		0.178092,		-0.288675,
+    -0.323885,		-0.910916,		0.0597045,		-0.248526,
+    0.300303,		0.949933,		0.0622619,		0.059734,
+    0.305531,		0.93368,		0.18572,		0.0200255,
+    0.305531,		0.901451,		0.306001,		-0.0200255,
+    0.300303,		0.853797,		0.421046,		-0.059734,
+    0.289937,		0.791535,		0.528887,		-0.0984203,
+    0.27461,		0.71573,		0.627679,		-0.135423,
+    0.254585,		0.627678,		0.71573,		-0.170108,
+    0.230203,		0.528887,		0.791536,		-0.201883,
+    0.201883,		0.421046,		0.853797,		-0.230203,
+    0.170108,		0.306001,		0.901451,		-0.254585,
+    0.135423,		0.18572,		0.93368,		-0.27461,
+    0.0984203,		0.0622619,		0.949933,		-0.289937,
+    0.059734,		-0.062262,		0.949933,		-0.300303,
+    0.0200255,		-0.18572,		0.93368,		-0.305531,
+    -0.0200256,		-0.306001,		0.901451,		-0.305531,
+    -0.059734,		-0.421046,		0.853797,		-0.300303,
+    -0.0984204,		-0.528887,		0.791535,		-0.289937,
+    -0.135423,		-0.627679,		0.71573,		-0.27461,
+    -0.170108,		-0.71573,		0.627678,		-0.254585,
+    -0.201883,		-0.791536,		0.528887,		-0.230203,
+    -0.230203,		-0.853797,		0.421046,		-0.201883,
+    -0.254585,		-0.901451,		0.306001,		-0.170108,
+    -0.27461,		-0.93368,		0.18572,		-0.135423,
+    -0.289937,		-0.949933,		0.0622618,		-0.0984203,
+    0.221144,		0.864171,		0.0566408,		0.448436,
+    0.277785,		0.849385,		0.168953,		0.415735,
+    0.329673,		0.820066,		0.278375,		0.37592,
+    0.37592,		0.776715,		0.383033,		0.329673,
+    0.415735,		0.720074,		0.481138,		0.277785,
+    0.448436,		0.651112,		0.57101,		0.221144,
+    0.473465,		0.57101,		0.651112,		0.16072,
+    0.490393,		0.481138,		0.720074,		0.0975451,
+    0.498929,		0.383033,		0.776715,		0.0327015,
+    0.498929,		0.278375,		0.820066,		-0.0327016,
+    0.490393,		0.168953,		0.849385,		-0.0975452,
+    0.473465,		0.0566407,		0.864171,		-0.16072,
+    0.448436,		-0.0566408,		0.864171,		-0.221144,
+    0.415735,		-0.168953,		0.849385,		-0.277785,
+    0.37592,		-0.278375,		0.820066,		-0.329673,
+    0.329673,		-0.383033,		0.776715,		-0.37592,
+    0.277785,		-0.481138,		0.720074,		-0.415735,
+    0.221144,		-0.57101,		0.651112,		-0.448436,
+    0.16072,		-0.651112,		0.57101,		-0.473465,
+    0.0975451,		-0.720074,		0.481138,		-0.490393,
+    0.0327015,		-0.776715,		0.383033,		-0.498929,
+    -0.0327016,		-0.820066,		0.278375,		-0.498929,
+    -0.0975452,		-0.849385,		0.168953,		-0.490393,
+    -0.16072,		-0.864171,		0.0566407,		-0.473465,
+    0.248526,		0.910916,		0.0597046,		0.323885,
+    0.288675,		0.89533,		0.178092,		0.288675,
+    0.323885,		0.864425,		0.293433,		0.248526,
+    0.353553,		0.818729,		0.403752,		0.204124,
+    0.377172,		0.759024,		0.507164,		0.15623,
+    0.394338,		0.686333,		0.601898,		0.105662,
+    0.404756,		0.601898,		0.686333,		0.0532871,
+    0.408248,		0.507164,		0.759024,		-1.11532e-08,
+    0.404756,		0.403752,		0.818729,		-0.0532871,
+    0.394338,		0.293433,		0.864425,		-0.105662,
+    0.377172,		0.178092,		0.89533,		-0.15623,
+    0.353553,		0.0597046,		0.910916,		-0.204124,
+    0.323885,		-0.0597047,		0.910916,		-0.248526,
+    0.288675,		-0.178092,		0.89533,		-0.288675,
+    0.248526,		-0.293433,		0.864425,		-0.323885,
+    0.204124,		-0.403753,		0.818729,		-0.353553,
+    0.15623,		-0.507164,		0.759024,		-0.377172,
+    0.105662,		-0.601898,		0.686333,		-0.394338,
+    0.0532871,		-0.686333,		0.601898,		-0.404756,
+    -2.89983e-08,		-0.759024,		0.507164,		-0.408248,
+    -0.0532871,		-0.818729,		0.403752,		-0.404756,
+    -0.105662,		-0.864425,		0.293433,		-0.394338,
+    -0.15623,		-0.89533,		0.178092,		-0.377172,
+    -0.204124,		-0.910916,		0.0597045,		-0.353553,
+    0.105662,		0.910916,		0.0597046,		0.394338,
+    0.15623,		0.89533,		0.178092,		0.377172,
+    0.204124,		0.864425,		0.293433,		0.353553,
+    0.248526,		0.818729,		0.403752,		0.323885,
+    0.288675,		0.759024,		0.507164,		0.288675,
+    0.323885,		0.686333,		0.601898,		0.248526,
+    0.353553,		0.601898,		0.686333,		0.204124,
+    0.377172,		0.507164,		0.759024,		0.15623,
+    0.394338,		0.403752,		0.818729,		0.105662,
+    0.404756,		0.293433,		0.864425,		0.0532871,
+    0.408248,		0.178092,		0.89533,		-1.56145e-08,
+    0.404756,		0.0597046,		0.910916,		-0.0532871,
+    0.394338,		-0.0597047,		0.910916,		-0.105662,
+    0.377172,		-0.178092,		0.89533,		-0.15623,
+    0.353553,		-0.293433,		0.864425,		-0.204124,
+    0.323885,		-0.403753,		0.818729,		-0.248526,
+    0.288675,		-0.507164,		0.759024,		-0.288675,
+    0.248526,		-0.601898,		0.686333,		-0.323885,
+    0.204124,		-0.686333,		0.601898,		-0.353553,
+    0.15623,		-0.759024,		0.507164,		-0.377172,
+    0.105662,		-0.818729,		0.403752,		-0.394338,
+    0.0532871,		-0.864425,		0.293433,		-0.404756,
+    -3.34596e-08,		-0.89533,		0.178092,		-0.408248,
+    -0.0532871,		-0.910916,		0.0597045,		-0.404756,
+    0.0984203,		0.949933,		0.0622619,		0.289937,
+    0.135423,		0.93368,		0.18572,		0.27461,
+    0.170108,		0.901451,		0.306001,		0.254585,
+    0.201883,		0.853797,		0.421046,		0.230203,
+    0.230203,		0.791535,		0.528887,		0.201883,
+    0.254585,		0.71573,		0.627679,		0.170108,
+    0.27461,		0.627678,		0.71573,		0.135423,
+    0.289937,		0.528887,		0.791536,		0.0984203,
+    0.300303,		0.421046,		0.853797,		0.059734,
+    0.305531,		0.306001,		0.901451,		0.0200255,
+    0.305531,		0.18572,		0.93368,		-0.0200255,
+    0.300303,		0.0622619,		0.949933,		-0.059734,
+    0.289937,		-0.062262,		0.949933,		-0.0984203,
+    0.27461,		-0.18572,		0.93368,		-0.135423,
+    0.254585,		-0.306001,		0.901451,		-0.170108,
+    0.230203,		-0.421046,		0.853797,		-0.201883,
+    0.201883,		-0.528887,		0.791535,		-0.230203,
+    0.170108,		-0.627679,		0.71573,		-0.254585,
+    0.135423,		-0.71573,		0.627678,		-0.27461,
+    0.0984203,		-0.791536,		0.528887,		-0.289937,
+    0.0597339,		-0.853797,		0.421046,		-0.300303,
+    0.0200255,		-0.901451,		0.306001,		-0.305531,
+    -0.0200256,		-0.93368,		0.18572,		-0.305531,
+    -0.059734,		-0.949933,		0.0622618,		-0.300303,
+    0.230203,		0.949933,		0.0622619,		0.201883,
+    0.254585,		0.93368,		0.18572,		0.170108,
+    0.27461,		0.901451,		0.306001,		0.135423,
+    0.289937,		0.853797,		0.421046,		0.0984203,
+    0.300303,		0.791535,		0.528887,		0.059734,
+    0.305531,		0.71573,		0.627679,		0.0200255,
+    0.305531,		0.627678,		0.71573,		-0.0200255,
+    0.300303,		0.528887,		0.791536,		-0.059734,
+    0.289937,		0.421046,		0.853797,		-0.0984203,
+    0.27461,		0.306001,		0.901451,		-0.135423,
+    0.254585,		0.18572,		0.93368,		-0.170108,
+    0.230203,		0.0622619,		0.949933,		-0.201883,
+    0.201883,		-0.062262,		0.949933,		-0.230203,
+    0.170108,		-0.18572,		0.93368,		-0.254585,
+    0.135423,		-0.306001,		0.901451,		-0.27461,
+    0.0984203,		-0.421046,		0.853797,		-0.289937,
+    0.0597339,		-0.528887,		0.791535,		-0.300303,
+    0.0200255,		-0.627679,		0.71573,		-0.305531,
+    -0.0200256,		-0.71573,		0.627678,		-0.305531,
+    -0.059734,		-0.791536,		0.528887,		-0.300303,
+    -0.0984204,		-0.853797,		0.421046,		-0.289937,
+    -0.135423,		-0.901451,		0.306001,		-0.27461,
+    -0.170108,		-0.93368,		0.18572,		-0.254585,
+    -0.201883,		-0.949933,		0.0622618,		-0.230203,
+    0.193291,		0.976849,		0.0640261,		0.0656136,
+    0.200202,		0.960135,		0.190983,		0.0398226,
+    0.203687,		0.926993,		0.314672,		0.0133504,
+    0.203687,		0.877989,		0.432976,		-0.0133504,
+    0.200202,		0.813963,		0.543873,		-0.0398226,
+    0.193291,		0.73601,		0.645463,		-0.0656136,
+    0.183073,		0.645463,		0.73601,		-0.0902818,
+    0.169723,		0.543873,		0.813963,		-0.113405,
+    0.153469,		0.432976,		0.877989,		-0.134588,
+    0.134588,		0.314672,		0.926993,		-0.153469,
+    0.113405,		0.190983,		0.960135,		-0.169723,
+    0.0902818,		0.064026,		0.976849,		-0.183073,
+    0.0656135,		-0.0640261,		0.976849,		-0.193291,
+    0.0398226,		-0.190983,		0.960135,		-0.200202,
+    0.0133503,		-0.314672,		0.926993,		-0.203687,
+    -0.0133504,		-0.432976,		0.877989,		-0.203687,
+    -0.0398227,		-0.543873,		0.813963,		-0.200202,
+    -0.0656136,		-0.645463,		0.73601,		-0.193291,
+    -0.0902818,		-0.73601,		0.645463,		-0.183073,
+    -0.113405,		-0.813963,		0.543873,		-0.169723,
+    -0.134588,		-0.877989,		0.432976,		-0.153469,
+    -0.153469,		-0.926993,		0.314671,		-0.134588,
+    -0.169723,		-0.960135,		0.190983,		-0.113405,
+    -0.183073,		-0.976849,		0.064026,		-0.0902818,
+    0.0902818,		0.976849,		0.0640261,		0.183073,
+    0.113405,		0.960135,		0.190983,		0.169723,
+    0.134588,		0.926993,		0.314672,		0.153469,
+    0.153469,		0.877989,		0.432976,		0.134588,
+    0.169723,		0.813963,		0.543873,		0.113405,
+    0.183073,		0.73601,		0.645463,		0.0902818,
+    0.193291,		0.645463,		0.73601,		0.0656136,
+    0.200202,		0.543873,		0.813963,		0.0398226,
+    0.203687,		0.432976,		0.877989,		0.0133504,
+    0.203687,		0.314672,		0.926993,		-0.0133504,
+    0.200202,		0.190983,		0.960135,		-0.0398227,
+    0.193291,		0.064026,		0.976849,		-0.0656136,
+    0.183073,		-0.0640261,		0.976849,		-0.0902818,
+    0.169723,		-0.190983,		0.960135,		-0.113405,
+    0.153469,		-0.314672,		0.926993,		-0.134588,
+    0.134588,		-0.432976,		0.877989,		-0.153469,
+    0.113405,		-0.543873,		0.813963,		-0.169723,
+    0.0902818,		-0.645463,		0.73601,		-0.183073,
+    0.0656135,		-0.73601,		0.645463,		-0.193291,
+    0.0398226,		-0.813963,		0.543873,		-0.200202,
+    0.0133503,		-0.877989,		0.432976,		-0.203687,
+    -0.0133504,		-0.926993,		0.314671,		-0.203687,
+    -0.0398227,		-0.960135,		0.190983,		-0.200202,
+    -0.0656136,		-0.976849,		0.064026,		-0.193291,
+    0.0767343,		0.992648,		0.0650616,		0.0672942,
+    0.0848615,		0.975664,		0.194072,		0.0567026,
+    0.0915367,		0.941985,		0.319761,		0.0451409,
+    0.0966457,		0.892189,		0.439979,		0.0328068,
+    0.100101,		0.827128,		0.552669,		0.0199113,
+    0.101844,		0.747914,		0.655903,		0.00667518,
+    0.101844,		0.655903,		0.747914,		-0.00667518,
+    0.100101,		0.552669,		0.827128,		-0.0199113,
+    0.0966457,		0.439979,		0.892189,		-0.0328068,
+    0.0915367,		0.319761,		0.941985,		-0.0451409,
+    0.0848615,		0.194072,		0.975664,		-0.0567027,
+    0.0767343,		0.0650616,		0.992648,		-0.0672942,
+    0.0672942,		-0.0650616,		0.992648,		-0.0767343,
+    0.0567026,		-0.194072,		0.975664,		-0.0848615,
+    0.0451409,		-0.319761,		0.941985,		-0.0915367,
+    0.0328068,		-0.439979,		0.892189,		-0.0966457,
+    0.0199113,		-0.552669,		0.827128,		-0.100101,
+    0.00667517,		-0.655903,		0.747914,		-0.101844,
+    -0.00667519,		-0.747914,		0.655903,		-0.101844,
+    -0.0199113,		-0.827128,		0.552669,		-0.100101,
+    -0.0328068,		-0.892189,		0.439979,		-0.0966456,
+    -0.0451409,		-0.941985,		0.319761,		-0.0915367,
+    -0.0567027,		-0.975664,		0.194071,		-0.0848615,
+    -0.0672942,		-0.992648,		0.0650615,		-0.0767343,
+    0.425606,		0.762127,		0.0499525,		-0.485311,
+    0.358619,		0.749087,		0.149003,		-0.536711,
+    0.285496,		0.72323,		0.245503,		-0.578929,
+    0.207488,		0.684998,		0.337804,		-0.611241,
+    0.12593,		0.635045,		0.424324,		-0.633094,
+    0.0422175,		0.574227,		0.503584,		-0.644115,
+    -0.0422176,		0.503584,		0.574227,		-0.644115,
+    -0.12593,		0.424324,		0.635045,		-0.633094,
+    -0.207488,		0.337804,		0.684998,		-0.611241,
+    -0.285496,		0.245503,		0.72323,		-0.578929,
+    -0.358619,		0.149003,		0.749087,		-0.536711,
+    -0.425606,		0.0499524,		0.762127,		-0.48531,
+    -0.485311,		-0.0499525,		0.762127,		-0.425606,
+    -0.536711,		-0.149003,		0.749087,		-0.358619,
+    -0.578929,		-0.245503,		0.72323,		-0.285496,
+    -0.611241,		-0.337804,		0.684998,		-0.207488,
+    -0.633094,		-0.424324,		0.635045,		-0.12593,
+    -0.644115,		-0.503584,		0.574227,		-0.0422175,
+    -0.644115,		-0.574227,		0.503584,		0.0422176,
+    -0.633094,		-0.635045,		0.424324,		0.12593,
+    -0.611241,		-0.684998,		0.337804,		0.207488,
+    -0.578929,		-0.72323,		0.245503,		0.285496,
+    -0.536711,		-0.749087,		0.149003,		0.358619,
+    -0.48531,		-0.762127,		0.0499524,		0.425606,
+    0.288675,		0.814748,		0.0534014,		-0.5,
+    0.220942,		0.800808,		0.159291,		-0.533402,
+    0.149429,		0.773165,		0.262454,		-0.557678,
+    0.0753593,		0.732294,		0.361127,		-0.572411,
+    -9.46379e-09,		0.678892,		0.453621,		-0.57735,
+    -0.0753593,		0.613875,		0.538354,		-0.572411,
+    -0.149429,		0.538354,		0.613875,		-0.557678,
+    -0.220942,		0.453621,		0.678892,		-0.533402,
+    -0.288675,		0.361127,		0.732294,		-0.5,
+    -0.351469,		0.262454,		0.773165,		-0.458043,
+    -0.408248,		0.159291,		0.800808,		-0.408248,
+    -0.458043,		0.0534014,		0.814748,		-0.351469,
+    -0.5,		-0.0534015,		0.814748,		-0.288675,
+    -0.533402,		-0.159291,		0.800808,		-0.220942,
+    -0.557678,		-0.262454,		0.773165,		-0.149429,
+    -0.572411,		-0.361127,		0.732294,		-0.0753593,
+    -0.57735,		-0.453621,		0.678892,		3.47006e-08,
+    -0.572411,		-0.538354,		0.613875,		0.0753594,
+    -0.557678,		-0.613875,		0.538354,		0.149429,
+    -0.533402,		-0.678892,		0.453621,		0.220942,
+    -0.5,		-0.732294,		0.361127,		0.288675,
+    -0.458043,		-0.773165,		0.262454,		0.351469,
+    -0.408248,		-0.800808,		0.159291,		0.408248,
+    -0.351469,		-0.814748,		0.0534014,		0.458043,
+    0.458043,		0.814748,		0.0534014,		-0.351469,
+    0.408248,		0.800808,		0.159291,		-0.408248,
+    0.351469,		0.773165,		0.262454,		-0.458043,
+    0.288675,		0.732294,		0.361127,		-0.5,
+    0.220942,		0.678892,		0.453621,		-0.533402,
+    0.149429,		0.613875,		0.538354,		-0.557678,
+    0.0753593,		0.538354,		0.613875,		-0.572411,
+    -1.5773e-08,		0.453621,		0.678892,		-0.57735,
+    -0.0753593,		0.361127,		0.732294,		-0.572411,
+    -0.149429,		0.262454,		0.773165,		-0.557678,
+    -0.220942,		0.159291,		0.800808,		-0.533402,
+    -0.288675,		0.0534014,		0.814748,		-0.5,
+    -0.351469,		-0.0534015,		0.814748,		-0.458043,
+    -0.408248,		-0.159291,		0.800808,		-0.408248,
+    -0.458043,		-0.262454,		0.773165,		-0.351469,
+    -0.5,		-0.361127,		0.732294,		-0.288675,
+    -0.533402,		-0.453621,		0.678892,		-0.220942,
+    -0.557678,		-0.538354,		0.613875,		-0.149429,
+    -0.572411,		-0.613875,		0.538354,		-0.0753593,
+    -0.57735,		-0.678892,		0.453621,		4.10098e-08,
+    -0.572411,		-0.732294,		0.361127,		0.0753594,
+    -0.557678,		-0.773165,		0.262454,		0.149429,
+    -0.533402,		-0.800808,		0.159291,		0.220942,
+    -0.5,		-0.814748,		0.0534014,		0.288675,
+    0.329673,		0.864171,		0.0566408,		-0.37592,
+    0.277785,		0.849385,		0.168953,		-0.415735,
+    0.221144,		0.820066,		0.278375,		-0.448436,
+    0.16072,		0.776715,		0.383033,		-0.473465,
+    0.0975452,		0.720074,		0.481138,		-0.490393,
+    0.0327016,		0.651112,		0.57101,		-0.498929,
+    -0.0327016,		0.57101,		0.651112,		-0.498929,
+    -0.0975452,		0.481138,		0.720074,		-0.490393,
+    -0.16072,		0.383033,		0.776715,		-0.473465,
+    -0.221144,		0.278375,		0.820066,		-0.448436,
+    -0.277785,		0.168953,		0.849385,		-0.415735,
+    -0.329673,		0.0566407,		0.864171,		-0.37592,
+    -0.37592,		-0.0566408,		0.864171,		-0.329673,
+    -0.415735,		-0.168953,		0.849385,		-0.277785,
+    -0.448436,		-0.278375,		0.820066,		-0.221144,
+    -0.473465,		-0.383033,		0.776715,		-0.16072,
+    -0.490393,		-0.481138,		0.720074,		-0.0975451,
+    -0.498929,		-0.57101,		0.651112,		-0.0327015,
+    -0.498929,		-0.651112,		0.57101,		0.0327016,
+    -0.490393,		-0.720074,		0.481138,		0.0975452,
+    -0.473465,		-0.776715,		0.383033,		0.16072,
+    -0.448436,		-0.820066,		0.278375,		0.221144,
+    -0.415735,		-0.849385,		0.168953,		0.277785,
+    -0.37592,		-0.864171,		0.0566407,		0.329673,
+    0.16072,		0.864171,		0.0566408,		-0.473465,
+    0.0975452,		0.849385,		0.168953,		-0.490393,
+    0.0327016,		0.820066,		0.278375,		-0.498929,
+    -0.0327016,		0.776715,		0.383033,		-0.498929,
+    -0.0975452,		0.720074,		0.481138,		-0.490393,
+    -0.16072,		0.651112,		0.57101,		-0.473465,
+    -0.221144,		0.57101,		0.651112,		-0.448436,
+    -0.277785,		0.481138,		0.720074,		-0.415735,
+    -0.329673,		0.383033,		0.776715,		-0.37592,
+    -0.37592,		0.278375,		0.820066,		-0.329673,
+    -0.415735,		0.168953,		0.849385,		-0.277785,
+    -0.448436,		0.0566407,		0.864171,		-0.221144,
+    -0.473465,		-0.0566408,		0.864171,		-0.16072,
+    -0.490393,		-0.168953,		0.849385,		-0.0975451,
+    -0.498929,		-0.278375,		0.820066,		-0.0327015,
+    -0.498929,		-0.383033,		0.776715,		0.0327016,
+    -0.490393,		-0.481138,		0.720074,		0.0975452,
+    -0.473465,		-0.57101,		0.651112,		0.16072,
+    -0.448436,		-0.651112,		0.57101,		0.221144,
+    -0.415735,		-0.720074,		0.481138,		0.277785,
+    -0.37592,		-0.776715,		0.383033,		0.329673,
+    -0.329673,		-0.820066,		0.278375,		0.37592,
+    -0.277785,		-0.849385,		0.168953,		0.415735,
+    -0.221144,		-0.864171,		0.0566407,		0.448436,
+    0.0532871,		0.910916,		0.0597046,		-0.404756,
+    -2.23064e-09,		0.89533,		0.178092,		-0.408248,
+    -0.0532871,		0.864425,		0.293433,		-0.404756,
+    -0.105662,		0.818729,		0.403752,		-0.394338,
+    -0.15623,		0.759024,		0.507164,		-0.377172,
+    -0.204124,		0.686333,		0.601898,		-0.353553,
+    -0.248526,		0.601898,		0.686333,		-0.323885,
+    -0.288675,		0.507164,		0.759024,		-0.288675,
+    -0.323885,		0.403752,		0.818729,		-0.248526,
+    -0.353553,		0.293433,		0.864425,		-0.204124,
+    -0.377172,		0.178092,		0.89533,		-0.15623,
+    -0.394338,		0.0597046,		0.910916,		-0.105662,
+    -0.404756,		-0.0597047,		0.910916,		-0.0532871,
+    -0.408248,		-0.178092,		0.89533,		2.00757e-08,
+    -0.404756,		-0.293433,		0.864425,		0.0532871,
+    -0.394338,		-0.403753,		0.818729,		0.105662,
+    -0.377172,		-0.507164,		0.759024,		0.15623,
+    -0.353553,		-0.601898,		0.686333,		0.204124,
+    -0.323885,		-0.686333,		0.601898,		0.248526,
+    -0.288675,		-0.759024,		0.507164,		0.288675,
+    -0.248526,		-0.818729,		0.403752,		0.323885,
+    -0.204124,		-0.864425,		0.293433,		0.353553,
+    -0.15623,		-0.89533,		0.178092,		0.377172,
+    -0.105662,		-0.910916,		0.0597045,		0.394338,
+    0.204124,		0.910916,		0.0597046,		-0.353553,
+    0.15623,		0.89533,		0.178092,		-0.377172,
+    0.105662,		0.864425,		0.293433,		-0.394338,
+    0.0532871,		0.818729,		0.403752,		-0.404756,
+    -6.69191e-09,		0.759024,		0.507164,		-0.408248,
+    -0.0532871,		0.686333,		0.601898,		-0.404756,
+    -0.105662,		0.601898,		0.686333,		-0.394338,
+    -0.15623,		0.507164,		0.759024,		-0.377172,
+    -0.204124,		0.403752,		0.818729,		-0.353553,
+    -0.248526,		0.293433,		0.864425,		-0.323885,
+    -0.288675,		0.178092,		0.89533,		-0.288675,
+    -0.323885,		0.0597046,		0.910916,		-0.248526,
+    -0.353553,		-0.0597047,		0.910916,		-0.204124,
+    -0.377172,		-0.178092,		0.89533,		-0.15623,
+    -0.394338,		-0.293433,		0.864425,		-0.105662,
+    -0.404756,		-0.403753,		0.818729,		-0.0532871,
+    -0.408248,		-0.507164,		0.759024,		2.4537e-08,
+    -0.404756,		-0.601898,		0.686333,		0.0532871,
+    -0.394338,		-0.686333,		0.601898,		0.105662,
+    -0.377172,		-0.759024,		0.507164,		0.15623,
+    -0.353553,		-0.818729,		0.403752,		0.204124,
+    -0.323885,		-0.864425,		0.293433,		0.248526,
+    -0.288675,		-0.89533,		0.178092,		0.288675,
+    -0.248526,		-0.910916,		0.0597045,		0.323885,
+    0.059734,		0.949933,		0.0622619,		-0.300303,
+    0.0200255,		0.93368,		0.18572,		-0.305531,
+    -0.0200255,		0.901451,		0.306001,		-0.305531,
+    -0.059734,		0.853797,		0.421046,		-0.300303,
+    -0.0984203,		0.791535,		0.528887,		-0.289937,
+    -0.135423,		0.71573,		0.627679,		-0.27461,
+    -0.170108,		0.627678,		0.71573,		-0.254585,
+    -0.201883,		0.528887,		0.791536,		-0.230203,
+    -0.230203,		0.421046,		0.853797,		-0.201883,
+    -0.254585,		0.306001,		0.901451,		-0.170108,
+    -0.27461,		0.18572,		0.93368,		-0.135423,
+    -0.289937,		0.0622619,		0.949933,		-0.0984203,
+    -0.300303,		-0.062262,		0.949933,		-0.059734,
+    -0.305531,		-0.18572,		0.93368,		-0.0200255,
+    -0.305531,		-0.306001,		0.901451,		0.0200256,
+    -0.300303,		-0.421046,		0.853797,		0.059734,
+    -0.289937,		-0.528887,		0.791535,		0.0984204,
+    -0.27461,		-0.627679,		0.71573,		0.135423,
+    -0.254585,		-0.71573,		0.627678,		0.170108,
+    -0.230203,		-0.791536,		0.528887,		0.201883,
+    -0.201883,		-0.853797,		0.421046,		0.230203,
+    -0.170108,		-0.901451,		0.306001,		0.254585,
+    -0.135423,		-0.93368,		0.18572,		0.27461,
+    -0.0984203,		-0.949933,		0.0622618,		0.289937,
+    0.448436,		0.864171,		0.0566408,		-0.221144,
+    0.415735,		0.849385,		0.168953,		-0.277785,
+    0.37592,		0.820066,		0.278375,		-0.329673,
+    0.329673,		0.776715,		0.383033,		-0.37592,
+    0.277785,		0.720074,		0.481138,		-0.415735,
+    0.221144,		0.651112,		0.57101,		-0.448436,
+    0.16072,		0.57101,		0.651112,		-0.473465,
+    0.0975451,		0.481138,		0.720074,		-0.490393,
+    0.0327015,		0.383033,		0.776715,		-0.498929,
+    -0.0327016,		0.278375,		0.820066,		-0.498929,
+    -0.0975452,		0.168953,		0.849385,		-0.490393,
+    -0.16072,		0.0566407,		0.864171,		-0.473465,
+    -0.221144,		-0.0566408,		0.864171,		-0.448436,
+    -0.277785,		-0.168953,		0.849385,		-0.415735,
+    -0.329673,		-0.278375,		0.820066,		-0.37592,
+    -0.37592,		-0.383033,		0.776715,		-0.329673,
+    -0.415735,		-0.481138,		0.720074,		-0.277785,
+    -0.448436,		-0.57101,		0.651112,		-0.221144,
+    -0.473465,		-0.651112,		0.57101,		-0.16072,
+    -0.490393,		-0.720074,		0.481138,		-0.0975451,
+    -0.498929,		-0.776715,		0.383033,		-0.0327015,
+    -0.498929,		-0.820066,		0.278375,		0.0327016,
+    -0.490393,		-0.849385,		0.168953,		0.0975452,
+    -0.473465,		-0.864171,		0.0566407,		0.16072,
+    0.323885,		0.910916,		0.0597046,		-0.248526,
+    0.288675,		0.89533,		0.178092,		-0.288675,
+    0.248526,		0.864425,		0.293433,		-0.323885,
+    0.204124,		0.818729,		0.403752,		-0.353553,
+    0.15623,		0.759024,		0.507164,		-0.377172,
+    0.105662,		0.686333,		0.601898,		-0.394338,
+    0.0532871,		0.601898,		0.686333,		-0.404756,
+    -1.11532e-08,		0.507164,		0.759024,		-0.408248,
+    -0.0532871,		0.403752,		0.818729,		-0.404756,
+    -0.105662,		0.293433,		0.864425,		-0.394338,
+    -0.15623,		0.178092,		0.89533,		-0.377172,
+    -0.204124,		0.0597046,		0.910916,		-0.353553,
+    -0.248526,		-0.0597047,		0.910916,		-0.323885,
+    -0.288675,		-0.178092,		0.89533,		-0.288675,
+    -0.323885,		-0.293433,		0.864425,		-0.248526,
+    -0.353553,		-0.403753,		0.818729,		-0.204124,
+    -0.377172,		-0.507164,		0.759024,		-0.15623,
+    -0.394338,		-0.601898,		0.686333,		-0.105662,
+    -0.404756,		-0.686333,		0.601898,		-0.0532871,
+    -0.408248,		-0.759024,		0.507164,		2.89983e-08,
+    -0.404756,		-0.818729,		0.403752,		0.0532871,
+    -0.394338,		-0.864425,		0.293433,		0.105662,
+    -0.377172,		-0.89533,		0.178092,		0.15623,
+    -0.353553,		-0.910916,		0.0597045,		0.204124,
+    0.394338,		0.910916,		0.0597046,		-0.105662,
+    0.377172,		0.89533,		0.178092,		-0.15623,
+    0.353553,		0.864425,		0.293433,		-0.204124,
+    0.323885,		0.818729,		0.403752,		-0.248526,
+    0.288675,		0.759024,		0.507164,		-0.288675,
+    0.248526,		0.686333,		0.601898,		-0.323885,
+    0.204124,		0.601898,		0.686333,		-0.353553,
+    0.15623,		0.507164,		0.759024,		-0.377172,
+    0.105662,		0.403752,		0.818729,		-0.394338,
+    0.0532871,		0.293433,		0.864425,		-0.404756,
+    -1.56145e-08,		0.178092,		0.89533,		-0.408248,
+    -0.0532871,		0.0597046,		0.910916,		-0.404756,
+    -0.105662,		-0.0597047,		0.910916,		-0.394338,
+    -0.15623,		-0.178092,		0.89533,		-0.377172,
+    -0.204124,		-0.293433,		0.864425,		-0.353553,
+    -0.248526,		-0.403753,		0.818729,		-0.323885,
+    -0.288675,		-0.507164,		0.759024,		-0.288675,
+    -0.323885,		-0.601898,		0.686333,		-0.248526,
+    -0.353553,		-0.686333,		0.601898,		-0.204124,
+    -0.377172,		-0.759024,		0.507164,		-0.15623,
+    -0.394338,		-0.818729,		0.403752,		-0.105662,
+    -0.404756,		-0.864425,		0.293433,		-0.0532871,
+    -0.408248,		-0.89533,		0.178092,		3.34596e-08,
+    -0.404756,		-0.910916,		0.0597045,		0.0532871,
+    0.289937,		0.949933,		0.0622619,		-0.0984203,
+    0.27461,		0.93368,		0.18572,		-0.135423,
+    0.254585,		0.901451,		0.306001,		-0.170108,
+    0.230203,		0.853797,		0.421046,		-0.201883,
+    0.201883,		0.791535,		0.528887,		-0.230203,
+    0.170108,		0.71573,		0.627679,		-0.254585,
+    0.135423,		0.627678,		0.71573,		-0.27461,
+    0.0984203,		0.528887,		0.791536,		-0.289937,
+    0.059734,		0.421046,		0.853797,		-0.300303,
+    0.0200255,		0.306001,		0.901451,		-0.305531,
+    -0.0200255,		0.18572,		0.93368,		-0.305531,
+    -0.059734,		0.0622619,		0.949933,		-0.300303,
+    -0.0984203,		-0.062262,		0.949933,		-0.289937,
+    -0.135423,		-0.18572,		0.93368,		-0.27461,
+    -0.170108,		-0.306001,		0.901451,		-0.254585,
+    -0.201883,		-0.421046,		0.853797,		-0.230203,
+    -0.230203,		-0.528887,		0.791535,		-0.201883,
+    -0.254585,		-0.627679,		0.71573,		-0.170108,
+    -0.27461,		-0.71573,		0.627678,		-0.135423,
+    -0.289937,		-0.791536,		0.528887,		-0.0984203,
+    -0.300303,		-0.853797,		0.421046,		-0.0597339,
+    -0.305531,		-0.901451,		0.306001,		-0.0200255,
+    -0.305531,		-0.93368,		0.18572,		0.0200256,
+    -0.300303,		-0.949933,		0.0622618,		0.059734,
+    0.201883,		0.949933,		0.0622619,		-0.230203,
+    0.170108,		0.93368,		0.18572,		-0.254585,
+    0.135423,		0.901451,		0.306001,		-0.27461,
+    0.0984203,		0.853797,		0.421046,		-0.289937,
+    0.059734,		0.791535,		0.528887,		-0.300303,
+    0.0200255,		0.71573,		0.627679,		-0.305531,
+    -0.0200255,		0.627678,		0.71573,		-0.305531,
+    -0.059734,		0.528887,		0.791536,		-0.300303,
+    -0.0984203,		0.421046,		0.853797,		-0.289937,
+    -0.135423,		0.306001,		0.901451,		-0.27461,
+    -0.170108,		0.18572,		0.93368,		-0.254585,
+    -0.201883,		0.0622619,		0.949933,		-0.230203,
+    -0.230203,		-0.062262,		0.949933,		-0.201883,
+    -0.254585,		-0.18572,		0.93368,		-0.170108,
+    -0.27461,		-0.306001,		0.901451,		-0.135423,
+    -0.289937,		-0.421046,		0.853797,		-0.0984203,
+    -0.300303,		-0.528887,		0.791535,		-0.0597339,
+    -0.305531,		-0.627679,		0.71573,		-0.0200255,
+    -0.305531,		-0.71573,		0.627678,		0.0200256,
+    -0.300303,		-0.791536,		0.528887,		0.059734,
+    -0.289937,		-0.853797,		0.421046,		0.0984204,
+    -0.27461,		-0.901451,		0.306001,		0.135423,
+    -0.254585,		-0.93368,		0.18572,		0.170108,
+    -0.230203,		-0.949933,		0.0622618,		0.201883,
+    0.0656136,		0.976849,		0.0640261,		-0.193291,
+    0.0398226,		0.960135,		0.190983,		-0.200202,
+    0.0133504,		0.926993,		0.314672,		-0.203687,
+    -0.0133504,		0.877989,		0.432976,		-0.203687,
+    -0.0398226,		0.813963,		0.543873,		-0.200202,
+    -0.0656136,		0.73601,		0.645463,		-0.193291,
+    -0.0902818,		0.645463,		0.73601,		-0.183073,
+    -0.113405,		0.543873,		0.813963,		-0.169723,
+    -0.134588,		0.432976,		0.877989,		-0.153469,
+    -0.153469,		0.314672,		0.926993,		-0.134588,
+    -0.169723,		0.190983,		0.960135,		-0.113405,
+    -0.183073,		0.064026,		0.976849,		-0.0902818,
+    -0.193291,		-0.0640261,		0.976849,		-0.0656135,
+    -0.200202,		-0.190983,		0.960135,		-0.0398226,
+    -0.203687,		-0.314672,		0.926993,		-0.0133503,
+    -0.203687,		-0.432976,		0.877989,		0.0133504,
+    -0.200202,		-0.543873,		0.813963,		0.0398227,
+    -0.193291,		-0.645463,		0.73601,		0.0656136,
+    -0.183073,		-0.73601,		0.645463,		0.0902818,
+    -0.169723,		-0.813963,		0.543873,		0.113405,
+    -0.153469,		-0.877989,		0.432976,		0.134588,
+    -0.134588,		-0.926993,		0.314671,		0.153469,
+    -0.113405,		-0.960135,		0.190983,		0.169723,
+    -0.0902818,		-0.976849,		0.064026,		0.183073,
+    0.183073,		0.976849,		0.0640261,		-0.0902818,
+    0.169723,		0.960135,		0.190983,		-0.113405,
+    0.153469,		0.926993,		0.314672,		-0.134588,
+    0.134588,		0.877989,		0.432976,		-0.153469,
+    0.113405,		0.813963,		0.543873,		-0.169723,
+    0.0902818,		0.73601,		0.645463,		-0.183073,
+    0.0656136,		0.645463,		0.73601,		-0.193291,
+    0.0398226,		0.543873,		0.813963,		-0.200202,
+    0.0133504,		0.432976,		0.877989,		-0.203687,
+    -0.0133504,		0.314672,		0.926993,		-0.203687,
+    -0.0398227,		0.190983,		0.960135,		-0.200202,
+    -0.0656136,		0.064026,		0.976849,		-0.193291,
+    -0.0902818,		-0.0640261,		0.976849,		-0.183073,
+    -0.113405,		-0.190983,		0.960135,		-0.169723,
+    -0.134588,		-0.314672,		0.926993,		-0.153469,
+    -0.153469,		-0.432976,		0.877989,		-0.134588,
+    -0.169723,		-0.543873,		0.813963,		-0.113405,
+    -0.183073,		-0.645463,		0.73601,		-0.0902818,
+    -0.193291,		-0.73601,		0.645463,		-0.0656135,
+    -0.200202,		-0.813963,		0.543873,		-0.0398226,
+    -0.203687,		-0.877989,		0.432976,		-0.0133503,
+    -0.203687,		-0.926993,		0.314671,		0.0133504,
+    -0.200202,		-0.960135,		0.190983,		0.0398227,
+    -0.193291,		-0.976849,		0.064026,		0.0656136,
+    0.0672942,		0.992648,		0.0650616,		-0.0767343,
+    0.0567026,		0.975664,		0.194072,		-0.0848615,
+    0.0451409,		0.941985,		0.319761,		-0.0915367,
+    0.0328068,		0.892189,		0.439979,		-0.0966457,
+    0.0199113,		0.827128,		0.552669,		-0.100101,
+    0.00667518,		0.747914,		0.655903,		-0.101844,
+    -0.00667518,		0.655903,		0.747914,		-0.101844,
+    -0.0199113,		0.552669,		0.827128,		-0.100101,
+    -0.0328068,		0.439979,		0.892189,		-0.0966457,
+    -0.0451409,		0.319761,		0.941985,		-0.0915367,
+    -0.0567027,		0.194072,		0.975664,		-0.0848615,
+    -0.0672942,		0.0650616,		0.992648,		-0.0767343,
+    -0.0767343,		-0.0650616,		0.992648,		-0.0672942,
+    -0.0848615,		-0.194072,		0.975664,		-0.0567026,
+    -0.0915367,		-0.319761,		0.941985,		-0.0451409,
+    -0.0966457,		-0.439979,		0.892189,		-0.0328068,
+    -0.100101,		-0.552669,		0.827128,		-0.0199113,
+    -0.101844,		-0.655903,		0.747914,		-0.00667517,
+    -0.101844,		-0.747914,		0.655903,		0.00667519,
+    -0.100101,		-0.827128,		0.552669,		0.0199113,
+    -0.0966456,		-0.892189,		0.439979,		0.0328068,
+    -0.0915367,		-0.941985,		0.319761,		0.0451409,
+    -0.0848615,		-0.975664,		0.194071,		0.0567027,
+    -0.0767343,		-0.992648,		0.0650615,		0.0672942,
+    -0.485311,		0.762127,		0.0499525,		-0.425606,
+    -0.536711,		0.749087,		0.149003,		-0.358619,
+    -0.578929,		0.72323,		0.245503,		-0.285496,
+    -0.611241,		0.684998,		0.337804,		-0.207488,
+    -0.633094,		0.635045,		0.424324,		-0.12593,
+    -0.644115,		0.574227,		0.503584,		-0.0422175,
+    -0.644115,		0.503584,		0.574227,		0.0422176,
+    -0.633094,		0.424324,		0.635045,		0.12593,
+    -0.611241,		0.337804,		0.684998,		0.207488,
+    -0.578929,		0.245503,		0.72323,		0.285496,
+    -0.536711,		0.149003,		0.749087,		0.358619,
+    -0.48531,		0.0499524,		0.762127,		0.425606,
+    -0.425606,		-0.0499525,		0.762127,		0.485311,
+    -0.358619,		-0.149003,		0.749087,		0.536711,
+    -0.285496,		-0.245503,		0.72323,		0.578929,
+    -0.207488,		-0.337804,		0.684998,		0.611241,
+    -0.12593,		-0.424324,		0.635045,		0.633094,
+    -0.0422175,		-0.503584,		0.574227,		0.644115,
+    0.0422176,		-0.574227,		0.503584,		0.644115,
+    0.12593,		-0.635045,		0.424324,		0.633094,
+    0.207488,		-0.684998,		0.337804,		0.611241,
+    0.285496,		-0.72323,		0.245503,		0.578929,
+    0.358619,		-0.749087,		0.149003,		0.536711,
+    0.425606,		-0.762127,		0.0499524,		0.48531,
+    -0.5,		0.814748,		0.0534014,		-0.288675,
+    -0.533402,		0.800808,		0.159291,		-0.220942,
+    -0.557678,		0.773165,		0.262454,		-0.149429,
+    -0.572411,		0.732294,		0.361127,		-0.0753593,
+    -0.57735,		0.678892,		0.453621,		9.46379e-09,
+    -0.572411,		0.613875,		0.538354,		0.0753593,
+    -0.557678,		0.538354,		0.613875,		0.149429,
+    -0.533402,		0.453621,		0.678892,		0.220942,
+    -0.5,		0.361127,		0.732294,		0.288675,
+    -0.458043,		0.262454,		0.773165,		0.351469,
+    -0.408248,		0.159291,		0.800808,		0.408248,
+    -0.351469,		0.0534014,		0.814748,		0.458043,
+    -0.288675,		-0.0534015,		0.814748,		0.5,
+    -0.220942,		-0.159291,		0.800808,		0.533402,
+    -0.149429,		-0.262454,		0.773165,		0.557678,
+    -0.0753593,		-0.361127,		0.732294,		0.572411,
+    3.47006e-08,		-0.453621,		0.678892,		0.57735,
+    0.0753594,		-0.538354,		0.613875,		0.572411,
+    0.149429,		-0.613875,		0.538354,		0.557678,
+    0.220942,		-0.678892,		0.453621,		0.533402,
+    0.288675,		-0.732294,		0.361127,		0.5,
+    0.351469,		-0.773165,		0.262454,		0.458043,
+    0.408248,		-0.800808,		0.159291,		0.408248,
+    0.458043,		-0.814748,		0.0534014,		0.351469,
+    -0.351469,		0.814748,		0.0534014,		-0.458043,
+    -0.408248,		0.800808,		0.159291,		-0.408248,
+    -0.458043,		0.773165,		0.262454,		-0.351469,
+    -0.5,		0.732294,		0.361127,		-0.288675,
+    -0.533402,		0.678892,		0.453621,		-0.220942,
+    -0.557678,		0.613875,		0.538354,		-0.149429,
+    -0.572411,		0.538354,		0.613875,		-0.0753593,
+    -0.57735,		0.453621,		0.678892,		1.5773e-08,
+    -0.572411,		0.361127,		0.732294,		0.0753593,
+    -0.557678,		0.262454,		0.773165,		0.149429,
+    -0.533402,		0.159291,		0.800808,		0.220942,
+    -0.5,		0.0534014,		0.814748,		0.288675,
+    -0.458043,		-0.0534015,		0.814748,		0.351469,
+    -0.408248,		-0.159291,		0.800808,		0.408248,
+    -0.351469,		-0.262454,		0.773165,		0.458043,
+    -0.288675,		-0.361127,		0.732294,		0.5,
+    -0.220942,		-0.453621,		0.678892,		0.533402,
+    -0.149429,		-0.538354,		0.613875,		0.557678,
+    -0.0753593,		-0.613875,		0.538354,		0.572411,
+    4.10098e-08,		-0.678892,		0.453621,		0.57735,
+    0.0753594,		-0.732294,		0.361127,		0.572411,
+    0.149429,		-0.773165,		0.262454,		0.557678,
+    0.220942,		-0.800808,		0.159291,		0.533402,
+    0.288675,		-0.814748,		0.0534014,		0.5,
+    -0.37592,		0.864171,		0.0566408,		-0.329673,
+    -0.415735,		0.849385,		0.168953,		-0.277785,
+    -0.448436,		0.820066,		0.278375,		-0.221144,
+    -0.473465,		0.776715,		0.383033,		-0.16072,
+    -0.490393,		0.720074,		0.481138,		-0.0975452,
+    -0.498929,		0.651112,		0.57101,		-0.0327016,
+    -0.498929,		0.57101,		0.651112,		0.0327016,
+    -0.490393,		0.481138,		0.720074,		0.0975452,
+    -0.473465,		0.383033,		0.776715,		0.16072,
+    -0.448436,		0.278375,		0.820066,		0.221144,
+    -0.415735,		0.168953,		0.849385,		0.277785,
+    -0.37592,		0.0566407,		0.864171,		0.329673,
+    -0.329673,		-0.0566408,		0.864171,		0.37592,
+    -0.277785,		-0.168953,		0.849385,		0.415735,
+    -0.221144,		-0.278375,		0.820066,		0.448436,
+    -0.16072,		-0.383033,		0.776715,		0.473465,
+    -0.0975451,		-0.481138,		0.720074,		0.490393,
+    -0.0327015,		-0.57101,		0.651112,		0.498929,
+    0.0327016,		-0.651112,		0.57101,		0.498929,
+    0.0975452,		-0.720074,		0.481138,		0.490393,
+    0.16072,		-0.776715,		0.383033,		0.473465,
+    0.221144,		-0.820066,		0.278375,		0.448436,
+    0.277785,		-0.849385,		0.168953,		0.415735,
+    0.329673,		-0.864171,		0.0566407,		0.37592,
+    -0.473465,		0.864171,		0.0566408,		-0.16072,
+    -0.490393,		0.849385,		0.168953,		-0.0975452,
+    -0.498929,		0.820066,		0.278375,		-0.0327016,
+    -0.498929,		0.776715,		0.383033,		0.0327016,
+    -0.490393,		0.720074,		0.481138,		0.0975452,
+    -0.473465,		0.651112,		0.57101,		0.16072,
+    -0.448436,		0.57101,		0.651112,		0.221144,
+    -0.415735,		0.481138,		0.720074,		0.277785,
+    -0.37592,		0.383033,		0.776715,		0.329673,
+    -0.329673,		0.278375,		0.820066,		0.37592,
+    -0.277785,		0.168953,		0.849385,		0.415735,
+    -0.221144,		0.0566407,		0.864171,		0.448436,
+    -0.16072,		-0.0566408,		0.864171,		0.473465,
+    -0.0975451,		-0.168953,		0.849385,		0.490393,
+    -0.0327015,		-0.278375,		0.820066,		0.498929,
+    0.0327016,		-0.383033,		0.776715,		0.498929,
+    0.0975452,		-0.481138,		0.720074,		0.490393,
+    0.16072,		-0.57101,		0.651112,		0.473465,
+    0.221144,		-0.651112,		0.57101,		0.448436,
+    0.277785,		-0.720074,		0.481138,		0.415735,
+    0.329673,		-0.776715,		0.383033,		0.37592,
+    0.37592,		-0.820066,		0.278375,		0.329673,
+    0.415735,		-0.849385,		0.168953,		0.277785,
+    0.448436,		-0.864171,		0.0566407,		0.221144,
+    -0.404756,		0.910916,		0.0597046,		-0.0532871,
+    -0.408248,		0.89533,		0.178092,		2.23064e-09,
+    -0.404756,		0.864425,		0.293433,		0.0532871,
+    -0.394338,		0.818729,		0.403752,		0.105662,
+    -0.377172,		0.759024,		0.507164,		0.15623,
+    -0.353553,		0.686333,		0.601898,		0.204124,
+    -0.323885,		0.601898,		0.686333,		0.248526,
+    -0.288675,		0.507164,		0.759024,		0.288675,
+    -0.248526,		0.403752,		0.818729,		0.323885,
+    -0.204124,		0.293433,		0.864425,		0.353553,
+    -0.15623,		0.178092,		0.89533,		0.377172,
+    -0.105662,		0.0597046,		0.910916,		0.394338,
+    -0.0532871,		-0.0597047,		0.910916,		0.404756,
+    2.00757e-08,		-0.178092,		0.89533,		0.408248,
+    0.0532871,		-0.293433,		0.864425,		0.404756,
+    0.105662,		-0.403753,		0.818729,		0.394338,
+    0.15623,		-0.507164,		0.759024,		0.377172,
+    0.204124,		-0.601898,		0.686333,		0.353553,
+    0.248526,		-0.686333,		0.601898,		0.323885,
+    0.288675,		-0.759024,		0.507164,		0.288675,
+    0.323885,		-0.818729,		0.403752,		0.248526,
+    0.353553,		-0.864425,		0.293433,		0.204124,
+    0.377172,		-0.89533,		0.178092,		0.15623,
+    0.394338,		-0.910916,		0.0597045,		0.105662,
+    -0.353553,		0.910916,		0.0597046,		-0.204124,
+    -0.377172,		0.89533,		0.178092,		-0.15623,
+    -0.394338,		0.864425,		0.293433,		-0.105662,
+    -0.404756,		0.818729,		0.403752,		-0.0532871,
+    -0.408248,		0.759024,		0.507164,		6.69191e-09,
+    -0.404756,		0.686333,		0.601898,		0.0532871,
+    -0.394338,		0.601898,		0.686333,		0.105662,
+    -0.377172,		0.507164,		0.759024,		0.15623,
+    -0.353553,		0.403752,		0.818729,		0.204124,
+    -0.323885,		0.293433,		0.864425,		0.248526,
+    -0.288675,		0.178092,		0.89533,		0.288675,
+    -0.248526,		0.0597046,		0.910916,		0.323885,
+    -0.204124,		-0.0597047,		0.910916,		0.353553,
+    -0.15623,		-0.178092,		0.89533,		0.377172,
+    -0.105662,		-0.293433,		0.864425,		0.394338,
+    -0.0532871,		-0.403753,		0.818729,		0.404756,
+    2.4537e-08,		-0.507164,		0.759024,		0.408248,
+    0.0532871,		-0.601898,		0.686333,		0.404756,
+    0.105662,		-0.686333,		0.601898,		0.394338,
+    0.15623,		-0.759024,		0.507164,		0.377172,
+    0.204124,		-0.818729,		0.403752,		0.353553,
+    0.248526,		-0.864425,		0.293433,		0.323885,
+    0.288675,		-0.89533,		0.178092,		0.288675,
+    0.323885,		-0.910916,		0.0597045,		0.248526,
+    -0.300303,		0.949933,		0.0622619,		-0.059734,
+    -0.305531,		0.93368,		0.18572,		-0.0200255,
+    -0.305531,		0.901451,		0.306001,		0.0200255,
+    -0.300303,		0.853797,		0.421046,		0.059734,
+    -0.289937,		0.791535,		0.528887,		0.0984203,
+    -0.27461,		0.71573,		0.627679,		0.135423,
+    -0.254585,		0.627678,		0.71573,		0.170108,
+    -0.230203,		0.528887,		0.791536,		0.201883,
+    -0.201883,		0.421046,		0.853797,		0.230203,
+    -0.170108,		0.306001,		0.901451,		0.254585,
+    -0.135423,		0.18572,		0.93368,		0.27461,
+    -0.0984203,		0.0622619,		0.949933,		0.289937,
+    -0.059734,		-0.062262,		0.949933,		0.300303,
+    -0.0200255,		-0.18572,		0.93368,		0.305531,
+    0.0200256,		-0.306001,		0.901451,		0.305531,
+    0.059734,		-0.421046,		0.853797,		0.300303,
+    0.0984204,		-0.528887,		0.791535,		0.289937,
+    0.135423,		-0.627679,		0.71573,		0.27461,
+    0.170108,		-0.71573,		0.627678,		0.254585,
+    0.201883,		-0.791536,		0.528887,		0.230203,
+    0.230203,		-0.853797,		0.421046,		0.201883,
+    0.254585,		-0.901451,		0.306001,		0.170108,
+    0.27461,		-0.93368,		0.18572,		0.135423,
+    0.289937,		-0.949933,		0.0622618,		0.0984203,
+    -0.221144,		0.864171,		0.0566408,		-0.448436,
+    -0.277785,		0.849385,		0.168953,		-0.415735,
+    -0.329673,		0.820066,		0.278375,		-0.37592,
+    -0.37592,		0.776715,		0.383033,		-0.329673,
+    -0.415735,		0.720074,		0.481138,		-0.277785,
+    -0.448436,		0.651112,		0.57101,		-0.221144,
+    -0.473465,		0.57101,		0.651112,		-0.16072,
+    -0.490393,		0.481138,		0.720074,		-0.0975451,
+    -0.498929,		0.383033,		0.776715,		-0.0327015,
+    -0.498929,		0.278375,		0.820066,		0.0327016,
+    -0.490393,		0.168953,		0.849385,		0.0975452,
+    -0.473465,		0.0566407,		0.864171,		0.16072,
+    -0.448436,		-0.0566408,		0.864171,		0.221144,
+    -0.415735,		-0.168953,		0.849385,		0.277785,
+    -0.37592,		-0.278375,		0.820066,		0.329673,
+    -0.329673,		-0.383033,		0.776715,		0.37592,
+    -0.277785,		-0.481138,		0.720074,		0.415735,
+    -0.221144,		-0.57101,		0.651112,		0.448436,
+    -0.16072,		-0.651112,		0.57101,		0.473465,
+    -0.0975451,		-0.720074,		0.481138,		0.490393,
+    -0.0327015,		-0.776715,		0.383033,		0.498929,
+    0.0327016,		-0.820066,		0.278375,		0.498929,
+    0.0975452,		-0.849385,		0.168953,		0.490393,
+    0.16072,		-0.864171,		0.0566407,		0.473465,
+    -0.248526,		0.910916,		0.0597046,		-0.323885,
+    -0.288675,		0.89533,		0.178092,		-0.288675,
+    -0.323885,		0.864425,		0.293433,		-0.248526,
+    -0.353553,		0.818729,		0.403752,		-0.204124,
+    -0.377172,		0.759024,		0.507164,		-0.15623,
+    -0.394338,		0.686333,		0.601898,		-0.105662,
+    -0.404756,		0.601898,		0.686333,		-0.0532871,
+    -0.408248,		0.507164,		0.759024,		1.11532e-08,
+    -0.404756,		0.403752,		0.818729,		0.0532871,
+    -0.394338,		0.293433,		0.864425,		0.105662,
+    -0.377172,		0.178092,		0.89533,		0.15623,
+    -0.353553,		0.0597046,		0.910916,		0.204124,
+    -0.323885,		-0.0597047,		0.910916,		0.248526,
+    -0.288675,		-0.178092,		0.89533,		0.288675,
+    -0.248526,		-0.293433,		0.864425,		0.323885,
+    -0.204124,		-0.403753,		0.818729,		0.353553,
+    -0.15623,		-0.507164,		0.759024,		0.377172,
+    -0.105662,		-0.601898,		0.686333,		0.394338,
+    -0.0532871,		-0.686333,		0.601898,		0.404756,
+    2.89983e-08,		-0.759024,		0.507164,		0.408248,
+    0.0532871,		-0.818729,		0.403752,		0.404756,
+    0.105662,		-0.864425,		0.293433,		0.394338,
+    0.15623,		-0.89533,		0.178092,		0.377172,
+    0.204124,		-0.910916,		0.0597045,		0.353553,
+    -0.105662,		0.910916,		0.0597046,		-0.394338,
+    -0.15623,		0.89533,		0.178092,		-0.377172,
+    -0.204124,		0.864425,		0.293433,		-0.353553,
+    -0.248526,		0.818729,		0.403752,		-0.323885,
+    -0.288675,		0.759024,		0.507164,		-0.288675,
+    -0.323885,		0.686333,		0.601898,		-0.248526,
+    -0.353553,		0.601898,		0.686333,		-0.204124,
+    -0.377172,		0.507164,		0.759024,		-0.15623,
+    -0.394338,		0.403752,		0.818729,		-0.105662,
+    -0.404756,		0.293433,		0.864425,		-0.0532871,
+    -0.408248,		0.178092,		0.89533,		1.56145e-08,
+    -0.404756,		0.0597046,		0.910916,		0.0532871,
+    -0.394338,		-0.0597047,		0.910916,		0.105662,
+    -0.377172,		-0.178092,		0.89533,		0.15623,
+    -0.353553,		-0.293433,		0.864425,		0.204124,
+    -0.323885,		-0.403753,		0.818729,		0.248526,
+    -0.288675,		-0.507164,		0.759024,		0.288675,
+    -0.248526,		-0.601898,		0.686333,		0.323885,
+    -0.204124,		-0.686333,		0.601898,		0.353553,
+    -0.15623,		-0.759024,		0.507164,		0.377172,
+    -0.105662,		-0.818729,		0.403752,		0.394338,
+    -0.0532871,		-0.864425,		0.293433,		0.404756,
+    3.34596e-08,		-0.89533,		0.178092,		0.408248,
+    0.0532871,		-0.910916,		0.0597045,		0.404756,
+    -0.0984203,		0.949933,		0.0622619,		-0.289937,
+    -0.135423,		0.93368,		0.18572,		-0.27461,
+    -0.170108,		0.901451,		0.306001,		-0.254585,
+    -0.201883,		0.853797,		0.421046,		-0.230203,
+    -0.230203,		0.791535,		0.528887,		-0.201883,
+    -0.254585,		0.71573,		0.627679,		-0.170108,
+    -0.27461,		0.627678,		0.71573,		-0.135423,
+    -0.289937,		0.528887,		0.791536,		-0.0984203,
+    -0.300303,		0.421046,		0.853797,		-0.059734,
+    -0.305531,		0.306001,		0.901451,		-0.0200255,
+    -0.305531,		0.18572,		0.93368,		0.0200255,
+    -0.300303,		0.0622619,		0.949933,		0.059734,
+    -0.289937,		-0.062262,		0.949933,		0.0984203,
+    -0.27461,		-0.18572,		0.93368,		0.135423,
+    -0.254585,		-0.306001,		0.901451,		0.170108,
+    -0.230203,		-0.421046,		0.853797,		0.201883,
+    -0.201883,		-0.528887,		0.791535,		0.230203,
+    -0.170108,		-0.627679,		0.71573,		0.254585,
+    -0.135423,		-0.71573,		0.627678,		0.27461,
+    -0.0984203,		-0.791536,		0.528887,		0.289937,
+    -0.0597339,		-0.853797,		0.421046,		0.300303,
+    -0.0200255,		-0.901451,		0.306001,		0.305531,
+    0.0200256,		-0.93368,		0.18572,		0.305531,
+    0.059734,		-0.949933,		0.0622618,		0.300303,
+    -0.230203,		0.949933,		0.0622619,		-0.201883,
+    -0.254585,		0.93368,		0.18572,		-0.170108,
+    -0.27461,		0.901451,		0.306001,		-0.135423,
+    -0.289937,		0.853797,		0.421046,		-0.0984203,
+    -0.300303,		0.791535,		0.528887,		-0.059734,
+    -0.305531,		0.71573,		0.627679,		-0.0200255,
+    -0.305531,		0.627678,		0.71573,		0.0200255,
+    -0.300303,		0.528887,		0.791536,		0.059734,
+    -0.289937,		0.421046,		0.853797,		0.0984203,
+    -0.27461,		0.306001,		0.901451,		0.135423,
+    -0.254585,		0.18572,		0.93368,		0.170108,
+    -0.230203,		0.0622619,		0.949933,		0.201883,
+    -0.201883,		-0.062262,		0.949933,		0.230203,
+    -0.170108,		-0.18572,		0.93368,		0.254585,
+    -0.135423,		-0.306001,		0.901451,		0.27461,
+    -0.0984203,		-0.421046,		0.853797,		0.289937,
+    -0.0597339,		-0.528887,		0.791535,		0.300303,
+    -0.0200255,		-0.627679,		0.71573,		0.305531,
+    0.0200256,		-0.71573,		0.627678,		0.305531,
+    0.059734,		-0.791536,		0.528887,		0.300303,
+    0.0984204,		-0.853797,		0.421046,		0.289937,
+    0.135423,		-0.901451,		0.306001,		0.27461,
+    0.170108,		-0.93368,		0.18572,		0.254585,
+    0.201883,		-0.949933,		0.0622618,		0.230203,
+    -0.193291,		0.976849,		0.0640261,		-0.0656136,
+    -0.200202,		0.960135,		0.190983,		-0.0398226,
+    -0.203687,		0.926993,		0.314672,		-0.0133504,
+    -0.203687,		0.877989,		0.432976,		0.0133504,
+    -0.200202,		0.813963,		0.543873,		0.0398226,
+    -0.193291,		0.73601,		0.645463,		0.0656136,
+    -0.183073,		0.645463,		0.73601,		0.0902818,
+    -0.169723,		0.543873,		0.813963,		0.113405,
+    -0.153469,		0.432976,		0.877989,		0.134588,
+    -0.134588,		0.314672,		0.926993,		0.153469,
+    -0.113405,		0.190983,		0.960135,		0.169723,
+    -0.0902818,		0.064026,		0.976849,		0.183073,
+    -0.0656135,		-0.0640261,		0.976849,		0.193291,
+    -0.0398226,		-0.190983,		0.960135,		0.200202,
+    -0.0133503,		-0.314672,		0.926993,		0.203687,
+    0.0133504,		-0.432976,		0.877989,		0.203687,
+    0.0398227,		-0.543873,		0.813963,		0.200202,
+    0.0656136,		-0.645463,		0.73601,		0.193291,
+    0.0902818,		-0.73601,		0.645463,		0.183073,
+    0.113405,		-0.813963,		0.543873,		0.169723,
+    0.134588,		-0.877989,		0.432976,		0.153469,
+    0.153469,		-0.926993,		0.314671,		0.134588,
+    0.169723,		-0.960135,		0.190983,		0.113405,
+    0.183073,		-0.976849,		0.064026,		0.0902818,
+    -0.0902818,		0.976849,		0.0640261,		-0.183073,
+    -0.113405,		0.960135,		0.190983,		-0.169723,
+    -0.134588,		0.926993,		0.314672,		-0.153469,
+    -0.153469,		0.877989,		0.432976,		-0.134588,
+    -0.169723,		0.813963,		0.543873,		-0.113405,
+    -0.183073,		0.73601,		0.645463,		-0.0902818,
+    -0.193291,		0.645463,		0.73601,		-0.0656136,
+    -0.200202,		0.543873,		0.813963,		-0.0398226,
+    -0.203687,		0.432976,		0.877989,		-0.0133504,
+    -0.203687,		0.314672,		0.926993,		0.0133504,
+    -0.200202,		0.190983,		0.960135,		0.0398227,
+    -0.193291,		0.064026,		0.976849,		0.0656136,
+    -0.183073,		-0.0640261,		0.976849,		0.0902818,
+    -0.169723,		-0.190983,		0.960135,		0.113405,
+    -0.153469,		-0.314672,		0.926993,		0.134588,
+    -0.134588,		-0.432976,		0.877989,		0.153469,
+    -0.113405,		-0.543873,		0.813963,		0.169723,
+    -0.0902818,		-0.645463,		0.73601,		0.183073,
+    -0.0656135,		-0.73601,		0.645463,		0.193291,
+    -0.0398226,		-0.813963,		0.543873,		0.200202,
+    -0.0133503,		-0.877989,		0.432976,		0.203687,
+    0.0133504,		-0.926993,		0.314671,		0.203687,
+    0.0398227,		-0.960135,		0.190983,		0.200202,
+    0.0656136,		-0.976849,		0.064026,		0.193291,
+    -0.0767343,		0.992648,		0.0650616,		-0.0672942,
+    -0.0848615,		0.975664,		0.194072,		-0.0567026,
+    -0.0915367,		0.941985,		0.319761,		-0.0451409,
+    -0.0966457,		0.892189,		0.439979,		-0.0328068,
+    -0.100101,		0.827128,		0.552669,		-0.0199113,
+    -0.101844,		0.747914,		0.655903,		-0.00667518,
+    -0.101844,		0.655903,		0.747914,		0.00667518,
+    -0.100101,		0.552669,		0.827128,		0.0199113,
+    -0.0966457,		0.439979,		0.892189,		0.0328068,
+    -0.0915367,		0.319761,		0.941985,		0.0451409,
+    -0.0848615,		0.194072,		0.975664,		0.0567027,
+    -0.0767343,		0.0650616,		0.992648,		0.0672942,
+    -0.0672942,		-0.0650616,		0.992648,		0.0767343,
+    -0.0567026,		-0.194072,		0.975664,		0.0848615,
+    -0.0451409,		-0.319761,		0.941985,		0.0915367,
+    -0.0328068,		-0.439979,		0.892189,		0.0966457,
+    -0.0199113,		-0.552669,		0.827128,		0.100101,
+    -0.00667517,		-0.655903,		0.747914,		0.101844,
+    0.00667519,		-0.747914,		0.655903,		0.101844,
+    0.0199113,		-0.827128,		0.552669,		0.100101,
+    0.0328068,		-0.892189,		0.439979,		0.0966456,
+    0.0451409,		-0.941985,		0.319761,		0.0915367,
+    0.0567027,		-0.975664,		0.194071,		0.0848615,
+    0.0672942,		-0.992648,		0.0650615,		0.0767343,
+    -0.425606,		0.762127,		0.0499525,		0.485311,
+    -0.358619,		0.749087,		0.149003,		0.536711,
+    -0.285496,		0.72323,		0.245503,		0.578929,
+    -0.207488,		0.684998,		0.337804,		0.611241,
+    -0.12593,		0.635045,		0.424324,		0.633094,
+    -0.0422175,		0.574227,		0.503584,		0.644115,
+    0.0422176,		0.503584,		0.574227,		0.644115,
+    0.12593,		0.424324,		0.635045,		0.633094,
+    0.207488,		0.337804,		0.684998,		0.611241,
+    0.285496,		0.245503,		0.72323,		0.578929,
+    0.358619,		0.149003,		0.749087,		0.536711,
+    0.425606,		0.0499524,		0.762127,		0.48531,
+    0.485311,		-0.0499525,		0.762127,		0.425606,
+    0.536711,		-0.149003,		0.749087,		0.358619,
+    0.578929,		-0.245503,		0.72323,		0.285496,
+    0.611241,		-0.337804,		0.684998,		0.207488,
+    0.633094,		-0.424324,		0.635045,		0.12593,
+    0.644115,		-0.503584,		0.574227,		0.0422175,
+    0.644115,		-0.574227,		0.503584,		-0.0422176,
+    0.633094,		-0.635045,		0.424324,		-0.12593,
+    0.611241,		-0.684998,		0.337804,		-0.207488,
+    0.578929,		-0.72323,		0.245503,		-0.285496,
+    0.536711,		-0.749087,		0.149003,		-0.358619,
+    0.48531,		-0.762127,		0.0499524,		-0.425606,
+    -0.288675,		0.814748,		0.0534014,		0.5,
+    -0.220942,		0.800808,		0.159291,		0.533402,
+    -0.149429,		0.773165,		0.262454,		0.557678,
+    -0.0753593,		0.732294,		0.361127,		0.572411,
+    9.46379e-09,		0.678892,		0.453621,		0.57735,
+    0.0753593,		0.613875,		0.538354,		0.572411,
+    0.149429,		0.538354,		0.613875,		0.557678,
+    0.220942,		0.453621,		0.678892,		0.533402,
+    0.288675,		0.361127,		0.732294,		0.5,
+    0.351469,		0.262454,		0.773165,		0.458043,
+    0.408248,		0.159291,		0.800808,		0.408248,
+    0.458043,		0.0534014,		0.814748,		0.351469,
+    0.5,		-0.0534015,		0.814748,		0.288675,
+    0.533402,		-0.159291,		0.800808,		0.220942,
+    0.557678,		-0.262454,		0.773165,		0.149429,
+    0.572411,		-0.361127,		0.732294,		0.0753593,
+    0.57735,		-0.453621,		0.678892,		-3.47006e-08,
+    0.572411,		-0.538354,		0.613875,		-0.0753594,
+    0.557678,		-0.613875,		0.538354,		-0.149429,
+    0.533402,		-0.678892,		0.453621,		-0.220942,
+    0.5,		-0.732294,		0.361127,		-0.288675,
+    0.458043,		-0.773165,		0.262454,		-0.351469,
+    0.408248,		-0.800808,		0.159291,		-0.408248,
+    0.351469,		-0.814748,		0.0534014,		-0.458043,
+    -0.458043,		0.814748,		0.0534014,		0.351469,
+    -0.408248,		0.800808,		0.159291,		0.408248,
+    -0.351469,		0.773165,		0.262454,		0.458043,
+    -0.288675,		0.732294,		0.361127,		0.5,
+    -0.220942,		0.678892,		0.453621,		0.533402,
+    -0.149429,		0.613875,		0.538354,		0.557678,
+    -0.0753593,		0.538354,		0.613875,		0.572411,
+    1.5773e-08,		0.453621,		0.678892,		0.57735,
+    0.0753593,		0.361127,		0.732294,		0.572411,
+    0.149429,		0.262454,		0.773165,		0.557678,
+    0.220942,		0.159291,		0.800808,		0.533402,
+    0.288675,		0.0534014,		0.814748,		0.5,
+    0.351469,		-0.0534015,		0.814748,		0.458043,
+    0.408248,		-0.159291,		0.800808,		0.408248,
+    0.458043,		-0.262454,		0.773165,		0.351469,
+    0.5,		-0.361127,		0.732294,		0.288675,
+    0.533402,		-0.453621,		0.678892,		0.220942,
+    0.557678,		-0.538354,		0.613875,		0.149429,
+    0.572411,		-0.613875,		0.538354,		0.0753593,
+    0.57735,		-0.678892,		0.453621,		-4.10098e-08,
+    0.572411,		-0.732294,		0.361127,		-0.0753594,
+    0.557678,		-0.773165,		0.262454,		-0.149429,
+    0.533402,		-0.800808,		0.159291,		-0.220942,
+    0.5,		-0.814748,		0.0534014,		-0.288675,
+    -0.329673,		0.864171,		0.0566408,		0.37592,
+    -0.277785,		0.849385,		0.168953,		0.415735,
+    -0.221144,		0.820066,		0.278375,		0.448436,
+    -0.16072,		0.776715,		0.383033,		0.473465,
+    -0.0975452,		0.720074,		0.481138,		0.490393,
+    -0.0327016,		0.651112,		0.57101,		0.498929,
+    0.0327016,		0.57101,		0.651112,		0.498929,
+    0.0975452,		0.481138,		0.720074,		0.490393,
+    0.16072,		0.383033,		0.776715,		0.473465,
+    0.221144,		0.278375,		0.820066,		0.448436,
+    0.277785,		0.168953,		0.849385,		0.415735,
+    0.329673,		0.0566407,		0.864171,		0.37592,
+    0.37592,		-0.0566408,		0.864171,		0.329673,
+    0.415735,		-0.168953,		0.849385,		0.277785,
+    0.448436,		-0.278375,		0.820066,		0.221144,
+    0.473465,		-0.383033,		0.776715,		0.16072,
+    0.490393,		-0.481138,		0.720074,		0.0975451,
+    0.498929,		-0.57101,		0.651112,		0.0327015,
+    0.498929,		-0.651112,		0.57101,		-0.0327016,
+    0.490393,		-0.720074,		0.481138,		-0.0975452,
+    0.473465,		-0.776715,		0.383033,		-0.16072,
+    0.448436,		-0.820066,		0.278375,		-0.221144,
+    0.415735,		-0.849385,		0.168953,		-0.277785,
+    0.37592,		-0.864171,		0.0566407,		-0.329673,
+    -0.16072,		0.864171,		0.0566408,		0.473465,
+    -0.0975452,		0.849385,		0.168953,		0.490393,
+    -0.0327016,		0.820066,		0.278375,		0.498929,
+    0.0327016,		0.776715,		0.383033,		0.498929,
+    0.0975452,		0.720074,		0.481138,		0.490393,
+    0.16072,		0.651112,		0.57101,		0.473465,
+    0.221144,		0.57101,		0.651112,		0.448436,
+    0.277785,		0.481138,		0.720074,		0.415735,
+    0.329673,		0.383033,		0.776715,		0.37592,
+    0.37592,		0.278375,		0.820066,		0.329673,
+    0.415735,		0.168953,		0.849385,		0.277785,
+    0.448436,		0.0566407,		0.864171,		0.221144,
+    0.473465,		-0.0566408,		0.864171,		0.16072,
+    0.490393,		-0.168953,		0.849385,		0.0975451,
+    0.498929,		-0.278375,		0.820066,		0.0327015,
+    0.498929,		-0.383033,		0.776715,		-0.0327016,
+    0.490393,		-0.481138,		0.720074,		-0.0975452,
+    0.473465,		-0.57101,		0.651112,		-0.16072,
+    0.448436,		-0.651112,		0.57101,		-0.221144,
+    0.415735,		-0.720074,		0.481138,		-0.277785,
+    0.37592,		-0.776715,		0.383033,		-0.329673,
+    0.329673,		-0.820066,		0.278375,		-0.37592,
+    0.277785,		-0.849385,		0.168953,		-0.415735,
+    0.221144,		-0.864171,		0.0566407,		-0.448436,
+    -0.0532871,		0.910916,		0.0597046,		0.404756,
+    2.23064e-09,		0.89533,		0.178092,		0.408248,
+    0.0532871,		0.864425,		0.293433,		0.404756,
+    0.105662,		0.818729,		0.403752,		0.394338,
+    0.15623,		0.759024,		0.507164,		0.377172,
+    0.204124,		0.686333,		0.601898,		0.353553,
+    0.248526,		0.601898,		0.686333,		0.323885,
+    0.288675,		0.507164,		0.759024,		0.288675,
+    0.323885,		0.403752,		0.818729,		0.248526,
+    0.353553,		0.293433,		0.864425,		0.204124,
+    0.377172,		0.178092,		0.89533,		0.15623,
+    0.394338,		0.0597046,		0.910916,		0.105662,
+    0.404756,		-0.0597047,		0.910916,		0.0532871,
+    0.408248,		-0.178092,		0.89533,		-2.00757e-08,
+    0.404756,		-0.293433,		0.864425,		-0.0532871,
+    0.394338,		-0.403753,		0.818729,		-0.105662,
+    0.377172,		-0.507164,		0.759024,		-0.15623,
+    0.353553,		-0.601898,		0.686333,		-0.204124,
+    0.323885,		-0.686333,		0.601898,		-0.248526,
+    0.288675,		-0.759024,		0.507164,		-0.288675,
+    0.248526,		-0.818729,		0.403752,		-0.323885,
+    0.204124,		-0.864425,		0.293433,		-0.353553,
+    0.15623,		-0.89533,		0.178092,		-0.377172,
+    0.105662,		-0.910916,		0.0597045,		-0.394338,
+    -0.204124,		0.910916,		0.0597046,		0.353553,
+    -0.15623,		0.89533,		0.178092,		0.377172,
+    -0.105662,		0.864425,		0.293433,		0.394338,
+    -0.0532871,		0.818729,		0.403752,		0.404756,
+    6.69191e-09,		0.759024,		0.507164,		0.408248,
+    0.0532871,		0.686333,		0.601898,		0.404756,
+    0.105662,		0.601898,		0.686333,		0.394338,
+    0.15623,		0.507164,		0.759024,		0.377172,
+    0.204124,		0.403752,		0.818729,		0.353553,
+    0.248526,		0.293433,		0.864425,		0.323885,
+    0.288675,		0.178092,		0.89533,		0.288675,
+    0.323885,		0.0597046,		0.910916,		0.248526,
+    0.353553,		-0.0597047,		0.910916,		0.204124,
+    0.377172,		-0.178092,		0.89533,		0.15623,
+    0.394338,		-0.293433,		0.864425,		0.105662,
+    0.404756,		-0.403753,		0.818729,		0.0532871,
+    0.408248,		-0.507164,		0.759024,		-2.4537e-08,
+    0.404756,		-0.601898,		0.686333,		-0.0532871,
+    0.394338,		-0.686333,		0.601898,		-0.105662,
+    0.377172,		-0.759024,		0.507164,		-0.15623,
+    0.353553,		-0.818729,		0.403752,		-0.204124,
+    0.323885,		-0.864425,		0.293433,		-0.248526,
+    0.288675,		-0.89533,		0.178092,		-0.288675,
+    0.248526,		-0.910916,		0.0597045,		-0.323885,
+    -0.059734,		0.949933,		0.0622619,		0.300303,
+    -0.0200255,		0.93368,		0.18572,		0.305531,
+    0.0200255,		0.901451,		0.306001,		0.305531,
+    0.059734,		0.853797,		0.421046,		0.300303,
+    0.0984203,		0.791535,		0.528887,		0.289937,
+    0.135423,		0.71573,		0.627679,		0.27461,
+    0.170108,		0.627678,		0.71573,		0.254585,
+    0.201883,		0.528887,		0.791536,		0.230203,
+    0.230203,		0.421046,		0.853797,		0.201883,
+    0.254585,		0.306001,		0.901451,		0.170108,
+    0.27461,		0.18572,		0.93368,		0.135423,
+    0.289937,		0.0622619,		0.949933,		0.0984203,
+    0.300303,		-0.062262,		0.949933,		0.059734,
+    0.305531,		-0.18572,		0.93368,		0.0200255,
+    0.305531,		-0.306001,		0.901451,		-0.0200256,
+    0.300303,		-0.421046,		0.853797,		-0.059734,
+    0.289937,		-0.528887,		0.791535,		-0.0984204,
+    0.27461,		-0.627679,		0.71573,		-0.135423,
+    0.254585,		-0.71573,		0.627678,		-0.170108,
+    0.230203,		-0.791536,		0.528887,		-0.201883,
+    0.201883,		-0.853797,		0.421046,		-0.230203,
+    0.170108,		-0.901451,		0.306001,		-0.254585,
+    0.135423,		-0.93368,		0.18572,		-0.27461,
+    0.0984203,		-0.949933,		0.0622618,		-0.289937,
+    -0.448436,		0.864171,		0.0566408,		0.221144,
+    -0.415735,		0.849385,		0.168953,		0.277785,
+    -0.37592,		0.820066,		0.278375,		0.329673,
+    -0.329673,		0.776715,		0.383033,		0.37592,
+    -0.277785,		0.720074,		0.481138,		0.415735,
+    -0.221144,		0.651112,		0.57101,		0.448436,
+    -0.16072,		0.57101,		0.651112,		0.473465,
+    -0.0975451,		0.481138,		0.720074,		0.490393,
+    -0.0327015,		0.383033,		0.776715,		0.498929,
+    0.0327016,		0.278375,		0.820066,		0.498929,
+    0.0975452,		0.168953,		0.849385,		0.490393,
+    0.16072,		0.0566407,		0.864171,		0.473465,
+    0.221144,		-0.0566408,		0.864171,		0.448436,
+    0.277785,		-0.168953,		0.849385,		0.415735,
+    0.329673,		-0.278375,		0.820066,		0.37592,
+    0.37592,		-0.383033,		0.776715,		0.329673,
+    0.415735,		-0.481138,		0.720074,		0.277785,
+    0.448436,		-0.57101,		0.651112,		0.221144,
+    0.473465,		-0.651112,		0.57101,		0.16072,
+    0.490393,		-0.720074,		0.481138,		0.0975451,
+    0.498929,		-0.776715,		0.383033,		0.0327015,
+    0.498929,		-0.820066,		0.278375,		-0.0327016,
+    0.490393,		-0.849385,		0.168953,		-0.0975452,
+    0.473465,		-0.864171,		0.0566407,		-0.16072,
+    -0.323885,		0.910916,		0.0597046,		0.248526,
+    -0.288675,		0.89533,		0.178092,		0.288675,
+    -0.248526,		0.864425,		0.293433,		0.323885,
+    -0.204124,		0.818729,		0.403752,		0.353553,
+    -0.15623,		0.759024,		0.507164,		0.377172,
+    -0.105662,		0.686333,		0.601898,		0.394338,
+    -0.0532871,		0.601898,		0.686333,		0.404756,
+    1.11532e-08,		0.507164,		0.759024,		0.408248,
+    0.0532871,		0.403752,		0.818729,		0.404756,
+    0.105662,		0.293433,		0.864425,		0.394338,
+    0.15623,		0.178092,		0.89533,		0.377172,
+    0.204124,		0.0597046,		0.910916,		0.353553,
+    0.248526,		-0.0597047,		0.910916,		0.323885,
+    0.288675,		-0.178092,		0.89533,		0.288675,
+    0.323885,		-0.293433,		0.864425,		0.248526,
+    0.353553,		-0.403753,		0.818729,		0.204124,
+    0.377172,		-0.507164,		0.759024,		0.15623,
+    0.394338,		-0.601898,		0.686333,		0.105662,
+    0.404756,		-0.686333,		0.601898,		0.0532871,
+    0.408248,		-0.759024,		0.507164,		-2.89983e-08,
+    0.404756,		-0.818729,		0.403752,		-0.0532871,
+    0.394338,		-0.864425,		0.293433,		-0.105662,
+    0.377172,		-0.89533,		0.178092,		-0.15623,
+    0.353553,		-0.910916,		0.0597045,		-0.204124,
+    -0.394338,		0.910916,		0.0597046,		0.105662,
+    -0.377172,		0.89533,		0.178092,		0.15623,
+    -0.353553,		0.864425,		0.293433,		0.204124,
+    -0.323885,		0.818729,		0.403752,		0.248526,
+    -0.288675,		0.759024,		0.507164,		0.288675,
+    -0.248526,		0.686333,		0.601898,		0.323885,
+    -0.204124,		0.601898,		0.686333,		0.353553,
+    -0.15623,		0.507164,		0.759024,		0.377172,
+    -0.105662,		0.403752,		0.818729,		0.394338,
+    -0.0532871,		0.293433,		0.864425,		0.404756,
+    1.56145e-08,		0.178092,		0.89533,		0.408248,
+    0.0532871,		0.0597046,		0.910916,		0.404756,
+    0.105662,		-0.0597047,		0.910916,		0.394338,
+    0.15623,		-0.178092,		0.89533,		0.377172,
+    0.204124,		-0.293433,		0.864425,		0.353553,
+    0.248526,		-0.403753,		0.818729,		0.323885,
+    0.288675,		-0.507164,		0.759024,		0.288675,
+    0.323885,		-0.601898,		0.686333,		0.248526,
+    0.353553,		-0.686333,		0.601898,		0.204124,
+    0.377172,		-0.759024,		0.507164,		0.15623,
+    0.394338,		-0.818729,		0.403752,		0.105662,
+    0.404756,		-0.864425,		0.293433,		0.0532871,
+    0.408248,		-0.89533,		0.178092,		-3.34596e-08,
+    0.404756,		-0.910916,		0.0597045,		-0.0532871,
+    -0.289937,		0.949933,		0.0622619,		0.0984203,
+    -0.27461,		0.93368,		0.18572,		0.135423,
+    -0.254585,		0.901451,		0.306001,		0.170108,
+    -0.230203,		0.853797,		0.421046,		0.201883,
+    -0.201883,		0.791535,		0.528887,		0.230203,
+    -0.170108,		0.71573,		0.627679,		0.254585,
+    -0.135423,		0.627678,		0.71573,		0.27461,
+    -0.0984203,		0.528887,		0.791536,		0.289937,
+    -0.059734,		0.421046,		0.853797,		0.300303,
+    -0.0200255,		0.306001,		0.901451,		0.305531,
+    0.0200255,		0.18572,		0.93368,		0.305531,
+    0.059734,		0.0622619,		0.949933,		0.300303,
+    0.0984203,		-0.062262,		0.949933,		0.289937,
+    0.135423,		-0.18572,		0.93368,		0.27461,
+    0.170108,		-0.306001,		0.901451,		0.254585,
+    0.201883,		-0.421046,		0.853797,		0.230203,
+    0.230203,		-0.528887,		0.791535,		0.201883,
+    0.254585,		-0.627679,		0.71573,		0.170108,
+    0.27461,		-0.71573,		0.627678,		0.135423,
+    0.289937,		-0.791536,		0.528887,		0.0984203,
+    0.300303,		-0.853797,		0.421046,		0.0597339,
+    0.305531,		-0.901451,		0.306001,		0.0200255,
+    0.305531,		-0.93368,		0.18572,		-0.0200256,
+    0.300303,		-0.949933,		0.0622618,		-0.059734,
+    -0.201883,		0.949933,		0.0622619,		0.230203,
+    -0.170108,		0.93368,		0.18572,		0.254585,
+    -0.135423,		0.901451,		0.306001,		0.27461,
+    -0.0984203,		0.853797,		0.421046,		0.289937,
+    -0.059734,		0.791535,		0.528887,		0.300303,
+    -0.0200255,		0.71573,		0.627679,		0.305531,
+    0.0200255,		0.627678,		0.71573,		0.305531,
+    0.059734,		0.528887,		0.791536,		0.300303,
+    0.0984203,		0.421046,		0.853797,		0.289937,
+    0.135423,		0.306001,		0.901451,		0.27461,
+    0.170108,		0.18572,		0.93368,		0.254585,
+    0.201883,		0.0622619,		0.949933,		0.230203,
+    0.230203,		-0.062262,		0.949933,		0.201883,
+    0.254585,		-0.18572,		0.93368,		0.170108,
+    0.27461,		-0.306001,		0.901451,		0.135423,
+    0.289937,		-0.421046,		0.853797,		0.0984203,
+    0.300303,		-0.528887,		0.791535,		0.0597339,
+    0.305531,		-0.627679,		0.71573,		0.0200255,
+    0.305531,		-0.71573,		0.627678,		-0.0200256,
+    0.300303,		-0.791536,		0.528887,		-0.059734,
+    0.289937,		-0.853797,		0.421046,		-0.0984204,
+    0.27461,		-0.901451,		0.306001,		-0.135423,
+    0.254585,		-0.93368,		0.18572,		-0.170108,
+    0.230203,		-0.949933,		0.0622618,		-0.201883,
+    -0.0656136,		0.976849,		0.0640261,		0.193291,
+    -0.0398226,		0.960135,		0.190983,		0.200202,
+    -0.0133504,		0.926993,		0.314672,		0.203687,
+    0.0133504,		0.877989,		0.432976,		0.203687,
+    0.0398226,		0.813963,		0.543873,		0.200202,
+    0.0656136,		0.73601,		0.645463,		0.193291,
+    0.0902818,		0.645463,		0.73601,		0.183073,
+    0.113405,		0.543873,		0.813963,		0.169723,
+    0.134588,		0.432976,		0.877989,		0.153469,
+    0.153469,		0.314672,		0.926993,		0.134588,
+    0.169723,		0.190983,		0.960135,		0.113405,
+    0.183073,		0.064026,		0.976849,		0.0902818,
+    0.193291,		-0.0640261,		0.976849,		0.0656135,
+    0.200202,		-0.190983,		0.960135,		0.0398226,
+    0.203687,		-0.314672,		0.926993,		0.0133503,
+    0.203687,		-0.432976,		0.877989,		-0.0133504,
+    0.200202,		-0.543873,		0.813963,		-0.0398227,
+    0.193291,		-0.645463,		0.73601,		-0.0656136,
+    0.183073,		-0.73601,		0.645463,		-0.0902818,
+    0.169723,		-0.813963,		0.543873,		-0.113405,
+    0.153469,		-0.877989,		0.432976,		-0.134588,
+    0.134588,		-0.926993,		0.314671,		-0.153469,
+    0.113405,		-0.960135,		0.190983,		-0.169723,
+    0.0902818,		-0.976849,		0.064026,		-0.183073,
+    -0.183073,		0.976849,		0.0640261,		0.0902818,
+    -0.169723,		0.960135,		0.190983,		0.113405,
+    -0.153469,		0.926993,		0.314672,		0.134588,
+    -0.134588,		0.877989,		0.432976,		0.153469,
+    -0.113405,		0.813963,		0.543873,		0.169723,
+    -0.0902818,		0.73601,		0.645463,		0.183073,
+    -0.0656136,		0.645463,		0.73601,		0.193291,
+    -0.0398226,		0.543873,		0.813963,		0.200202,
+    -0.0133504,		0.432976,		0.877989,		0.203687,
+    0.0133504,		0.314672,		0.926993,		0.203687,
+    0.0398227,		0.190983,		0.960135,		0.200202,
+    0.0656136,		0.064026,		0.976849,		0.193291,
+    0.0902818,		-0.0640261,		0.976849,		0.183073,
+    0.113405,		-0.190983,		0.960135,		0.169723,
+    0.134588,		-0.314672,		0.926993,		0.153469,
+    0.153469,		-0.432976,		0.877989,		0.134588,
+    0.169723,		-0.543873,		0.813963,		0.113405,
+    0.183073,		-0.645463,		0.73601,		0.0902818,
+    0.193291,		-0.73601,		0.645463,		0.0656135,
+    0.200202,		-0.813963,		0.543873,		0.0398226,
+    0.203687,		-0.877989,		0.432976,		0.0133503,
+    0.203687,		-0.926993,		0.314671,		-0.0133504,
+    0.200202,		-0.960135,		0.190983,		-0.0398227,
+    0.193291,		-0.976849,		0.064026,		-0.0656136,
+    -0.0672942,		0.992648,		0.0650616,		0.0767343,
+    -0.0567026,		0.975664,		0.194072,		0.0848615,
+    -0.0451409,		0.941985,		0.319761,		0.0915367,
+    -0.0328068,		0.892189,		0.439979,		0.0966457,
+    -0.0199113,		0.827128,		0.552669,		0.100101,
+    -0.00667518,		0.747914,		0.655903,		0.101844,
+    0.00667518,		0.655903,		0.747914,		0.101844,
+    0.0199113,		0.552669,		0.827128,		0.100101,
+    0.0328068,		0.439979,		0.892189,		0.0966457,
+    0.0451409,		0.319761,		0.941985,		0.0915367,
+    0.0567027,		0.194072,		0.975664,		0.0848615,
+    0.0672942,		0.0650616,		0.992648,		0.0767343,
+    0.0767343,		-0.0650616,		0.992648,		0.0672942,
+    0.0848615,		-0.194072,		0.975664,		0.0567026,
+    0.0915367,		-0.319761,		0.941985,		0.0451409,
+    0.0966457,		-0.439979,		0.892189,		0.0328068,
+    0.100101,		-0.552669,		0.827128,		0.0199113,
+    0.101844,		-0.655903,		0.747914,		0.00667517,
+    0.101844,		-0.747914,		0.655903,		-0.00667519,
+    0.100101,		-0.827128,		0.552669,		-0.0199113,
+    0.0966456,		-0.892189,		0.439979,		-0.0328068,
+    0.0915367,		-0.941985,		0.319761,		-0.0451409,
+    0.0848615,		-0.975664,		0.194071,		-0.0567027,
+    0.0767343,		-0.992648,		0.0650615,		-0.0672942,
+    0.0566408,		0.498929,		0.0327016,		0.864171,
+    0.168953,		0.490393,		0.0975452,		0.849385,
+    0.278375,		0.473465,		0.16072,		0.820066,
+    0.383033,		0.448436,		0.221144,		0.776715,
+    0.481138,		0.415735,		0.277785,		0.720074,
+    0.57101,		0.37592,		0.329673,		0.651112,
+    0.651112,		0.329673,		0.37592,		0.57101,
+    0.720074,		0.277785,		0.415735,		0.481138,
+    0.776715,		0.221144,		0.448436,		0.383033,
+    0.820066,		0.16072,		0.473465,		0.278375,
+    0.849385,		0.0975451,		0.490393,		0.168953,
+    0.864171,		0.0327015,		0.498929,		0.0566407,
+    0.864171,		-0.0327016,		0.498929,		-0.0566408,
+    0.849385,		-0.0975452,		0.490393,		-0.168953,
+    0.820066,		-0.16072,		0.473465,		-0.278375,
+    0.776715,		-0.221144,		0.448436,		-0.383033,
+    0.720074,		-0.277785,		0.415735,		-0.481138,
+    0.651112,		-0.329673,		0.37592,		-0.57101,
+    0.57101,		-0.37592,		0.329673,		-0.651112,
+    0.481138,		-0.415735,		0.277785,		-0.720074,
+    0.383033,		-0.448436,		0.221144,		-0.776715,
+    0.278375,		-0.473465,		0.16072,		-0.820066,
+    0.168953,		-0.490393,		0.0975451,		-0.849385,
+    0.0566407,		-0.498929,		0.0327015,		-0.864171,
+    0.211325,		0.576114,		0.0377605,		0.788675,
+    0.31246,		0.566257,		0.112635,		0.754344,
+    0.408248,		0.54671,		0.185583,		0.707107,
+    0.497052,		0.51781,		0.255356,		0.64777,
+    0.57735,		0.480049,		0.320759,		0.57735,
+    0.64777,		0.434075,		0.380673,		0.497052,
+    0.707107,		0.380673,		0.434075,		0.408248,
+    0.754344,		0.320759,		0.480049,		0.31246,
+    0.788675,		0.255355,		0.51781,		0.211325,
+    0.809511,		0.185583,		0.54671,		0.106574,
+    0.816497,		0.112635,		0.566257,		-3.12289e-08,
+    0.809511,		0.0377605,		0.576114,		-0.106574,
+    0.788675,		-0.0377605,		0.576114,		-0.211325,
+    0.754344,		-0.112635,		0.566257,		-0.31246,
+    0.707107,		-0.185583,		0.54671,		-0.408248,
+    0.64777,		-0.255356,		0.51781,		-0.497052,
+    0.57735,		-0.320759,		0.480049,		-0.57735,
+    0.497052,		-0.380674,		0.434075,		-0.64777,
+    0.408248,		-0.434075,		0.380673,		-0.707107,
+    0.31246,		-0.480049,		0.320759,		-0.754345,
+    0.211325,		-0.51781,		0.255355,		-0.788675,
+    0.106574,		-0.54671,		0.185583,		-0.809511,
+    -6.69191e-08,		-0.566257,		0.112635,		-0.816497,
+    -0.106574,		-0.576114,		0.0377605,		-0.809511,
+    -0.106574,		0.576114,		0.0377605,		0.809511,
+    4.46127e-09,		0.566257,		0.112635,		0.816497,
+    0.106574,		0.54671,		0.185583,		0.809511,
+    0.211325,		0.51781,		0.255356,		0.788675,
+    0.31246,		0.480049,		0.320759,		0.754344,
+    0.408248,		0.434075,		0.380673,		0.707107,
+    0.497052,		0.380673,		0.434075,		0.64777,
+    0.57735,		0.320759,		0.480049,		0.57735,
+    0.64777,		0.255355,		0.51781,		0.497052,
+    0.707107,		0.185583,		0.54671,		0.408248,
+    0.754344,		0.112635,		0.566257,		0.31246,
+    0.788675,		0.0377605,		0.576114,		0.211325,
+    0.809511,		-0.0377605,		0.576114,		0.106574,
+    0.816497,		-0.112635,		0.566257,		-4.01515e-08,
+    0.809511,		-0.185583,		0.54671,		-0.106574,
+    0.788675,		-0.255356,		0.51781,		-0.211325,
+    0.754344,		-0.320759,		0.480049,		-0.31246,
+    0.707107,		-0.380674,		0.434075,		-0.408248,
+    0.64777,		-0.434075,		0.380673,		-0.497052,
+    0.57735,		-0.480049,		0.320759,		-0.57735,
+    0.497052,		-0.51781,		0.255355,		-0.64777,
+    0.408248,		-0.54671,		0.185583,		-0.707107,
+    0.31246,		-0.566257,		0.112635,		-0.754345,
+    0.211325,		-0.576114,		0.0377605,		-0.788675,
+    0.0499525,		0.644115,		0.0422175,		0.762127,
+    0.149003,		0.633094,		0.12593,		0.749087,
+    0.245503,		0.611241,		0.207488,		0.72323,
+    0.337804,		0.578929,		0.285496,		0.684998,
+    0.424324,		0.536711,		0.358619,		0.635045,
+    0.503584,		0.485311,		0.425606,		0.574227,
+    0.574227,		0.425606,		0.485311,		0.503584,
+    0.635045,		0.358619,		0.536711,		0.424324,
+    0.684998,		0.285496,		0.578929,		0.337804,
+    0.72323,		0.207488,		0.611241,		0.245503,
+    0.749087,		0.12593,		0.633094,		0.149003,
+    0.762127,		0.0422175,		0.644115,		0.0499524,
+    0.762127,		-0.0422176,		0.644115,		-0.0499525,
+    0.749087,		-0.12593,		0.633094,		-0.149003,
+    0.72323,		-0.207488,		0.611241,		-0.245503,
+    0.684998,		-0.285496,		0.578929,		-0.337804,
+    0.635045,		-0.358619,		0.536711,		-0.424324,
+    0.574227,		-0.425606,		0.48531,		-0.503584,
+    0.503584,		-0.485311,		0.425606,		-0.574227,
+    0.424324,		-0.536711,		0.358619,		-0.635045,
+    0.337804,		-0.578929,		0.285496,		-0.684998,
+    0.245503,		-0.611241,		0.207488,		-0.72323,
+    0.149003,		-0.633094,		0.12593,		-0.749087,
+    0.0499524,		-0.644115,		0.0422175,		-0.762127,
+    0.337804,		0.644115,		0.0422175,		0.684998,
+    0.424324,		0.633094,		0.12593,		0.635045,
+    0.503584,		0.611241,		0.207488,		0.574227,
+    0.574227,		0.578929,		0.285496,		0.503584,
+    0.635045,		0.536711,		0.358619,		0.424324,
+    0.684998,		0.485311,		0.425606,		0.337804,
+    0.72323,		0.425606,		0.485311,		0.245503,
+    0.749087,		0.358619,		0.536711,		0.149003,
+    0.762127,		0.285496,		0.578929,		0.0499524,
+    0.762127,		0.207488,		0.611241,		-0.0499525,
+    0.749087,		0.12593,		0.633094,		-0.149003,
+    0.72323,		0.0422175,		0.644115,		-0.245503,
+    0.684998,		-0.0422176,		0.644115,		-0.337804,
+    0.635045,		-0.12593,		0.633094,		-0.424324,
+    0.574227,		-0.207488,		0.611241,		-0.503584,
+    0.503584,		-0.285496,		0.578929,		-0.574227,
+    0.424324,		-0.358619,		0.536711,		-0.635045,
+    0.337804,		-0.425606,		0.48531,		-0.684998,
+    0.245503,		-0.485311,		0.425606,		-0.72323,
+    0.149003,		-0.536711,		0.358619,		-0.749087,
+    0.0499524,		-0.578929,		0.285496,		-0.762127,
+    -0.0499525,		-0.611241,		0.207488,		-0.762127,
+    -0.149003,		-0.633094,		0.12593,		-0.749087,
+    -0.245504,		-0.644115,		0.0422175,		-0.72323,
+    0.430459,		0.705593,		0.046247,		0.560986,
+    0.5,		0.69352,		0.13795,		0.5,
+    0.560986,		0.669581,		0.227292,		0.430459,
+    0.612372,		0.634185,		0.312745,		0.353553,
+    0.653281,		0.587938,		0.392847,		0.270598,
+    0.683013,		0.531631,		0.466228,		0.183013,
+    0.701057,		0.466228,		0.531631,		0.0922959,
+    0.707107,		0.392847,		0.587938,		-1.93179e-08,
+    0.701057,		0.312745,		0.634185,		-0.092296,
+    0.683013,		0.227292,		0.669581,		-0.183013,
+    0.653281,		0.13795,		0.69352,		-0.270598,
+    0.612372,		0.046247,		0.705593,		-0.353553,
+    0.560986,		-0.046247,		0.705593,		-0.430459,
+    0.5,		-0.13795,		0.69352,		-0.5,
+    0.430459,		-0.227292,		0.669581,		-0.560986,
+    0.353553,		-0.312745,		0.634185,		-0.612372,
+    0.270598,		-0.392848,		0.587938,		-0.653281,
+    0.183013,		-0.466228,		0.531631,		-0.683013,
+    0.0922959,		-0.531631,		0.466228,		-0.701057,
+    -5.02265e-08,		-0.587938,		0.392847,		-0.707107,
+    -0.092296,		-0.634185,		0.312745,		-0.701057,
+    -0.183013,		-0.669581,		0.227292,		-0.683013,
+    -0.270598,		-0.69352,		0.13795,		-0.653281,
+    -0.353553,		-0.705593,		0.0462469,		-0.612372,
+    0.183013,		0.705593,		0.046247,		0.683013,
+    0.270598,		0.69352,		0.13795,		0.653281,
+    0.353553,		0.669581,		0.227292,		0.612372,
+    0.430459,		0.634185,		0.312745,		0.560986,
+    0.5,		0.587938,		0.392847,		0.5,
+    0.560986,		0.531631,		0.466228,		0.430459,
+    0.612372,		0.466228,		0.531631,		0.353553,
+    0.653281,		0.392847,		0.587938,		0.270598,
+    0.683013,		0.312745,		0.634185,		0.183013,
+    0.701057,		0.227292,		0.669581,		0.0922959,
+    0.707107,		0.13795,		0.69352,		-2.7045e-08,
+    0.701057,		0.046247,		0.705593,		-0.092296,
+    0.683013,		-0.046247,		0.705593,		-0.183013,
+    0.653281,		-0.13795,		0.69352,		-0.270598,
+    0.612372,		-0.227292,		0.669581,		-0.353553,
+    0.560986,		-0.312745,		0.634185,		-0.430459,
+    0.5,		-0.392848,		0.587938,		-0.5,
+    0.430459,		-0.466228,		0.531631,		-0.560986,
+    0.353553,		-0.531631,		0.466228,		-0.612372,
+    0.270598,		-0.587938,		0.392847,		-0.653282,
+    0.183013,		-0.634185,		0.312745,		-0.683013,
+    0.0922959,		-0.669581,		0.227292,		-0.701057,
+    -5.79537e-08,		-0.69352,		0.13795,		-0.707107,
+    -0.092296,		-0.705593,		0.0462469,		-0.701057,
+    0.285496,		0.762127,		0.0499525,		0.578929,
+    0.358619,		0.749087,		0.149003,		0.536711,
+    0.425606,		0.72323,		0.245503,		0.485311,
+    0.485311,		0.684998,		0.337804,		0.425606,
+    0.536711,		0.635045,		0.424324,		0.358619,
+    0.578929,		0.574227,		0.503584,		0.285496,
+    0.611241,		0.503584,		0.574227,		0.207488,
+    0.633094,		0.424324,		0.635045,		0.12593,
+    0.644115,		0.337804,		0.684998,		0.0422175,
+    0.644115,		0.245503,		0.72323,		-0.0422176,
+    0.633094,		0.149003,		0.749087,		-0.12593,
+    0.611241,		0.0499524,		0.762127,		-0.207488,
+    0.578929,		-0.0499525,		0.762127,		-0.285496,
+    0.536711,		-0.149003,		0.749087,		-0.358619,
+    0.48531,		-0.245503,		0.72323,		-0.425606,
+    0.425606,		-0.337804,		0.684998,		-0.485311,
+    0.358619,		-0.424324,		0.635045,		-0.536711,
+    0.285496,		-0.503584,		0.574227,		-0.578929,
+    0.207488,		-0.574227,		0.503584,		-0.611241,
+    0.12593,		-0.635045,		0.424324,		-0.633094,
+    0.0422175,		-0.684998,		0.337804,		-0.644115,
+    -0.0422176,		-0.72323,		0.245503,		-0.644115,
+    -0.12593,		-0.749087,		0.149003,		-0.633094,
+    -0.207488,		-0.762127,		0.0499524,		-0.611241,
+    -0.245503,		0.644115,		0.0422175,		0.72323,
+    -0.149003,		0.633094,		0.12593,		0.749087,
+    -0.0499525,		0.611241,		0.207488,		0.762127,
+    0.0499525,		0.578929,		0.285496,		0.762127,
+    0.149003,		0.536711,		0.358619,		0.749087,
+    0.245503,		0.485311,		0.425606,		0.72323,
+    0.337804,		0.425606,		0.485311,		0.684998,
+    0.424324,		0.358619,		0.536711,		0.635045,
+    0.503584,		0.285496,		0.578929,		0.574227,
+    0.574227,		0.207488,		0.611241,		0.503584,
+    0.635045,		0.12593,		0.633094,		0.424324,
+    0.684998,		0.0422175,		0.644115,		0.337804,
+    0.72323,		-0.0422176,		0.644115,		0.245503,
+    0.749087,		-0.12593,		0.633094,		0.149003,
+    0.762127,		-0.207488,		0.611241,		0.0499524,
+    0.762127,		-0.285496,		0.578929,		-0.0499525,
+    0.749087,		-0.358619,		0.536711,		-0.149003,
+    0.72323,		-0.425606,		0.48531,		-0.245503,
+    0.684998,		-0.485311,		0.425606,		-0.337804,
+    0.635045,		-0.536711,		0.358619,		-0.424324,
+    0.574227,		-0.578929,		0.285496,		-0.503584,
+    0.503584,		-0.611241,		0.207488,		-0.574227,
+    0.424324,		-0.633094,		0.12593,		-0.635045,
+    0.337804,		-0.644115,		0.0422175,		-0.684998,
+    -0.092296,		0.705593,		0.046247,		0.701057,
+    3.86358e-09,		0.69352,		0.13795,		0.707107,
+    0.092296,		0.669581,		0.227292,		0.701057,
+    0.183013,		0.634185,		0.312745,		0.683013,
+    0.270598,		0.587938,		0.392847,		0.653281,
+    0.353553,		0.531631,		0.466228,		0.612372,
+    0.430459,		0.466228,		0.531631,		0.560986,
+    0.5,		0.392847,		0.587938,		0.5,
+    0.560986,		0.312745,		0.634185,		0.430459,
+    0.612372,		0.227292,		0.669581,		0.353553,
+    0.653281,		0.13795,		0.69352,		0.270598,
+    0.683013,		0.046247,		0.705593,		0.183013,
+    0.701057,		-0.046247,		0.705593,		0.0922959,
+    0.707107,		-0.13795,		0.69352,		-3.47722e-08,
+    0.701057,		-0.227292,		0.669581,		-0.092296,
+    0.683013,		-0.312745,		0.634185,		-0.183013,
+    0.653281,		-0.392848,		0.587938,		-0.270598,
+    0.612372,		-0.466228,		0.531631,		-0.353553,
+    0.560985,		-0.531631,		0.466228,		-0.430459,
+    0.5,		-0.587938,		0.392847,		-0.5,
+    0.430459,		-0.634185,		0.312745,		-0.560986,
+    0.353553,		-0.669581,		0.227292,		-0.612372,
+    0.270598,		-0.69352,		0.13795,		-0.653282,
+    0.183013,		-0.705593,		0.0462469,		-0.683013,
+    -0.353553,		0.705593,		0.046247,		0.612372,
+    -0.270598,		0.69352,		0.13795,		0.653281,
+    -0.183013,		0.669581,		0.227292,		0.683013,
+    -0.0922959,		0.634185,		0.312745,		0.701057,
+    1.15907e-08,		0.587938,		0.392847,		0.707107,
+    0.092296,		0.531631,		0.466228,		0.701057,
+    0.183013,		0.466228,		0.531631,		0.683013,
+    0.270598,		0.392847,		0.587938,		0.653281,
+    0.353553,		0.312745,		0.634185,		0.612372,
+    0.430459,		0.227292,		0.669581,		0.560986,
+    0.5,		0.13795,		0.69352,		0.5,
+    0.560986,		0.046247,		0.705593,		0.430459,
+    0.612372,		-0.046247,		0.705593,		0.353553,
+    0.653281,		-0.13795,		0.69352,		0.270598,
+    0.683013,		-0.227292,		0.669581,		0.183013,
+    0.701057,		-0.312745,		0.634185,		0.0922959,
+    0.707107,		-0.392848,		0.587938,		-4.24994e-08,
+    0.701057,		-0.466228,		0.531631,		-0.092296,
+    0.683013,		-0.531631,		0.466228,		-0.183013,
+    0.653281,		-0.587938,		0.392847,		-0.270598,
+    0.612372,		-0.634185,		0.312745,		-0.353553,
+    0.560985,		-0.669581,		0.227292,		-0.430459,
+    0.5,		-0.69352,		0.13795,		-0.5,
+    0.430459,		-0.705593,		0.0462469,		-0.560986,
+    -0.207488,		0.762127,		0.0499525,		0.611241,
+    -0.12593,		0.749087,		0.149003,		0.633094,
+    -0.0422175,		0.72323,		0.245503,		0.644115,
+    0.0422175,		0.684998,		0.337804,		0.644115,
+    0.12593,		0.635045,		0.424324,		0.633094,
+    0.207488,		0.574227,		0.503584,		0.611241,
+    0.285496,		0.503584,		0.574227,		0.578929,
+    0.358619,		0.424324,		0.635045,		0.536711,
+    0.425606,		0.337804,		0.684998,		0.48531,
+    0.485311,		0.245503,		0.72323,		0.425606,
+    0.536711,		0.149003,		0.749087,		0.358619,
+    0.578929,		0.0499524,		0.762127,		0.285496,
+    0.611241,		-0.0499525,		0.762127,		0.207488,
+    0.633094,		-0.149003,		0.749087,		0.12593,
+    0.644115,		-0.245503,		0.72323,		0.0422175,
+    0.644115,		-0.337804,		0.684998,		-0.0422176,
+    0.633094,		-0.424324,		0.635045,		-0.12593,
+    0.611241,		-0.503584,		0.574227,		-0.207488,
+    0.578929,		-0.574227,		0.503584,		-0.285496,
+    0.536711,		-0.635045,		0.424324,		-0.358619,
+    0.48531,		-0.684998,		0.337804,		-0.425606,
+    0.425606,		-0.72323,		0.245503,		-0.485311,
+    0.358619,		-0.749087,		0.149003,		-0.536711,
+    0.285496,		-0.762127,		0.0499524,		-0.578929,
+    0.0422175,		0.762127,		0.0499525,		0.644115,
+    0.12593,		0.749087,		0.149003,		0.633094,
+    0.207488,		0.72323,		0.245503,		0.611241,
+    0.285496,		0.684998,		0.337804,		0.578929,
+    0.358619,		0.635045,		0.424324,		0.536711,
+    0.425606,		0.574227,		0.503584,		0.485311,
+    0.485311,		0.503584,		0.574227,		0.425606,
+    0.536711,		0.424324,		0.635045,		0.358619,
+    0.578929,		0.337804,		0.684998,		0.285496,
+    0.611241,		0.245503,		0.72323,		0.207488,
+    0.633094,		0.149003,		0.749087,		0.12593,
+    0.644115,		0.0499524,		0.762127,		0.0422175,
+    0.644115,		-0.0499525,		0.762127,		-0.0422176,
+    0.633094,		-0.149003,		0.749087,		-0.12593,
+    0.611241,		-0.245503,		0.72323,		-0.207488,
+    0.578929,		-0.337804,		0.684998,		-0.285496,
+    0.536711,		-0.424324,		0.635045,		-0.358619,
+    0.48531,		-0.503584,		0.574227,		-0.425606,
+    0.425606,		-0.574227,		0.503584,		-0.485311,
+    0.358619,		-0.635045,		0.424324,		-0.536711,
+    0.285496,		-0.684998,		0.337804,		-0.578929,
+    0.207488,		-0.72323,		0.245503,		-0.611241,
+    0.12593,		-0.749087,		0.149003,		-0.633094,
+    0.0422175,		-0.762127,		0.0499524,		-0.644115,
+    0.149429,		0.814748,		0.0534014,		0.557678,
+    0.220942,		0.800808,		0.159291,		0.533402,
+    0.288675,		0.773165,		0.262454,		0.5,
+    0.351469,		0.732294,		0.361127,		0.458043,
+    0.408248,		0.678892,		0.453621,		0.408248,
+    0.458043,		0.613875,		0.538354,		0.351469,
+    0.5,		0.538354,		0.613875,		0.288675,
+    0.533402,		0.453621,		0.678892,		0.220942,
+    0.557678,		0.361127,		0.732294,		0.149429,
+    0.572411,		0.262454,		0.773165,		0.0753593,
+    0.57735,		0.159291,		0.800808,		-2.20822e-08,
+    0.572411,		0.0534014,		0.814748,		-0.0753594,
+    0.557678,		-0.0534015,		0.814748,		-0.149429,
+    0.533402,		-0.159291,		0.800808,		-0.220942,
+    0.5,		-0.262454,		0.773165,		-0.288675,
+    0.458043,		-0.361127,		0.732294,		-0.351469,
+    0.408248,		-0.453621,		0.678892,		-0.408248,
+    0.351469,		-0.538354,		0.613875,		-0.458043,
+    0.288675,		-0.613875,		0.538354,		-0.5,
+    0.220942,		-0.678892,		0.453621,		-0.533402,
+    0.149429,		-0.732294,		0.361127,		-0.557678,
+    0.0753593,		-0.773165,		0.262454,		-0.572411,
+    -4.7319e-08,		-0.800808,		0.159291,		-0.57735,
+    -0.0753594,		-0.814748,		0.0534014,		-0.572411,
+    -0.0753593,		0.814748,		0.0534014,		0.572411,
+    3.1546e-09,		0.800808,		0.159291,		0.57735,
+    0.0753593,		0.773165,		0.262454,		0.572411,
+    0.149429,		0.732294,		0.361127,		0.557678,
+    0.220942,		0.678892,		0.453621,		0.533402,
+    0.288675,		0.613875,		0.538354,		0.5,
+    0.351469,		0.538354,		0.613875,		0.458043,
+    0.408248,		0.453621,		0.678892,		0.408248,
+    0.458043,		0.361127,		0.732294,		0.351469,
+    0.5,		0.262454,		0.773165,		0.288675,
+    0.533402,		0.159291,		0.800808,		0.220942,
+    0.557678,		0.0534014,		0.814748,		0.149429,
+    0.572411,		-0.0534015,		0.814748,		0.0753593,
+    0.57735,		-0.159291,		0.800808,		-2.83914e-08,
+    0.572411,		-0.262454,		0.773165,		-0.0753594,
+    0.557678,		-0.361127,		0.732294,		-0.149429,
+    0.533402,		-0.453621,		0.678892,		-0.220942,
+    0.5,		-0.538354,		0.613875,		-0.288675,
+    0.458043,		-0.613875,		0.538354,		-0.351469,
+    0.408248,		-0.678892,		0.453621,		-0.408248,
+    0.351469,		-0.732294,		0.361127,		-0.458043,
+    0.288675,		-0.773165,		0.262454,		-0.5,
+    0.220942,		-0.800808,		0.159291,		-0.533402,
+    0.149429,		-0.814748,		0.0534014,		-0.557678,
+    0.0327016,		0.864171,		0.0566408,		0.498929,
+    0.0975452,		0.849385,		0.168953,		0.490393,
+    0.16072,		0.820066,		0.278375,		0.473465,
+    0.221144,		0.776715,		0.383033,		0.448436,
+    0.277785,		0.720074,		0.481138,		0.415735,
+    0.329673,		0.651112,		0.57101,		0.37592,
+    0.37592,		0.57101,		0.651112,		0.329673,
+    0.415735,		0.481138,		0.720074,		0.277785,
+    0.448436,		0.383033,		0.776715,		0.221144,
+    0.473465,		0.278375,		0.820066,		0.16072,
+    0.490393,		0.168953,		0.849385,		0.0975451,
+    0.498929,		0.0566407,		0.864171,		0.0327015,
+    0.498929,		-0.0566408,		0.864171,		-0.0327016,
+    0.490393,		-0.168953,		0.849385,		-0.0975452,
+    0.473465,		-0.278375,		0.820066,		-0.16072,
+    0.448436,		-0.383033,		0.776715,		-0.221144,
+    0.415735,		-0.481138,		0.720074,		-0.277785,
+    0.37592,		-0.57101,		0.651112,		-0.329673,
+    0.329673,		-0.651112,		0.57101,		-0.37592,
+    0.277785,		-0.720074,		0.481138,		-0.415735,
+    0.221144,		-0.776715,		0.383033,		-0.448436,
+    0.16072,		-0.820066,		0.278375,		-0.473465,
+    0.0975451,		-0.849385,		0.168953,		-0.490393,
+    0.0327015,		-0.864171,		0.0566407,		-0.498929,
+    0.864171,		0.498929,		0.0327016,		-0.0566408,
+    0.849385,		0.490393,		0.0975452,		-0.168953,
+    0.820066,		0.473465,		0.16072,		-0.278375,
+    0.776715,		0.448436,		0.221144,		-0.383033,
+    0.720074,		0.415735,		0.277785,		-0.481138,
+    0.651112,		0.37592,		0.329673,		-0.57101,
+    0.57101,		0.329673,		0.37592,		-0.651112,
+    0.481138,		0.277785,		0.415735,		-0.720074,
+    0.383033,		0.221144,		0.448436,		-0.776715,
+    0.278375,		0.16072,		0.473465,		-0.820066,
+    0.168953,		0.0975451,		0.490393,		-0.849385,
+    0.0566407,		0.0327015,		0.498929,		-0.864171,
+    -0.0566408,		-0.0327016,		0.498929,		-0.864171,
+    -0.168953,		-0.0975452,		0.490393,		-0.849385,
+    -0.278375,		-0.16072,		0.473465,		-0.820066,
+    -0.383033,		-0.221144,		0.448436,		-0.776715,
+    -0.481138,		-0.277785,		0.415735,		-0.720074,
+    -0.57101,		-0.329673,		0.37592,		-0.651112,
+    -0.651112,		-0.37592,		0.329673,		-0.57101,
+    -0.720074,		-0.415735,		0.277785,		-0.481138,
+    -0.776715,		-0.448436,		0.221144,		-0.383033,
+    -0.820066,		-0.473465,		0.16072,		-0.278375,
+    -0.849385,		-0.490393,		0.0975451,		-0.168953,
+    -0.864171,		-0.498929,		0.0327015,		-0.0566407,
+    0.788675,		0.576114,		0.0377605,		-0.211325,
+    0.754344,		0.566257,		0.112635,		-0.31246,
+    0.707107,		0.54671,		0.185583,		-0.408248,
+    0.64777,		0.51781,		0.255356,		-0.497052,
+    0.57735,		0.480049,		0.320759,		-0.57735,
+    0.497052,		0.434075,		0.380673,		-0.64777,
+    0.408248,		0.380673,		0.434075,		-0.707107,
+    0.31246,		0.320759,		0.480049,		-0.754344,
+    0.211325,		0.255355,		0.51781,		-0.788675,
+    0.106574,		0.185583,		0.54671,		-0.809511,
+    -3.12289e-08,		0.112635,		0.566257,		-0.816497,
+    -0.106574,		0.0377605,		0.576114,		-0.809511,
+    -0.211325,		-0.0377605,		0.576114,		-0.788675,
+    -0.31246,		-0.112635,		0.566257,		-0.754344,
+    -0.408248,		-0.185583,		0.54671,		-0.707107,
+    -0.497052,		-0.255356,		0.51781,		-0.64777,
+    -0.57735,		-0.320759,		0.480049,		-0.57735,
+    -0.64777,		-0.380674,		0.434075,		-0.497052,
+    -0.707107,		-0.434075,		0.380673,		-0.408248,
+    -0.754345,		-0.480049,		0.320759,		-0.31246,
+    -0.788675,		-0.51781,		0.255355,		-0.211325,
+    -0.809511,		-0.54671,		0.185583,		-0.106574,
+    -0.816497,		-0.566257,		0.112635,		6.69191e-08,
+    -0.809511,		-0.576114,		0.0377605,		0.106574,
+    0.809511,		0.576114,		0.0377605,		0.106574,
+    0.816497,		0.566257,		0.112635,		-4.46128e-09,
+    0.809511,		0.54671,		0.185583,		-0.106574,
+    0.788675,		0.51781,		0.255356,		-0.211325,
+    0.754344,		0.480049,		0.320759,		-0.31246,
+    0.707107,		0.434075,		0.380673,		-0.408248,
+    0.64777,		0.380673,		0.434075,		-0.497052,
+    0.57735,		0.320759,		0.480049,		-0.57735,
+    0.497052,		0.255355,		0.51781,		-0.64777,
+    0.408248,		0.185583,		0.54671,		-0.707107,
+    0.31246,		0.112635,		0.566257,		-0.754344,
+    0.211325,		0.0377605,		0.576114,		-0.788675,
+    0.106574,		-0.0377605,		0.576114,		-0.809511,
+    -4.01515e-08,		-0.112635,		0.566257,		-0.816497,
+    -0.106574,		-0.185583,		0.54671,		-0.809511,
+    -0.211325,		-0.255356,		0.51781,		-0.788675,
+    -0.31246,		-0.320759,		0.480049,		-0.754344,
+    -0.408248,		-0.380674,		0.434075,		-0.707107,
+    -0.497052,		-0.434075,		0.380673,		-0.64777,
+    -0.57735,		-0.480049,		0.320759,		-0.57735,
+    -0.64777,		-0.51781,		0.255355,		-0.497052,
+    -0.707107,		-0.54671,		0.185583,		-0.408248,
+    -0.754345,		-0.566257,		0.112635,		-0.31246,
+    -0.788675,		-0.576114,		0.0377605,		-0.211325,
+    0.762127,		0.644115,		0.0422175,		-0.0499525,
+    0.749087,		0.633094,		0.12593,		-0.149003,
+    0.72323,		0.611241,		0.207488,		-0.245503,
+    0.684998,		0.578929,		0.285496,		-0.337804,
+    0.635045,		0.536711,		0.358619,		-0.424324,
+    0.574227,		0.485311,		0.425606,		-0.503584,
+    0.503584,		0.425606,		0.485311,		-0.574227,
+    0.424324,		0.358619,		0.536711,		-0.635045,
+    0.337804,		0.285496,		0.578929,		-0.684998,
+    0.245503,		0.207488,		0.611241,		-0.72323,
+    0.149003,		0.12593,		0.633094,		-0.749087,
+    0.0499524,		0.0422175,		0.644115,		-0.762127,
+    -0.0499525,		-0.0422176,		0.644115,		-0.762127,
+    -0.149003,		-0.12593,		0.633094,		-0.749087,
+    -0.245503,		-0.207488,		0.611241,		-0.72323,
+    -0.337804,		-0.285496,		0.578929,		-0.684998,
+    -0.424324,		-0.358619,		0.536711,		-0.635045,
+    -0.503584,		-0.425606,		0.48531,		-0.574227,
+    -0.574227,		-0.485311,		0.425606,		-0.503584,
+    -0.635045,		-0.536711,		0.358619,		-0.424324,
+    -0.684998,		-0.578929,		0.285496,		-0.337804,
+    -0.72323,		-0.611241,		0.207488,		-0.245503,
+    -0.749087,		-0.633094,		0.12593,		-0.149003,
+    -0.762127,		-0.644115,		0.0422175,		-0.0499524,
+    0.684998,		0.644115,		0.0422175,		-0.337804,
+    0.635045,		0.633094,		0.12593,		-0.424324,
+    0.574227,		0.611241,		0.207488,		-0.503584,
+    0.503584,		0.578929,		0.285496,		-0.574227,
+    0.424324,		0.536711,		0.358619,		-0.635045,
+    0.337804,		0.485311,		0.425606,		-0.684998,
+    0.245503,		0.425606,		0.485311,		-0.72323,
+    0.149003,		0.358619,		0.536711,		-0.749087,
+    0.0499524,		0.285496,		0.578929,		-0.762127,
+    -0.0499525,		0.207488,		0.611241,		-0.762127,
+    -0.149003,		0.12593,		0.633094,		-0.749087,
+    -0.245503,		0.0422175,		0.644115,		-0.72323,
+    -0.337804,		-0.0422176,		0.644115,		-0.684998,
+    -0.424324,		-0.12593,		0.633094,		-0.635045,
+    -0.503584,		-0.207488,		0.611241,		-0.574227,
+    -0.574227,		-0.285496,		0.578929,		-0.503584,
+    -0.635045,		-0.358619,		0.536711,		-0.424324,
+    -0.684998,		-0.425606,		0.48531,		-0.337804,
+    -0.72323,		-0.485311,		0.425606,		-0.245503,
+    -0.749087,		-0.536711,		0.358619,		-0.149003,
+    -0.762127,		-0.578929,		0.285496,		-0.0499524,
+    -0.762127,		-0.611241,		0.207488,		0.0499525,
+    -0.749087,		-0.633094,		0.12593,		0.149003,
+    -0.72323,		-0.644115,		0.0422175,		0.245504,
+    0.560986,		0.705593,		0.046247,		-0.430459,
+    0.5,		0.69352,		0.13795,		-0.5,
+    0.430459,		0.669581,		0.227292,		-0.560986,
+    0.353553,		0.634185,		0.312745,		-0.612372,
+    0.270598,		0.587938,		0.392847,		-0.653281,
+    0.183013,		0.531631,		0.466228,		-0.683013,
+    0.0922959,		0.466228,		0.531631,		-0.701057,
+    -1.93179e-08,		0.392847,		0.587938,		-0.707107,
+    -0.092296,		0.312745,		0.634185,		-0.701057,
+    -0.183013,		0.227292,		0.669581,		-0.683013,
+    -0.270598,		0.13795,		0.69352,		-0.653281,
+    -0.353553,		0.046247,		0.705593,		-0.612372,
+    -0.430459,		-0.046247,		0.705593,		-0.560986,
+    -0.5,		-0.13795,		0.69352,		-0.5,
+    -0.560986,		-0.227292,		0.669581,		-0.430459,
+    -0.612372,		-0.312745,		0.634185,		-0.353553,
+    -0.653281,		-0.392848,		0.587938,		-0.270598,
+    -0.683013,		-0.466228,		0.531631,		-0.183013,
+    -0.701057,		-0.531631,		0.466228,		-0.0922959,
+    -0.707107,		-0.587938,		0.392847,		5.02265e-08,
+    -0.701057,		-0.634185,		0.312745,		0.092296,
+    -0.683013,		-0.669581,		0.227292,		0.183013,
+    -0.653281,		-0.69352,		0.13795,		0.270598,
+    -0.612372,		-0.705593,		0.0462469,		0.353553,
+    0.683013,		0.705593,		0.046247,		-0.183013,
+    0.653281,		0.69352,		0.13795,		-0.270598,
+    0.612372,		0.669581,		0.227292,		-0.353553,
+    0.560986,		0.634185,		0.312745,		-0.430459,
+    0.5,		0.587938,		0.392847,		-0.5,
+    0.430459,		0.531631,		0.466228,		-0.560986,
+    0.353553,		0.466228,		0.531631,		-0.612372,
+    0.270598,		0.392847,		0.587938,		-0.653281,
+    0.183013,		0.312745,		0.634185,		-0.683013,
+    0.0922959,		0.227292,		0.669581,		-0.701057,
+    -2.7045e-08,		0.13795,		0.69352,		-0.707107,
+    -0.092296,		0.046247,		0.705593,		-0.701057,
+    -0.183013,		-0.046247,		0.705593,		-0.683013,
+    -0.270598,		-0.13795,		0.69352,		-0.653281,
+    -0.353553,		-0.227292,		0.669581,		-0.612372,
+    -0.430459,		-0.312745,		0.634185,		-0.560986,
+    -0.5,		-0.392848,		0.587938,		-0.5,
+    -0.560986,		-0.466228,		0.531631,		-0.430459,
+    -0.612372,		-0.531631,		0.466228,		-0.353553,
+    -0.653282,		-0.587938,		0.392847,		-0.270598,
+    -0.683013,		-0.634185,		0.312745,		-0.183013,
+    -0.701057,		-0.669581,		0.227292,		-0.0922959,
+    -0.707107,		-0.69352,		0.13795,		5.79537e-08,
+    -0.701057,		-0.705593,		0.0462469,		0.092296,
+    0.578929,		0.762127,		0.0499525,		-0.285496,
+    0.536711,		0.749087,		0.149003,		-0.358619,
+    0.485311,		0.72323,		0.245503,		-0.425606,
+    0.425606,		0.684998,		0.337804,		-0.485311,
+    0.358619,		0.635045,		0.424324,		-0.536711,
+    0.285496,		0.574227,		0.503584,		-0.578929,
+    0.207488,		0.503584,		0.574227,		-0.611241,
+    0.12593,		0.424324,		0.635045,		-0.633094,
+    0.0422175,		0.337804,		0.684998,		-0.644115,
+    -0.0422176,		0.245503,		0.72323,		-0.644115,
+    -0.12593,		0.149003,		0.749087,		-0.633094,
+    -0.207488,		0.0499524,		0.762127,		-0.611241,
+    -0.285496,		-0.0499525,		0.762127,		-0.578929,
+    -0.358619,		-0.149003,		0.749087,		-0.536711,
+    -0.425606,		-0.245503,		0.72323,		-0.48531,
+    -0.485311,		-0.337804,		0.684998,		-0.425606,
+    -0.536711,		-0.424324,		0.635045,		-0.358619,
+    -0.578929,		-0.503584,		0.574227,		-0.285496,
+    -0.611241,		-0.574227,		0.503584,		-0.207488,
+    -0.633094,		-0.635045,		0.424324,		-0.12593,
+    -0.644115,		-0.684998,		0.337804,		-0.0422175,
+    -0.644115,		-0.72323,		0.245503,		0.0422176,
+    -0.633094,		-0.749087,		0.149003,		0.12593,
+    -0.611241,		-0.762127,		0.0499524,		0.207488,
+    0.72323,		0.644115,		0.0422175,		0.245503,
+    0.749087,		0.633094,		0.12593,		0.149003,
+    0.762127,		0.611241,		0.207488,		0.0499525,
+    0.762127,		0.578929,		0.285496,		-0.0499525,
+    0.749087,		0.536711,		0.358619,		-0.149003,
+    0.72323,		0.485311,		0.425606,		-0.245503,
+    0.684998,		0.425606,		0.485311,		-0.337804,
+    0.635045,		0.358619,		0.536711,		-0.424324,
+    0.574227,		0.285496,		0.578929,		-0.503584,
+    0.503584,		0.207488,		0.611241,		-0.574227,
+    0.424324,		0.12593,		0.633094,		-0.635045,
+    0.337804,		0.0422175,		0.644115,		-0.684998,
+    0.245503,		-0.0422176,		0.644115,		-0.72323,
+    0.149003,		-0.12593,		0.633094,		-0.749087,
+    0.0499524,		-0.207488,		0.611241,		-0.762127,
+    -0.0499525,		-0.285496,		0.578929,		-0.762127,
+    -0.149003,		-0.358619,		0.536711,		-0.749087,
+    -0.245503,		-0.425606,		0.48531,		-0.72323,
+    -0.337804,		-0.485311,		0.425606,		-0.684998,
+    -0.424324,		-0.536711,		0.358619,		-0.635045,
+    -0.503584,		-0.578929,		0.285496,		-0.574227,
+    -0.574227,		-0.611241,		0.207488,		-0.503584,
+    -0.635045,		-0.633094,		0.12593,		-0.424324,
+    -0.684998,		-0.644115,		0.0422175,		-0.337804,
+    0.701057,		0.705593,		0.046247,		0.092296,
+    0.707107,		0.69352,		0.13795,		-3.86358e-09,
+    0.701057,		0.669581,		0.227292,		-0.092296,
+    0.683013,		0.634185,		0.312745,		-0.183013,
+    0.653281,		0.587938,		0.392847,		-0.270598,
+    0.612372,		0.531631,		0.466228,		-0.353553,
+    0.560986,		0.466228,		0.531631,		-0.430459,
+    0.5,		0.392847,		0.587938,		-0.5,
+    0.430459,		0.312745,		0.634185,		-0.560986,
+    0.353553,		0.227292,		0.669581,		-0.612372,
+    0.270598,		0.13795,		0.69352,		-0.653281,
+    0.183013,		0.046247,		0.705593,		-0.683013,
+    0.0922959,		-0.046247,		0.705593,		-0.701057,
+    -3.47722e-08,		-0.13795,		0.69352,		-0.707107,
+    -0.092296,		-0.227292,		0.669581,		-0.701057,
+    -0.183013,		-0.312745,		0.634185,		-0.683013,
+    -0.270598,		-0.392848,		0.587938,		-0.653281,
+    -0.353553,		-0.466228,		0.531631,		-0.612372,
+    -0.430459,		-0.531631,		0.466228,		-0.560985,
+    -0.5,		-0.587938,		0.392847,		-0.5,
+    -0.560986,		-0.634185,		0.312745,		-0.430459,
+    -0.612372,		-0.669581,		0.227292,		-0.353553,
+    -0.653282,		-0.69352,		0.13795,		-0.270598,
+    -0.683013,		-0.705593,		0.0462469,		-0.183013,
+    0.612372,		0.705593,		0.046247,		0.353553,
+    0.653281,		0.69352,		0.13795,		0.270598,
+    0.683013,		0.669581,		0.227292,		0.183013,
+    0.701057,		0.634185,		0.312745,		0.0922959,
+    0.707107,		0.587938,		0.392847,		-1.15907e-08,
+    0.701057,		0.531631,		0.466228,		-0.092296,
+    0.683013,		0.466228,		0.531631,		-0.183013,
+    0.653281,		0.392847,		0.587938,		-0.270598,
+    0.612372,		0.312745,		0.634185,		-0.353553,
+    0.560986,		0.227292,		0.669581,		-0.430459,
+    0.5,		0.13795,		0.69352,		-0.5,
+    0.430459,		0.046247,		0.705593,		-0.560986,
+    0.353553,		-0.046247,		0.705593,		-0.612372,
+    0.270598,		-0.13795,		0.69352,		-0.653281,
+    0.183013,		-0.227292,		0.669581,		-0.683013,
+    0.0922959,		-0.312745,		0.634185,		-0.701057,
+    -4.24994e-08,		-0.392848,		0.587938,		-0.707107,
+    -0.092296,		-0.466228,		0.531631,		-0.701057,
+    -0.183013,		-0.531631,		0.466228,		-0.683013,
+    -0.270598,		-0.587938,		0.392847,		-0.653281,
+    -0.353553,		-0.634185,		0.312745,		-0.612372,
+    -0.430459,		-0.669581,		0.227292,		-0.560985,
+    -0.5,		-0.69352,		0.13795,		-0.5,
+    -0.560986,		-0.705593,		0.0462469,		-0.430459,
+    0.611241,		0.762127,		0.0499525,		0.207488,
+    0.633094,		0.749087,		0.149003,		0.12593,
+    0.644115,		0.72323,		0.245503,		0.0422175,
+    0.644115,		0.684998,		0.337804,		-0.0422175,
+    0.633094,		0.635045,		0.424324,		-0.12593,
+    0.611241,		0.574227,		0.503584,		-0.207488,
+    0.578929,		0.503584,		0.574227,		-0.285496,
+    0.536711,		0.424324,		0.635045,		-0.358619,
+    0.48531,		0.337804,		0.684998,		-0.425606,
+    0.425606,		0.245503,		0.72323,		-0.485311,
+    0.358619,		0.149003,		0.749087,		-0.536711,
+    0.285496,		0.0499524,		0.762127,		-0.578929,
+    0.207488,		-0.0499525,		0.762127,		-0.611241,
+    0.12593,		-0.149003,		0.749087,		-0.633094,
+    0.0422175,		-0.245503,		0.72323,		-0.644115,
+    -0.0422176,		-0.337804,		0.684998,		-0.644115,
+    -0.12593,		-0.424324,		0.635045,		-0.633094,
+    -0.207488,		-0.503584,		0.574227,		-0.611241,
+    -0.285496,		-0.574227,		0.503584,		-0.578929,
+    -0.358619,		-0.635045,		0.424324,		-0.536711,
+    -0.425606,		-0.684998,		0.337804,		-0.48531,
+    -0.485311,		-0.72323,		0.245503,		-0.425606,
+    -0.536711,		-0.749087,		0.149003,		-0.358619,
+    -0.578929,		-0.762127,		0.0499524,		-0.285496,
+    0.644115,		0.762127,		0.0499525,		-0.0422175,
+    0.633094,		0.749087,		0.149003,		-0.12593,
+    0.611241,		0.72323,		0.245503,		-0.207488,
+    0.578929,		0.684998,		0.337804,		-0.285496,
+    0.536711,		0.635045,		0.424324,		-0.358619,
+    0.485311,		0.574227,		0.503584,		-0.425606,
+    0.425606,		0.503584,		0.574227,		-0.485311,
+    0.358619,		0.424324,		0.635045,		-0.536711,
+    0.285496,		0.337804,		0.684998,		-0.578929,
+    0.207488,		0.245503,		0.72323,		-0.611241,
+    0.12593,		0.149003,		0.749087,		-0.633094,
+    0.0422175,		0.0499524,		0.762127,		-0.644115,
+    -0.0422176,		-0.0499525,		0.762127,		-0.644115,
+    -0.12593,		-0.149003,		0.749087,		-0.633094,
+    -0.207488,		-0.245503,		0.72323,		-0.611241,
+    -0.285496,		-0.337804,		0.684998,		-0.578929,
+    -0.358619,		-0.424324,		0.635045,		-0.536711,
+    -0.425606,		-0.503584,		0.574227,		-0.48531,
+    -0.485311,		-0.574227,		0.503584,		-0.425606,
+    -0.536711,		-0.635045,		0.424324,		-0.358619,
+    -0.578929,		-0.684998,		0.337804,		-0.285496,
+    -0.611241,		-0.72323,		0.245503,		-0.207488,
+    -0.633094,		-0.749087,		0.149003,		-0.12593,
+    -0.644115,		-0.762127,		0.0499524,		-0.0422175,
+    0.557678,		0.814748,		0.0534014,		-0.149429,
+    0.533402,		0.800808,		0.159291,		-0.220942,
+    0.5,		0.773165,		0.262454,		-0.288675,
+    0.458043,		0.732294,		0.361127,		-0.351469,
+    0.408248,		0.678892,		0.453621,		-0.408248,
+    0.351469,		0.613875,		0.538354,		-0.458043,
+    0.288675,		0.538354,		0.613875,		-0.5,
+    0.220942,		0.453621,		0.678892,		-0.533402,
+    0.149429,		0.361127,		0.732294,		-0.557678,
+    0.0753593,		0.262454,		0.773165,		-0.572411,
+    -2.20822e-08,		0.159291,		0.800808,		-0.57735,
+    -0.0753594,		0.0534014,		0.814748,		-0.572411,
+    -0.149429,		-0.0534015,		0.814748,		-0.557678,
+    -0.220942,		-0.159291,		0.800808,		-0.533402,
+    -0.288675,		-0.262454,		0.773165,		-0.5,
+    -0.351469,		-0.361127,		0.732294,		-0.458043,
+    -0.408248,		-0.453621,		0.678892,		-0.408248,
+    -0.458043,		-0.538354,		0.613875,		-0.351469,
+    -0.5,		-0.613875,		0.538354,		-0.288675,
+    -0.533402,		-0.678892,		0.453621,		-0.220942,
+    -0.557678,		-0.732294,		0.361127,		-0.149429,
+    -0.572411,		-0.773165,		0.262454,		-0.0753593,
+    -0.57735,		-0.800808,		0.159291,		4.7319e-08,
+    -0.572411,		-0.814748,		0.0534014,		0.0753594,
+    0.572411,		0.814748,		0.0534014,		0.0753593,
+    0.57735,		0.800808,		0.159291,		-3.1546e-09,
+    0.572411,		0.773165,		0.262454,		-0.0753593,
+    0.557678,		0.732294,		0.361127,		-0.149429,
+    0.533402,		0.678892,		0.453621,		-0.220942,
+    0.5,		0.613875,		0.538354,		-0.288675,
+    0.458043,		0.538354,		0.613875,		-0.351469,
+    0.408248,		0.453621,		0.678892,		-0.408248,
+    0.351469,		0.361127,		0.732294,		-0.458043,
+    0.288675,		0.262454,		0.773165,		-0.5,
+    0.220942,		0.159291,		0.800808,		-0.533402,
+    0.149429,		0.0534014,		0.814748,		-0.557678,
+    0.0753593,		-0.0534015,		0.814748,		-0.572411,
+    -2.83914e-08,		-0.159291,		0.800808,		-0.57735,
+    -0.0753594,		-0.262454,		0.773165,		-0.572411,
+    -0.149429,		-0.361127,		0.732294,		-0.557678,
+    -0.220942,		-0.453621,		0.678892,		-0.533402,
+    -0.288675,		-0.538354,		0.613875,		-0.5,
+    -0.351469,		-0.613875,		0.538354,		-0.458043,
+    -0.408248,		-0.678892,		0.453621,		-0.408248,
+    -0.458043,		-0.732294,		0.361127,		-0.351469,
+    -0.5,		-0.773165,		0.262454,		-0.288675,
+    -0.533402,		-0.800808,		0.159291,		-0.220942,
+    -0.557678,		-0.814748,		0.0534014,		-0.149429,
+    0.498929,		0.864171,		0.0566408,		-0.0327016,
+    0.490393,		0.849385,		0.168953,		-0.0975452,
+    0.473465,		0.820066,		0.278375,		-0.16072,
+    0.448436,		0.776715,		0.383033,		-0.221144,
+    0.415735,		0.720074,		0.481138,		-0.277785,
+    0.37592,		0.651112,		0.57101,		-0.329673,
+    0.329673,		0.57101,		0.651112,		-0.37592,
+    0.277785,		0.481138,		0.720074,		-0.415735,
+    0.221144,		0.383033,		0.776715,		-0.448436,
+    0.16072,		0.278375,		0.820066,		-0.473465,
+    0.0975451,		0.168953,		0.849385,		-0.490393,
+    0.0327015,		0.0566407,		0.864171,		-0.498929,
+    -0.0327016,		-0.0566408,		0.864171,		-0.498929,
+    -0.0975452,		-0.168953,		0.849385,		-0.490393,
+    -0.16072,		-0.278375,		0.820066,		-0.473465,
+    -0.221144,		-0.383033,		0.776715,		-0.448436,
+    -0.277785,		-0.481138,		0.720074,		-0.415735,
+    -0.329673,		-0.57101,		0.651112,		-0.37592,
+    -0.37592,		-0.651112,		0.57101,		-0.329673,
+    -0.415735,		-0.720074,		0.481138,		-0.277785,
+    -0.448436,		-0.776715,		0.383033,		-0.221144,
+    -0.473465,		-0.820066,		0.278375,		-0.16072,
+    -0.490393,		-0.849385,		0.168953,		-0.0975451,
+    -0.498929,		-0.864171,		0.0566407,		-0.0327015,
+    -0.0566408,		0.498929,		0.0327016,		-0.864171,
+    -0.168953,		0.490393,		0.0975452,		-0.849385,
+    -0.278375,		0.473465,		0.16072,		-0.820066,
+    -0.383033,		0.448436,		0.221144,		-0.776715,
+    -0.481138,		0.415735,		0.277785,		-0.720074,
+    -0.57101,		0.37592,		0.329673,		-0.651112,
+    -0.651112,		0.329673,		0.37592,		-0.57101,
+    -0.720074,		0.277785,		0.415735,		-0.481138,
+    -0.776715,		0.221144,		0.448436,		-0.383033,
+    -0.820066,		0.16072,		0.473465,		-0.278375,
+    -0.849385,		0.0975451,		0.490393,		-0.168953,
+    -0.864171,		0.0327015,		0.498929,		-0.0566407,
+    -0.864171,		-0.0327016,		0.498929,		0.0566408,
+    -0.849385,		-0.0975452,		0.490393,		0.168953,
+    -0.820066,		-0.16072,		0.473465,		0.278375,
+    -0.776715,		-0.221144,		0.448436,		0.383033,
+    -0.720074,		-0.277785,		0.415735,		0.481138,
+    -0.651112,		-0.329673,		0.37592,		0.57101,
+    -0.57101,		-0.37592,		0.329673,		0.651112,
+    -0.481138,		-0.415735,		0.277785,		0.720074,
+    -0.383033,		-0.448436,		0.221144,		0.776715,
+    -0.278375,		-0.473465,		0.16072,		0.820066,
+    -0.168953,		-0.490393,		0.0975451,		0.849385,
+    -0.0566407,		-0.498929,		0.0327015,		0.864171,
+    -0.211325,		0.576114,		0.0377605,		-0.788675,
+    -0.31246,		0.566257,		0.112635,		-0.754344,
+    -0.408248,		0.54671,		0.185583,		-0.707107,
+    -0.497052,		0.51781,		0.255356,		-0.64777,
+    -0.57735,		0.480049,		0.320759,		-0.57735,
+    -0.64777,		0.434075,		0.380673,		-0.497052,
+    -0.707107,		0.380673,		0.434075,		-0.408248,
+    -0.754344,		0.320759,		0.480049,		-0.31246,
+    -0.788675,		0.255355,		0.51781,		-0.211325,
+    -0.809511,		0.185583,		0.54671,		-0.106574,
+    -0.816497,		0.112635,		0.566257,		3.12289e-08,
+    -0.809511,		0.0377605,		0.576114,		0.106574,
+    -0.788675,		-0.0377605,		0.576114,		0.211325,
+    -0.754344,		-0.112635,		0.566257,		0.31246,
+    -0.707107,		-0.185583,		0.54671,		0.408248,
+    -0.64777,		-0.255356,		0.51781,		0.497052,
+    -0.57735,		-0.320759,		0.480049,		0.57735,
+    -0.497052,		-0.380674,		0.434075,		0.64777,
+    -0.408248,		-0.434075,		0.380673,		0.707107,
+    -0.31246,		-0.480049,		0.320759,		0.754345,
+    -0.211325,		-0.51781,		0.255355,		0.788675,
+    -0.106574,		-0.54671,		0.185583,		0.809511,
+    6.69191e-08,		-0.566257,		0.112635,		0.816497,
+    0.106574,		-0.576114,		0.0377605,		0.809511,
+    0.106574,		0.576114,		0.0377605,		-0.809511,
+    -4.46127e-09,		0.566257,		0.112635,		-0.816497,
+    -0.106574,		0.54671,		0.185583,		-0.809511,
+    -0.211325,		0.51781,		0.255356,		-0.788675,
+    -0.31246,		0.480049,		0.320759,		-0.754344,
+    -0.408248,		0.434075,		0.380673,		-0.707107,
+    -0.497052,		0.380673,		0.434075,		-0.64777,
+    -0.57735,		0.320759,		0.480049,		-0.57735,
+    -0.64777,		0.255355,		0.51781,		-0.497052,
+    -0.707107,		0.185583,		0.54671,		-0.408248,
+    -0.754344,		0.112635,		0.566257,		-0.31246,
+    -0.788675,		0.0377605,		0.576114,		-0.211325,
+    -0.809511,		-0.0377605,		0.576114,		-0.106574,
+    -0.816497,		-0.112635,		0.566257,		4.01515e-08,
+    -0.809511,		-0.185583,		0.54671,		0.106574,
+    -0.788675,		-0.255356,		0.51781,		0.211325,
+    -0.754344,		-0.320759,		0.480049,		0.31246,
+    -0.707107,		-0.380674,		0.434075,		0.408248,
+    -0.64777,		-0.434075,		0.380673,		0.497052,
+    -0.57735,		-0.480049,		0.320759,		0.57735,
+    -0.497052,		-0.51781,		0.255355,		0.64777,
+    -0.408248,		-0.54671,		0.185583,		0.707107,
+    -0.31246,		-0.566257,		0.112635,		0.754345,
+    -0.211325,		-0.576114,		0.0377605,		0.788675,
+    -0.0499525,		0.644115,		0.0422175,		-0.762127,
+    -0.149003,		0.633094,		0.12593,		-0.749087,
+    -0.245503,		0.611241,		0.207488,		-0.72323,
+    -0.337804,		0.578929,		0.285496,		-0.684998,
+    -0.424324,		0.536711,		0.358619,		-0.635045,
+    -0.503584,		0.485311,		0.425606,		-0.574227,
+    -0.574227,		0.425606,		0.485311,		-0.503584,
+    -0.635045,		0.358619,		0.536711,		-0.424324,
+    -0.684998,		0.285496,		0.578929,		-0.337804,
+    -0.72323,		0.207488,		0.611241,		-0.245503,
+    -0.749087,		0.12593,		0.633094,		-0.149003,
+    -0.762127,		0.0422175,		0.644115,		-0.0499524,
+    -0.762127,		-0.0422176,		0.644115,		0.0499525,
+    -0.749087,		-0.12593,		0.633094,		0.149003,
+    -0.72323,		-0.207488,		0.611241,		0.245503,
+    -0.684998,		-0.285496,		0.578929,		0.337804,
+    -0.635045,		-0.358619,		0.536711,		0.424324,
+    -0.574227,		-0.425606,		0.48531,		0.503584,
+    -0.503584,		-0.485311,		0.425606,		0.574227,
+    -0.424324,		-0.536711,		0.358619,		0.635045,
+    -0.337804,		-0.578929,		0.285496,		0.684998,
+    -0.245503,		-0.611241,		0.207488,		0.72323,
+    -0.149003,		-0.633094,		0.12593,		0.749087,
+    -0.0499524,		-0.644115,		0.0422175,		0.762127,
+    -0.337804,		0.644115,		0.0422175,		-0.684998,
+    -0.424324,		0.633094,		0.12593,		-0.635045,
+    -0.503584,		0.611241,		0.207488,		-0.574227,
+    -0.574227,		0.578929,		0.285496,		-0.503584,
+    -0.635045,		0.536711,		0.358619,		-0.424324,
+    -0.684998,		0.485311,		0.425606,		-0.337804,
+    -0.72323,		0.425606,		0.485311,		-0.245503,
+    -0.749087,		0.358619,		0.536711,		-0.149003,
+    -0.762127,		0.285496,		0.578929,		-0.0499524,
+    -0.762127,		0.207488,		0.611241,		0.0499525,
+    -0.749087,		0.12593,		0.633094,		0.149003,
+    -0.72323,		0.0422175,		0.644115,		0.245503,
+    -0.684998,		-0.0422176,		0.644115,		0.337804,
+    -0.635045,		-0.12593,		0.633094,		0.424324,
+    -0.574227,		-0.207488,		0.611241,		0.503584,
+    -0.503584,		-0.285496,		0.578929,		0.574227,
+    -0.424324,		-0.358619,		0.536711,		0.635045,
+    -0.337804,		-0.425606,		0.48531,		0.684998,
+    -0.245503,		-0.485311,		0.425606,		0.72323,
+    -0.149003,		-0.536711,		0.358619,		0.749087,
+    -0.0499524,		-0.578929,		0.285496,		0.762127,
+    0.0499525,		-0.611241,		0.207488,		0.762127,
+    0.149003,		-0.633094,		0.12593,		0.749087,
+    0.245504,		-0.644115,		0.0422175,		0.72323,
+    -0.430459,		0.705593,		0.046247,		-0.560986,
+    -0.5,		0.69352,		0.13795,		-0.5,
+    -0.560986,		0.669581,		0.227292,		-0.430459,
+    -0.612372,		0.634185,		0.312745,		-0.353553,
+    -0.653281,		0.587938,		0.392847,		-0.270598,
+    -0.683013,		0.531631,		0.466228,		-0.183013,
+    -0.701057,		0.466228,		0.531631,		-0.0922959,
+    -0.707107,		0.392847,		0.587938,		1.93179e-08,
+    -0.701057,		0.312745,		0.634185,		0.092296,
+    -0.683013,		0.227292,		0.669581,		0.183013,
+    -0.653281,		0.13795,		0.69352,		0.270598,
+    -0.612372,		0.046247,		0.705593,		0.353553,
+    -0.560986,		-0.046247,		0.705593,		0.430459,
+    -0.5,		-0.13795,		0.69352,		0.5,
+    -0.430459,		-0.227292,		0.669581,		0.560986,
+    -0.353553,		-0.312745,		0.634185,		0.612372,
+    -0.270598,		-0.392848,		0.587938,		0.653281,
+    -0.183013,		-0.466228,		0.531631,		0.683013,
+    -0.0922959,		-0.531631,		0.466228,		0.701057,
+    5.02265e-08,		-0.587938,		0.392847,		0.707107,
+    0.092296,		-0.634185,		0.312745,		0.701057,
+    0.183013,		-0.669581,		0.227292,		0.683013,
+    0.270598,		-0.69352,		0.13795,		0.653281,
+    0.353553,		-0.705593,		0.0462469,		0.612372,
+    -0.183013,		0.705593,		0.046247,		-0.683013,
+    -0.270598,		0.69352,		0.13795,		-0.653281,
+    -0.353553,		0.669581,		0.227292,		-0.612372,
+    -0.430459,		0.634185,		0.312745,		-0.560986,
+    -0.5,		0.587938,		0.392847,		-0.5,
+    -0.560986,		0.531631,		0.466228,		-0.430459,
+    -0.612372,		0.466228,		0.531631,		-0.353553,
+    -0.653281,		0.392847,		0.587938,		-0.270598,
+    -0.683013,		0.312745,		0.634185,		-0.183013,
+    -0.701057,		0.227292,		0.669581,		-0.0922959,
+    -0.707107,		0.13795,		0.69352,		2.7045e-08,
+    -0.701057,		0.046247,		0.705593,		0.092296,
+    -0.683013,		-0.046247,		0.705593,		0.183013,
+    -0.653281,		-0.13795,		0.69352,		0.270598,
+    -0.612372,		-0.227292,		0.669581,		0.353553,
+    -0.560986,		-0.312745,		0.634185,		0.430459,
+    -0.5,		-0.392848,		0.587938,		0.5,
+    -0.430459,		-0.466228,		0.531631,		0.560986,
+    -0.353553,		-0.531631,		0.466228,		0.612372,
+    -0.270598,		-0.587938,		0.392847,		0.653282,
+    -0.183013,		-0.634185,		0.312745,		0.683013,
+    -0.0922959,		-0.669581,		0.227292,		0.701057,
+    5.79537e-08,		-0.69352,		0.13795,		0.707107,
+    0.092296,		-0.705593,		0.0462469,		0.701057,
+    -0.285496,		0.762127,		0.0499525,		-0.578929,
+    -0.358619,		0.749087,		0.149003,		-0.536711,
+    -0.425606,		0.72323,		0.245503,		-0.485311,
+    -0.485311,		0.684998,		0.337804,		-0.425606,
+    -0.536711,		0.635045,		0.424324,		-0.358619,
+    -0.578929,		0.574227,		0.503584,		-0.285496,
+    -0.611241,		0.503584,		0.574227,		-0.207488,
+    -0.633094,		0.424324,		0.635045,		-0.12593,
+    -0.644115,		0.337804,		0.684998,		-0.0422175,
+    -0.644115,		0.245503,		0.72323,		0.0422176,
+    -0.633094,		0.149003,		0.749087,		0.12593,
+    -0.611241,		0.0499524,		0.762127,		0.207488,
+    -0.578929,		-0.0499525,		0.762127,		0.285496,
+    -0.536711,		-0.149003,		0.749087,		0.358619,
+    -0.48531,		-0.245503,		0.72323,		0.425606,
+    -0.425606,		-0.337804,		0.684998,		0.485311,
+    -0.358619,		-0.424324,		0.635045,		0.536711,
+    -0.285496,		-0.503584,		0.574227,		0.578929,
+    -0.207488,		-0.574227,		0.503584,		0.611241,
+    -0.12593,		-0.635045,		0.424324,		0.633094,
+    -0.0422175,		-0.684998,		0.337804,		0.644115,
+    0.0422176,		-0.72323,		0.245503,		0.644115,
+    0.12593,		-0.749087,		0.149003,		0.633094,
+    0.207488,		-0.762127,		0.0499524,		0.611241,
+    0.245503,		0.644115,		0.0422175,		-0.72323,
+    0.149003,		0.633094,		0.12593,		-0.749087,
+    0.0499525,		0.611241,		0.207488,		-0.762127,
+    -0.0499525,		0.578929,		0.285496,		-0.762127,
+    -0.149003,		0.536711,		0.358619,		-0.749087,
+    -0.245503,		0.485311,		0.425606,		-0.72323,
+    -0.337804,		0.425606,		0.485311,		-0.684998,
+    -0.424324,		0.358619,		0.536711,		-0.635045,
+    -0.503584,		0.285496,		0.578929,		-0.574227,
+    -0.574227,		0.207488,		0.611241,		-0.503584,
+    -0.635045,		0.12593,		0.633094,		-0.424324,
+    -0.684998,		0.0422175,		0.644115,		-0.337804,
+    -0.72323,		-0.0422176,		0.644115,		-0.245503,
+    -0.749087,		-0.12593,		0.633094,		-0.149003,
+    -0.762127,		-0.207488,		0.611241,		-0.0499524,
+    -0.762127,		-0.285496,		0.578929,		0.0499525,
+    -0.749087,		-0.358619,		0.536711,		0.149003,
+    -0.72323,		-0.425606,		0.48531,		0.245503,
+    -0.684998,		-0.485311,		0.425606,		0.337804,
+    -0.635045,		-0.536711,		0.358619,		0.424324,
+    -0.574227,		-0.578929,		0.285496,		0.503584,
+    -0.503584,		-0.611241,		0.207488,		0.574227,
+    -0.424324,		-0.633094,		0.12593,		0.635045,
+    -0.337804,		-0.644115,		0.0422175,		0.684998,
+    0.092296,		0.705593,		0.046247,		-0.701057,
+    -3.86358e-09,		0.69352,		0.13795,		-0.707107,
+    -0.092296,		0.669581,		0.227292,		-0.701057,
+    -0.183013,		0.634185,		0.312745,		-0.683013,
+    -0.270598,		0.587938,		0.392847,		-0.653281,
+    -0.353553,		0.531631,		0.466228,		-0.612372,
+    -0.430459,		0.466228,		0.531631,		-0.560986,
+    -0.5,		0.392847,		0.587938,		-0.5,
+    -0.560986,		0.312745,		0.634185,		-0.430459,
+    -0.612372,		0.227292,		0.669581,		-0.353553,
+    -0.653281,		0.13795,		0.69352,		-0.270598,
+    -0.683013,		0.046247,		0.705593,		-0.183013,
+    -0.701057,		-0.046247,		0.705593,		-0.0922959,
+    -0.707107,		-0.13795,		0.69352,		3.47722e-08,
+    -0.701057,		-0.227292,		0.669581,		0.092296,
+    -0.683013,		-0.312745,		0.634185,		0.183013,
+    -0.653281,		-0.392848,		0.587938,		0.270598,
+    -0.612372,		-0.466228,		0.531631,		0.353553,
+    -0.560985,		-0.531631,		0.466228,		0.430459,
+    -0.5,		-0.587938,		0.392847,		0.5,
+    -0.430459,		-0.634185,		0.312745,		0.560986,
+    -0.353553,		-0.669581,		0.227292,		0.612372,
+    -0.270598,		-0.69352,		0.13795,		0.653282,
+    -0.183013,		-0.705593,		0.0462469,		0.683013,
+    0.353553,		0.705593,		0.046247,		-0.612372,
+    0.270598,		0.69352,		0.13795,		-0.653281,
+    0.183013,		0.669581,		0.227292,		-0.683013,
+    0.0922959,		0.634185,		0.312745,		-0.701057,
+    -1.15907e-08,		0.587938,		0.392847,		-0.707107,
+    -0.092296,		0.531631,		0.466228,		-0.701057,
+    -0.183013,		0.466228,		0.531631,		-0.683013,
+    -0.270598,		0.392847,		0.587938,		-0.653281,
+    -0.353553,		0.312745,		0.634185,		-0.612372,
+    -0.430459,		0.227292,		0.669581,		-0.560986,
+    -0.5,		0.13795,		0.69352,		-0.5,
+    -0.560986,		0.046247,		0.705593,		-0.430459,
+    -0.612372,		-0.046247,		0.705593,		-0.353553,
+    -0.653281,		-0.13795,		0.69352,		-0.270598,
+    -0.683013,		-0.227292,		0.669581,		-0.183013,
+    -0.701057,		-0.312745,		0.634185,		-0.0922959,
+    -0.707107,		-0.392848,		0.587938,		4.24994e-08,
+    -0.701057,		-0.466228,		0.531631,		0.092296,
+    -0.683013,		-0.531631,		0.466228,		0.183013,
+    -0.653281,		-0.587938,		0.392847,		0.270598,
+    -0.612372,		-0.634185,		0.312745,		0.353553,
+    -0.560985,		-0.669581,		0.227292,		0.430459,
+    -0.5,		-0.69352,		0.13795,		0.5,
+    -0.430459,		-0.705593,		0.0462469,		0.560986,
+    0.207488,		0.762127,		0.0499525,		-0.611241,
+    0.12593,		0.749087,		0.149003,		-0.633094,
+    0.0422175,		0.72323,		0.245503,		-0.644115,
+    -0.0422175,		0.684998,		0.337804,		-0.644115,
+    -0.12593,		0.635045,		0.424324,		-0.633094,
+    -0.207488,		0.574227,		0.503584,		-0.611241,
+    -0.285496,		0.503584,		0.574227,		-0.578929,
+    -0.358619,		0.424324,		0.635045,		-0.536711,
+    -0.425606,		0.337804,		0.684998,		-0.48531,
+    -0.485311,		0.245503,		0.72323,		-0.425606,
+    -0.536711,		0.149003,		0.749087,		-0.358619,
+    -0.578929,		0.0499524,		0.762127,		-0.285496,
+    -0.611241,		-0.0499525,		0.762127,		-0.207488,
+    -0.633094,		-0.149003,		0.749087,		-0.12593,
+    -0.644115,		-0.245503,		0.72323,		-0.0422175,
+    -0.644115,		-0.337804,		0.684998,		0.0422176,
+    -0.633094,		-0.424324,		0.635045,		0.12593,
+    -0.611241,		-0.503584,		0.574227,		0.207488,
+    -0.578929,		-0.574227,		0.503584,		0.285496,
+    -0.536711,		-0.635045,		0.424324,		0.358619,
+    -0.48531,		-0.684998,		0.337804,		0.425606,
+    -0.425606,		-0.72323,		0.245503,		0.485311,
+    -0.358619,		-0.749087,		0.149003,		0.536711,
+    -0.285496,		-0.762127,		0.0499524,		0.578929,
+    -0.0422175,		0.762127,		0.0499525,		-0.644115,
+    -0.12593,		0.749087,		0.149003,		-0.633094,
+    -0.207488,		0.72323,		0.245503,		-0.611241,
+    -0.285496,		0.684998,		0.337804,		-0.578929,
+    -0.358619,		0.635045,		0.424324,		-0.536711,
+    -0.425606,		0.574227,		0.503584,		-0.485311,
+    -0.485311,		0.503584,		0.574227,		-0.425606,
+    -0.536711,		0.424324,		0.635045,		-0.358619,
+    -0.578929,		0.337804,		0.684998,		-0.285496,
+    -0.611241,		0.245503,		0.72323,		-0.207488,
+    -0.633094,		0.149003,		0.749087,		-0.12593,
+    -0.644115,		0.0499524,		0.762127,		-0.0422175,
+    -0.644115,		-0.0499525,		0.762127,		0.0422176,
+    -0.633094,		-0.149003,		0.749087,		0.12593,
+    -0.611241,		-0.245503,		0.72323,		0.207488,
+    -0.578929,		-0.337804,		0.684998,		0.285496,
+    -0.536711,		-0.424324,		0.635045,		0.358619,
+    -0.48531,		-0.503584,		0.574227,		0.425606,
+    -0.425606,		-0.574227,		0.503584,		0.485311,
+    -0.358619,		-0.635045,		0.424324,		0.536711,
+    -0.285496,		-0.684998,		0.337804,		0.578929,
+    -0.207488,		-0.72323,		0.245503,		0.611241,
+    -0.12593,		-0.749087,		0.149003,		0.633094,
+    -0.0422175,		-0.762127,		0.0499524,		0.644115,
+    -0.149429,		0.814748,		0.0534014,		-0.557678,
+    -0.220942,		0.800808,		0.159291,		-0.533402,
+    -0.288675,		0.773165,		0.262454,		-0.5,
+    -0.351469,		0.732294,		0.361127,		-0.458043,
+    -0.408248,		0.678892,		0.453621,		-0.408248,
+    -0.458043,		0.613875,		0.538354,		-0.351469,
+    -0.5,		0.538354,		0.613875,		-0.288675,
+    -0.533402,		0.453621,		0.678892,		-0.220942,
+    -0.557678,		0.361127,		0.732294,		-0.149429,
+    -0.572411,		0.262454,		0.773165,		-0.0753593,
+    -0.57735,		0.159291,		0.800808,		2.20822e-08,
+    -0.572411,		0.0534014,		0.814748,		0.0753594,
+    -0.557678,		-0.0534015,		0.814748,		0.149429,
+    -0.533402,		-0.159291,		0.800808,		0.220942,
+    -0.5,		-0.262454,		0.773165,		0.288675,
+    -0.458043,		-0.361127,		0.732294,		0.351469,
+    -0.408248,		-0.453621,		0.678892,		0.408248,
+    -0.351469,		-0.538354,		0.613875,		0.458043,
+    -0.288675,		-0.613875,		0.538354,		0.5,
+    -0.220942,		-0.678892,		0.453621,		0.533402,
+    -0.149429,		-0.732294,		0.361127,		0.557678,
+    -0.0753593,		-0.773165,		0.262454,		0.572411,
+    4.7319e-08,		-0.800808,		0.159291,		0.57735,
+    0.0753594,		-0.814748,		0.0534014,		0.572411,
+    0.0753593,		0.814748,		0.0534014,		-0.572411,
+    -3.1546e-09,		0.800808,		0.159291,		-0.57735,
+    -0.0753593,		0.773165,		0.262454,		-0.572411,
+    -0.149429,		0.732294,		0.361127,		-0.557678,
+    -0.220942,		0.678892,		0.453621,		-0.533402,
+    -0.288675,		0.613875,		0.538354,		-0.5,
+    -0.351469,		0.538354,		0.613875,		-0.458043,
+    -0.408248,		0.453621,		0.678892,		-0.408248,
+    -0.458043,		0.361127,		0.732294,		-0.351469,
+    -0.5,		0.262454,		0.773165,		-0.288675,
+    -0.533402,		0.159291,		0.800808,		-0.220942,
+    -0.557678,		0.0534014,		0.814748,		-0.149429,
+    -0.572411,		-0.0534015,		0.814748,		-0.0753593,
+    -0.57735,		-0.159291,		0.800808,		2.83914e-08,
+    -0.572411,		-0.262454,		0.773165,		0.0753594,
+    -0.557678,		-0.361127,		0.732294,		0.149429,
+    -0.533402,		-0.453621,		0.678892,		0.220942,
+    -0.5,		-0.538354,		0.613875,		0.288675,
+    -0.458043,		-0.613875,		0.538354,		0.351469,
+    -0.408248,		-0.678892,		0.453621,		0.408248,
+    -0.351469,		-0.732294,		0.361127,		0.458043,
+    -0.288675,		-0.773165,		0.262454,		0.5,
+    -0.220942,		-0.800808,		0.159291,		0.533402,
+    -0.149429,		-0.814748,		0.0534014,		0.557678,
+    -0.0327016,		0.864171,		0.0566408,		-0.498929,
+    -0.0975452,		0.849385,		0.168953,		-0.490393,
+    -0.16072,		0.820066,		0.278375,		-0.473465,
+    -0.221144,		0.776715,		0.383033,		-0.448436,
+    -0.277785,		0.720074,		0.481138,		-0.415735,
+    -0.329673,		0.651112,		0.57101,		-0.37592,
+    -0.37592,		0.57101,		0.651112,		-0.329673,
+    -0.415735,		0.481138,		0.720074,		-0.277785,
+    -0.448436,		0.383033,		0.776715,		-0.221144,
+    -0.473465,		0.278375,		0.820066,		-0.16072,
+    -0.490393,		0.168953,		0.849385,		-0.0975451,
+    -0.498929,		0.0566407,		0.864171,		-0.0327015,
+    -0.498929,		-0.0566408,		0.864171,		0.0327016,
+    -0.490393,		-0.168953,		0.849385,		0.0975452,
+    -0.473465,		-0.278375,		0.820066,		0.16072,
+    -0.448436,		-0.383033,		0.776715,		0.221144,
+    -0.415735,		-0.481138,		0.720074,		0.277785,
+    -0.37592,		-0.57101,		0.651112,		0.329673,
+    -0.329673,		-0.651112,		0.57101,		0.37592,
+    -0.277785,		-0.720074,		0.481138,		0.415735,
+    -0.221144,		-0.776715,		0.383033,		0.448436,
+    -0.16072,		-0.820066,		0.278375,		0.473465,
+    -0.0975451,		-0.849385,		0.168953,		0.490393,
+    -0.0327015,		-0.864171,		0.0566407,		0.498929,
+    -0.864171,		0.498929,		0.0327016,		0.0566408,
+    -0.849385,		0.490393,		0.0975452,		0.168953,
+    -0.820066,		0.473465,		0.16072,		0.278375,
+    -0.776715,		0.448436,		0.221144,		0.383033,
+    -0.720074,		0.415735,		0.277785,		0.481138,
+    -0.651112,		0.37592,		0.329673,		0.57101,
+    -0.57101,		0.329673,		0.37592,		0.651112,
+    -0.481138,		0.277785,		0.415735,		0.720074,
+    -0.383033,		0.221144,		0.448436,		0.776715,
+    -0.278375,		0.16072,		0.473465,		0.820066,
+    -0.168953,		0.0975451,		0.490393,		0.849385,
+    -0.0566407,		0.0327015,		0.498929,		0.864171,
+    0.0566408,		-0.0327016,		0.498929,		0.864171,
+    0.168953,		-0.0975452,		0.490393,		0.849385,
+    0.278375,		-0.16072,		0.473465,		0.820066,
+    0.383033,		-0.221144,		0.448436,		0.776715,
+    0.481138,		-0.277785,		0.415735,		0.720074,
+    0.57101,		-0.329673,		0.37592,		0.651112,
+    0.651112,		-0.37592,		0.329673,		0.57101,
+    0.720074,		-0.415735,		0.277785,		0.481138,
+    0.776715,		-0.448436,		0.221144,		0.383033,
+    0.820066,		-0.473465,		0.16072,		0.278375,
+    0.849385,		-0.490393,		0.0975451,		0.168953,
+    0.864171,		-0.498929,		0.0327015,		0.0566407,
+    -0.788675,		0.576114,		0.0377605,		0.211325,
+    -0.754344,		0.566257,		0.112635,		0.31246,
+    -0.707107,		0.54671,		0.185583,		0.408248,
+    -0.64777,		0.51781,		0.255356,		0.497052,
+    -0.57735,		0.480049,		0.320759,		0.57735,
+    -0.497052,		0.434075,		0.380673,		0.64777,
+    -0.408248,		0.380673,		0.434075,		0.707107,
+    -0.31246,		0.320759,		0.480049,		0.754344,
+    -0.211325,		0.255355,		0.51781,		0.788675,
+    -0.106574,		0.185583,		0.54671,		0.809511,
+    3.12289e-08,		0.112635,		0.566257,		0.816497,
+    0.106574,		0.0377605,		0.576114,		0.809511,
+    0.211325,		-0.0377605,		0.576114,		0.788675,
+    0.31246,		-0.112635,		0.566257,		0.754344,
+    0.408248,		-0.185583,		0.54671,		0.707107,
+    0.497052,		-0.255356,		0.51781,		0.64777,
+    0.57735,		-0.320759,		0.480049,		0.57735,
+    0.64777,		-0.380674,		0.434075,		0.497052,
+    0.707107,		-0.434075,		0.380673,		0.408248,
+    0.754345,		-0.480049,		0.320759,		0.31246,
+    0.788675,		-0.51781,		0.255355,		0.211325,
+    0.809511,		-0.54671,		0.185583,		0.106574,
+    0.816497,		-0.566257,		0.112635,		-6.69191e-08,
+    0.809511,		-0.576114,		0.0377605,		-0.106574,
+    -0.809511,		0.576114,		0.0377605,		-0.106574,
+    -0.816497,		0.566257,		0.112635,		4.46127e-09,
+    -0.809511,		0.54671,		0.185583,		0.106574,
+    -0.788675,		0.51781,		0.255356,		0.211325,
+    -0.754344,		0.480049,		0.320759,		0.31246,
+    -0.707107,		0.434075,		0.380673,		0.408248,
+    -0.64777,		0.380673,		0.434075,		0.497052,
+    -0.57735,		0.320759,		0.480049,		0.57735,
+    -0.497052,		0.255355,		0.51781,		0.64777,
+    -0.408248,		0.185583,		0.54671,		0.707107,
+    -0.31246,		0.112635,		0.566257,		0.754344,
+    -0.211325,		0.0377605,		0.576114,		0.788675,
+    -0.106574,		-0.0377605,		0.576114,		0.809511,
+    4.01515e-08,		-0.112635,		0.566257,		0.816497,
+    0.106574,		-0.185583,		0.54671,		0.809511,
+    0.211325,		-0.255356,		0.51781,		0.788675,
+    0.31246,		-0.320759,		0.480049,		0.754344,
+    0.408248,		-0.380674,		0.434075,		0.707107,
+    0.497052,		-0.434075,		0.380673,		0.64777,
+    0.57735,		-0.480049,		0.320759,		0.57735,
+    0.64777,		-0.51781,		0.255355,		0.497052,
+    0.707107,		-0.54671,		0.185583,		0.408248,
+    0.754345,		-0.566257,		0.112635,		0.31246,
+    0.788675,		-0.576114,		0.0377605,		0.211325,
+    -0.762127,		0.644115,		0.0422175,		0.0499525,
+    -0.749087,		0.633094,		0.12593,		0.149003,
+    -0.72323,		0.611241,		0.207488,		0.245503,
+    -0.684998,		0.578929,		0.285496,		0.337804,
+    -0.635045,		0.536711,		0.358619,		0.424324,
+    -0.574227,		0.485311,		0.425606,		0.503584,
+    -0.503584,		0.425606,		0.485311,		0.574227,
+    -0.424324,		0.358619,		0.536711,		0.635045,
+    -0.337804,		0.285496,		0.578929,		0.684998,
+    -0.245503,		0.207488,		0.611241,		0.72323,
+    -0.149003,		0.12593,		0.633094,		0.749087,
+    -0.0499524,		0.0422175,		0.644115,		0.762127,
+    0.0499525,		-0.0422176,		0.644115,		0.762127,
+    0.149003,		-0.12593,		0.633094,		0.749087,
+    0.245503,		-0.207488,		0.611241,		0.72323,
+    0.337804,		-0.285496,		0.578929,		0.684998,
+    0.424324,		-0.358619,		0.536711,		0.635045,
+    0.503584,		-0.425606,		0.48531,		0.574227,
+    0.574227,		-0.485311,		0.425606,		0.503584,
+    0.635045,		-0.536711,		0.358619,		0.424324,
+    0.684998,		-0.578929,		0.285496,		0.337804,
+    0.72323,		-0.611241,		0.207488,		0.245503,
+    0.749087,		-0.633094,		0.12593,		0.149003,
+    0.762127,		-0.644115,		0.0422175,		0.0499524,
+    -0.684998,		0.644115,		0.0422175,		0.337804,
+    -0.635045,		0.633094,		0.12593,		0.424324,
+    -0.574227,		0.611241,		0.207488,		0.503584,
+    -0.503584,		0.578929,		0.285496,		0.574227,
+    -0.424324,		0.536711,		0.358619,		0.635045,
+    -0.337804,		0.485311,		0.425606,		0.684998,
+    -0.245503,		0.425606,		0.485311,		0.72323,
+    -0.149003,		0.358619,		0.536711,		0.749087,
+    -0.0499524,		0.285496,		0.578929,		0.762127,
+    0.0499525,		0.207488,		0.611241,		0.762127,
+    0.149003,		0.12593,		0.633094,		0.749087,
+    0.245503,		0.0422175,		0.644115,		0.72323,
+    0.337804,		-0.0422176,		0.644115,		0.684998,
+    0.424324,		-0.12593,		0.633094,		0.635045,
+    0.503584,		-0.207488,		0.611241,		0.574227,
+    0.574227,		-0.285496,		0.578929,		0.503584,
+    0.635045,		-0.358619,		0.536711,		0.424324,
+    0.684998,		-0.425606,		0.48531,		0.337804,
+    0.72323,		-0.485311,		0.425606,		0.245503,
+    0.749087,		-0.536711,		0.358619,		0.149003,
+    0.762127,		-0.578929,		0.285496,		0.0499524,
+    0.762127,		-0.611241,		0.207488,		-0.0499525,
+    0.749087,		-0.633094,		0.12593,		-0.149003,
+    0.72323,		-0.644115,		0.0422175,		-0.245504,
+    -0.560986,		0.705593,		0.046247,		0.430459,
+    -0.5,		0.69352,		0.13795,		0.5,
+    -0.430459,		0.669581,		0.227292,		0.560986,
+    -0.353553,		0.634185,		0.312745,		0.612372,
+    -0.270598,		0.587938,		0.392847,		0.653281,
+    -0.183013,		0.531631,		0.466228,		0.683013,
+    -0.0922959,		0.466228,		0.531631,		0.701057,
+    1.93179e-08,		0.392847,		0.587938,		0.707107,
+    0.092296,		0.312745,		0.634185,		0.701057,
+    0.183013,		0.227292,		0.669581,		0.683013,
+    0.270598,		0.13795,		0.69352,		0.653281,
+    0.353553,		0.046247,		0.705593,		0.612372,
+    0.430459,		-0.046247,		0.705593,		0.560986,
+    0.5,		-0.13795,		0.69352,		0.5,
+    0.560986,		-0.227292,		0.669581,		0.430459,
+    0.612372,		-0.312745,		0.634185,		0.353553,
+    0.653281,		-0.392848,		0.587938,		0.270598,
+    0.683013,		-0.466228,		0.531631,		0.183013,
+    0.701057,		-0.531631,		0.466228,		0.0922959,
+    0.707107,		-0.587938,		0.392847,		-5.02265e-08,
+    0.701057,		-0.634185,		0.312745,		-0.092296,
+    0.683013,		-0.669581,		0.227292,		-0.183013,
+    0.653281,		-0.69352,		0.13795,		-0.270598,
+    0.612372,		-0.705593,		0.0462469,		-0.353553,
+    -0.683013,		0.705593,		0.046247,		0.183013,
+    -0.653281,		0.69352,		0.13795,		0.270598,
+    -0.612372,		0.669581,		0.227292,		0.353553,
+    -0.560986,		0.634185,		0.312745,		0.430459,
+    -0.5,		0.587938,		0.392847,		0.5,
+    -0.430459,		0.531631,		0.466228,		0.560986,
+    -0.353553,		0.466228,		0.531631,		0.612372,
+    -0.270598,		0.392847,		0.587938,		0.653281,
+    -0.183013,		0.312745,		0.634185,		0.683013,
+    -0.0922959,		0.227292,		0.669581,		0.701057,
+    2.7045e-08,		0.13795,		0.69352,		0.707107,
+    0.092296,		0.046247,		0.705593,		0.701057,
+    0.183013,		-0.046247,		0.705593,		0.683013,
+    0.270598,		-0.13795,		0.69352,		0.653281,
+    0.353553,		-0.227292,		0.669581,		0.612372,
+    0.430459,		-0.312745,		0.634185,		0.560986,
+    0.5,		-0.392848,		0.587938,		0.5,
+    0.560986,		-0.466228,		0.531631,		0.430459,
+    0.612372,		-0.531631,		0.466228,		0.353553,
+    0.653282,		-0.587938,		0.392847,		0.270598,
+    0.683013,		-0.634185,		0.312745,		0.183013,
+    0.701057,		-0.669581,		0.227292,		0.0922959,
+    0.707107,		-0.69352,		0.13795,		-5.79537e-08,
+    0.701057,		-0.705593,		0.0462469,		-0.092296,
+    -0.578929,		0.762127,		0.0499525,		0.285496,
+    -0.536711,		0.749087,		0.149003,		0.358619,
+    -0.485311,		0.72323,		0.245503,		0.425606,
+    -0.425606,		0.684998,		0.337804,		0.485311,
+    -0.358619,		0.635045,		0.424324,		0.536711,
+    -0.285496,		0.574227,		0.503584,		0.578929,
+    -0.207488,		0.503584,		0.574227,		0.611241,
+    -0.12593,		0.424324,		0.635045,		0.633094,
+    -0.0422175,		0.337804,		0.684998,		0.644115,
+    0.0422176,		0.245503,		0.72323,		0.644115,
+    0.12593,		0.149003,		0.749087,		0.633094,
+    0.207488,		0.0499524,		0.762127,		0.611241,
+    0.285496,		-0.0499525,		0.762127,		0.578929,
+    0.358619,		-0.149003,		0.749087,		0.536711,
+    0.425606,		-0.245503,		0.72323,		0.48531,
+    0.485311,		-0.337804,		0.684998,		0.425606,
+    0.536711,		-0.424324,		0.635045,		0.358619,
+    0.578929,		-0.503584,		0.574227,		0.285496,
+    0.611241,		-0.574227,		0.503584,		0.207488,
+    0.633094,		-0.635045,		0.424324,		0.12593,
+    0.644115,		-0.684998,		0.337804,		0.0422175,
+    0.644115,		-0.72323,		0.245503,		-0.0422176,
+    0.633094,		-0.749087,		0.149003,		-0.12593,
+    0.611241,		-0.762127,		0.0499524,		-0.207488,
+    -0.72323,		0.644115,		0.0422175,		-0.245503,
+    -0.749087,		0.633094,		0.12593,		-0.149003,
+    -0.762127,		0.611241,		0.207488,		-0.0499525,
+    -0.762127,		0.578929,		0.285496,		0.0499525,
+    -0.749087,		0.536711,		0.358619,		0.149003,
+    -0.72323,		0.485311,		0.425606,		0.245503,
+    -0.684998,		0.425606,		0.485311,		0.337804,
+    -0.635045,		0.358619,		0.536711,		0.424324,
+    -0.574227,		0.285496,		0.578929,		0.503584,
+    -0.503584,		0.207488,		0.611241,		0.574227,
+    -0.424324,		0.12593,		0.633094,		0.635045,
+    -0.337804,		0.0422175,		0.644115,		0.684998,
+    -0.245503,		-0.0422176,		0.644115,		0.72323,
+    -0.149003,		-0.12593,		0.633094,		0.749087,
+    -0.0499524,		-0.207488,		0.611241,		0.762127,
+    0.0499525,		-0.285496,		0.578929,		0.762127,
+    0.149003,		-0.358619,		0.536711,		0.749087,
+    0.245503,		-0.425606,		0.48531,		0.72323,
+    0.337804,		-0.485311,		0.425606,		0.684998,
+    0.424324,		-0.536711,		0.358619,		0.635045,
+    0.503584,		-0.578929,		0.285496,		0.574227,
+    0.574227,		-0.611241,		0.207488,		0.503584,
+    0.635045,		-0.633094,		0.12593,		0.424324,
+    0.684998,		-0.644115,		0.0422175,		0.337804,
+    -0.701057,		0.705593,		0.046247,		-0.092296,
+    -0.707107,		0.69352,		0.13795,		3.86358e-09,
+    -0.701057,		0.669581,		0.227292,		0.092296,
+    -0.683013,		0.634185,		0.312745,		0.183013,
+    -0.653281,		0.587938,		0.392847,		0.270598,
+    -0.612372,		0.531631,		0.466228,		0.353553,
+    -0.560986,		0.466228,		0.531631,		0.430459,
+    -0.5,		0.392847,		0.587938,		0.5,
+    -0.430459,		0.312745,		0.634185,		0.560986,
+    -0.353553,		0.227292,		0.669581,		0.612372,
+    -0.270598,		0.13795,		0.69352,		0.653281,
+    -0.183013,		0.046247,		0.705593,		0.683013,
+    -0.0922959,		-0.046247,		0.705593,		0.701057,
+    3.47722e-08,		-0.13795,		0.69352,		0.707107,
+    0.092296,		-0.227292,		0.669581,		0.701057,
+    0.183013,		-0.312745,		0.634185,		0.683013,
+    0.270598,		-0.392848,		0.587938,		0.653281,
+    0.353553,		-0.466228,		0.531631,		0.612372,
+    0.430459,		-0.531631,		0.466228,		0.560985,
+    0.5,		-0.587938,		0.392847,		0.5,
+    0.560986,		-0.634185,		0.312745,		0.430459,
+    0.612372,		-0.669581,		0.227292,		0.353553,
+    0.653282,		-0.69352,		0.13795,		0.270598,
+    0.683013,		-0.705593,		0.0462469,		0.183013,
+    -0.612372,		0.705593,		0.046247,		-0.353553,
+    -0.653281,		0.69352,		0.13795,		-0.270598,
+    -0.683013,		0.669581,		0.227292,		-0.183013,
+    -0.701057,		0.634185,		0.312745,		-0.0922959,
+    -0.707107,		0.587938,		0.392847,		1.15907e-08,
+    -0.701057,		0.531631,		0.466228,		0.092296,
+    -0.683013,		0.466228,		0.531631,		0.183013,
+    -0.653281,		0.392847,		0.587938,		0.270598,
+    -0.612372,		0.312745,		0.634185,		0.353553,
+    -0.560986,		0.227292,		0.669581,		0.430459,
+    -0.5,		0.13795,		0.69352,		0.5,
+    -0.430459,		0.046247,		0.705593,		0.560986,
+    -0.353553,		-0.046247,		0.705593,		0.612372,
+    -0.270598,		-0.13795,		0.69352,		0.653281,
+    -0.183013,		-0.227292,		0.669581,		0.683013,
+    -0.0922959,		-0.312745,		0.634185,		0.701057,
+    4.24994e-08,		-0.392848,		0.587938,		0.707107,
+    0.092296,		-0.466228,		0.531631,		0.701057,
+    0.183013,		-0.531631,		0.466228,		0.683013,
+    0.270598,		-0.587938,		0.392847,		0.653281,
+    0.353553,		-0.634185,		0.312745,		0.612372,
+    0.430459,		-0.669581,		0.227292,		0.560985,
+    0.5,		-0.69352,		0.13795,		0.5,
+    0.560986,		-0.705593,		0.0462469,		0.430459,
+    -0.611241,		0.762127,		0.0499525,		-0.207488,
+    -0.633094,		0.749087,		0.149003,		-0.12593,
+    -0.644115,		0.72323,		0.245503,		-0.0422175,
+    -0.644115,		0.684998,		0.337804,		0.0422175,
+    -0.633094,		0.635045,		0.424324,		0.12593,
+    -0.611241,		0.574227,		0.503584,		0.207488,
+    -0.578929,		0.503584,		0.574227,		0.285496,
+    -0.536711,		0.424324,		0.635045,		0.358619,
+    -0.48531,		0.337804,		0.684998,		0.425606,
+    -0.425606,		0.245503,		0.72323,		0.485311,
+    -0.358619,		0.149003,		0.749087,		0.536711,
+    -0.285496,		0.0499524,		0.762127,		0.578929,
+    -0.207488,		-0.0499525,		0.762127,		0.611241,
+    -0.12593,		-0.149003,		0.749087,		0.633094,
+    -0.0422175,		-0.245503,		0.72323,		0.644115,
+    0.0422176,		-0.337804,		0.684998,		0.644115,
+    0.12593,		-0.424324,		0.635045,		0.633094,
+    0.207488,		-0.503584,		0.574227,		0.611241,
+    0.285496,		-0.574227,		0.503584,		0.578929,
+    0.358619,		-0.635045,		0.424324,		0.536711,
+    0.425606,		-0.684998,		0.337804,		0.48531,
+    0.485311,		-0.72323,		0.245503,		0.425606,
+    0.536711,		-0.749087,		0.149003,		0.358619,
+    0.578929,		-0.762127,		0.0499524,		0.285496,
+    -0.644115,		0.762127,		0.0499525,		0.0422175,
+    -0.633094,		0.749087,		0.149003,		0.12593,
+    -0.611241,		0.72323,		0.245503,		0.207488,
+    -0.578929,		0.684998,		0.337804,		0.285496,
+    -0.536711,		0.635045,		0.424324,		0.358619,
+    -0.485311,		0.574227,		0.503584,		0.425606,
+    -0.425606,		0.503584,		0.574227,		0.485311,
+    -0.358619,		0.424324,		0.635045,		0.536711,
+    -0.285496,		0.337804,		0.684998,		0.578929,
+    -0.207488,		0.245503,		0.72323,		0.611241,
+    -0.12593,		0.149003,		0.749087,		0.633094,
+    -0.0422175,		0.0499524,		0.762127,		0.644115,
+    0.0422176,		-0.0499525,		0.762127,		0.644115,
+    0.12593,		-0.149003,		0.749087,		0.633094,
+    0.207488,		-0.245503,		0.72323,		0.611241,
+    0.285496,		-0.337804,		0.684998,		0.578929,
+    0.358619,		-0.424324,		0.635045,		0.536711,
+    0.425606,		-0.503584,		0.574227,		0.48531,
+    0.485311,		-0.574227,		0.503584,		0.425606,
+    0.536711,		-0.635045,		0.424324,		0.358619,
+    0.578929,		-0.684998,		0.337804,		0.285496,
+    0.611241,		-0.72323,		0.245503,		0.207488,
+    0.633094,		-0.749087,		0.149003,		0.12593,
+    0.644115,		-0.762127,		0.0499524,		0.0422175,
+    -0.557678,		0.814748,		0.0534014,		0.149429,
+    -0.533402,		0.800808,		0.159291,		0.220942,
+    -0.5,		0.773165,		0.262454,		0.288675,
+    -0.458043,		0.732294,		0.361127,		0.351469,
+    -0.408248,		0.678892,		0.453621,		0.408248,
+    -0.351469,		0.613875,		0.538354,		0.458043,
+    -0.288675,		0.538354,		0.613875,		0.5,
+    -0.220942,		0.453621,		0.678892,		0.533402,
+    -0.149429,		0.361127,		0.732294,		0.557678,
+    -0.0753593,		0.262454,		0.773165,		0.572411,
+    2.20822e-08,		0.159291,		0.800808,		0.57735,
+    0.0753594,		0.0534014,		0.814748,		0.572411,
+    0.149429,		-0.0534015,		0.814748,		0.557678,
+    0.220942,		-0.159291,		0.800808,		0.533402,
+    0.288675,		-0.262454,		0.773165,		0.5,
+    0.351469,		-0.361127,		0.732294,		0.458043,
+    0.408248,		-0.453621,		0.678892,		0.408248,
+    0.458043,		-0.538354,		0.613875,		0.351469,
+    0.5,		-0.613875,		0.538354,		0.288675,
+    0.533402,		-0.678892,		0.453621,		0.220942,
+    0.557678,		-0.732294,		0.361127,		0.149429,
+    0.572411,		-0.773165,		0.262454,		0.0753593,
+    0.57735,		-0.800808,		0.159291,		-4.7319e-08,
+    0.572411,		-0.814748,		0.0534014,		-0.0753594,
+    -0.572411,		0.814748,		0.0534014,		-0.0753593,
+    -0.57735,		0.800808,		0.159291,		3.1546e-09,
+    -0.572411,		0.773165,		0.262454,		0.0753593,
+    -0.557678,		0.732294,		0.361127,		0.149429,
+    -0.533402,		0.678892,		0.453621,		0.220942,
+    -0.5,		0.613875,		0.538354,		0.288675,
+    -0.458043,		0.538354,		0.613875,		0.351469,
+    -0.408248,		0.453621,		0.678892,		0.408248,
+    -0.351469,		0.361127,		0.732294,		0.458043,
+    -0.288675,		0.262454,		0.773165,		0.5,
+    -0.220942,		0.159291,		0.800808,		0.533402,
+    -0.149429,		0.0534014,		0.814748,		0.557678,
+    -0.0753593,		-0.0534015,		0.814748,		0.572411,
+    2.83914e-08,		-0.159291,		0.800808,		0.57735,
+    0.0753594,		-0.262454,		0.773165,		0.572411,
+    0.149429,		-0.361127,		0.732294,		0.557678,
+    0.220942,		-0.453621,		0.678892,		0.533402,
+    0.288675,		-0.538354,		0.613875,		0.5,
+    0.351469,		-0.613875,		0.538354,		0.458043,
+    0.408248,		-0.678892,		0.453621,		0.408248,
+    0.458043,		-0.732294,		0.361127,		0.351469,
+    0.5,		-0.773165,		0.262454,		0.288675,
+    0.533402,		-0.800808,		0.159291,		0.220942,
+    0.557678,		-0.814748,		0.0534014,		0.149429,
+    -0.498929,		0.864171,		0.0566408,		0.0327016,
+    -0.490393,		0.849385,		0.168953,		0.0975452,
+    -0.473465,		0.820066,		0.278375,		0.16072,
+    -0.448436,		0.776715,		0.383033,		0.221144,
+    -0.415735,		0.720074,		0.481138,		0.277785,
+    -0.37592,		0.651112,		0.57101,		0.329673,
+    -0.329673,		0.57101,		0.651112,		0.37592,
+    -0.277785,		0.481138,		0.720074,		0.415735,
+    -0.221144,		0.383033,		0.776715,		0.448436,
+    -0.16072,		0.278375,		0.820066,		0.473465,
+    -0.0975451,		0.168953,		0.849385,		0.490393,
+    -0.0327015,		0.0566407,		0.864171,		0.498929,
+    0.0327016,		-0.0566408,		0.864171,		0.498929,
+    0.0975452,		-0.168953,		0.849385,		0.490393,
+    0.16072,		-0.278375,		0.820066,		0.473465,
+    0.221144,		-0.383033,		0.776715,		0.448436,
+    0.277785,		-0.481138,		0.720074,		0.415735,
+    0.329673,		-0.57101,		0.651112,		0.37592,
+    0.37592,		-0.651112,		0.57101,		0.329673,
+    0.415735,		-0.720074,		0.481138,		0.277785,
+    0.448436,		-0.776715,		0.383033,		0.221144,
+    0.473465,		-0.820066,		0.278375,		0.16072,
+    0.490393,		-0.849385,		0.168953,		0.0975451,
+    0.498929,		-0.864171,		0.0566407,		0.0327015,
+    0.747914,		0.101844,		0.00667518,		0.655903,
+    0.827128,		0.100101,		0.0199113,		0.552669,
+    0.892189,		0.0966457,		0.0328068,		0.439979,
+    0.941985,		0.0915367,		0.0451409,		0.319761,
+    0.975664,		0.0848615,		0.0567027,		0.194072,
+    0.992648,		0.0767343,		0.0672942,		0.0650616,
+    0.992648,		0.0672942,		0.0767343,		-0.0650616,
+    0.975664,		0.0567026,		0.0848615,		-0.194072,
+    0.941985,		0.0451409,		0.0915367,		-0.319761,
+    0.892189,		0.0328068,		0.0966457,		-0.439979,
+    0.827128,		0.0199113,		0.100101,		-0.552669,
+    0.747914,		0.00667517,		0.101844,		-0.655903,
+    0.655903,		-0.00667518,		0.101844,		-0.747914,
+    0.552669,		-0.0199113,		0.100101,		-0.827128,
+    0.439979,		-0.0328068,		0.0966456,		-0.892189,
+    0.319761,		-0.0451409,		0.0915367,		-0.941985,
+    0.194072,		-0.0567027,		0.0848615,		-0.975664,
+    0.0650615,		-0.0672942,		0.0767343,		-0.992648,
+    -0.0650617,		-0.0767343,		0.0672942,		-0.992648,
+    -0.194072,		-0.0848615,		0.0567026,		-0.975664,
+    -0.319761,		-0.0915367,		0.0451409,		-0.941985,
+    -0.439979,		-0.0966457,		0.0328068,		-0.892189,
+    -0.552669,		-0.100101,		0.0199113,		-0.827128,
+    -0.655903,		-0.101844,		0.00667517,		-0.747914,
+    0.926993,		0.203687,		0.0133504,		0.314672,
+    0.960135,		0.200202,		0.0398226,		0.190983,
+    0.976849,		0.193291,		0.0656136,		0.0640261,
+    0.976849,		0.183073,		0.0902818,		-0.0640261,
+    0.960135,		0.169723,		0.113405,		-0.190983,
+    0.926993,		0.153469,		0.134588,		-0.314672,
+    0.877989,		0.134588,		0.153469,		-0.432976,
+    0.813963,		0.113405,		0.169723,		-0.543873,
+    0.73601,		0.0902818,		0.183073,		-0.645463,
+    0.645463,		0.0656135,		0.193291,		-0.73601,
+    0.543873,		0.0398226,		0.200202,		-0.813963,
+    0.432976,		0.0133503,		0.203687,		-0.877989,
+    0.314672,		-0.0133504,		0.203687,		-0.926993,
+    0.190983,		-0.0398227,		0.200202,		-0.960135,
+    0.064026,		-0.0656136,		0.193291,		-0.976849,
+    -0.0640261,		-0.0902818,		0.183073,		-0.976849,
+    -0.190983,		-0.113405,		0.169723,		-0.960135,
+    -0.314672,		-0.134588,		0.153469,		-0.926993,
+    -0.432976,		-0.153469,		0.134588,		-0.877989,
+    -0.543873,		-0.169723,		0.113405,		-0.813963,
+    -0.645463,		-0.183073,		0.0902818,		-0.73601,
+    -0.73601,		-0.193291,		0.0656135,		-0.645463,
+    -0.813963,		-0.200202,		0.0398226,		-0.543873,
+    -0.877989,		-0.203687,		0.0133503,		-0.432976,
+    0.432976,		0.203687,		0.0133504,		0.877989,
+    0.543873,		0.200202,		0.0398226,		0.813963,
+    0.645463,		0.193291,		0.0656136,		0.73601,
+    0.73601,		0.183073,		0.0902818,		0.645463,
+    0.813963,		0.169723,		0.113405,		0.543873,
+    0.877989,		0.153469,		0.134588,		0.432976,
+    0.926993,		0.134588,		0.153469,		0.314672,
+    0.960135,		0.113405,		0.169723,		0.190983,
+    0.976849,		0.0902818,		0.183073,		0.064026,
+    0.976849,		0.0656135,		0.193291,		-0.0640261,
+    0.960135,		0.0398226,		0.200202,		-0.190983,
+    0.926993,		0.0133503,		0.203687,		-0.314672,
+    0.877989,		-0.0133504,		0.203687,		-0.432976,
+    0.813963,		-0.0398227,		0.200202,		-0.543873,
+    0.73601,		-0.0656136,		0.193291,		-0.645463,
+    0.645463,		-0.0902818,		0.183073,		-0.73601,
+    0.543873,		-0.113405,		0.169723,		-0.813963,
+    0.432976,		-0.134588,		0.153469,		-0.877989,
+    0.314671,		-0.153469,		0.134588,		-0.926993,
+    0.190983,		-0.169723,		0.113405,		-0.960135,
+    0.064026,		-0.183073,		0.0902818,		-0.976849,
+    -0.0640261,		-0.193291,		0.0656135,		-0.976849,
+    -0.190983,		-0.200202,		0.0398226,		-0.960135,
+    -0.314672,		-0.203687,		0.0133503,		-0.926992,
+    0.71573,		0.305531,		0.0200255,		0.627679,
+    0.791535,		0.300303,		0.059734,		0.528887,
+    0.853797,		0.289937,		0.0984203,		0.421046,
+    0.901451,		0.27461,		0.135423,		0.306001,
+    0.93368,		0.254585,		0.170108,		0.18572,
+    0.949933,		0.230203,		0.201883,		0.0622619,
+    0.949933,		0.201883,		0.230203,		-0.0622619,
+    0.93368,		0.170108,		0.254585,		-0.18572,
+    0.901451,		0.135423,		0.27461,		-0.306001,
+    0.853797,		0.0984203,		0.289937,		-0.421046,
+    0.791535,		0.059734,		0.300303,		-0.528887,
+    0.71573,		0.0200255,		0.305531,		-0.627679,
+    0.627678,		-0.0200256,		0.305531,		-0.71573,
+    0.528887,		-0.059734,		0.300303,		-0.791536,
+    0.421046,		-0.0984203,		0.289937,		-0.853797,
+    0.306001,		-0.135423,		0.27461,		-0.901451,
+    0.18572,		-0.170108,		0.254585,		-0.93368,
+    0.0622619,		-0.201883,		0.230203,		-0.949933,
+    -0.062262,		-0.230203,		0.201883,		-0.949933,
+    -0.185721,		-0.254585,		0.170108,		-0.93368,
+    -0.306001,		-0.27461,		0.135423,		-0.901451,
+    -0.421046,		-0.289937,		0.0984203,		-0.853797,
+    -0.528887,		-0.300303,		0.0597339,		-0.791535,
+    -0.627679,		-0.305531,		0.0200255,		-0.71573,
+    0.93368,		0.305531,		0.0200255,		0.18572,
+    0.949933,		0.300303,		0.059734,		0.0622619,
+    0.949933,		0.289937,		0.0984203,		-0.0622619,
+    0.93368,		0.27461,		0.135423,		-0.18572,
+    0.901451,		0.254585,		0.170108,		-0.306001,
+    0.853797,		0.230203,		0.201883,		-0.421046,
+    0.791535,		0.201883,		0.230203,		-0.528887,
+    0.71573,		0.170108,		0.254585,		-0.627679,
+    0.627678,		0.135423,		0.27461,		-0.71573,
+    0.528887,		0.0984203,		0.289937,		-0.791536,
+    0.421046,		0.059734,		0.300303,		-0.853797,
+    0.306001,		0.0200255,		0.305531,		-0.901451,
+    0.18572,		-0.0200256,		0.305531,		-0.93368,
+    0.0622619,		-0.059734,		0.300303,		-0.949933,
+    -0.062262,		-0.0984203,		0.289937,		-0.949933,
+    -0.185721,		-0.135423,		0.27461,		-0.93368,
+    -0.306001,		-0.170108,		0.254585,		-0.901451,
+    -0.421046,		-0.201883,		0.230203,		-0.853797,
+    -0.528887,		-0.230203,		0.201883,		-0.791535,
+    -0.627679,		-0.254585,		0.170108,		-0.71573,
+    -0.71573,		-0.27461,		0.135423,		-0.627678,
+    -0.791536,		-0.289937,		0.0984203,		-0.528887,
+    -0.853797,		-0.300303,		0.0597339,		-0.421046,
+    -0.901451,		-0.305531,		0.0200255,		-0.306001,
+    0.905061,		0.407374,		0.0267007,		0.119154,
+    0.912871,		0.400404,		0.0796453,		-4.98786e-09,
+    0.905061,		0.386583,		0.131227,		-0.119154,
+    0.881766,		0.366147,		0.180564,		-0.236268,
+    0.843383,		0.339446,		0.226811,		-0.349341,
+    0.790569,		0.306937,		0.269177,		-0.456435,
+    0.724229,		0.269177,		0.306937,		-0.555721,
+    0.645497,		0.226811,		0.339446,		-0.645497,
+    0.555721,		0.180564,		0.366147,		-0.724229,
+    0.456435,		0.131227,		0.386583,		-0.790569,
+    0.349341,		0.0796453,		0.400404,		-0.843383,
+    0.236268,		0.0267007,		0.407374,		-0.881766,
+    0.119154,		-0.0267007,		0.407374,		-0.905061,
+    -4.48907e-08,		-0.0796453,		0.400404,		-0.912871,
+    -0.119154,		-0.131227,		0.386583,		-0.905061,
+    -0.236268,		-0.180564,		0.366147,		-0.881766,
+    -0.349341,		-0.226811,		0.339446,		-0.843383,
+    -0.456436,		-0.269177,		0.306937,		-0.790569,
+    -0.555721,		-0.306937,		0.269177,		-0.724229,
+    -0.645497,		-0.339446,		0.226811,		-0.645497,
+    -0.724229,		-0.366147,		0.180564,		-0.555721,
+    -0.790569,		-0.386583,		0.131227,		-0.456435,
+    -0.843383,		-0.400404,		0.0796453,		-0.349341,
+    -0.881766,		-0.407374,		0.0267007,		-0.236268,
+    0.790569,		0.407374,		0.0267007,		0.456435,
+    0.843383,		0.400404,		0.0796453,		0.349341,
+    0.881766,		0.386583,		0.131227,		0.236268,
+    0.905061,		0.366147,		0.180564,		0.119154,
+    0.912871,		0.339446,		0.226811,		-1.49636e-08,
+    0.905061,		0.306937,		0.269177,		-0.119154,
+    0.881766,		0.269177,		0.306937,		-0.236268,
+    0.843383,		0.226811,		0.339446,		-0.349341,
+    0.790569,		0.180564,		0.366147,		-0.456435,
+    0.724229,		0.131227,		0.386583,		-0.555721,
+    0.645497,		0.0796453,		0.400404,		-0.645497,
+    0.555721,		0.0267007,		0.407374,		-0.724229,
+    0.456435,		-0.0267007,		0.407374,		-0.790569,
+    0.349341,		-0.0796453,		0.400404,		-0.843383,
+    0.236268,		-0.131227,		0.386583,		-0.881766,
+    0.119154,		-0.180564,		0.366147,		-0.905061,
+    -5.48664e-08,		-0.226811,		0.339446,		-0.912871,
+    -0.119154,		-0.269177,		0.306937,		-0.905061,
+    -0.236268,		-0.306937,		0.269177,		-0.881766,
+    -0.349341,		-0.339446,		0.226811,		-0.843383,
+    -0.456436,		-0.366147,		0.180564,		-0.790569,
+    -0.555721,		-0.386583,		0.131227,		-0.724229,
+    -0.645497,		-0.400404,		0.0796453,		-0.645497,
+    -0.724229,		-0.407374,		0.0267007,		-0.555721,
+    0.820066,		0.498929,		0.0327016,		0.278375,
+    0.849385,		0.490393,		0.0975452,		0.168953,
+    0.864171,		0.473465,		0.16072,		0.0566408,
+    0.864171,		0.448436,		0.221144,		-0.0566408,
+    0.849385,		0.415735,		0.277785,		-0.168953,
+    0.820066,		0.37592,		0.329673,		-0.278375,
+    0.776715,		0.329673,		0.37592,		-0.383033,
+    0.720074,		0.277785,		0.415735,		-0.481138,
+    0.651112,		0.221144,		0.448436,		-0.57101,
+    0.57101,		0.16072,		0.473465,		-0.651112,
+    0.481138,		0.0975451,		0.490393,		-0.720074,
+    0.383033,		0.0327015,		0.498929,		-0.776715,
+    0.278375,		-0.0327016,		0.498929,		-0.820066,
+    0.168953,		-0.0975452,		0.490393,		-0.849385,
+    0.0566407,		-0.16072,		0.473465,		-0.864171,
+    -0.0566408,		-0.221144,		0.448436,		-0.864171,
+    -0.168953,		-0.277785,		0.415735,		-0.849385,
+    -0.278375,		-0.329673,		0.37592,		-0.820066,
+    -0.383033,		-0.37592,		0.329673,		-0.776715,
+    -0.481138,		-0.415735,		0.277785,		-0.720074,
+    -0.57101,		-0.448436,		0.221144,		-0.651112,
+    -0.651112,		-0.473465,		0.16072,		-0.57101,
+    -0.720074,		-0.490393,		0.0975451,		-0.481138,
+    -0.776715,		-0.498929,		0.0327015,		-0.383033,
+    0.306001,		0.305531,		0.0200255,		0.901451,
+    0.421046,		0.300303,		0.059734,		0.853797,
+    0.528887,		0.289937,		0.0984203,		0.791535,
+    0.627679,		0.27461,		0.135423,		0.71573,
+    0.71573,		0.254585,		0.170108,		0.627679,
+    0.791535,		0.230203,		0.201883,		0.528887,
+    0.853797,		0.201883,		0.230203,		0.421046,
+    0.901451,		0.170108,		0.254585,		0.306001,
+    0.93368,		0.135423,		0.27461,		0.18572,
+    0.949933,		0.0984203,		0.289937,		0.0622619,
+    0.949933,		0.059734,		0.300303,		-0.062262,
+    0.93368,		0.0200255,		0.305531,		-0.18572,
+    0.901451,		-0.0200256,		0.305531,		-0.306001,
+    0.853797,		-0.059734,		0.300303,		-0.421046,
+    0.791535,		-0.0984203,		0.289937,		-0.528887,
+    0.71573,		-0.135423,		0.27461,		-0.627679,
+    0.627678,		-0.170108,		0.254585,		-0.71573,
+    0.528887,		-0.201883,		0.230203,		-0.791536,
+    0.421046,		-0.230203,		0.201883,		-0.853797,
+    0.306001,		-0.254585,		0.170108,		-0.901451,
+    0.18572,		-0.27461,		0.135423,		-0.93368,
+    0.0622618,		-0.289937,		0.0984203,		-0.949933,
+    -0.062262,		-0.300303,		0.0597339,		-0.949933,
+    -0.185721,		-0.305531,		0.0200255,		-0.93368,
+    0.555721,		0.407374,		0.0267007,		0.724229,
+    0.645497,		0.400404,		0.0796453,		0.645497,
+    0.724229,		0.386583,		0.131227,		0.555721,
+    0.790569,		0.366147,		0.180564,		0.456435,
+    0.843383,		0.339446,		0.226811,		0.349341,
+    0.881766,		0.306937,		0.269177,		0.236268,
+    0.905061,		0.269177,		0.306937,		0.119154,
+    0.912871,		0.226811,		0.339446,		-2.49393e-08,
+    0.905061,		0.180564,		0.366147,		-0.119154,
+    0.881766,		0.131227,		0.386583,		-0.236268,
+    0.843383,		0.0796453,		0.400404,		-0.349341,
+    0.790569,		0.0267007,		0.407374,		-0.456435,
+    0.724229,		-0.0267007,		0.407374,		-0.555721,
+    0.645497,		-0.0796453,		0.400404,		-0.645497,
+    0.555721,		-0.131227,		0.386583,		-0.724229,
+    0.456435,		-0.180564,		0.366147,		-0.790569,
+    0.349341,		-0.226811,		0.339446,		-0.843383,
+    0.236268,		-0.269177,		0.306937,		-0.881766,
+    0.119154,		-0.306937,		0.269177,		-0.905061,
+    -6.48421e-08,		-0.339446,		0.226811,		-0.912871,
+    -0.119154,		-0.366147,		0.180564,		-0.905061,
+    -0.236268,		-0.386583,		0.131227,		-0.881766,
+    -0.349341,		-0.400404,		0.0796453,		-0.843383,
+    -0.456436,		-0.407374,		0.0267007,		-0.790569,
+    0.236268,		0.407374,		0.0267007,		0.881766,
+    0.349341,		0.400404,		0.0796453,		0.843383,
+    0.456435,		0.386583,		0.131227,		0.790569,
+    0.555721,		0.366147,		0.180564,		0.724229,
+    0.645497,		0.339446,		0.226811,		0.645497,
+    0.724229,		0.306937,		0.269177,		0.555721,
+    0.790569,		0.269177,		0.306937,		0.456435,
+    0.843383,		0.226811,		0.339446,		0.349341,
+    0.881766,		0.180564,		0.366147,		0.236268,
+    0.905061,		0.131227,		0.386583,		0.119154,
+    0.912871,		0.0796453,		0.400404,		-3.4915e-08,
+    0.905061,		0.0267007,		0.407374,		-0.119154,
+    0.881766,		-0.0267007,		0.407374,		-0.236268,
+    0.843383,		-0.0796453,		0.400404,		-0.349341,
+    0.790569,		-0.131227,		0.386583,		-0.456436,
+    0.724229,		-0.180564,		0.366147,		-0.555721,
+    0.645497,		-0.226811,		0.339446,		-0.645497,
+    0.555721,		-0.269177,		0.306937,		-0.724229,
+    0.456435,		-0.306937,		0.269177,		-0.790569,
+    0.349341,		-0.339446,		0.226811,		-0.843383,
+    0.236268,		-0.366147,		0.180564,		-0.881766,
+    0.119153,		-0.386583,		0.131227,		-0.905061,
+    -7.48179e-08,		-0.400404,		0.0796453,		-0.912871,
+    -0.119154,		-0.407374,		0.0267007,		-0.905061,
+    0.383033,		0.498929,		0.0327016,		0.776715,
+    0.481138,		0.490393,		0.0975452,		0.720074,
+    0.57101,		0.473465,		0.16072,		0.651112,
+    0.651112,		0.448436,		0.221144,		0.57101,
+    0.720074,		0.415735,		0.277785,		0.481138,
+    0.776715,		0.37592,		0.329673,		0.383033,
+    0.820066,		0.329673,		0.37592,		0.278375,
+    0.849385,		0.277785,		0.415735,		0.168953,
+    0.864171,		0.221144,		0.448436,		0.0566407,
+    0.864171,		0.16072,		0.473465,		-0.0566408,
+    0.849385,		0.0975451,		0.490393,		-0.168953,
+    0.820066,		0.0327015,		0.498929,		-0.278375,
+    0.776715,		-0.0327016,		0.498929,		-0.383033,
+    0.720074,		-0.0975452,		0.490393,		-0.481138,
+    0.651112,		-0.16072,		0.473465,		-0.57101,
+    0.57101,		-0.221144,		0.448436,		-0.651112,
+    0.481138,		-0.277785,		0.415735,		-0.720074,
+    0.383033,		-0.329673,		0.37592,		-0.776715,
+    0.278375,		-0.37592,		0.329673,		-0.820066,
+    0.168953,		-0.415735,		0.277785,		-0.849385,
+    0.0566407,		-0.448436,		0.221144,		-0.864171,
+    -0.0566408,		-0.473465,		0.16072,		-0.864171,
+    -0.168953,		-0.490393,		0.0975451,		-0.849385,
+    -0.278375,		-0.498929,		0.0327015,		-0.820066,
+    0.651112,		0.498929,		0.0327016,		0.57101,
+    0.720074,		0.490393,		0.0975452,		0.481138,
+    0.776715,		0.473465,		0.16072,		0.383033,
+    0.820066,		0.448436,		0.221144,		0.278375,
+    0.849385,		0.415735,		0.277785,		0.168953,
+    0.864171,		0.37592,		0.329673,		0.0566408,
+    0.864171,		0.329673,		0.37592,		-0.0566408,
+    0.849385,		0.277785,		0.415735,		-0.168953,
+    0.820066,		0.221144,		0.448436,		-0.278375,
+    0.776715,		0.16072,		0.473465,		-0.383033,
+    0.720074,		0.0975451,		0.490393,		-0.481138,
+    0.651112,		0.0327015,		0.498929,		-0.57101,
+    0.57101,		-0.0327016,		0.498929,		-0.651112,
+    0.481138,		-0.0975452,		0.490393,		-0.720074,
+    0.383033,		-0.16072,		0.473465,		-0.776715,
+    0.278375,		-0.221144,		0.448436,		-0.820066,
+    0.168953,		-0.277785,		0.415735,		-0.849385,
+    0.0566407,		-0.329673,		0.37592,		-0.864171,
+    -0.0566408,		-0.37592,		0.329673,		-0.864171,
+    -0.168953,		-0.415735,		0.277785,		-0.849385,
+    -0.278375,		-0.448436,		0.221144,		-0.820066,
+    -0.383033,		-0.473465,		0.16072,		-0.776715,
+    -0.481138,		-0.490393,		0.0975451,		-0.720074,
+    -0.57101,		-0.498929,		0.0327015,		-0.651112,
+    0.707107,		0.576114,		0.0377605,		0.408248,
+    0.754344,		0.566257,		0.112635,		0.31246,
+    0.788675,		0.54671,		0.185583,		0.211325,
+    0.809511,		0.51781,		0.255356,		0.106574,
+    0.816497,		0.480049,		0.320759,		-1.33838e-08,
+    0.809511,		0.434075,		0.380673,		-0.106574,
+    0.788675,		0.380673,		0.434075,		-0.211325,
+    0.754344,		0.320759,		0.480049,		-0.31246,
+    0.707107,		0.255355,		0.51781,		-0.408248,
+    0.64777,		0.185583,		0.54671,		-0.497052,
+    0.57735,		0.112635,		0.566257,		-0.57735,
+    0.497052,		0.0377605,		0.576114,		-0.64777,
+    0.408248,		-0.0377605,		0.576114,		-0.707107,
+    0.31246,		-0.112635,		0.566257,		-0.754344,
+    0.211325,		-0.185583,		0.54671,		-0.788675,
+    0.106574,		-0.255356,		0.51781,		-0.809511,
+    -4.9074e-08,		-0.320759,		0.480049,		-0.816497,
+    -0.106574,		-0.380674,		0.434075,		-0.809511,
+    -0.211325,		-0.434075,		0.380673,		-0.788675,
+    -0.31246,		-0.480049,		0.320759,		-0.754344,
+    -0.408248,		-0.51781,		0.255355,		-0.707107,
+    -0.497052,		-0.54671,		0.185583,		-0.64777,
+    -0.57735,		-0.566257,		0.112635,		-0.57735,
+    -0.64777,		-0.576114,		0.0377605,		-0.497052,
+    0.497052,		0.576114,		0.0377605,		0.64777,
+    0.57735,		0.566257,		0.112635,		0.57735,
+    0.64777,		0.54671,		0.185583,		0.497052,
+    0.707107,		0.51781,		0.255356,		0.408248,
+    0.754344,		0.480049,		0.320759,		0.31246,
+    0.788675,		0.434075,		0.380673,		0.211325,
+    0.809511,		0.380673,		0.434075,		0.106574,
+    0.816497,		0.320759,		0.480049,		-2.23064e-08,
+    0.809511,		0.255355,		0.51781,		-0.106574,
+    0.788675,		0.185583,		0.54671,		-0.211325,
+    0.754344,		0.112635,		0.566257,		-0.31246,
+    0.707107,		0.0377605,		0.576114,		-0.408248,
+    0.64777,		-0.0377605,		0.576114,		-0.497052,
+    0.57735,		-0.112635,		0.566257,		-0.57735,
+    0.497052,		-0.185583,		0.54671,		-0.64777,
+    0.408248,		-0.255356,		0.51781,		-0.707107,
+    0.31246,		-0.320759,		0.480049,		-0.754344,
+    0.211325,		-0.380674,		0.434075,		-0.788675,
+    0.106574,		-0.434075,		0.380673,		-0.809511,
+    -5.79966e-08,		-0.480049,		0.320759,		-0.816497,
+    -0.106574,		-0.51781,		0.255355,		-0.809511,
+    -0.211325,		-0.54671,		0.185583,		-0.788675,
+    -0.31246,		-0.566257,		0.112635,		-0.754344,
+    -0.408248,		-0.576114,		0.0377605,		-0.707107,
+    0.574227,		0.644115,		0.0422175,		0.503584,
+    0.635045,		0.633094,		0.12593,		0.424324,
+    0.684998,		0.611241,		0.207488,		0.337804,
+    0.72323,		0.578929,		0.285496,		0.245503,
+    0.749087,		0.536711,		0.358619,		0.149003,
+    0.762127,		0.485311,		0.425606,		0.0499524,
+    0.762127,		0.425606,		0.485311,		-0.0499525,
+    0.749087,		0.358619,		0.536711,		-0.149003,
+    0.72323,		0.285496,		0.578929,		-0.245503,
+    0.684998,		0.207488,		0.611241,		-0.337804,
+    0.635045,		0.12593,		0.633094,		-0.424324,
+    0.574227,		0.0422175,		0.644115,		-0.503584,
+    0.503584,		-0.0422176,		0.644115,		-0.574227,
+    0.424324,		-0.12593,		0.633094,		-0.635045,
+    0.337804,		-0.207488,		0.611241,		-0.684998,
+    0.245503,		-0.285496,		0.578929,		-0.72323,
+    0.149003,		-0.358619,		0.536711,		-0.749087,
+    0.0499524,		-0.425606,		0.48531,		-0.762127,
+    -0.0499525,		-0.485311,		0.425606,		-0.762127,
+    -0.149003,		-0.536711,		0.358619,		-0.749087,
+    -0.245504,		-0.578929,		0.285496,		-0.72323,
+    -0.337804,		-0.611241,		0.207488,		-0.684998,
+    -0.424324,		-0.633094,		0.12593,		-0.635045,
+    -0.503584,		-0.644115,		0.0422175,		-0.574227,
+    0.655903,		0.101844,		0.00667518,		-0.747914,
+    0.552669,		0.100101,		0.0199113,		-0.827128,
+    0.439979,		0.0966457,		0.0328068,		-0.892189,
+    0.319761,		0.0915367,		0.0451409,		-0.941985,
+    0.194072,		0.0848615,		0.0567027,		-0.975664,
+    0.0650616,		0.0767343,		0.0672942,		-0.992648,
+    -0.0650616,		0.0672942,		0.0767343,		-0.992648,
+    -0.194072,		0.0567026,		0.0848615,		-0.975664,
+    -0.319761,		0.0451409,		0.0915367,		-0.941985,
+    -0.439979,		0.0328068,		0.0966457,		-0.892189,
+    -0.552669,		0.0199113,		0.100101,		-0.827128,
+    -0.655903,		0.00667517,		0.101844,		-0.747914,
+    -0.747914,		-0.00667518,		0.101844,		-0.655903,
+    -0.827128,		-0.0199113,		0.100101,		-0.552669,
+    -0.892189,		-0.0328068,		0.0966456,		-0.439979,
+    -0.941985,		-0.0451409,		0.0915367,		-0.319761,
+    -0.975664,		-0.0567027,		0.0848615,		-0.194072,
+    -0.992648,		-0.0672942,		0.0767343,		-0.0650615,
+    -0.992648,		-0.0767343,		0.0672942,		0.0650617,
+    -0.975664,		-0.0848615,		0.0567026,		0.194072,
+    -0.941985,		-0.0915367,		0.0451409,		0.319761,
+    -0.892189,		-0.0966457,		0.0328068,		0.439979,
+    -0.827128,		-0.100101,		0.0199113,		0.552669,
+    -0.747914,		-0.101844,		0.00667517,		0.655903,
+    0.314672,		0.203687,		0.0133504,		-0.926993,
+    0.190983,		0.200202,		0.0398226,		-0.960135,
+    0.0640261,		0.193291,		0.0656136,		-0.976849,
+    -0.0640261,		0.183073,		0.0902818,		-0.976849,
+    -0.190983,		0.169723,		0.113405,		-0.960135,
+    -0.314672,		0.153469,		0.134588,		-0.926993,
+    -0.432976,		0.134588,		0.153469,		-0.877989,
+    -0.543873,		0.113405,		0.169723,		-0.813963,
+    -0.645463,		0.0902818,		0.183073,		-0.73601,
+    -0.73601,		0.0656135,		0.193291,		-0.645463,
+    -0.813963,		0.0398226,		0.200202,		-0.543873,
+    -0.877989,		0.0133503,		0.203687,		-0.432976,
+    -0.926993,		-0.0133504,		0.203687,		-0.314672,
+    -0.960135,		-0.0398227,		0.200202,		-0.190983,
+    -0.976849,		-0.0656136,		0.193291,		-0.064026,
+    -0.976849,		-0.0902818,		0.183073,		0.0640261,
+    -0.960135,		-0.113405,		0.169723,		0.190983,
+    -0.926993,		-0.134588,		0.153469,		0.314672,
+    -0.877989,		-0.153469,		0.134588,		0.432976,
+    -0.813963,		-0.169723,		0.113405,		0.543873,
+    -0.73601,		-0.183073,		0.0902818,		0.645463,
+    -0.645463,		-0.193291,		0.0656135,		0.73601,
+    -0.543873,		-0.200202,		0.0398226,		0.813963,
+    -0.432976,		-0.203687,		0.0133503,		0.877989,
+    0.877989,		0.203687,		0.0133504,		-0.432976,
+    0.813963,		0.200202,		0.0398226,		-0.543873,
+    0.73601,		0.193291,		0.0656136,		-0.645463,
+    0.645463,		0.183073,		0.0902818,		-0.73601,
+    0.543873,		0.169723,		0.113405,		-0.813963,
+    0.432976,		0.153469,		0.134588,		-0.877989,
+    0.314672,		0.134588,		0.153469,		-0.926993,
+    0.190983,		0.113405,		0.169723,		-0.960135,
+    0.064026,		0.0902818,		0.183073,		-0.976849,
+    -0.0640261,		0.0656135,		0.193291,		-0.976849,
+    -0.190983,		0.0398226,		0.200202,		-0.960135,
+    -0.314672,		0.0133503,		0.203687,		-0.926993,
+    -0.432976,		-0.0133504,		0.203687,		-0.877989,
+    -0.543873,		-0.0398227,		0.200202,		-0.813963,
+    -0.645463,		-0.0656136,		0.193291,		-0.73601,
+    -0.73601,		-0.0902818,		0.183073,		-0.645463,
+    -0.813963,		-0.113405,		0.169723,		-0.543873,
+    -0.877989,		-0.134588,		0.153469,		-0.432976,
+    -0.926993,		-0.153469,		0.134588,		-0.314671,
+    -0.960135,		-0.169723,		0.113405,		-0.190983,
+    -0.976849,		-0.183073,		0.0902818,		-0.064026,
+    -0.976849,		-0.193291,		0.0656135,		0.0640261,
+    -0.960135,		-0.200202,		0.0398226,		0.190983,
+    -0.926992,		-0.203687,		0.0133503,		0.314672,
+    0.627679,		0.305531,		0.0200255,		-0.71573,
+    0.528887,		0.300303,		0.059734,		-0.791535,
+    0.421046,		0.289937,		0.0984203,		-0.853797,
+    0.306001,		0.27461,		0.135423,		-0.901451,
+    0.18572,		0.254585,		0.170108,		-0.93368,
+    0.0622619,		0.230203,		0.201883,		-0.949933,
+    -0.0622619,		0.201883,		0.230203,		-0.949933,
+    -0.18572,		0.170108,		0.254585,		-0.93368,
+    -0.306001,		0.135423,		0.27461,		-0.901451,
+    -0.421046,		0.0984203,		0.289937,		-0.853797,
+    -0.528887,		0.059734,		0.300303,		-0.791535,
+    -0.627679,		0.0200255,		0.305531,		-0.71573,
+    -0.71573,		-0.0200256,		0.305531,		-0.627678,
+    -0.791536,		-0.059734,		0.300303,		-0.528887,
+    -0.853797,		-0.0984203,		0.289937,		-0.421046,
+    -0.901451,		-0.135423,		0.27461,		-0.306001,
+    -0.93368,		-0.170108,		0.254585,		-0.18572,
+    -0.949933,		-0.201883,		0.230203,		-0.0622619,
+    -0.949933,		-0.230203,		0.201883,		0.062262,
+    -0.93368,		-0.254585,		0.170108,		0.185721,
+    -0.901451,		-0.27461,		0.135423,		0.306001,
+    -0.853797,		-0.289937,		0.0984203,		0.421046,
+    -0.791535,		-0.300303,		0.0597339,		0.528887,
+    -0.71573,		-0.305531,		0.0200255,		0.627679,
+    0.18572,		0.305531,		0.0200255,		-0.93368,
+    0.0622619,		0.300303,		0.059734,		-0.949933,
+    -0.0622619,		0.289937,		0.0984203,		-0.949933,
+    -0.18572,		0.27461,		0.135423,		-0.93368,
+    -0.306001,		0.254585,		0.170108,		-0.901451,
+    -0.421046,		0.230203,		0.201883,		-0.853797,
+    -0.528887,		0.201883,		0.230203,		-0.791535,
+    -0.627679,		0.170108,		0.254585,		-0.71573,
+    -0.71573,		0.135423,		0.27461,		-0.627678,
+    -0.791536,		0.0984203,		0.289937,		-0.528887,
+    -0.853797,		0.059734,		0.300303,		-0.421046,
+    -0.901451,		0.0200255,		0.305531,		-0.306001,
+    -0.93368,		-0.0200256,		0.305531,		-0.18572,
+    -0.949933,		-0.059734,		0.300303,		-0.0622619,
+    -0.949933,		-0.0984203,		0.289937,		0.062262,
+    -0.93368,		-0.135423,		0.27461,		0.185721,
+    -0.901451,		-0.170108,		0.254585,		0.306001,
+    -0.853797,		-0.201883,		0.230203,		0.421046,
+    -0.791535,		-0.230203,		0.201883,		0.528887,
+    -0.71573,		-0.254585,		0.170108,		0.627679,
+    -0.627678,		-0.27461,		0.135423,		0.71573,
+    -0.528887,		-0.289937,		0.0984203,		0.791536,
+    -0.421046,		-0.300303,		0.0597339,		0.853797,
+    -0.306001,		-0.305531,		0.0200255,		0.901451,
+    0.119154,		0.407374,		0.0267007,		-0.905061,
+    -4.98786e-09,		0.400404,		0.0796453,		-0.912871,
+    -0.119154,		0.386583,		0.131227,		-0.905061,
+    -0.236268,		0.366147,		0.180564,		-0.881766,
+    -0.349341,		0.339446,		0.226811,		-0.843383,
+    -0.456435,		0.306937,		0.269177,		-0.790569,
+    -0.555721,		0.269177,		0.306937,		-0.724229,
+    -0.645497,		0.226811,		0.339446,		-0.645497,
+    -0.724229,		0.180564,		0.366147,		-0.555721,
+    -0.790569,		0.131227,		0.386583,		-0.456435,
+    -0.843383,		0.0796453,		0.400404,		-0.349341,
+    -0.881766,		0.0267007,		0.407374,		-0.236268,
+    -0.905061,		-0.0267007,		0.407374,		-0.119154,
+    -0.912871,		-0.0796453,		0.400404,		4.48907e-08,
+    -0.905061,		-0.131227,		0.386583,		0.119154,
+    -0.881766,		-0.180564,		0.366147,		0.236268,
+    -0.843383,		-0.226811,		0.339446,		0.349341,
+    -0.790569,		-0.269177,		0.306937,		0.456436,
+    -0.724229,		-0.306937,		0.269177,		0.555721,
+    -0.645497,		-0.339446,		0.226811,		0.645497,
+    -0.555721,		-0.366147,		0.180564,		0.724229,
+    -0.456435,		-0.386583,		0.131227,		0.790569,
+    -0.349341,		-0.400404,		0.0796453,		0.843383,
+    -0.236268,		-0.407374,		0.0267007,		0.881766,
+    0.456435,		0.407374,		0.0267007,		-0.790569,
+    0.349341,		0.400404,		0.0796453,		-0.843383,
+    0.236268,		0.386583,		0.131227,		-0.881766,
+    0.119154,		0.366147,		0.180564,		-0.905061,
+    -1.49636e-08,		0.339446,		0.226811,		-0.912871,
+    -0.119154,		0.306937,		0.269177,		-0.905061,
+    -0.236268,		0.269177,		0.306937,		-0.881766,
+    -0.349341,		0.226811,		0.339446,		-0.843383,
+    -0.456435,		0.180564,		0.366147,		-0.790569,
+    -0.555721,		0.131227,		0.386583,		-0.724229,
+    -0.645497,		0.0796453,		0.400404,		-0.645497,
+    -0.724229,		0.0267007,		0.407374,		-0.555721,
+    -0.790569,		-0.0267007,		0.407374,		-0.456435,
+    -0.843383,		-0.0796453,		0.400404,		-0.349341,
+    -0.881766,		-0.131227,		0.386583,		-0.236268,
+    -0.905061,		-0.180564,		0.366147,		-0.119154,
+    -0.912871,		-0.226811,		0.339446,		5.48664e-08,
+    -0.905061,		-0.269177,		0.306937,		0.119154,
+    -0.881766,		-0.306937,		0.269177,		0.236268,
+    -0.843383,		-0.339446,		0.226811,		0.349341,
+    -0.790569,		-0.366147,		0.180564,		0.456436,
+    -0.724229,		-0.386583,		0.131227,		0.555721,
+    -0.645497,		-0.400404,		0.0796453,		0.645497,
+    -0.555721,		-0.407374,		0.0267007,		0.724229,
+    0.278375,		0.498929,		0.0327016,		-0.820066,
+    0.168953,		0.490393,		0.0975452,		-0.849385,
+    0.0566408,		0.473465,		0.16072,		-0.864171,
+    -0.0566408,		0.448436,		0.221144,		-0.864171,
+    -0.168953,		0.415735,		0.277785,		-0.849385,
+    -0.278375,		0.37592,		0.329673,		-0.820066,
+    -0.383033,		0.329673,		0.37592,		-0.776715,
+    -0.481138,		0.277785,		0.415735,		-0.720074,
+    -0.57101,		0.221144,		0.448436,		-0.651112,
+    -0.651112,		0.16072,		0.473465,		-0.57101,
+    -0.720074,		0.0975451,		0.490393,		-0.481138,
+    -0.776715,		0.0327015,		0.498929,		-0.383033,
+    -0.820066,		-0.0327016,		0.498929,		-0.278375,
+    -0.849385,		-0.0975452,		0.490393,		-0.168953,
+    -0.864171,		-0.16072,		0.473465,		-0.0566407,
+    -0.864171,		-0.221144,		0.448436,		0.0566408,
+    -0.849385,		-0.277785,		0.415735,		0.168953,
+    -0.820066,		-0.329673,		0.37592,		0.278375,
+    -0.776715,		-0.37592,		0.329673,		0.383033,
+    -0.720074,		-0.415735,		0.277785,		0.481138,
+    -0.651112,		-0.448436,		0.221144,		0.57101,
+    -0.57101,		-0.473465,		0.16072,		0.651112,
+    -0.481138,		-0.490393,		0.0975451,		0.720074,
+    -0.383033,		-0.498929,		0.0327015,		0.776715,
+    0.901451,		0.305531,		0.0200255,		-0.306001,
+    0.853797,		0.300303,		0.059734,		-0.421046,
+    0.791535,		0.289937,		0.0984203,		-0.528887,
+    0.71573,		0.27461,		0.135423,		-0.627679,
+    0.627679,		0.254585,		0.170108,		-0.71573,
+    0.528887,		0.230203,		0.201883,		-0.791535,
+    0.421046,		0.201883,		0.230203,		-0.853797,
+    0.306001,		0.170108,		0.254585,		-0.901451,
+    0.18572,		0.135423,		0.27461,		-0.93368,
+    0.0622619,		0.0984203,		0.289937,		-0.949933,
+    -0.062262,		0.059734,		0.300303,		-0.949933,
+    -0.18572,		0.0200255,		0.305531,		-0.93368,
+    -0.306001,		-0.0200256,		0.305531,		-0.901451,
+    -0.421046,		-0.059734,		0.300303,		-0.853797,
+    -0.528887,		-0.0984203,		0.289937,		-0.791535,
+    -0.627679,		-0.135423,		0.27461,		-0.71573,
+    -0.71573,		-0.170108,		0.254585,		-0.627678,
+    -0.791536,		-0.201883,		0.230203,		-0.528887,
+    -0.853797,		-0.230203,		0.201883,		-0.421046,
+    -0.901451,		-0.254585,		0.170108,		-0.306001,
+    -0.93368,		-0.27461,		0.135423,		-0.18572,
+    -0.949933,		-0.289937,		0.0984203,		-0.0622618,
+    -0.949933,		-0.300303,		0.0597339,		0.062262,
+    -0.93368,		-0.305531,		0.0200255,		0.185721,
+    0.724229,		0.407374,		0.0267007,		-0.555721,
+    0.645497,		0.400404,		0.0796453,		-0.645497,
+    0.555721,		0.386583,		0.131227,		-0.724229,
+    0.456435,		0.366147,		0.180564,		-0.790569,
+    0.349341,		0.339446,		0.226811,		-0.843383,
+    0.236268,		0.306937,		0.269177,		-0.881766,
+    0.119154,		0.269177,		0.306937,		-0.905061,
+    -2.49393e-08,		0.226811,		0.339446,		-0.912871,
+    -0.119154,		0.180564,		0.366147,		-0.905061,
+    -0.236268,		0.131227,		0.386583,		-0.881766,
+    -0.349341,		0.0796453,		0.400404,		-0.843383,
+    -0.456435,		0.0267007,		0.407374,		-0.790569,
+    -0.555721,		-0.0267007,		0.407374,		-0.724229,
+    -0.645497,		-0.0796453,		0.400404,		-0.645497,
+    -0.724229,		-0.131227,		0.386583,		-0.555721,
+    -0.790569,		-0.180564,		0.366147,		-0.456435,
+    -0.843383,		-0.226811,		0.339446,		-0.349341,
+    -0.881766,		-0.269177,		0.306937,		-0.236268,
+    -0.905061,		-0.306937,		0.269177,		-0.119154,
+    -0.912871,		-0.339446,		0.226811,		6.48421e-08,
+    -0.905061,		-0.366147,		0.180564,		0.119154,
+    -0.881766,		-0.386583,		0.131227,		0.236268,
+    -0.843383,		-0.400404,		0.0796453,		0.349341,
+    -0.790569,		-0.407374,		0.0267007,		0.456436,
+    0.881766,		0.407374,		0.0267007,		-0.236268,
+    0.843383,		0.400404,		0.0796453,		-0.349341,
+    0.790569,		0.386583,		0.131227,		-0.456435,
+    0.724229,		0.366147,		0.180564,		-0.555721,
+    0.645497,		0.339446,		0.226811,		-0.645497,
+    0.555721,		0.306937,		0.269177,		-0.724229,
+    0.456435,		0.269177,		0.306937,		-0.790569,
+    0.349341,		0.226811,		0.339446,		-0.843383,
+    0.236268,		0.180564,		0.366147,		-0.881766,
+    0.119154,		0.131227,		0.386583,		-0.905061,
+    -3.4915e-08,		0.0796453,		0.400404,		-0.912871,
+    -0.119154,		0.0267007,		0.407374,		-0.905061,
+    -0.236268,		-0.0267007,		0.407374,		-0.881766,
+    -0.349341,		-0.0796453,		0.400404,		-0.843383,
+    -0.456436,		-0.131227,		0.386583,		-0.790569,
+    -0.555721,		-0.180564,		0.366147,		-0.724229,
+    -0.645497,		-0.226811,		0.339446,		-0.645497,
+    -0.724229,		-0.269177,		0.306937,		-0.555721,
+    -0.790569,		-0.306937,		0.269177,		-0.456435,
+    -0.843383,		-0.339446,		0.226811,		-0.349341,
+    -0.881766,		-0.366147,		0.180564,		-0.236268,
+    -0.905061,		-0.386583,		0.131227,		-0.119153,
+    -0.912871,		-0.400404,		0.0796453,		7.48179e-08,
+    -0.905061,		-0.407374,		0.0267007,		0.119154,
+    0.776715,		0.498929,		0.0327016,		-0.383033,
+    0.720074,		0.490393,		0.0975452,		-0.481138,
+    0.651112,		0.473465,		0.16072,		-0.57101,
+    0.57101,		0.448436,		0.221144,		-0.651112,
+    0.481138,		0.415735,		0.277785,		-0.720074,
+    0.383033,		0.37592,		0.329673,		-0.776715,
+    0.278375,		0.329673,		0.37592,		-0.820066,
+    0.168953,		0.277785,		0.415735,		-0.849385,
+    0.0566407,		0.221144,		0.448436,		-0.864171,
+    -0.0566408,		0.16072,		0.473465,		-0.864171,
+    -0.168953,		0.0975451,		0.490393,		-0.849385,
+    -0.278375,		0.0327015,		0.498929,		-0.820066,
+    -0.383033,		-0.0327016,		0.498929,		-0.776715,
+    -0.481138,		-0.0975452,		0.490393,		-0.720074,
+    -0.57101,		-0.16072,		0.473465,		-0.651112,
+    -0.651112,		-0.221144,		0.448436,		-0.57101,
+    -0.720074,		-0.277785,		0.415735,		-0.481138,
+    -0.776715,		-0.329673,		0.37592,		-0.383033,
+    -0.820066,		-0.37592,		0.329673,		-0.278375,
+    -0.849385,		-0.415735,		0.277785,		-0.168953,
+    -0.864171,		-0.448436,		0.221144,		-0.0566407,
+    -0.864171,		-0.473465,		0.16072,		0.0566408,
+    -0.849385,		-0.490393,		0.0975451,		0.168953,
+    -0.820066,		-0.498929,		0.0327015,		0.278375,
+    0.57101,		0.498929,		0.0327016,		-0.651112,
+    0.481138,		0.490393,		0.0975452,		-0.720074,
+    0.383033,		0.473465,		0.16072,		-0.776715,
+    0.278375,		0.448436,		0.221144,		-0.820066,
+    0.168953,		0.415735,		0.277785,		-0.849385,
+    0.0566408,		0.37592,		0.329673,		-0.864171,
+    -0.0566408,		0.329673,		0.37592,		-0.864171,
+    -0.168953,		0.277785,		0.415735,		-0.849385,
+    -0.278375,		0.221144,		0.448436,		-0.820066,
+    -0.383033,		0.16072,		0.473465,		-0.776715,
+    -0.481138,		0.0975451,		0.490393,		-0.720074,
+    -0.57101,		0.0327015,		0.498929,		-0.651112,
+    -0.651112,		-0.0327016,		0.498929,		-0.57101,
+    -0.720074,		-0.0975452,		0.490393,		-0.481138,
+    -0.776715,		-0.16072,		0.473465,		-0.383033,
+    -0.820066,		-0.221144,		0.448436,		-0.278375,
+    -0.849385,		-0.277785,		0.415735,		-0.168953,
+    -0.864171,		-0.329673,		0.37592,		-0.0566407,
+    -0.864171,		-0.37592,		0.329673,		0.0566408,
+    -0.849385,		-0.415735,		0.277785,		0.168953,
+    -0.820066,		-0.448436,		0.221144,		0.278375,
+    -0.776715,		-0.473465,		0.16072,		0.383033,
+    -0.720074,		-0.490393,		0.0975451,		0.481138,
+    -0.651112,		-0.498929,		0.0327015,		0.57101,
+    0.408248,		0.576114,		0.0377605,		-0.707107,
+    0.31246,		0.566257,		0.112635,		-0.754344,
+    0.211325,		0.54671,		0.185583,		-0.788675,
+    0.106574,		0.51781,		0.255356,		-0.809511,
+    -1.33838e-08,		0.480049,		0.320759,		-0.816497,
+    -0.106574,		0.434075,		0.380673,		-0.809511,
+    -0.211325,		0.380673,		0.434075,		-0.788675,
+    -0.31246,		0.320759,		0.480049,		-0.754344,
+    -0.408248,		0.255355,		0.51781,		-0.707107,
+    -0.497052,		0.185583,		0.54671,		-0.64777,
+    -0.57735,		0.112635,		0.566257,		-0.57735,
+    -0.64777,		0.0377605,		0.576114,		-0.497052,
+    -0.707107,		-0.0377605,		0.576114,		-0.408248,
+    -0.754344,		-0.112635,		0.566257,		-0.31246,
+    -0.788675,		-0.185583,		0.54671,		-0.211325,
+    -0.809511,		-0.255356,		0.51781,		-0.106574,
+    -0.816497,		-0.320759,		0.480049,		4.9074e-08,
+    -0.809511,		-0.380674,		0.434075,		0.106574,
+    -0.788675,		-0.434075,		0.380673,		0.211325,
+    -0.754344,		-0.480049,		0.320759,		0.31246,
+    -0.707107,		-0.51781,		0.255355,		0.408248,
+    -0.64777,		-0.54671,		0.185583,		0.497052,
+    -0.57735,		-0.566257,		0.112635,		0.57735,
+    -0.497052,		-0.576114,		0.0377605,		0.64777,
+    0.64777,		0.576114,		0.0377605,		-0.497052,
+    0.57735,		0.566257,		0.112635,		-0.57735,
+    0.497052,		0.54671,		0.185583,		-0.64777,
+    0.408248,		0.51781,		0.255356,		-0.707107,
+    0.31246,		0.480049,		0.320759,		-0.754344,
+    0.211325,		0.434075,		0.380673,		-0.788675,
+    0.106574,		0.380673,		0.434075,		-0.809511,
+    -2.23064e-08,		0.320759,		0.480049,		-0.816497,
+    -0.106574,		0.255355,		0.51781,		-0.809511,
+    -0.211325,		0.185583,		0.54671,		-0.788675,
+    -0.31246,		0.112635,		0.566257,		-0.754344,
+    -0.408248,		0.0377605,		0.576114,		-0.707107,
+    -0.497052,		-0.0377605,		0.576114,		-0.64777,
+    -0.57735,		-0.112635,		0.566257,		-0.57735,
+    -0.64777,		-0.185583,		0.54671,		-0.497052,
+    -0.707107,		-0.255356,		0.51781,		-0.408248,
+    -0.754344,		-0.320759,		0.480049,		-0.31246,
+    -0.788675,		-0.380674,		0.434075,		-0.211325,
+    -0.809511,		-0.434075,		0.380673,		-0.106574,
+    -0.816497,		-0.480049,		0.320759,		5.79966e-08,
+    -0.809511,		-0.51781,		0.255355,		0.106574,
+    -0.788675,		-0.54671,		0.185583,		0.211325,
+    -0.754344,		-0.566257,		0.112635,		0.31246,
+    -0.707107,		-0.576114,		0.0377605,		0.408248,
+    0.503584,		0.644115,		0.0422175,		-0.574227,
+    0.424324,		0.633094,		0.12593,		-0.635045,
+    0.337804,		0.611241,		0.207488,		-0.684998,
+    0.245503,		0.578929,		0.285496,		-0.72323,
+    0.149003,		0.536711,		0.358619,		-0.749087,
+    0.0499524,		0.485311,		0.425606,		-0.762127,
+    -0.0499525,		0.425606,		0.485311,		-0.762127,
+    -0.149003,		0.358619,		0.536711,		-0.749087,
+    -0.245503,		0.285496,		0.578929,		-0.72323,
+    -0.337804,		0.207488,		0.611241,		-0.684998,
+    -0.424324,		0.12593,		0.633094,		-0.635045,
+    -0.503584,		0.0422175,		0.644115,		-0.574227,
+    -0.574227,		-0.0422176,		0.644115,		-0.503584,
+    -0.635045,		-0.12593,		0.633094,		-0.424324,
+    -0.684998,		-0.207488,		0.611241,		-0.337804,
+    -0.72323,		-0.285496,		0.578929,		-0.245503,
+    -0.749087,		-0.358619,		0.536711,		-0.149003,
+    -0.762127,		-0.425606,		0.48531,		-0.0499524,
+    -0.762127,		-0.485311,		0.425606,		0.0499525,
+    -0.749087,		-0.536711,		0.358619,		0.149003,
+    -0.72323,		-0.578929,		0.285496,		0.245504,
+    -0.684998,		-0.611241,		0.207488,		0.337804,
+    -0.635045,		-0.633094,		0.12593,		0.424324,
+    -0.574227,		-0.644115,		0.0422175,		0.503584,
+    -0.747914,		0.101844,		0.00667518,		-0.655903,
+    -0.827128,		0.100101,		0.0199113,		-0.552669,
+    -0.892189,		0.0966457,		0.0328068,		-0.439979,
+    -0.941985,		0.0915367,		0.0451409,		-0.319761,
+    -0.975664,		0.0848615,		0.0567027,		-0.194072,
+    -0.992648,		0.0767343,		0.0672942,		-0.0650616,
+    -0.992648,		0.0672942,		0.0767343,		0.0650616,
+    -0.975664,		0.0567026,		0.0848615,		0.194072,
+    -0.941985,		0.0451409,		0.0915367,		0.319761,
+    -0.892189,		0.0328068,		0.0966457,		0.439979,
+    -0.827128,		0.0199113,		0.100101,		0.552669,
+    -0.747914,		0.00667517,		0.101844,		0.655903,
+    -0.655903,		-0.00667518,		0.101844,		0.747914,
+    -0.552669,		-0.0199113,		0.100101,		0.827128,
+    -0.439979,		-0.0328068,		0.0966456,		0.892189,
+    -0.319761,		-0.0451409,		0.0915367,		0.941985,
+    -0.194072,		-0.0567027,		0.0848615,		0.975664,
+    -0.0650615,		-0.0672942,		0.0767343,		0.992648,
+    0.0650617,		-0.0767343,		0.0672942,		0.992648,
+    0.194072,		-0.0848615,		0.0567026,		0.975664,
+    0.319761,		-0.0915367,		0.0451409,		0.941985,
+    0.439979,		-0.0966457,		0.0328068,		0.892189,
+    0.552669,		-0.100101,		0.0199113,		0.827128,
+    0.655903,		-0.101844,		0.00667517,		0.747914,
+    -0.926993,		0.203687,		0.0133504,		-0.314672,
+    -0.960135,		0.200202,		0.0398226,		-0.190983,
+    -0.976849,		0.193291,		0.0656136,		-0.0640261,
+    -0.976849,		0.183073,		0.0902818,		0.0640261,
+    -0.960135,		0.169723,		0.113405,		0.190983,
+    -0.926993,		0.153469,		0.134588,		0.314672,
+    -0.877989,		0.134588,		0.153469,		0.432976,
+    -0.813963,		0.113405,		0.169723,		0.543873,
+    -0.73601,		0.0902818,		0.183073,		0.645463,
+    -0.645463,		0.0656135,		0.193291,		0.73601,
+    -0.543873,		0.0398226,		0.200202,		0.813963,
+    -0.432976,		0.0133503,		0.203687,		0.877989,
+    -0.314672,		-0.0133504,		0.203687,		0.926993,
+    -0.190983,		-0.0398227,		0.200202,		0.960135,
+    -0.064026,		-0.0656136,		0.193291,		0.976849,
+    0.0640261,		-0.0902818,		0.183073,		0.976849,
+    0.190983,		-0.113405,		0.169723,		0.960135,
+    0.314672,		-0.134588,		0.153469,		0.926993,
+    0.432976,		-0.153469,		0.134588,		0.877989,
+    0.543873,		-0.169723,		0.113405,		0.813963,
+    0.645463,		-0.183073,		0.0902818,		0.73601,
+    0.73601,		-0.193291,		0.0656135,		0.645463,
+    0.813963,		-0.200202,		0.0398226,		0.543873,
+    0.877989,		-0.203687,		0.0133503,		0.432976,
+    -0.432976,		0.203687,		0.0133504,		-0.877989,
+    -0.543873,		0.200202,		0.0398226,		-0.813963,
+    -0.645463,		0.193291,		0.0656136,		-0.73601,
+    -0.73601,		0.183073,		0.0902818,		-0.645463,
+    -0.813963,		0.169723,		0.113405,		-0.543873,
+    -0.877989,		0.153469,		0.134588,		-0.432976,
+    -0.926993,		0.134588,		0.153469,		-0.314672,
+    -0.960135,		0.113405,		0.169723,		-0.190983,
+    -0.976849,		0.0902818,		0.183073,		-0.064026,
+    -0.976849,		0.0656135,		0.193291,		0.0640261,
+    -0.960135,		0.0398226,		0.200202,		0.190983,
+    -0.926993,		0.0133503,		0.203687,		0.314672,
+    -0.877989,		-0.0133504,		0.203687,		0.432976,
+    -0.813963,		-0.0398227,		0.200202,		0.543873,
+    -0.73601,		-0.0656136,		0.193291,		0.645463,
+    -0.645463,		-0.0902818,		0.183073,		0.73601,
+    -0.543873,		-0.113405,		0.169723,		0.813963,
+    -0.432976,		-0.134588,		0.153469,		0.877989,
+    -0.314671,		-0.153469,		0.134588,		0.926993,
+    -0.190983,		-0.169723,		0.113405,		0.960135,
+    -0.064026,		-0.183073,		0.0902818,		0.976849,
+    0.0640261,		-0.193291,		0.0656135,		0.976849,
+    0.190983,		-0.200202,		0.0398226,		0.960135,
+    0.314672,		-0.203687,		0.0133503,		0.926992,
+    -0.71573,		0.305531,		0.0200255,		-0.627679,
+    -0.791535,		0.300303,		0.059734,		-0.528887,
+    -0.853797,		0.289937,		0.0984203,		-0.421046,
+    -0.901451,		0.27461,		0.135423,		-0.306001,
+    -0.93368,		0.254585,		0.170108,		-0.18572,
+    -0.949933,		0.230203,		0.201883,		-0.0622619,
+    -0.949933,		0.201883,		0.230203,		0.0622619,
+    -0.93368,		0.170108,		0.254585,		0.18572,
+    -0.901451,		0.135423,		0.27461,		0.306001,
+    -0.853797,		0.0984203,		0.289937,		0.421046,
+    -0.791535,		0.059734,		0.300303,		0.528887,
+    -0.71573,		0.0200255,		0.305531,		0.627679,
+    -0.627678,		-0.0200256,		0.305531,		0.71573,
+    -0.528887,		-0.059734,		0.300303,		0.791536,
+    -0.421046,		-0.0984203,		0.289937,		0.853797,
+    -0.306001,		-0.135423,		0.27461,		0.901451,
+    -0.18572,		-0.170108,		0.254585,		0.93368,
+    -0.0622619,		-0.201883,		0.230203,		0.949933,
+    0.062262,		-0.230203,		0.201883,		0.949933,
+    0.185721,		-0.254585,		0.170108,		0.93368,
+    0.306001,		-0.27461,		0.135423,		0.901451,
+    0.421046,		-0.289937,		0.0984203,		0.853797,
+    0.528887,		-0.300303,		0.0597339,		0.791535,
+    0.627679,		-0.305531,		0.0200255,		0.71573,
+    -0.93368,		0.305531,		0.0200255,		-0.18572,
+    -0.949933,		0.300303,		0.059734,		-0.0622619,
+    -0.949933,		0.289937,		0.0984203,		0.0622619,
+    -0.93368,		0.27461,		0.135423,		0.18572,
+    -0.901451,		0.254585,		0.170108,		0.306001,
+    -0.853797,		0.230203,		0.201883,		0.421046,
+    -0.791535,		0.201883,		0.230203,		0.528887,
+    -0.71573,		0.170108,		0.254585,		0.627679,
+    -0.627678,		0.135423,		0.27461,		0.71573,
+    -0.528887,		0.0984203,		0.289937,		0.791536,
+    -0.421046,		0.059734,		0.300303,		0.853797,
+    -0.306001,		0.0200255,		0.305531,		0.901451,
+    -0.18572,		-0.0200256,		0.305531,		0.93368,
+    -0.0622619,		-0.059734,		0.300303,		0.949933,
+    0.062262,		-0.0984203,		0.289937,		0.949933,
+    0.185721,		-0.135423,		0.27461,		0.93368,
+    0.306001,		-0.170108,		0.254585,		0.901451,
+    0.421046,		-0.201883,		0.230203,		0.853797,
+    0.528887,		-0.230203,		0.201883,		0.791535,
+    0.627679,		-0.254585,		0.170108,		0.71573,
+    0.71573,		-0.27461,		0.135423,		0.627678,
+    0.791536,		-0.289937,		0.0984203,		0.528887,
+    0.853797,		-0.300303,		0.0597339,		0.421046,
+    0.901451,		-0.305531,		0.0200255,		0.306001,
+    -0.905061,		0.407374,		0.0267007,		-0.119154,
+    -0.912871,		0.400404,		0.0796453,		4.98786e-09,
+    -0.905061,		0.386583,		0.131227,		0.119154,
+    -0.881766,		0.366147,		0.180564,		0.236268,
+    -0.843383,		0.339446,		0.226811,		0.349341,
+    -0.790569,		0.306937,		0.269177,		0.456435,
+    -0.724229,		0.269177,		0.306937,		0.555721,
+    -0.645497,		0.226811,		0.339446,		0.645497,
+    -0.555721,		0.180564,		0.366147,		0.724229,
+    -0.456435,		0.131227,		0.386583,		0.790569,
+    -0.349341,		0.0796453,		0.400404,		0.843383,
+    -0.236268,		0.0267007,		0.407374,		0.881766,
+    -0.119154,		-0.0267007,		0.407374,		0.905061,
+    4.48907e-08,		-0.0796453,		0.400404,		0.912871,
+    0.119154,		-0.131227,		0.386583,		0.905061,
+    0.236268,		-0.180564,		0.366147,		0.881766,
+    0.349341,		-0.226811,		0.339446,		0.843383,
+    0.456436,		-0.269177,		0.306937,		0.790569,
+    0.555721,		-0.306937,		0.269177,		0.724229,
+    0.645497,		-0.339446,		0.226811,		0.645497,
+    0.724229,		-0.366147,		0.180564,		0.555721,
+    0.790569,		-0.386583,		0.131227,		0.456435,
+    0.843383,		-0.400404,		0.0796453,		0.349341,
+    0.881766,		-0.407374,		0.0267007,		0.236268,
+    -0.790569,		0.407374,		0.0267007,		-0.456435,
+    -0.843383,		0.400404,		0.0796453,		-0.349341,
+    -0.881766,		0.386583,		0.131227,		-0.236268,
+    -0.905061,		0.366147,		0.180564,		-0.119154,
+    -0.912871,		0.339446,		0.226811,		1.49636e-08,
+    -0.905061,		0.306937,		0.269177,		0.119154,
+    -0.881766,		0.269177,		0.306937,		0.236268,
+    -0.843383,		0.226811,		0.339446,		0.349341,
+    -0.790569,		0.180564,		0.366147,		0.456435,
+    -0.724229,		0.131227,		0.386583,		0.555721,
+    -0.645497,		0.0796453,		0.400404,		0.645497,
+    -0.555721,		0.0267007,		0.407374,		0.724229,
+    -0.456435,		-0.0267007,		0.407374,		0.790569,
+    -0.349341,		-0.0796453,		0.400404,		0.843383,
+    -0.236268,		-0.131227,		0.386583,		0.881766,
+    -0.119154,		-0.180564,		0.366147,		0.905061,
+    5.48664e-08,		-0.226811,		0.339446,		0.912871,
+    0.119154,		-0.269177,		0.306937,		0.905061,
+    0.236268,		-0.306937,		0.269177,		0.881766,
+    0.349341,		-0.339446,		0.226811,		0.843383,
+    0.456436,		-0.366147,		0.180564,		0.790569,
+    0.555721,		-0.386583,		0.131227,		0.724229,
+    0.645497,		-0.400404,		0.0796453,		0.645497,
+    0.724229,		-0.407374,		0.0267007,		0.555721,
+    -0.820066,		0.498929,		0.0327016,		-0.278375,
+    -0.849385,		0.490393,		0.0975452,		-0.168953,
+    -0.864171,		0.473465,		0.16072,		-0.0566408,
+    -0.864171,		0.448436,		0.221144,		0.0566408,
+    -0.849385,		0.415735,		0.277785,		0.168953,
+    -0.820066,		0.37592,		0.329673,		0.278375,
+    -0.776715,		0.329673,		0.37592,		0.383033,
+    -0.720074,		0.277785,		0.415735,		0.481138,
+    -0.651112,		0.221144,		0.448436,		0.57101,
+    -0.57101,		0.16072,		0.473465,		0.651112,
+    -0.481138,		0.0975451,		0.490393,		0.720074,
+    -0.383033,		0.0327015,		0.498929,		0.776715,
+    -0.278375,		-0.0327016,		0.498929,		0.820066,
+    -0.168953,		-0.0975452,		0.490393,		0.849385,
+    -0.0566407,		-0.16072,		0.473465,		0.864171,
+    0.0566408,		-0.221144,		0.448436,		0.864171,
+    0.168953,		-0.277785,		0.415735,		0.849385,
+    0.278375,		-0.329673,		0.37592,		0.820066,
+    0.383033,		-0.37592,		0.329673,		0.776715,
+    0.481138,		-0.415735,		0.277785,		0.720074,
+    0.57101,		-0.448436,		0.221144,		0.651112,
+    0.651112,		-0.473465,		0.16072,		0.57101,
+    0.720074,		-0.490393,		0.0975451,		0.481138,
+    0.776715,		-0.498929,		0.0327015,		0.383033,
+    -0.306001,		0.305531,		0.0200255,		-0.901451,
+    -0.421046,		0.300303,		0.059734,		-0.853797,
+    -0.528887,		0.289937,		0.0984203,		-0.791535,
+    -0.627679,		0.27461,		0.135423,		-0.71573,
+    -0.71573,		0.254585,		0.170108,		-0.627679,
+    -0.791535,		0.230203,		0.201883,		-0.528887,
+    -0.853797,		0.201883,		0.230203,		-0.421046,
+    -0.901451,		0.170108,		0.254585,		-0.306001,
+    -0.93368,		0.135423,		0.27461,		-0.18572,
+    -0.949933,		0.0984203,		0.289937,		-0.0622619,
+    -0.949933,		0.059734,		0.300303,		0.062262,
+    -0.93368,		0.0200255,		0.305531,		0.18572,
+    -0.901451,		-0.0200256,		0.305531,		0.306001,
+    -0.853797,		-0.059734,		0.300303,		0.421046,
+    -0.791535,		-0.0984203,		0.289937,		0.528887,
+    -0.71573,		-0.135423,		0.27461,		0.627679,
+    -0.627678,		-0.170108,		0.254585,		0.71573,
+    -0.528887,		-0.201883,		0.230203,		0.791536,
+    -0.421046,		-0.230203,		0.201883,		0.853797,
+    -0.306001,		-0.254585,		0.170108,		0.901451,
+    -0.18572,		-0.27461,		0.135423,		0.93368,
+    -0.0622618,		-0.289937,		0.0984203,		0.949933,
+    0.062262,		-0.300303,		0.0597339,		0.949933,
+    0.185721,		-0.305531,		0.0200255,		0.93368,
+    -0.555721,		0.407374,		0.0267007,		-0.724229,
+    -0.645497,		0.400404,		0.0796453,		-0.645497,
+    -0.724229,		0.386583,		0.131227,		-0.555721,
+    -0.790569,		0.366147,		0.180564,		-0.456435,
+    -0.843383,		0.339446,		0.226811,		-0.349341,
+    -0.881766,		0.306937,		0.269177,		-0.236268,
+    -0.905061,		0.269177,		0.306937,		-0.119154,
+    -0.912871,		0.226811,		0.339446,		2.49393e-08,
+    -0.905061,		0.180564,		0.366147,		0.119154,
+    -0.881766,		0.131227,		0.386583,		0.236268,
+    -0.843383,		0.0796453,		0.400404,		0.349341,
+    -0.790569,		0.0267007,		0.407374,		0.456435,
+    -0.724229,		-0.0267007,		0.407374,		0.555721,
+    -0.645497,		-0.0796453,		0.400404,		0.645497,
+    -0.555721,		-0.131227,		0.386583,		0.724229,
+    -0.456435,		-0.180564,		0.366147,		0.790569,
+    -0.349341,		-0.226811,		0.339446,		0.843383,
+    -0.236268,		-0.269177,		0.306937,		0.881766,
+    -0.119154,		-0.306937,		0.269177,		0.905061,
+    6.48421e-08,		-0.339446,		0.226811,		0.912871,
+    0.119154,		-0.366147,		0.180564,		0.905061,
+    0.236268,		-0.386583,		0.131227,		0.881766,
+    0.349341,		-0.400404,		0.0796453,		0.843383,
+    0.456436,		-0.407374,		0.0267007,		0.790569,
+    -0.236268,		0.407374,		0.0267007,		-0.881766,
+    -0.349341,		0.400404,		0.0796453,		-0.843383,
+    -0.456435,		0.386583,		0.131227,		-0.790569,
+    -0.555721,		0.366147,		0.180564,		-0.724229,
+    -0.645497,		0.339446,		0.226811,		-0.645497,
+    -0.724229,		0.306937,		0.269177,		-0.555721,
+    -0.790569,		0.269177,		0.306937,		-0.456435,
+    -0.843383,		0.226811,		0.339446,		-0.349341,
+    -0.881766,		0.180564,		0.366147,		-0.236268,
+    -0.905061,		0.131227,		0.386583,		-0.119154,
+    -0.912871,		0.0796453,		0.400404,		3.4915e-08,
+    -0.905061,		0.0267007,		0.407374,		0.119154,
+    -0.881766,		-0.0267007,		0.407374,		0.236268,
+    -0.843383,		-0.0796453,		0.400404,		0.349341,
+    -0.790569,		-0.131227,		0.386583,		0.456436,
+    -0.724229,		-0.180564,		0.366147,		0.555721,
+    -0.645497,		-0.226811,		0.339446,		0.645497,
+    -0.555721,		-0.269177,		0.306937,		0.724229,
+    -0.456435,		-0.306937,		0.269177,		0.790569,
+    -0.349341,		-0.339446,		0.226811,		0.843383,
+    -0.236268,		-0.366147,		0.180564,		0.881766,
+    -0.119153,		-0.386583,		0.131227,		0.905061,
+    7.48179e-08,		-0.400404,		0.0796453,		0.912871,
+    0.119154,		-0.407374,		0.0267007,		0.905061,
+    -0.383033,		0.498929,		0.0327016,		-0.776715,
+    -0.481138,		0.490393,		0.0975452,		-0.720074,
+    -0.57101,		0.473465,		0.16072,		-0.651112,
+    -0.651112,		0.448436,		0.221144,		-0.57101,
+    -0.720074,		0.415735,		0.277785,		-0.481138,
+    -0.776715,		0.37592,		0.329673,		-0.383033,
+    -0.820066,		0.329673,		0.37592,		-0.278375,
+    -0.849385,		0.277785,		0.415735,		-0.168953,
+    -0.864171,		0.221144,		0.448436,		-0.0566407,
+    -0.864171,		0.16072,		0.473465,		0.0566408,
+    -0.849385,		0.0975451,		0.490393,		0.168953,
+    -0.820066,		0.0327015,		0.498929,		0.278375,
+    -0.776715,		-0.0327016,		0.498929,		0.383033,
+    -0.720074,		-0.0975452,		0.490393,		0.481138,
+    -0.651112,		-0.16072,		0.473465,		0.57101,
+    -0.57101,		-0.221144,		0.448436,		0.651112,
+    -0.481138,		-0.277785,		0.415735,		0.720074,
+    -0.383033,		-0.329673,		0.37592,		0.776715,
+    -0.278375,		-0.37592,		0.329673,		0.820066,
+    -0.168953,		-0.415735,		0.277785,		0.849385,
+    -0.0566407,		-0.448436,		0.221144,		0.864171,
+    0.0566408,		-0.473465,		0.16072,		0.864171,
+    0.168953,		-0.490393,		0.0975451,		0.849385,
+    0.278375,		-0.498929,		0.0327015,		0.820066,
+    -0.651112,		0.498929,		0.0327016,		-0.57101,
+    -0.720074,		0.490393,		0.0975452,		-0.481138,
+    -0.776715,		0.473465,		0.16072,		-0.383033,
+    -0.820066,		0.448436,		0.221144,		-0.278375,
+    -0.849385,		0.415735,		0.277785,		-0.168953,
+    -0.864171,		0.37592,		0.329673,		-0.0566408,
+    -0.864171,		0.329673,		0.37592,		0.0566408,
+    -0.849385,		0.277785,		0.415735,		0.168953,
+    -0.820066,		0.221144,		0.448436,		0.278375,
+    -0.776715,		0.16072,		0.473465,		0.383033,
+    -0.720074,		0.0975451,		0.490393,		0.481138,
+    -0.651112,		0.0327015,		0.498929,		0.57101,
+    -0.57101,		-0.0327016,		0.498929,		0.651112,
+    -0.481138,		-0.0975452,		0.490393,		0.720074,
+    -0.383033,		-0.16072,		0.473465,		0.776715,
+    -0.278375,		-0.221144,		0.448436,		0.820066,
+    -0.168953,		-0.277785,		0.415735,		0.849385,
+    -0.0566407,		-0.329673,		0.37592,		0.864171,
+    0.0566408,		-0.37592,		0.329673,		0.864171,
+    0.168953,		-0.415735,		0.277785,		0.849385,
+    0.278375,		-0.448436,		0.221144,		0.820066,
+    0.383033,		-0.473465,		0.16072,		0.776715,
+    0.481138,		-0.490393,		0.0975451,		0.720074,
+    0.57101,		-0.498929,		0.0327015,		0.651112,
+    -0.707107,		0.576114,		0.0377605,		-0.408248,
+    -0.754344,		0.566257,		0.112635,		-0.31246,
+    -0.788675,		0.54671,		0.185583,		-0.211325,
+    -0.809511,		0.51781,		0.255356,		-0.106574,
+    -0.816497,		0.480049,		0.320759,		1.33838e-08,
+    -0.809511,		0.434075,		0.380673,		0.106574,
+    -0.788675,		0.380673,		0.434075,		0.211325,
+    -0.754344,		0.320759,		0.480049,		0.31246,
+    -0.707107,		0.255355,		0.51781,		0.408248,
+    -0.64777,		0.185583,		0.54671,		0.497052,
+    -0.57735,		0.112635,		0.566257,		0.57735,
+    -0.497052,		0.0377605,		0.576114,		0.64777,
+    -0.408248,		-0.0377605,		0.576114,		0.707107,
+    -0.31246,		-0.112635,		0.566257,		0.754344,
+    -0.211325,		-0.185583,		0.54671,		0.788675,
+    -0.106574,		-0.255356,		0.51781,		0.809511,
+    4.9074e-08,		-0.320759,		0.480049,		0.816497,
+    0.106574,		-0.380674,		0.434075,		0.809511,
+    0.211325,		-0.434075,		0.380673,		0.788675,
+    0.31246,		-0.480049,		0.320759,		0.754344,
+    0.408248,		-0.51781,		0.255355,		0.707107,
+    0.497052,		-0.54671,		0.185583,		0.64777,
+    0.57735,		-0.566257,		0.112635,		0.57735,
+    0.64777,		-0.576114,		0.0377605,		0.497052,
+    -0.497052,		0.576114,		0.0377605,		-0.64777,
+    -0.57735,		0.566257,		0.112635,		-0.57735,
+    -0.64777,		0.54671,		0.185583,		-0.497052,
+    -0.707107,		0.51781,		0.255356,		-0.408248,
+    -0.754344,		0.480049,		0.320759,		-0.31246,
+    -0.788675,		0.434075,		0.380673,		-0.211325,
+    -0.809511,		0.380673,		0.434075,		-0.106574,
+    -0.816497,		0.320759,		0.480049,		2.23064e-08,
+    -0.809511,		0.255355,		0.51781,		0.106574,
+    -0.788675,		0.185583,		0.54671,		0.211325,
+    -0.754344,		0.112635,		0.566257,		0.31246,
+    -0.707107,		0.0377605,		0.576114,		0.408248,
+    -0.64777,		-0.0377605,		0.576114,		0.497052,
+    -0.57735,		-0.112635,		0.566257,		0.57735,
+    -0.497052,		-0.185583,		0.54671,		0.64777,
+    -0.408248,		-0.255356,		0.51781,		0.707107,
+    -0.31246,		-0.320759,		0.480049,		0.754344,
+    -0.211325,		-0.380674,		0.434075,		0.788675,
+    -0.106574,		-0.434075,		0.380673,		0.809511,
+    5.79966e-08,		-0.480049,		0.320759,		0.816497,
+    0.106574,		-0.51781,		0.255355,		0.809511,
+    0.211325,		-0.54671,		0.185583,		0.788675,
+    0.31246,		-0.566257,		0.112635,		0.754344,
+    0.408248,		-0.576114,		0.0377605,		0.707107,
+    -0.574227,		0.644115,		0.0422175,		-0.503584,
+    -0.635045,		0.633094,		0.12593,		-0.424324,
+    -0.684998,		0.611241,		0.207488,		-0.337804,
+    -0.72323,		0.578929,		0.285496,		-0.245503,
+    -0.749087,		0.536711,		0.358619,		-0.149003,
+    -0.762127,		0.485311,		0.425606,		-0.0499524,
+    -0.762127,		0.425606,		0.485311,		0.0499525,
+    -0.749087,		0.358619,		0.536711,		0.149003,
+    -0.72323,		0.285496,		0.578929,		0.245503,
+    -0.684998,		0.207488,		0.611241,		0.337804,
+    -0.635045,		0.12593,		0.633094,		0.424324,
+    -0.574227,		0.0422175,		0.644115,		0.503584,
+    -0.503584,		-0.0422176,		0.644115,		0.574227,
+    -0.424324,		-0.12593,		0.633094,		0.635045,
+    -0.337804,		-0.207488,		0.611241,		0.684998,
+    -0.245503,		-0.285496,		0.578929,		0.72323,
+    -0.149003,		-0.358619,		0.536711,		0.749087,
+    -0.0499524,		-0.425606,		0.48531,		0.762127,
+    0.0499525,		-0.485311,		0.425606,		0.762127,
+    0.149003,		-0.536711,		0.358619,		0.749087,
+    0.245504,		-0.578929,		0.285496,		0.72323,
+    0.337804,		-0.611241,		0.207488,		0.684998,
+    0.424324,		-0.633094,		0.12593,		0.635045,
+    0.503584,		-0.644115,		0.0422175,		0.574227,
+    -0.655903,		0.101844,		0.00667518,		0.747914,
+    -0.552669,		0.100101,		0.0199113,		0.827128,
+    -0.439979,		0.0966457,		0.0328068,		0.892189,
+    -0.319761,		0.0915367,		0.0451409,		0.941985,
+    -0.194072,		0.0848615,		0.0567027,		0.975664,
+    -0.0650616,		0.0767343,		0.0672942,		0.992648,
+    0.0650616,		0.0672942,		0.0767343,		0.992648,
+    0.194072,		0.0567026,		0.0848615,		0.975664,
+    0.319761,		0.0451409,		0.0915367,		0.941985,
+    0.439979,		0.0328068,		0.0966457,		0.892189,
+    0.552669,		0.0199113,		0.100101,		0.827128,
+    0.655903,		0.00667517,		0.101844,		0.747914,
+    0.747914,		-0.00667518,		0.101844,		0.655903,
+    0.827128,		-0.0199113,		0.100101,		0.552669,
+    0.892189,		-0.0328068,		0.0966456,		0.439979,
+    0.941985,		-0.0451409,		0.0915367,		0.319761,
+    0.975664,		-0.0567027,		0.0848615,		0.194072,
+    0.992648,		-0.0672942,		0.0767343,		0.0650615,
+    0.992648,		-0.0767343,		0.0672942,		-0.0650617,
+    0.975664,		-0.0848615,		0.0567026,		-0.194072,
+    0.941985,		-0.0915367,		0.0451409,		-0.319761,
+    0.892189,		-0.0966457,		0.0328068,		-0.439979,
+    0.827128,		-0.100101,		0.0199113,		-0.552669,
+    0.747914,		-0.101844,		0.00667517,		-0.655903,
+    -0.314672,		0.203687,		0.0133504,		0.926993,
+    -0.190983,		0.200202,		0.0398226,		0.960135,
+    -0.0640261,		0.193291,		0.0656136,		0.976849,
+    0.0640261,		0.183073,		0.0902818,		0.976849,
+    0.190983,		0.169723,		0.113405,		0.960135,
+    0.314672,		0.153469,		0.134588,		0.926993,
+    0.432976,		0.134588,		0.153469,		0.877989,
+    0.543873,		0.113405,		0.169723,		0.813963,
+    0.645463,		0.0902818,		0.183073,		0.73601,
+    0.73601,		0.0656135,		0.193291,		0.645463,
+    0.813963,		0.0398226,		0.200202,		0.543873,
+    0.877989,		0.0133503,		0.203687,		0.432976,
+    0.926993,		-0.0133504,		0.203687,		0.314672,
+    0.960135,		-0.0398227,		0.200202,		0.190983,
+    0.976849,		-0.0656136,		0.193291,		0.064026,
+    0.976849,		-0.0902818,		0.183073,		-0.0640261,
+    0.960135,		-0.113405,		0.169723,		-0.190983,
+    0.926993,		-0.134588,		0.153469,		-0.314672,
+    0.877989,		-0.153469,		0.134588,		-0.432976,
+    0.813963,		-0.169723,		0.113405,		-0.543873,
+    0.73601,		-0.183073,		0.0902818,		-0.645463,
+    0.645463,		-0.193291,		0.0656135,		-0.73601,
+    0.543873,		-0.200202,		0.0398226,		-0.813963,
+    0.432976,		-0.203687,		0.0133503,		-0.877989,
+    -0.877989,		0.203687,		0.0133504,		0.432976,
+    -0.813963,		0.200202,		0.0398226,		0.543873,
+    -0.73601,		0.193291,		0.0656136,		0.645463,
+    -0.645463,		0.183073,		0.0902818,		0.73601,
+    -0.543873,		0.169723,		0.113405,		0.813963,
+    -0.432976,		0.153469,		0.134588,		0.877989,
+    -0.314672,		0.134588,		0.153469,		0.926993,
+    -0.190983,		0.113405,		0.169723,		0.960135,
+    -0.064026,		0.0902818,		0.183073,		0.976849,
+    0.0640261,		0.0656135,		0.193291,		0.976849,
+    0.190983,		0.0398226,		0.200202,		0.960135,
+    0.314672,		0.0133503,		0.203687,		0.926993,
+    0.432976,		-0.0133504,		0.203687,		0.877989,
+    0.543873,		-0.0398227,		0.200202,		0.813963,
+    0.645463,		-0.0656136,		0.193291,		0.73601,
+    0.73601,		-0.0902818,		0.183073,		0.645463,
+    0.813963,		-0.113405,		0.169723,		0.543873,
+    0.877989,		-0.134588,		0.153469,		0.432976,
+    0.926993,		-0.153469,		0.134588,		0.314671,
+    0.960135,		-0.169723,		0.113405,		0.190983,
+    0.976849,		-0.183073,		0.0902818,		0.064026,
+    0.976849,		-0.193291,		0.0656135,		-0.0640261,
+    0.960135,		-0.200202,		0.0398226,		-0.190983,
+    0.926992,		-0.203687,		0.0133503,		-0.314672,
+    -0.627679,		0.305531,		0.0200255,		0.71573,
+    -0.528887,		0.300303,		0.059734,		0.791535,
+    -0.421046,		0.289937,		0.0984203,		0.853797,
+    -0.306001,		0.27461,		0.135423,		0.901451,
+    -0.18572,		0.254585,		0.170108,		0.93368,
+    -0.0622619,		0.230203,		0.201883,		0.949933,
+    0.0622619,		0.201883,		0.230203,		0.949933,
+    0.18572,		0.170108,		0.254585,		0.93368,
+    0.306001,		0.135423,		0.27461,		0.901451,
+    0.421046,		0.0984203,		0.289937,		0.853797,
+    0.528887,		0.059734,		0.300303,		0.791535,
+    0.627679,		0.0200255,		0.305531,		0.71573,
+    0.71573,		-0.0200256,		0.305531,		0.627678,
+    0.791536,		-0.059734,		0.300303,		0.528887,
+    0.853797,		-0.0984203,		0.289937,		0.421046,
+    0.901451,		-0.135423,		0.27461,		0.306001,
+    0.93368,		-0.170108,		0.254585,		0.18572,
+    0.949933,		-0.201883,		0.230203,		0.0622619,
+    0.949933,		-0.230203,		0.201883,		-0.062262,
+    0.93368,		-0.254585,		0.170108,		-0.185721,
+    0.901451,		-0.27461,		0.135423,		-0.306001,
+    0.853797,		-0.289937,		0.0984203,		-0.421046,
+    0.791535,		-0.300303,		0.0597339,		-0.528887,
+    0.71573,		-0.305531,		0.0200255,		-0.627679,
+    -0.18572,		0.305531,		0.0200255,		0.93368,
+    -0.0622619,		0.300303,		0.059734,		0.949933,
+    0.0622619,		0.289937,		0.0984203,		0.949933,
+    0.18572,		0.27461,		0.135423,		0.93368,
+    0.306001,		0.254585,		0.170108,		0.901451,
+    0.421046,		0.230203,		0.201883,		0.853797,
+    0.528887,		0.201883,		0.230203,		0.791535,
+    0.627679,		0.170108,		0.254585,		0.71573,
+    0.71573,		0.135423,		0.27461,		0.627678,
+    0.791536,		0.0984203,		0.289937,		0.528887,
+    0.853797,		0.059734,		0.300303,		0.421046,
+    0.901451,		0.0200255,		0.305531,		0.306001,
+    0.93368,		-0.0200256,		0.305531,		0.18572,
+    0.949933,		-0.059734,		0.300303,		0.0622619,
+    0.949933,		-0.0984203,		0.289937,		-0.062262,
+    0.93368,		-0.135423,		0.27461,		-0.185721,
+    0.901451,		-0.170108,		0.254585,		-0.306001,
+    0.853797,		-0.201883,		0.230203,		-0.421046,
+    0.791535,		-0.230203,		0.201883,		-0.528887,
+    0.71573,		-0.254585,		0.170108,		-0.627679,
+    0.627678,		-0.27461,		0.135423,		-0.71573,
+    0.528887,		-0.289937,		0.0984203,		-0.791536,
+    0.421046,		-0.300303,		0.0597339,		-0.853797,
+    0.306001,		-0.305531,		0.0200255,		-0.901451,
+    -0.119154,		0.407374,		0.0267007,		0.905061,
+    4.98786e-09,		0.400404,		0.0796453,		0.912871,
+    0.119154,		0.386583,		0.131227,		0.905061,
+    0.236268,		0.366147,		0.180564,		0.881766,
+    0.349341,		0.339446,		0.226811,		0.843383,
+    0.456435,		0.306937,		0.269177,		0.790569,
+    0.555721,		0.269177,		0.306937,		0.724229,
+    0.645497,		0.226811,		0.339446,		0.645497,
+    0.724229,		0.180564,		0.366147,		0.555721,
+    0.790569,		0.131227,		0.386583,		0.456435,
+    0.843383,		0.0796453,		0.400404,		0.349341,
+    0.881766,		0.0267007,		0.407374,		0.236268,
+    0.905061,		-0.0267007,		0.407374,		0.119154,
+    0.912871,		-0.0796453,		0.400404,		-4.48907e-08,
+    0.905061,		-0.131227,		0.386583,		-0.119154,
+    0.881766,		-0.180564,		0.366147,		-0.236268,
+    0.843383,		-0.226811,		0.339446,		-0.349341,
+    0.790569,		-0.269177,		0.306937,		-0.456436,
+    0.724229,		-0.306937,		0.269177,		-0.555721,
+    0.645497,		-0.339446,		0.226811,		-0.645497,
+    0.555721,		-0.366147,		0.180564,		-0.724229,
+    0.456435,		-0.386583,		0.131227,		-0.790569,
+    0.349341,		-0.400404,		0.0796453,		-0.843383,
+    0.236268,		-0.407374,		0.0267007,		-0.881766,
+    -0.456435,		0.407374,		0.0267007,		0.790569,
+    -0.349341,		0.400404,		0.0796453,		0.843383,
+    -0.236268,		0.386583,		0.131227,		0.881766,
+    -0.119154,		0.366147,		0.180564,		0.905061,
+    1.49636e-08,		0.339446,		0.226811,		0.912871,
+    0.119154,		0.306937,		0.269177,		0.905061,
+    0.236268,		0.269177,		0.306937,		0.881766,
+    0.349341,		0.226811,		0.339446,		0.843383,
+    0.456435,		0.180564,		0.366147,		0.790569,
+    0.555721,		0.131227,		0.386583,		0.724229,
+    0.645497,		0.0796453,		0.400404,		0.645497,
+    0.724229,		0.0267007,		0.407374,		0.555721,
+    0.790569,		-0.0267007,		0.407374,		0.456435,
+    0.843383,		-0.0796453,		0.400404,		0.349341,
+    0.881766,		-0.131227,		0.386583,		0.236268,
+    0.905061,		-0.180564,		0.366147,		0.119154,
+    0.912871,		-0.226811,		0.339446,		-5.48664e-08,
+    0.905061,		-0.269177,		0.306937,		-0.119154,
+    0.881766,		-0.306937,		0.269177,		-0.236268,
+    0.843383,		-0.339446,		0.226811,		-0.349341,
+    0.790569,		-0.366147,		0.180564,		-0.456436,
+    0.724229,		-0.386583,		0.131227,		-0.555721,
+    0.645497,		-0.400404,		0.0796453,		-0.645497,
+    0.555721,		-0.407374,		0.0267007,		-0.724229,
+    -0.278375,		0.498929,		0.0327016,		0.820066,
+    -0.168953,		0.490393,		0.0975452,		0.849385,
+    -0.0566408,		0.473465,		0.16072,		0.864171,
+    0.0566408,		0.448436,		0.221144,		0.864171,
+    0.168953,		0.415735,		0.277785,		0.849385,
+    0.278375,		0.37592,		0.329673,		0.820066,
+    0.383033,		0.329673,		0.37592,		0.776715,
+    0.481138,		0.277785,		0.415735,		0.720074,
+    0.57101,		0.221144,		0.448436,		0.651112,
+    0.651112,		0.16072,		0.473465,		0.57101,
+    0.720074,		0.0975451,		0.490393,		0.481138,
+    0.776715,		0.0327015,		0.498929,		0.383033,
+    0.820066,		-0.0327016,		0.498929,		0.278375,
+    0.849385,		-0.0975452,		0.490393,		0.168953,
+    0.864171,		-0.16072,		0.473465,		0.0566407,
+    0.864171,		-0.221144,		0.448436,		-0.0566408,
+    0.849385,		-0.277785,		0.415735,		-0.168953,
+    0.820066,		-0.329673,		0.37592,		-0.278375,
+    0.776715,		-0.37592,		0.329673,		-0.383033,
+    0.720074,		-0.415735,		0.277785,		-0.481138,
+    0.651112,		-0.448436,		0.221144,		-0.57101,
+    0.57101,		-0.473465,		0.16072,		-0.651112,
+    0.481138,		-0.490393,		0.0975451,		-0.720074,
+    0.383033,		-0.498929,		0.0327015,		-0.776715,
+    -0.901451,		0.305531,		0.0200255,		0.306001,
+    -0.853797,		0.300303,		0.059734,		0.421046,
+    -0.791535,		0.289937,		0.0984203,		0.528887,
+    -0.71573,		0.27461,		0.135423,		0.627679,
+    -0.627679,		0.254585,		0.170108,		0.71573,
+    -0.528887,		0.230203,		0.201883,		0.791535,
+    -0.421046,		0.201883,		0.230203,		0.853797,
+    -0.306001,		0.170108,		0.254585,		0.901451,
+    -0.18572,		0.135423,		0.27461,		0.93368,
+    -0.0622619,		0.0984203,		0.289937,		0.949933,
+    0.062262,		0.059734,		0.300303,		0.949933,
+    0.18572,		0.0200255,		0.305531,		0.93368,
+    0.306001,		-0.0200256,		0.305531,		0.901451,
+    0.421046,		-0.059734,		0.300303,		0.853797,
+    0.528887,		-0.0984203,		0.289937,		0.791535,
+    0.627679,		-0.135423,		0.27461,		0.71573,
+    0.71573,		-0.170108,		0.254585,		0.627678,
+    0.791536,		-0.201883,		0.230203,		0.528887,
+    0.853797,		-0.230203,		0.201883,		0.421046,
+    0.901451,		-0.254585,		0.170108,		0.306001,
+    0.93368,		-0.27461,		0.135423,		0.18572,
+    0.949933,		-0.289937,		0.0984203,		0.0622618,
+    0.949933,		-0.300303,		0.0597339,		-0.062262,
+    0.93368,		-0.305531,		0.0200255,		-0.185721,
+    -0.724229,		0.407374,		0.0267007,		0.555721,
+    -0.645497,		0.400404,		0.0796453,		0.645497,
+    -0.555721,		0.386583,		0.131227,		0.724229,
+    -0.456435,		0.366147,		0.180564,		0.790569,
+    -0.349341,		0.339446,		0.226811,		0.843383,
+    -0.236268,		0.306937,		0.269177,		0.881766,
+    -0.119154,		0.269177,		0.306937,		0.905061,
+    2.49393e-08,		0.226811,		0.339446,		0.912871,
+    0.119154,		0.180564,		0.366147,		0.905061,
+    0.236268,		0.131227,		0.386583,		0.881766,
+    0.349341,		0.0796453,		0.400404,		0.843383,
+    0.456435,		0.0267007,		0.407374,		0.790569,
+    0.555721,		-0.0267007,		0.407374,		0.724229,
+    0.645497,		-0.0796453,		0.400404,		0.645497,
+    0.724229,		-0.131227,		0.386583,		0.555721,
+    0.790569,		-0.180564,		0.366147,		0.456435,
+    0.843383,		-0.226811,		0.339446,		0.349341,
+    0.881766,		-0.269177,		0.306937,		0.236268,
+    0.905061,		-0.306937,		0.269177,		0.119154,
+    0.912871,		-0.339446,		0.226811,		-6.48421e-08,
+    0.905061,		-0.366147,		0.180564,		-0.119154,
+    0.881766,		-0.386583,		0.131227,		-0.236268,
+    0.843383,		-0.400404,		0.0796453,		-0.349341,
+    0.790569,		-0.407374,		0.0267007,		-0.456436,
+    -0.881766,		0.407374,		0.0267007,		0.236268,
+    -0.843383,		0.400404,		0.0796453,		0.349341,
+    -0.790569,		0.386583,		0.131227,		0.456435,
+    -0.724229,		0.366147,		0.180564,		0.555721,
+    -0.645497,		0.339446,		0.226811,		0.645497,
+    -0.555721,		0.306937,		0.269177,		0.724229,
+    -0.456435,		0.269177,		0.306937,		0.790569,
+    -0.349341,		0.226811,		0.339446,		0.843383,
+    -0.236268,		0.180564,		0.366147,		0.881766,
+    -0.119154,		0.131227,		0.386583,		0.905061,
+    3.4915e-08,		0.0796453,		0.400404,		0.912871,
+    0.119154,		0.0267007,		0.407374,		0.905061,
+    0.236268,		-0.0267007,		0.407374,		0.881766,
+    0.349341,		-0.0796453,		0.400404,		0.843383,
+    0.456436,		-0.131227,		0.386583,		0.790569,
+    0.555721,		-0.180564,		0.366147,		0.724229,
+    0.645497,		-0.226811,		0.339446,		0.645497,
+    0.724229,		-0.269177,		0.306937,		0.555721,
+    0.790569,		-0.306937,		0.269177,		0.456435,
+    0.843383,		-0.339446,		0.226811,		0.349341,
+    0.881766,		-0.366147,		0.180564,		0.236268,
+    0.905061,		-0.386583,		0.131227,		0.119153,
+    0.912871,		-0.400404,		0.0796453,		-7.48179e-08,
+    0.905061,		-0.407374,		0.0267007,		-0.119154,
+    -0.776715,		0.498929,		0.0327016,		0.383033,
+    -0.720074,		0.490393,		0.0975452,		0.481138,
+    -0.651112,		0.473465,		0.16072,		0.57101,
+    -0.57101,		0.448436,		0.221144,		0.651112,
+    -0.481138,		0.415735,		0.277785,		0.720074,
+    -0.383033,		0.37592,		0.329673,		0.776715,
+    -0.278375,		0.329673,		0.37592,		0.820066,
+    -0.168953,		0.277785,		0.415735,		0.849385,
+    -0.0566407,		0.221144,		0.448436,		0.864171,
+    0.0566408,		0.16072,		0.473465,		0.864171,
+    0.168953,		0.0975451,		0.490393,		0.849385,
+    0.278375,		0.0327015,		0.498929,		0.820066,
+    0.383033,		-0.0327016,		0.498929,		0.776715,
+    0.481138,		-0.0975452,		0.490393,		0.720074,
+    0.57101,		-0.16072,		0.473465,		0.651112,
+    0.651112,		-0.221144,		0.448436,		0.57101,
+    0.720074,		-0.277785,		0.415735,		0.481138,
+    0.776715,		-0.329673,		0.37592,		0.383033,
+    0.820066,		-0.37592,		0.329673,		0.278375,
+    0.849385,		-0.415735,		0.277785,		0.168953,
+    0.864171,		-0.448436,		0.221144,		0.0566407,
+    0.864171,		-0.473465,		0.16072,		-0.0566408,
+    0.849385,		-0.490393,		0.0975451,		-0.168953,
+    0.820066,		-0.498929,		0.0327015,		-0.278375,
+    -0.57101,		0.498929,		0.0327016,		0.651112,
+    -0.481138,		0.490393,		0.0975452,		0.720074,
+    -0.383033,		0.473465,		0.16072,		0.776715,
+    -0.278375,		0.448436,		0.221144,		0.820066,
+    -0.168953,		0.415735,		0.277785,		0.849385,
+    -0.0566408,		0.37592,		0.329673,		0.864171,
+    0.0566408,		0.329673,		0.37592,		0.864171,
+    0.168953,		0.277785,		0.415735,		0.849385,
+    0.278375,		0.221144,		0.448436,		0.820066,
+    0.383033,		0.16072,		0.473465,		0.776715,
+    0.481138,		0.0975451,		0.490393,		0.720074,
+    0.57101,		0.0327015,		0.498929,		0.651112,
+    0.651112,		-0.0327016,		0.498929,		0.57101,
+    0.720074,		-0.0975452,		0.490393,		0.481138,
+    0.776715,		-0.16072,		0.473465,		0.383033,
+    0.820066,		-0.221144,		0.448436,		0.278375,
+    0.849385,		-0.277785,		0.415735,		0.168953,
+    0.864171,		-0.329673,		0.37592,		0.0566407,
+    0.864171,		-0.37592,		0.329673,		-0.0566408,
+    0.849385,		-0.415735,		0.277785,		-0.168953,
+    0.820066,		-0.448436,		0.221144,		-0.278375,
+    0.776715,		-0.473465,		0.16072,		-0.383033,
+    0.720074,		-0.490393,		0.0975451,		-0.481138,
+    0.651112,		-0.498929,		0.0327015,		-0.57101,
+    -0.408248,		0.576114,		0.0377605,		0.707107,
+    -0.31246,		0.566257,		0.112635,		0.754344,
+    -0.211325,		0.54671,		0.185583,		0.788675,
+    -0.106574,		0.51781,		0.255356,		0.809511,
+    1.33838e-08,		0.480049,		0.320759,		0.816497,
+    0.106574,		0.434075,		0.380673,		0.809511,
+    0.211325,		0.380673,		0.434075,		0.788675,
+    0.31246,		0.320759,		0.480049,		0.754344,
+    0.408248,		0.255355,		0.51781,		0.707107,
+    0.497052,		0.185583,		0.54671,		0.64777,
+    0.57735,		0.112635,		0.566257,		0.57735,
+    0.64777,		0.0377605,		0.576114,		0.497052,
+    0.707107,		-0.0377605,		0.576114,		0.408248,
+    0.754344,		-0.112635,		0.566257,		0.31246,
+    0.788675,		-0.185583,		0.54671,		0.211325,
+    0.809511,		-0.255356,		0.51781,		0.106574,
+    0.816497,		-0.320759,		0.480049,		-4.9074e-08,
+    0.809511,		-0.380674,		0.434075,		-0.106574,
+    0.788675,		-0.434075,		0.380673,		-0.211325,
+    0.754344,		-0.480049,		0.320759,		-0.31246,
+    0.707107,		-0.51781,		0.255355,		-0.408248,
+    0.64777,		-0.54671,		0.185583,		-0.497052,
+    0.57735,		-0.566257,		0.112635,		-0.57735,
+    0.497052,		-0.576114,		0.0377605,		-0.64777,
+    -0.64777,		0.576114,		0.0377605,		0.497052,
+    -0.57735,		0.566257,		0.112635,		0.57735,
+    -0.497052,		0.54671,		0.185583,		0.64777,
+    -0.408248,		0.51781,		0.255356,		0.707107,
+    -0.31246,		0.480049,		0.320759,		0.754344,
+    -0.211325,		0.434075,		0.380673,		0.788675,
+    -0.106574,		0.380673,		0.434075,		0.809511,
+    2.23064e-08,		0.320759,		0.480049,		0.816497,
+    0.106574,		0.255355,		0.51781,		0.809511,
+    0.211325,		0.185583,		0.54671,		0.788675,
+    0.31246,		0.112635,		0.566257,		0.754344,
+    0.408248,		0.0377605,		0.576114,		0.707107,
+    0.497052,		-0.0377605,		0.576114,		0.64777,
+    0.57735,		-0.112635,		0.566257,		0.57735,
+    0.64777,		-0.185583,		0.54671,		0.497052,
+    0.707107,		-0.255356,		0.51781,		0.408248,
+    0.754344,		-0.320759,		0.480049,		0.31246,
+    0.788675,		-0.380674,		0.434075,		0.211325,
+    0.809511,		-0.434075,		0.380673,		0.106574,
+    0.816497,		-0.480049,		0.320759,		-5.79966e-08,
+    0.809511,		-0.51781,		0.255355,		-0.106574,
+    0.788675,		-0.54671,		0.185583,		-0.211325,
+    0.754344,		-0.566257,		0.112635,		-0.31246,
+    0.707107,		-0.576114,		0.0377605,		-0.408248,
+    -0.503584,		0.644115,		0.0422175,		0.574227,
+    -0.424324,		0.633094,		0.12593,		0.635045,
+    -0.337804,		0.611241,		0.207488,		0.684998,
+    -0.245503,		0.578929,		0.285496,		0.72323,
+    -0.149003,		0.536711,		0.358619,		0.749087,
+    -0.0499524,		0.485311,		0.425606,		0.762127,
+    0.0499525,		0.425606,		0.485311,		0.762127,
+    0.149003,		0.358619,		0.536711,		0.749087,
+    0.245503,		0.285496,		0.578929,		0.72323,
+    0.337804,		0.207488,		0.611241,		0.684998,
+    0.424324,		0.12593,		0.633094,		0.635045,
+    0.503584,		0.0422175,		0.644115,		0.574227,
+    0.574227,		-0.0422176,		0.644115,		0.503584,
+    0.635045,		-0.12593,		0.633094,		0.424324,
+    0.684998,		-0.207488,		0.611241,		0.337804,
+    0.72323,		-0.285496,		0.578929,		0.245503,
+    0.749087,		-0.358619,		0.536711,		0.149003,
+    0.762127,		-0.425606,		0.48531,		0.0499524,
+    0.762127,		-0.485311,		0.425606,		-0.0499525,
+    0.749087,		-0.536711,		0.358619,		-0.149003,
+    0.72323,		-0.578929,		0.285496,		-0.245504,
+    0.684998,		-0.611241,		0.207488,		-0.337804,
+    0.635045,		-0.633094,		0.12593,		-0.424324,
+    0.574227,		-0.644115,		0.0422175,		-0.503584};
+
+  initVector(arr, 4608*4);
+
 }
 
 
 int OrientationSet::getViewId(const Coordinates& view) {
-    // Could be based on two versions:
-    // Use approximation of angle: http://math.stackexchange.com/questions/90081/quaternion-distance
-    // d = 1.0 - quats[i].dot(quats[j])**2
-    // which is between 0 and 1 (distant)
-    // Or the angle:
-    // d = math.acos(min(1.0, 2.0 * quats[i].dot(quats[j])**2 - 1.0))
+  // Could be based on two versions:
+  // Use approximation of angle: http://math.stackexchange.com/questions/90081/quaternion-distance
+  // d = 1.0 - quats[i].dot(quats[j])**2
+  // which is between 0 and 1 (distant)
+  // Or the angle:
+  // d = math.acos(min(1.0, 2.0 * quats[i].dot(quats[j])**2 - 1.0))
 
-    int closest_id = 0;
-    double best_similarity = +1e100; // that's the dot product
+  int closest_id = 0;
+  double best_similarity = +1e100; // that's the dot product
 
-    for(std::vector<Coordinates>::iterator it = this->orientations.begin(); it != this->orientations.end(); ++it) {
-//        double similarity = it->dot(view);
-        double similarity = it->angularDistance(view);
+  for(std::vector<Coordinates>::iterator it = this->orientations.begin(); it != this->orientations.end(); ++it) {
+    //        double similarity = it->dot(view);
+    double similarity = it->angularDistance(view);
 
-        if( similarity < best_similarity ) {
-            best_similarity = similarity;
-            closest_id = std::distance(this->orientations.begin(), it);
-        }
+    if( similarity < best_similarity ) {
+      best_similarity = similarity;
+      closest_id = std::distance(this->orientations.begin(), it);
     }
+  }
 
-    return closest_id;
+  return closest_id;
 }
 
 
@@ -6026,7 +5440,7 @@ int OrientationSet::getViewId(const Coordinates& view) {
 
 
 std::vector<Coordinates>& OrientationSet::getOrientations() {
-    return this->orientations;
+  return this->orientations;
 }
 
 //
@@ -6035,195 +5449,195 @@ std::vector<Coordinates>& OrientationSet::getOrientations() {
 //}
 
 const std::vector<CoordinateIds>& OrientationSet::getSet() const {
-    return this->set;
+  return this->set;
 }
 
 
 void OrientationSet::setSet(const std::vector<CoordinateIds>& new_set) {
-    this->set = new_set;
+  this->set = new_set;
 }
 
 bool OrientationSet::empty() {
-    return this->set.empty();
+  return this->set.empty();
 }
 
 void OrientationSet::intersect(const OrientationSet& other_set) {
-    std::vector<CoordinateIds> intersection;
-    const std::vector<CoordinateIds>& other = other_set.getSet();
-    for (std::vector<CoordinateIds>::const_iterator it = other.begin(); it != other.end(); ++it)
+  std::vector<CoordinateIds> intersection;
+  const std::vector<CoordinateIds>& other = other_set.getSet();
+  for (std::vector<CoordinateIds>::const_iterator it = other.begin(); it != other.end(); ++it)
+  {
+    for (std::vector<CoordinateIds>::const_iterator jt = this->set.begin(); jt != this->set.end(); ++jt)
     {
-        for (std::vector<CoordinateIds>::const_iterator jt = this->set.begin(); jt != this->set.end(); ++jt)
-        {
-            if (*it == *jt)
-                intersection.push_back(*it);
-        }
+      if (*it == *jt)
+        intersection.push_back(*it);
     }
+  }
 
-    this->setSet(intersection);
+  this->setSet(intersection);
 }
 
 OrientationSet OrientationSet::getIntersection(const OrientationSet& other_set) const {
-    std::vector<CoordinateIds> intersection;
-    const std::vector<CoordinateIds>& other = other_set.getSet();
-    for (std::vector<CoordinateIds>::const_iterator it = other.begin(); it != other.end(); ++it)
+  std::vector<CoordinateIds> intersection;
+  const std::vector<CoordinateIds>& other = other_set.getSet();
+  for (std::vector<CoordinateIds>::const_iterator it = other.begin(); it != other.end(); ++it)
+  {
+    for (std::vector<CoordinateIds>::const_iterator jt = this->set.begin(); jt != this->set.end(); ++jt)
     {
-        for (std::vector<CoordinateIds>::const_iterator jt = this->set.begin(); jt != this->set.end(); ++jt)
-        {
-            if (*it == *jt)
-                intersection.push_back(*it);
-        }
+      if (*it == *jt)
+        intersection.push_back(*it);
     }
+  }
 
-    OrientationSet result;
-    result.init();
-    result.setSet(intersection);
-    return result;
+  OrientationSet result;
+  result.init();
+  result.setSet(intersection);
+  return result;
 }
 
 bool OrientationSet::hasIntersection(const OrientationSet& other_set) const
 {
-    const std::vector<CoordinateIds>& other = other_set.getSet();
-    for (std::vector<CoordinateIds>::const_iterator it = other.begin(); it != other.end(); ++it)
+  const std::vector<CoordinateIds>& other = other_set.getSet();
+  for (std::vector<CoordinateIds>::const_iterator it = other.begin(); it != other.end(); ++it)
+  {
+    for (std::vector<CoordinateIds>::const_iterator jt = this->set.begin(); jt != this->set.end(); ++jt)
     {
-        for (std::vector<CoordinateIds>::const_iterator jt = this->set.begin(); jt != this->set.end(); ++jt)
-        {
-            if (*it == *jt)
-                return true;
-        }
+      if (*it == *jt)
+        return true;
     }
-    return false;
+  }
+  return false;
 }
 
 
 RotationMatrix OrientationSet::sample() const {
-    RotationMatrix result;
-    if (this->set.empty())
-        return result;
+  RotationMatrix result;
+  if (this->set.empty())
+    return result;
 
-    CoordinateIds coord = this->set[((double) rand() / ((double) RAND_MAX + 1.0)) * this->set.size()];
-//    result << this->orientations[coord(0)], this->orientations[coord(1)], this->orientations[coord(2)];
-    return this->orientations[coord].matrix();
-//    return result;
+  CoordinateIds coord = this->set[((double) rand() / ((double) RAND_MAX + 1.0)) * this->set.size()];
+  //    result << this->orientations[coord(0)], this->orientations[coord(1)], this->orientations[coord(2)];
+  return this->orientations[coord].matrix();
+  //    return result;
 }
 
 
 void OrientationSet::add(const CoordinateIds& orientation)
 {
-    for (std::vector<CoordinateIds>::const_iterator it = this->set.begin(); it != this->set.end(); ++it)
+  for (std::vector<CoordinateIds>::const_iterator it = this->set.begin(); it != this->set.end(); ++it)
+  {
+    if (*it == orientation)
     {
-        if (*it == orientation)
-        {
-//            std::cout << "Its equal: " << (*it)(0) << ", " << (*it)(1) << ", " << (*it)(2) << " vs " << orientation(0) << ", " << orientation(1) << ", " << orientation(2) << std::endl;
-//            dbg++;
-            return;
-        }
+      //            std::cout << "Its equal: " << (*it)(0) << ", " << (*it)(1) << ", " << (*it)(2) << " vs " << orientation(0) << ", " << orientation(1) << ", " << orientation(2) << std::endl;
+      //            dbg++;
+      return;
     }
-    this->set.push_back(orientation);
+  }
+  this->set.push_back(orientation);
 }
 
 
 void OrientationSet::add(const RotationMatrix& orientation)
 {
-    ::Eigen::Quaternionf query(orientation);
-    CoordinateIds id = getViewId(query);
-//    id(0) = getViewId(orientation.col(0));
-//    id(1) = getViewId(orientation.col(1));
-//    id(2) = getViewId(orientation.col(2));
+  ::Eigen::Quaternionf query(orientation);
+  CoordinateIds id = getViewId(query);
+  //    id(0) = getViewId(orientation.col(0));
+  //    id(1) = getViewId(orientation.col(1));
+  //    id(2) = getViewId(orientation.col(2));
 
-//    std::cout << orientation << std::endl;
+  //    std::cout << orientation << std::endl;
 
-    add(id);
+  add(id);
 }
 
 void OrientationSet::add(const tf::Quaternion& orientation)
 {
-    RotationMatrix mat;
-    tf::Matrix3x3 rot(orientation);
-    for(int i=0; i<3; i++)
-        for(int j=0; j<3; j++)
-            mat(i,j) = rot[i][j];
+  RotationMatrix mat;
+  tf::Matrix3x3 rot(orientation);
+  for(int i=0; i<3; i++)
+    for(int j=0; j<3; j++)
+      mat(i,j) = rot[i][j];
 
-    add(mat);
+  add(mat);
 }
 
 void OrientationSet::addFuzzy(const tf::Quaternion& orientation)
 {
-    RotationMatrix mat;
-    tf::Matrix3x3 rot(orientation);
-    for(int i=0; i<3; i++)
-        for(int j=0; j<3; j++)
-            mat(i,j) = rot[i][j];
+  RotationMatrix mat;
+  tf::Matrix3x3 rot(orientation);
+  for(int i=0; i<3; i++)
+    for(int j=0; j<3; j++)
+      mat(i,j) = rot[i][j];
 
-    add(mat);
+  add(mat);
 
-    int additional_orientations = 20;
-    for (int i = 0; i < additional_orientations; ++i)
-    {
-//        Coordinates random_axis = this->orientations[((double) rand() / ((double) RAND_MAX + 1.0)) * this->orientations.size()];
-        Coordinates random_quaternion = this->orientations[((double) rand() / ((double) RAND_MAX + 1.0)) * this->orientations.size()];
-        ::Eigen::AngleAxisf random_angleaxis(random_quaternion);
-        double random_angle = ((double) rand() / ((double) RAND_MAX + 1.0)) * 0.1;
-        RotationMatrix randomly_disturbed_rotation(mat * RotationMatrix(::Eigen::AngleAxisf(random_angle, random_angleaxis.axis())));
-        add(randomly_disturbed_rotation);
-    }
+  int additional_orientations = 20;
+  for (int i = 0; i < additional_orientations; ++i)
+  {
+    //        Coordinates random_axis = this->orientations[((double) rand() / ((double) RAND_MAX + 1.0)) * this->orientations.size()];
+    Coordinates random_quaternion = this->orientations[((double) rand() / ((double) RAND_MAX + 1.0)) * this->orientations.size()];
+    ::Eigen::AngleAxisf random_angleaxis(random_quaternion);
+    double random_angle = ((double) rand() / ((double) RAND_MAX + 1.0)) * 0.1;
+    RotationMatrix randomly_disturbed_rotation(mat * RotationMatrix(::Eigen::AngleAxisf(random_angle, random_angleaxis.axis())));
+    add(randomly_disturbed_rotation);
+  }
 }
 
 void OrientationSet::add(const RotationMatrix& orientation, const tf::Vector3& around_axis)
 {
-    int steps = 60;
-    double t = 2.0 * M_PI / steps;
-    RotationMatrix delta(::Eigen::AngleAxisf(t, ::Eigen::Vector3f::UnitX()));
-    RotationMatrix orient(orientation);
+  int steps = 60;
+  double t = 2.0 * M_PI / steps;
+  RotationMatrix delta(::Eigen::AngleAxisf(t, ::Eigen::Vector3f::UnitX()));
+  RotationMatrix orient(orientation);
 
-    for (int i = 0; i <= steps; ++i)
-    {
-        add(orient);
-        orient = orient * delta;
-    }
+  for (int i = 0; i <= steps; ++i)
+  {
+    add(orient);
+    orient = orient * delta;
+  }
 }
 
 void OrientationSet::add(const tf::Quaternion& orientation, const tf::Vector3& around_axis)
 {
-    int steps = 30;
-    double t = 2.0 * M_PI / steps;
-    tf::Quaternion q(orientation);
-    tf::Quaternion delta = tf::Quaternion(around_axis, t);
+  int steps = 30;
+  double t = 2.0 * M_PI / steps;
+  tf::Quaternion q(orientation);
+  tf::Quaternion delta = tf::Quaternion(around_axis, t);
 
-    for (int i = 0; i < steps; ++i)
-    {
-        tf::Matrix3x3 rot(q);
-        RotationMatrix mat;
+  for (int i = 0; i < steps; ++i)
+  {
+    tf::Matrix3x3 rot(q);
+    RotationMatrix mat;
 
-        for(int i=0; i<3; i++)
-            for(int j=0; j<3; j++)
-                mat(i,j) = rot[i][j];
+    for(int i=0; i<3; i++)
+      for(int j=0; j<3; j++)
+        mat(i,j) = rot[i][j];
 
-        add(mat);
+    add(mat);
 
-        q = delta * q;
-    }
+    q = delta * q;
+  }
 }
 
 void OrientationSet::addFuzzy(const tf::Quaternion& orientation, const tf::Vector3& around_axis)
 {
-    add(orientation, around_axis);
+  add(orientation, around_axis);
 
-    int additional_orientations = 20;
-    for (int i = 0; i < additional_orientations; ++i)
-    {
-//        Coordinates random_axis = this->orientations[((double) rand() / ((double) RAND_MAX + 1.0)) * this->orientations.size()];
-        Coordinates random_quaternion = this->orientations[((double) rand() / ((double) RAND_MAX + 1.0)) * this->orientations.size()];
-        ::Eigen::AngleAxisf random_angleaxis(random_quaternion);
-        double random_angle = ((double) rand() / ((double) RAND_MAX + 1.0)) * 0.1;
-        RotationMatrix randomly_disturbed_rotation(RotationMatrix(::Eigen::AngleAxisf(random_angle, random_angleaxis.axis())));
+  int additional_orientations = 20;
+  for (int i = 0; i < additional_orientations; ++i)
+  {
+    //        Coordinates random_axis = this->orientations[((double) rand() / ((double) RAND_MAX + 1.0)) * this->orientations.size()];
+    Coordinates random_quaternion = this->orientations[((double) rand() / ((double) RAND_MAX + 1.0)) * this->orientations.size()];
+    ::Eigen::AngleAxisf random_angleaxis(random_quaternion);
+    double random_angle = ((double) rand() / ((double) RAND_MAX + 1.0)) * 0.1;
+    RotationMatrix randomly_disturbed_rotation(RotationMatrix(::Eigen::AngleAxisf(random_angle, random_angleaxis.axis())));
 
-        Eigen::Matrix3d mat = randomly_disturbed_rotation.cast<double>();
-        tf::Matrix3x3 tf_mat;
-        tf::matrixEigenToTF(mat, tf_mat);
-        tf::Quaternion q;
-        tf_mat.getRotation(q);
-        add(orientation * q, around_axis);
-    }
+    Eigen::Matrix3d mat = randomly_disturbed_rotation.cast<double>();
+    tf::Matrix3x3 tf_mat;
+    tf::matrixEigenToTF(mat, tf_mat);
+    tf::Quaternion q;
+    tf_mat.getRotation(q);
+    add(orientation * q, around_axis);
+  }
 }
 
 //void OrientationSet::addAllAround(const tf::Vector3& axis)
@@ -6243,53 +5657,53 @@ void OrientationSet::addFuzzy(const tf::Quaternion& orientation, const tf::Vecto
 
 void OrientationSet::addAll()
 {
-//    dbg = 0;
-//    tf::Vector3 unit_x(1.0, 0.0, 0.0);
-//    ::Eigen::Vector3f unit(1.0, 0, 0);
-//    for (std::vector<Coordinates>::const_iterator it = orientations.begin(); it != orientations.end(); ++it)
-//    {
-////        tf::Vector3 point((*it)(0), (*it)(1), (*it)(2));
-////        tf::Vector3 cross = unit_x.cross(point);
-////        tf::Quaternion q(cross.x(), cross.y(), cross.z(), unit_x.dot(point));
+  //    dbg = 0;
+  //    tf::Vector3 unit_x(1.0, 0.0, 0.0);
+  //    ::Eigen::Vector3f unit(1.0, 0, 0);
+  //    for (std::vector<Coordinates>::const_iterator it = orientations.begin(); it != orientations.end(); ++it)
+  //    {
+  ////        tf::Vector3 point((*it)(0), (*it)(1), (*it)(2));
+  ////        tf::Vector3 cross = unit_x.cross(point);
+  ////        tf::Quaternion q(cross.x(), cross.y(), cross.z(), unit_x.dot(point));
 
-//        RotationMatrix mat(*it);
-////        Coordinates second_column = unit.cross(*it);
-////        mat << *it, second_column, it->cross(second_column);
+  //        RotationMatrix mat(*it);
+  ////        Coordinates second_column = unit.cross(*it);
+  ////        mat << *it, second_column, it->cross(second_column);
 
-//        add(mat, unit_x);
-////        ::Eigen::Quaterniond q(mat.cast<double>());
-////        tf::Quaternion qu;
+  //        add(mat, unit_x);
+  ////        ::Eigen::Quaterniond q(mat.cast<double>());
+  ////        tf::Quaternion qu;
 
-////        tf::quaternionEigenToTF(q, qu);
+  ////        tf::quaternionEigenToTF(q, qu);
 
-////        add(qu, unit_x);
-//    }
+  ////        add(qu, unit_x);
+  //    }
 
-    this->set.clear();
+  this->set.clear();
 
-    for (int i = 0; i < orientations.size(); ++i)
-    {
-        this->set.push_back(i);
-    }
+  for (int i = 0; i < orientations.size(); ++i)
+  {
+    this->set.push_back(i);
+  }
 
 
-//    ROS_INFO("After all: %zu (with 30 iterations around %zu axis) ---    dbg:   %i", this->set.size(), orientations.size(), dbg);
+  //    ROS_INFO("After all: %zu (with 30 iterations around %zu axis) ---    dbg:   %i", this->set.size(), orientations.size(), dbg);
 }
 
 void OrientationSet::addHalf()
 {
-    Eigen::Vector3f half(1.0, 0.0, 0.0);
-    tf::Vector3 unit_x(1.0, 0.0, 0.0);
+  Eigen::Vector3f half(1.0, 0.0, 0.0);
+  tf::Vector3 unit_x(1.0, 0.0, 0.0);
 
-    for (std::vector<Coordinates>::const_iterator it = orientations.begin(); it != orientations.end(); ++it)
-    {
-//        if (half.dot(*it) < 0)
-//            continue;
+  for (std::vector<Coordinates>::const_iterator it = orientations.begin(); it != orientations.end(); ++it)
+  {
+    //        if (half.dot(*it) < 0)
+    //            continue;
 
-//        tf::Quaternion q(tf::Vector3((*it)(0), (*it)(1), (*it)(2)), 0.0);
-        tf::Quaternion q(it->x(), it->y(), it->z(), it->w());
-        add(q, unit_x);
-    }
+    //        tf::Quaternion q(tf::Vector3((*it)(0), (*it)(1), (*it)(2)), 0.0);
+    tf::Quaternion q(it->x(), it->y(), it->z(), it->w());
+    add(q, unit_x);
+  }
 }
 
 }
