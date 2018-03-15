@@ -93,6 +93,7 @@ ifco_grasp:
   ifco_length: 0.56
   ifco_width: 0.38
   ifco_height: 0.16
+  ifco_pcl: true
 
 # ------------------------------------------------------------------------
 # Clean up transform data for later use
