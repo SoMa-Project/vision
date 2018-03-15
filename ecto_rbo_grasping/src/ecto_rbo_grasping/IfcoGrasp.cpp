@@ -177,7 +177,6 @@ struct IfcoGrasp
     template<typename Point>
     void createWallGrasps (boost::shared_ptr<const ::pcl::PointCloud<Point> >& input) {
 
-
       // Initialize the pregrasp messages
       pregrasp_msgs::GraspStrategyArrayPtr wall_messages(new ::pregrasp_msgs::GraspStrategyArray());
       wall_messages->header = pcl_conversions::fromPCL(input->header);
