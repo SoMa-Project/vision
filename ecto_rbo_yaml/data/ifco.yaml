@@ -69,8 +69,8 @@ crop_box:
   inputs:
     input: msg_to_pcl/output
   filter_field_name: z
-  filter_limit_max: 1.0
-  filter_limit_min: 0
+  filter_limit_max: 1.4
+  filter_limit_min: 0.5
   filter_limit_negative: false
 
 normal_estimation:
@@ -118,8 +118,8 @@ ifco_grasp:
     bounded_planes_biggest: table_fits/bounded_model_biggest
   plane_id: -1
   tableDist: 0.2
-  ifco_length: 0.56
-  ifco_width: 0.38
+  ifco_length: 0.65
+  ifco_width: 0.45
   ifco_height: 0.16
 
 # ------------------------------------------------------------------------
@@ -141,8 +141,8 @@ inside_ifco:
   inputs:
     input: crop_box/output
     transform: ifco_grasp/ifco_transform
-  default_min: [-0.24,  -0.16, 0.02, 0]
-  default_max: [0.24,  0.16,  0.20, 0]
+  default_min: [-0.2,  -0.2, 0.02, 0]
+  default_max: [0.0,  0.2,  0.20, 0]
   publish_rviz_markers: true
 
 # ------------------------------------------------------------------------
@@ -153,9 +153,9 @@ region_growing_rgb:
     input: crop_box/output
     indices: inside_ifco/indices2
   min_cluster_size: 350
-  distance_threshold: 1000
-  point_color_threshold: 35.0
-  region_color_threshold: 50.0
+  distance_threshold: 0.001
+  point_color_threshold: 0.0350
+  region_color_threshold: 0.0500
 
 # ------------------------------------------------------------------------
 # Pick one object - the closest to the camera
