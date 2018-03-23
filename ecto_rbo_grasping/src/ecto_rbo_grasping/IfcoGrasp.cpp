@@ -290,9 +290,6 @@ struct IfcoGrasp
     if ( !*ifco_pcl_ )
     {
 
-
-      // ------------------------------------------------------------------------------------------------------------------
-
       // Get the size of the biggest bounded plane
       std::vector< ::pcl::ModelCoefficientsConstPtr>::iterator biggestIt = bounded_planes_biggest_->begin();
       biggestOrigin = tf::Vector3 ((*biggestIt)->values[0], (*biggestIt)->values[1], (*biggestIt)->values[2]);
