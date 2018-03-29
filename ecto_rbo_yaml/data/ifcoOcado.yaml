@@ -48,7 +48,7 @@
 ros_pc_subscriber:
   type: ecto_sensor_msgs::Subscriber_PointCloud2
   queue_size: 2
-  topic_name: /camera/depth_registered/points
+  topic_name: /kinect2_1/sd/points
 msg_to_pcl:
   type: ecto_rbo_pcl::Message2PointCloud
   inputs:
@@ -61,7 +61,7 @@ tf_send_camera:
   type: ecto_rbo_pcl::BroadcastTF
   inputs:
     transform: create_tf/transform
-  source_frame: camera_rgb_optical_frame
+  source_frame: kinect2_1_ir_optical_frame
   target_frame: base_frame
 
 crop_box:
@@ -121,6 +121,8 @@ ifco_grasp:
   ifco_length: 0.56
   ifco_width: 0.38
   ifco_height: 0.16
+  ifco_pcl: true
+  camera_frame: kinect2_1_ir_optical_frame
 
 # ------------------------------------------------------------------------
 # Clean up transform data for later use
@@ -196,7 +198,7 @@ tf_send_object:
   type: ecto_rbo_pcl::BroadcastTF
   inputs:
     transform: take_first_tf/output
-  source_frame: camera_rgb_optical_frame
+  source_frame: kinect2_1_ir_optical_frame
   target_frame: object
 
 # Broadcast object data
@@ -205,7 +207,7 @@ send_objects:
   inputs:
     transforms: bbox_fits/transforms
     sizes: bbox_fits/sizes
-  frame: camera_rgb_optical_frame
+  frame: kinect2_1_ir_optical_frame
 
 # ------------------------------------------------------------------------
 # Create top grasp primitive
@@ -275,7 +277,7 @@ tf_send_wall0:
   type: ecto_rbo_pcl::BroadcastTF
   inputs:
     transform: ifco_grasp/ifco_wall_0_transform
-  source_frame: camera_rgb_optical_frame
+  source_frame: kinect2_1_ir_optical_frame
   target_frame: ifcoWall0
 
 # ------------------------------------------------------------------------
@@ -283,7 +285,7 @@ tf_send_wall0b:
   type: ecto_rbo_pcl::BroadcastTF
   inputs:
     transform: ifco_grasp/ifco_wall_0_transform
-  source_frame: camera_rgb_optical_frame
+  source_frame: kinect2_1_ir_optical_frame
   target_frame: wall
 
 
@@ -292,7 +294,7 @@ tf_send_wall1:
   type: ecto_rbo_pcl::BroadcastTF
   inputs:
     transform: ifco_grasp/ifco_wall_1_transform
-  source_frame: camera_rgb_optical_frame
+  source_frame: kinect2_1_ir_optical_frame
   target_frame: ifcoWall1 
 
 # ------------------------------------------------------------------------
@@ -300,11 +302,11 @@ tf_send_ifco:
   type: ecto_rbo_pcl::BroadcastTF
   inputs:
     transform: ifco_grasp/ifco_transform
-  source_frame: camera_rgb_optical_frame
+  source_frame: kinect2_1_ir_optical_frame
   target_frame: ifco
 tf_send_table:
   type: ecto_rbo_pcl::BroadcastTF
   inputs:
     transform: ifco_grasp/ifco_transform
-  source_frame: camera_rgb_optical_frame
+  source_frame: kinect2_1_ir_optical_frame
   target_frame: table
