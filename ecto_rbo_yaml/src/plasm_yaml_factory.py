@@ -8,6 +8,8 @@ import ecto_ros
 import ecto_opencv.imgproc
 import ecto_opencv.highgui
 import ecto_ros.ecto_sensor_msgs
+import ecto_ros.ecto_std_msgs
+import ecto_ros.ecto_geometry_msgs
 import ecto_rbo_dbg_py
 import ecto_rbo_dbg
 
@@ -33,7 +35,7 @@ def randomword(length):
    return ''.join(random.choice(string.lowercase) for i in xrange(length))
 
 # collect all available modules
-for module in [ecto_pcl, ecto_rbo_pcl, ecto_rbo_grasping, ecto_ros.ecto_sensor_msgs, ecto_opencv.imgproc, ecto_opencv.highgui, ecto_ros]:
+for module in [ecto_pcl, ecto_rbo_pcl, ecto_rbo_grasping, ecto_ros.ecto_sensor_msgs, ecto_ros.ecto_std_msgs, ecto_ros.ecto_geometry_msgs, ecto_opencv.imgproc, ecto_opencv.highgui, ecto_ros]:
     for name, clazz in module.__dict__.iteritems():
         if name[:2] == "__":
             continue

@@ -19,6 +19,7 @@ The views and conclusions contained in the software and documentation are those 
 #include <tf/tf.h>
 #include <tf_conversions/tf_eigen.h>
 #include <eigen_conversions/eigen_msg.h>
+#include <tf/transform_datatypes.h>
 
 namespace ecto_rbo_grasping
 {
@@ -36,6 +37,7 @@ struct SegmentObjects
 
     ecto::spore<std::vector<UnalignedAffine3f> > object_poses_;
     ecto::spore<std::vector<UnalignedVector3f> > object_sizes_;
+    ecto::spore<std::vector<UnalignedVector4f> > centroids_;
 
     static void declare_params(ecto::tendrils& params)
     {
@@ -48,6 +50,7 @@ struct SegmentObjects
         inputs.declare<std_msgs::Float32MultiArray::ConstPtr>("bounding_box_array", "An array with the dimensions of the bounding boxes expressed in each object's frame");
         outputs.declare<std::vector<UnalignedAffine3f> >(&SegmentObjects::object_poses_, "transforms", "A vector of 4x4 affine transformations for the objects.");
         outputs.declare<std::vector<UnalignedVector3f> >(&SegmentObjects::object_sizes_, "sizes", "A vector of 3d sizes for the bounding boxes.");
+        outputs.declare<std::vector<UnalignedVector4f> >(&SegmentObjects::centroids_, "centroids", "A vector of the centroids of the objects.");
     }
 
     void configure(const ecto::tendrils& params, const ecto::tendrils& inputs, const ecto::tendrils& outputs)
@@ -56,23 +59,29 @@ struct SegmentObjects
         bounding_box_array_ = inputs["bounding_box_array"];
         object_poses_ = outputs["transforms"];
         object_sizes_ = outputs["sizes"];
+        centroids_ = outputs["centroids"];
     }
 
     int process(const ecto::tendrils& /*inputs*/, const ecto::tendrils& /*outputs*/)
     {
 
-        geometry_msgs::PoseArray pose_array = *pose_array_;
-        std_msgs::Float32MultiArray bounding_box_array = *bounding_box_array_;
+        object_poses_->clear();
+        centroids_->clear();
+        object_sizes_->clear();
 
-        for(int i=0; i<pose_array.poses.size(); i++)
+        for(int i=0; i<(*pose_array_)->poses.size(); i++)
         {   
-            UnalignedAffine3f object_pose;
-            tf::poseMsgToEigen(pose_array.poses[i], object_pose);
-            object_poses_.push_back(object_pose);
+            Eigen::Affine3d object_pose;
+            tf::poseMsgToEigen((*pose_array_)->poses[i], object_pose);
+            object_poses_->push_back((UnalignedAffine3f)object_pose.cast<float>());
+
+            UnalignedVector4f centroid;
+            centroid << object_pose.translation()[0], object_pose.translation()[1], object_pose.translation()[2], 0;
+            centroids_->push_back(centroid);
 
             UnalignedVector3f bounding_box;
-            bounding_box << bounding_box_array[3*i], bounding_box_array[3*i + 1], bounding_box_array[3*i + 2];
-            object_sizes_.push_back(bounding_box);
+            bounding_box << (*bounding_box_array_)->data[3*i], (*bounding_box_array_)->data[3*i + 1], (*bounding_box_array_)->data[3*i + 2];
+            object_sizes_->push_back(bounding_box);
         }
         return ecto::OK;
     }

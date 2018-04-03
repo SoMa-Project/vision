@@ -69,7 +69,7 @@ crop_box:
   inputs:
     input: msg_to_pcl/output
   filter_field_name: z
-  filter_limit_max: 1.0
+  filter_limit_max: 2.0
   filter_limit_min: 0
   filter_limit_negative: false
 
@@ -215,7 +215,7 @@ ros_Float32MultiArray_subscriber:
 
 # Ocado object segmentation
 segment_objects:
-  type: ecto_rbo_grasping::segment_objects
+  type: ecto_rbo_grasping::SegmentObjects
   inputs:
     pose_array: ros_PoseArray_subscriber/output
     bounding_box_array: ros_Float32MultiArray_subscriber/output
@@ -235,9 +235,9 @@ create_top_down_grasps:
   type: ecto_rbo_grasping::CreateGrasps
   inputs:
     header: msg_to_pcl/header
-    positions: calculate_centroids/centroids
+    positions: segment_objects/centroids
     approach_vectors: wrap_in_vector_table/vector
-    roll_vectors: bbox_to_axis/vectors
+    roll_vectors: segment_objects/sizes
   strategy: 10  # SQUEEZE
   pregrasp_configuration: 2 # SPHERE
   roll_offset: 0 #-1.5707963267948966   #3.141592653589793
