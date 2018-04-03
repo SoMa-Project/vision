@@ -71,7 +71,7 @@ struct SegmentObjects
             object_poses_.push_back(object_pose);
 
             UnalignedVector3f bounding_box;
-            bounding_box << bounding_box_array[i][0], bounding_box_array[i][1], bounding_box_array[i][2];
+            bounding_box << bounding_box_array[3*i], bounding_box_array[3*i + 1], bounding_box_array[3*i + 2];
             object_sizes_.push_back(bounding_box);
         }
         return ecto::OK;
