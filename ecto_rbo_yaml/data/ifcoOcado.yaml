@@ -118,9 +118,9 @@ ifco_grasp:
     bounded_planes_biggest: table_fits/bounded_model_biggest
   plane_id: -1
   tableDist: 0.2
-  ifco_length: 0.56
-  ifco_width: 0.38
-  ifco_height: 0.16
+  ifco_length: 0.575
+  ifco_width: 0.375
+  ifco_height: 0.175
   ifco_pcl: true
   camera_frame: kinect2_1_ir_optical_frame
 
@@ -210,8 +210,6 @@ ros_Float32MultiArray_subscriber:
   type: ecto_std_msgs::Subscriber_Float32MultiArray
   queue_size: 1
   topic_name: /bounding_boxes
-
-
 
 # Ocado object segmentation
 segment_objects:
