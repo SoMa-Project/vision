@@ -345,6 +345,7 @@ struct IfcoGrasp
               wall0normal *= -1;
 
 						// Update the transform for visualization
+						/*
             tf::Vector3 third_axis = wall0normal.cross(principal_axis);
             Eigen::Matrix3f rotation;
 						rotation << principal_axis.x(), third_axis.x(), wall0normal.x(),
@@ -352,6 +353,7 @@ struct IfcoGrasp
                                    principal_axis.z(), third_axis.z(), wall0normal.z();
 						UnalignedAffine3f transform = Eigen::Translation3f(origin[0], origin[1], origin[2]) * rotation;
 						(*ifco_wall_0_transform_) = transform;
+						*/
 					}
 				}
 
@@ -428,6 +430,7 @@ struct IfcoGrasp
               wall1normal *= -1;
 
 						// Update the transform for visualization
+            /*
             tf::Vector3 third_axis = wall1normal.cross(principal_axis);
             Eigen::Matrix3f rotation;
 						rotation << principal_axis.x(), third_axis.x(), wall1normal.x(),
@@ -435,6 +438,7 @@ struct IfcoGrasp
                                    principal_axis.z(), third_axis.z(), wall1normal.z();
 						UnalignedAffine3f transform = Eigen::Translation3f(origin[0], origin[1], origin[2]) * rotation;
 						(*ifco_wall_1_transform_) = transform;
+						*/
 					}
 				}
 
