@@ -583,7 +583,7 @@ struct IfcoGrasp
 
 
         // overwrite other vector stuff
-        biggestNormal = tf::Vector3(ifcoRotation(0,2), ifcoRotation(1,2), ifcoRotation(2,2));
+        biggestNormal = tf::Vector3(-ifcoRotation(0,2), -ifcoRotation(1,2), -ifcoRotation(2,2));
         biggestOrigin = ifcoCenter;
         wall0origin = tf::Vector3(wall_0_Center.x(), wall_0_Center.y(), wall_0_Center.z());
         wall1origin = tf::Vector3(wall_1_Center.x(), wall_1_Center.y(), wall_1_Center.z());
