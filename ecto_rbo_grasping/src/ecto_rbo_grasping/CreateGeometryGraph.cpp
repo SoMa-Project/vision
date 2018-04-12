@@ -69,7 +69,7 @@ struct CreateGeometryGraph
     {
         params.declare<double>("angular_threshold", "", 0.5);
         params.declare<double>("cartesian_threshold", "", 0.05);
-        params.declare<bool>("ignore_manifold_intersection", "wether to ignore the manifolds and just connect all grasps to each other", false);
+        params.declare<bool>("ignore_manifold_intersection", "wether to ignore the manifolds connectivty check and just connect all grasps to each other", false);
     }
 
     static void declare_io(const ecto::tendrils& params, ecto::tendrils& inputs, ecto::tendrils& outputs)
