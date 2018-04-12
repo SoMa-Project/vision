@@ -213,7 +213,7 @@ struct IfcoGrasp
         ::tf::quaternionEigenToTF(q_eigen, q_tf);
         ::tf::quaternionTFToMsg(q_tf, g.pregrasp_pose.pose.pose.orientation);
 
-        tf::Quaternion rotated_around_x(tf::Vector3(1, 0, 0), 0);
+        //tf::Quaternion rotated_around_x(tf::Vector3(1, 0, 0), 0);
         // tf::Quaternion rotated_around_x(tf::Vector3(1, 0, 0), -M_PI);
         // tf::Transform whole(q_tf*rotated_around_x, tf::Vector3(wall->values[0], wall->values[1], wall->values[2]));
         tf::Transform whole(q_tf, tf::Vector3(wall->values[0], wall->values[1], wall->values[2]));
@@ -221,7 +221,7 @@ struct IfcoGrasp
         ::tf::poseTFToMsg(whole, g.pregrasp_pose.pose.pose);
         g.pregrasp_pose.center = g.pregrasp_pose.pose;
 
-        double edge_length = (i == 0) ? (*ifco_length_) : (*ifco_width_);
+        double edge_length = (i%2 == 0) ? (*ifco_length_) : (*ifco_width_);
         g.pregrasp_pose.size.push_back(edge_length);
         g.pregrasp_pose.size.push_back(0.15);
         g.pregrasp_pose.size.push_back(0.05);
