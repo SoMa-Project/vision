@@ -68,8 +68,13 @@ class VisionServer:
 
         # start scheduler; iterate exactly once over the ecto plasm
         self.ecto_scheduler.execute(niter=1)
-
+        
+        i=0
         while self.outputgraph == None or self.found_objects == None:
+            if i % 50 == 0:
+                rospy.loginfo("waiting for vision reponse")
+            i = i+1
+
             time.sleep(0.1)
 
         return srv.ComputeECGraphResponse(self.outputgraph, self.found_objects)
