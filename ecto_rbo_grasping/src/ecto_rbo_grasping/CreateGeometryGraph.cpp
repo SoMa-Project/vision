@@ -61,6 +61,7 @@ struct CreateGeometryGraph
 
     ecto::spore<double> cartesian_threshold_;
     ecto::spore<double> angular_threshold_;
+    ecto::spore<bool> ignore_manifold_intersection_;
 
     ecto::spore<geometry_graph_msgs::GraphConstPtr> graph_message_;
 
@@ -68,6 +69,7 @@ struct CreateGeometryGraph
     {
         params.declare<double>("angular_threshold", "", 0.5);
         params.declare<double>("cartesian_threshold", "", 0.05);
+        params.declare<bool>("ignore_manifold_intersection", "wether to ignore the manifolds connectivty check and just connect all grasps to each other", false);
     }
 
     static void declare_io(const ecto::tendrils& params, ecto::tendrils& inputs, ecto::tendrils& outputs)
@@ -107,6 +109,7 @@ struct CreateGeometryGraph
 
         angular_threshold_ = params["angular_threshold"];
         cartesian_threshold_ = params["cartesian_threshold"];
+        ignore_manifold_intersection_ = params["ignore_manifold_intersection"];
 
         graph_message_ = outputs["graph_message"];
 
@@ -159,12 +162,23 @@ struct CreateGeometryGraph
             first_strategy.strategy == ::pregrasp_msgs::GraspStrategy::STRATEGY_SLIDE_TO_EDGE || 
             first_strategy.strategy == ::pregrasp_msgs::GraspStrategy::STRATEGY_SQUEEZE)
             return false;
+
+        //Also don't go back to the start node
+        if(second_strategy.strategy == ::pregrasp_msgs::GraspStrategy::STRATEGY_POSITION)
+          return false;
+
+
         
         /*
         if (first_strategy.strategy == pregrasp_msgs::GraspStrategy::STRATEGY_POSITION && second_strategy.strategy != pregrasp_msgs::GraspStrategy::STRATEGY_LAND)
             return false;
         */
         
+
+        //we completely ignore the manifold connectivity check, if this option is set to true
+        if(ignore_manifold_intersection_)
+          return true;
+
         return first_manifold.isIntersecting(second_manifold);
     }
 
