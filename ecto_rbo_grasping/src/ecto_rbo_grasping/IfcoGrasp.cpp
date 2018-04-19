@@ -177,14 +177,17 @@ struct IfcoGrasp
     template<typename Point>
     void createWallGrasps (boost::shared_ptr<const ::pcl::PointCloud<Point> >& input) {
 
-
         // Initialize the pregrasp messages
         pregrasp_msgs::GraspStrategyArrayPtr wall_messages(new ::pregrasp_msgs::GraspStrategyArray());
         wall_messages->header = pcl_conversions::fromPCL(input->header);
         ::posesets::PoseSetArrayPtr wall_manifolds(new ::posesets::PoseSetArray());
 
         // If the IFCO is not detected, don't create any messages
-        if(ifco_planes_->empty()) return;
+        if(ifco_planes_->empty())
+        {
+          ROS_ERROR("Ifco could not be detected!!!");
+          return QUIT;
+        }
 
         // Create a grasp per wall
         for(int i = 0; i < 4; i++) {
@@ -256,6 +259,8 @@ struct IfcoGrasp
 
         (*wall_pregrasp_messages_) = wall_messages;   // delete all messages stuff here (and test!)
         (*wall_manifolds_) = wall_manifolds;
+
+        return OK;
     }
 
     // ==========================================================================================
