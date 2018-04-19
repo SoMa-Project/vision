@@ -386,7 +386,7 @@ struct IfcoGrasp
 
             if(maxSize < 0) {
                 ROS_ERROR("Could not find the first wall");
-                return OK;
+                return QUIT;
             }
             printf("maxSize: %lf\n", maxSize);
 
@@ -469,7 +469,7 @@ struct IfcoGrasp
 
             if(maxSize < 0) {
                 ROS_ERROR("Could not find the second wall");
-                return OK;
+                return QUIT;
             }
 
             // Compute the origin and normal projections of the walls to the table surface
