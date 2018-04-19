@@ -71,7 +71,7 @@ struct IfcoGrasp
     ecto::spore<double> ifco_length_;
     ecto::spore<double> ifco_width_;
     ecto::spore<double> ifco_height_;
-    ecto::spore<bool> ifco_pcl_;
+    ecto::spore<bool> ifco_static_;
 
     // outputs
     ecto::spore<pregrasp_msgs::GraspStrategyArrayConstPtr> wall_pregrasp_messages_;
@@ -93,7 +93,7 @@ struct IfcoGrasp
         params.declare<double>("ifco_width", "Size of the short IFCO edge", 0.0);
         params.declare<double>("ifco_height", "Depth of the ifco", 0.0);
         params.declare<int>("plane_id", "afasdfof a bounded plane to the biggest bounded plane (i.e. table)", 0.0);
-        params.declare<bool>("ifco_pcl", "Should ifco transform be overwritten with Ocados pcl ifco estimation?", false);
+        params.declare<bool>("ifco_static", "Should ifco transform be overwritten with Ocados pcl ifco estimation?", false);
     }
 
     // ======================================================================================================================
@@ -123,7 +123,7 @@ struct IfcoGrasp
         ifco_width_ = params["ifco_width"];
         ifco_height_ = params["ifco_height"];
         plane_id_ = params["plane_id"];
-        ifco_pcl_ = params["ifco_pcl"];
+        ifco_static_ = params["ifco_static"];
 
         // outputs
         ifco_wall_0_transform_ = outputs["ifco_wall_0_transform"];
@@ -292,7 +292,7 @@ struct IfcoGrasp
         (*ifco_transform_) = UnalignedAffine3f::Identity();
 
 
-        if ( !*ifco_pcl_ )
+        if ( !*ifco_static_ )
         {
 
             // Get the size of the biggest bounded plane
@@ -517,10 +517,10 @@ struct IfcoGrasp
         }
         /*
      * ------------------------------------------------------------------------------------------------------------------
-     * ifco transform is overwritten by ocado external pcl based IFCO detection if param -- ifco_pcl -- is set to true in yaml file
+     * ifco transform is overwritten by ocado external pcl based IFCO detection if param -- ifco_static -- is set to true in yaml file
      *
      */
-        if ( *ifco_pcl_ )
+        if ( *ifco_static_ )
         {
             tf::StampedTransform transform_;
             try
