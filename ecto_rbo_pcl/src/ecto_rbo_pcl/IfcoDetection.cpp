@@ -281,10 +281,10 @@ struct IfcoDetection
             ifco_polygons_->clear();
 
 
-            tf::Vector3 wall0originB = ifcoCenter - 0.5 * ((*ifco_width_)  * wall0normal);
-            tf::Vector3 wall1originB = ifcoCenter - 0.5 * ((*ifco_length_) * wall1normal);
-            tf::Vector3 wall2originB = ifcoCenter + 0.5 * ((*ifco_width_)  * wall0normal);
-            tf::Vector3 wall3originB = ifcoCenter + 0.5 * ((*ifco_length_) * wall1normal);
+            tf::Vector3 wall0originB = ifcoCenter - 0.5 * ((*ifco_width_)  * wall0normal)+ 0.5 * ((*ifco_height_) * biggestNormal);
+            tf::Vector3 wall1originB = ifcoCenter - 0.5 * ((*ifco_length_) * wall1normal)+ 0.5 * ((*ifco_height_) * biggestNormal);
+            tf::Vector3 wall2originB = ifcoCenter + 0.5 * ((*ifco_width_)  * wall0normal)+ 0.5 * ((*ifco_height_) * biggestNormal);
+            tf::Vector3 wall3originB = ifcoCenter + 0.5 * ((*ifco_length_) * wall1normal)+ 0.5 * ((*ifco_height_) * biggestNormal);
 
 
             // Create the bounded models for the primitives
