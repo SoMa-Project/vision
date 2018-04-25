@@ -33,24 +33,23 @@ typedef Eigen::Transform<float,3,Eigen::Affine,Eigen::DontAlign> UnalignedAffine
 struct BroadcastIfcoSpecifications
 {
 
+    ros::NodeHandle nh_;
+
     // params
     spore<double> ifco_length_;
     spore<double> ifco_width_;
     spore<double> ifco_height_;
-    spore<bool>   static_;
 
     // outputs
     spore<double> ifco_length__;
     spore<double> ifco_width__;
     spore<double> ifco_height__;
-    spore<bool>   static__;
 
     static void declare_params(tendrils& params)
     {
         params.declare<double>("ifco_length", "Size of the long IFCO edge", 0.0);
         params.declare<double>("ifco_width", "Size of the short IFCO edge", 0.0);
         params.declare<double>("ifco_height", "Depth of the ifco", 0.0);
-        params.declare<bool>("static", "Use ifco static transform", false);
     }
 
     static void declare_io(const tendrils& params, tendrils& inputs, tendrils& outputs)
@@ -58,22 +57,19 @@ struct BroadcastIfcoSpecifications
         outputs.declare<double>("ifco_length", "Size of the long IFCO edge", 0.0);
         outputs.declare<double>("ifco_width", "Size of the short IFCO edge", 0.0);
         outputs.declare<double>("ifco_height", "Depth of the ifco", 0.0);
-        outputs.declare<bool>("static", "Use ifco static transform", false);
     }
 
     void configure(const tendrils& params, const tendrils& inputs, const tendrils& outputs)
     {
         // params
-        ifco_length_ = params["ifco_length"];
-        ifco_width_  = params["ifco_width"];
-        ifco_height_ = params["ifco_height"];
-        static_      = params["static"];
+        ifco_length_     = params["ifco_length"];
+        ifco_width_      = params["ifco_width"];
+        ifco_height_     = params["ifco_height"];
 
         // outputs
-        ifco_length__ = outputs["ifco_length"];
-        ifco_width__  = outputs["ifco_width"];
-        ifco_height__ = outputs["ifco_height"];
-        static__      = outputs["static"];
+        ifco_length__      = outputs["ifco_length"];
+        ifco_width__       = outputs["ifco_width"];
+        ifco_height__      = outputs["ifco_height"];
     }
 
     int process(const tendrils& inputs, const tendrils& outputs)
@@ -81,8 +77,6 @@ struct BroadcastIfcoSpecifications
         (*ifco_length__) = *ifco_length_;
         (*ifco_width__)  = *ifco_width_;
         (*ifco_height__) = *ifco_height_;
-        (*static__)      = *static_;
-
 
         return ecto::OK;
     }
