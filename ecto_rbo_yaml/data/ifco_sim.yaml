@@ -88,7 +88,6 @@ ifco_specifications:
   ifco_length: 0.56
   ifco_width: 0.38
   ifco_height: 0.16
-  static: true
 
 ifco_detection:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::IfcoDetection>
@@ -100,7 +99,6 @@ ifco_detection:
     ifco_length: ifco_specifications/ifco_length
     ifco_width: ifco_specifications/ifco_width
     ifco_height: ifco_specifications/ifco_height
-    static: ifco_specifications/static
   plane_id: -1
   tableDist: 0.2
 
