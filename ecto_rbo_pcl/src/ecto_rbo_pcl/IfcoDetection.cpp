@@ -203,16 +203,21 @@ struct IfcoDetection
         (*ifco_transform_) = UnalignedAffine3f::Identity();
 
         // get rosparam that decides on ifco detection method
-        int detection_method = 1;
-        nh_.param("detection_method", detection_method, 1); // default is backup ifco detection: use ecto vision to compute it
+        enum DetectionMethod { backup=1, simplestatic=2, icp=3 };
+        int detection_method_ = 1;
+        nh_.param("detection_method", detection_method_, 1); // default is backup ifco detection: use ecto vision to compute it
+        DetectionMethod detection_method = (DetectionMethod) detection_method_;
+
+
 
         // use an external method to retrieve the ifco transform
-        if(detection_method == 2 || detection_method == 3)
+        if(detection_method == simplestatic || detection_method == icp)
         {
+            tf::Transform cam_to_ifco;
 
             // icp method is selected
             // compute ifco transform and broadcast it
-            if(detection_method == 3)
+            if(detection_method == icp)
             {
                 srv.request.max_tries = 10;
                 srv.request.max_fitness = 0.008;
@@ -222,9 +227,7 @@ struct IfcoDetection
                 {
                     ROS_INFO("Service was called");
                     ROS_INFO("Fitness value was %f", srv.response.fitness);
-                    tf::Transform cam_to_ifco;
                     tf::poseMsgToTF(srv.response.pose, cam_to_ifco);
-                    br.sendTransform(tf::StampedTransform(cam_to_ifco, ros::Time::now(), "camera_rgb_optical_frame", "ifco"));
                 }
                 else
                 {
@@ -237,7 +240,26 @@ struct IfcoDetection
             try
             {
                 tf::StampedTransform transform_stamped;
-                tf_listener_.lookupTransform("camera_rgb_optical_frame", "ifco", ros::Time(0), transform_stamped);
+                Eigen::Matrix3f ifco_rotation_icp;
+                Eigen::Matrix3f ifco_rotation_wallconventions;
+
+                if (detection_method == simplestatic)
+                {
+                    tf_listener_.lookupTransform("camera_rgb_optical_frame", "ifco_static", ros::Time(0), transform_stamped);
+                }
+                else
+                {
+                    transform_stamped = tf::StampedTransform(cam_to_ifco, ros::Time::now(), "camera_rgb_optical_frame", "ifco_icp");
+                    br.sendTransform(transform_stamped);
+                    // this transform needs to be applied on the original icp to meet our conventions
+                    ifco_rotation_icp <<  1 , 0, 0,
+                            0 , -1, 0,
+                            0 ,0, -1;
+
+                    ifco_rotation_wallconventions <<  -1 , 0, 0,
+                            0 , -1, 0,
+                            0 ,0, 1;
+                }
                 // get ifco center
                 ifcoCenter = transform_stamped.getOrigin();
                 // convert ifco transform from tf::Quaternion to Eigen::Quaternion then Eigen::Matrix3f
@@ -246,6 +268,13 @@ struct IfcoDetection
                 tf::quaternionTFToEigen (ifcoRotation_tf, ifcoRotation_eigen);
                 Eigen::Matrix3d ifcoRotation_ = ifcoRotation_eigen.toRotationMatrix();
                 ifcoRotation = ifcoRotation_.cast<float>();
+
+                if (detection_method == icp)
+                {
+                    // ifco rotation axis needs to be flipped to satisfy our conventions
+                    ifcoRotation = ifcoRotation * ifco_rotation_icp;
+                    ifcoRotation = ifcoRotation * ifco_rotation_wallconventions;
+                }
                 ifcoCenter_eigen = Eigen::Translation3f(ifcoCenter.getX(), ifcoCenter.getY(), ifcoCenter.getZ());
                 transform = ifcoCenter_eigen * ifcoRotation;
                 (*ifco_transform_) = transform;
@@ -337,285 +366,285 @@ struct IfcoDetection
 
 
 
-    }
-    // no static ifco available so it will be computed from vision
-    else if(detection_method == 1)
-    {
+        }
+        // no static ifco available so it will be computed from vision
+        else if(detection_method == backup)
+        {
 
-        // Get the size of the biggest bounded plane
-        std::vector< ::pcl::ModelCoefficientsConstPtr>::iterator biggestIt = bounded_planes_biggest_->begin();
-        biggestOrigin = tf::Vector3 ((*biggestIt)->values[0], (*biggestIt)->values[1], (*biggestIt)->values[2]);
-        biggestNormal = tf::Vector3 ((*biggestIt)->values[3], (*biggestIt)->values[4], (*biggestIt)->values[5]);
-        biggestPrincipalAxis = tf::Vector3 ((*biggestIt)->values[6], (*biggestIt)->values[7], (*biggestIt)->values[8]);
-        double biggestSize = biggestPrincipalAxis.length() * (*biggestIt)->values[9];
+            // Get the size of the biggest bounded plane
+            std::vector< ::pcl::ModelCoefficientsConstPtr>::iterator biggestIt = bounded_planes_biggest_->begin();
+            biggestOrigin = tf::Vector3 ((*biggestIt)->values[0], (*biggestIt)->values[1], (*biggestIt)->values[2]);
+            biggestNormal = tf::Vector3 ((*biggestIt)->values[3], (*biggestIt)->values[4], (*biggestIt)->values[5]);
+            biggestPrincipalAxis = tf::Vector3 ((*biggestIt)->values[6], (*biggestIt)->values[7], (*biggestIt)->values[8]);
+            double biggestSize = biggestPrincipalAxis.length() * (*biggestIt)->values[9];
 
 
 
-        // --- PART 1 -----------------------------------------------------------------------
-        // Iterate through the bounded planes to find the biggest IFCO wall we can see
-        double maxSize = -1;
-        ::pcl::ModelCoefficientsConstPtr ifcoWall0It;
-        double wall0angle;
-        int counter = -1;
-        printf("\n\n\n~~~ Looking for wall 1!\n");
-        for (std::vector< ::pcl::ModelCoefficientsConstPtr>::iterator it =
-             bounded_planes_->begin(); it != bounded_planes_->end(); ++it) {
+            // --- PART 1 -----------------------------------------------------------------------
+            // Iterate through the bounded planes to find the biggest IFCO wall we can see
+            double maxSize = -1;
+            ::pcl::ModelCoefficientsConstPtr ifcoWall0It;
+            double wall0angle;
+            int counter = -1;
+            printf("\n\n\n~~~ Looking for wall 1!\n");
+            for (std::vector< ::pcl::ModelCoefficientsConstPtr>::iterator it =
+                 bounded_planes_->begin(); it != bounded_planes_->end(); ++it) {
 
-            counter++;
-            if((*plane_id_ != -1) && counter != *plane_id_) {
-                printf("skipping because %d vs. %d\n", counter, *plane_id_);
-                continue;
+                counter++;
+                if((*plane_id_ != -1) && counter != *plane_id_) {
+                    printf("skipping because %d vs. %d\n", counter, *plane_id_);
+                    continue;
+                }
+
+                // Take the origin, normal, principle axis and plane size from the bounded plane
+                // The 9th index is the length of the minor axis of the bounding box
+                tf::Vector3 origin((*it)->values[0], (*it)->values[1], (*it)->values[2]);
+                tf::Vector3 normal((*it)->values[3], (*it)->values[4], (*it)->values[5]);
+                tf::Vector3 principal_axis((*it)->values[6], (*it)->values[7], (*it)->values[8]);
+                double size = principal_axis.length() * (*it)->values[9];
+                tf::Vector3 plane_size(principal_axis.length(), (*it)->values[9], 0.02);
+                normal.normalize();
+                principal_axis.normalize();
+
+                // Check if the bounded plane is perpendicular enough to the biggest plane
+                double angle = acos(normal.dot(biggestNormal));
+                if((angle < M_PI_2/2.0) || (angle > 1.5 * M_PI_2)) {
+                    pc(angle / M_PI * 180.0);
+                    printf("\tnot perpendicular!\n");
+                    continue;
+                }
+
+                // Check if the principle axis of the bounding box is perpendicular to the table normal
+                // Note from Can: Not sure why I wrote this in the first place. Leave it until MS4 in case necessary.
+                double angle2 = acos(principal_axis.dot(biggestNormal));
+                if(false && (((angle2 < (M_PI_2 - 0.1)) || (angle2 > (M_PI_2 + 0.1))))) {
+                    pc(angle2 / M_PI * 180.0);
+                    printf("\tslanted!\n");
+                    continue;
+                }
+
+
+                // Check if the bounded box is close enough to the biggest plane (i.e. it is on the table)
+                double dist = (origin - biggestOrigin).dot(biggestNormal);
+                if(fabs(dist) > *tableDist_ || dist > 0) {
+                    pc(dist);
+                    printf("\ttoo far from table, skipping\n");
+                    continue;
+                }
+
+                // Get the size of the plane and see if it can be the biggest IFCO plane
+                //pc(size);
+                if((size < (biggestSize - 1e-3)) && (size > maxSize)) {
+
+                    // Update the size
+                    printf("\tbiggest now (vs. %lf)!\n", maxSize);
+                    maxSize = size;
+                    ifcoWall0It = *it;
+                    wall0normal = normal;
+                    wall0origin = origin;
+                    wall0angle = angle2;
+
+                    // Make sure that the normal axis is looking towards the middle of the ifco
+                    if(wall0normal.dot(biggestOrigin - wall0origin) < 0)
+                        wall0normal *= -1;
+
+                    // Update the transform for visualization
+                    third_axis = wall0normal.cross(principal_axis);
+                    Eigen::Matrix3f rotation;
+                    rotation << principal_axis.x(), third_axis.x(), wall0normal.x(),
+                            principal_axis.y(), third_axis.y(), wall0normal.y(),
+                            principal_axis.z(), third_axis.z(), wall0normal.z();
+                    UnalignedAffine3f transform = Eigen::Translation3f(origin[0], origin[1], origin[2]) * rotation;
+                    (*ifco_wall_0_transform_) = transform;
+                }
             }
 
-            // Take the origin, normal, principle axis and plane size from the bounded plane
-            // The 9th index is the length of the minor axis of the bounding box
-            tf::Vector3 origin((*it)->values[0], (*it)->values[1], (*it)->values[2]);
-            tf::Vector3 normal((*it)->values[3], (*it)->values[4], (*it)->values[5]);
-            tf::Vector3 principal_axis((*it)->values[6], (*it)->values[7], (*it)->values[8]);
-            double size = principal_axis.length() * (*it)->values[9];
-            tf::Vector3 plane_size(principal_axis.length(), (*it)->values[9], 0.02);
-            normal.normalize();
-            principal_axis.normalize();
+            if(maxSize < 0) {
+                ROS_ERROR("Could not find the first wall");
+                return QUIT;
+            }
+            printf("maxSize: %lf\n", maxSize);
 
-            // Check if the bounded plane is perpendicular enough to the biggest plane
-            double angle = acos(normal.dot(biggestNormal));
-            if((angle < M_PI_2/2.0) || (angle > 1.5 * M_PI_2)) {
+            // ---- PART 2 ----------------------------------------------------------------------
+            // Find a second wall of the IFCO that is perpendicular to the first wall and the
+            // table surface of course
+            maxSize = -1;
+            ::pcl::ModelCoefficientsConstPtr ifcoWall1It;
+
+            printf("~~~ Looking for wall 2!\n");
+            for (std::vector< ::pcl::ModelCoefficientsConstPtr>::iterator it = bounded_planes_->begin(); it != bounded_planes_->end(); ++it) {
+
+                // Take the origin, normal, principle axis and plane size from the bounded plane
+                // The 9th index is the length of the minor axis of the bounding box
+                tf::Vector3 origin((*it)->values[0], (*it)->values[1], (*it)->values[2]);
+                tf::Vector3 normal((*it)->values[3], (*it)->values[4], (*it)->values[5]);
+                tf::Vector3 principal_axis((*it)->values[6], (*it)->values[7], (*it)->values[8]);
+                double size = principal_axis.length() * (*it)->values[9];
+                tf::Vector3 plane_size(principal_axis.length(), (*it)->values[9], 0.02);
+                normal.normalize();
+                principal_axis.normalize();
+
+                // Check if the bounded plane is perpendicular enough to the biggest plane
+                double angle = acos(normal.dot(biggestNormal));
                 pc(angle / M_PI * 180.0);
-                printf("\tnot perpendicular!\n");
-                continue;
-            }
+                if((angle < M_PI_2/2.0) || (angle > 1.5 * M_PI_2)) {
+                    printf("\tnot perpendicular to table!\n");
+                    continue;
+                }
 
-            // Check if the principle axis of the bounding box is perpendicular to the table normal
-            // Note from Can: Not sure why I wrote this in the first place. Leave it until MS4 in case necessary.
-            double angle2 = acos(principal_axis.dot(biggestNormal));
-            if(false && (((angle2 < (M_PI_2 - 0.1)) || (angle2 > (M_PI_2 + 0.1))))) {
-                pc(angle2 / M_PI * 180.0);
-                printf("\tslanted!\n");
-                continue;
-            }
+                // Check if the bounded plane is perpendicular enough to the first wall
+                angle = acos(normal.dot(wall0normal));
+                pc(angle / M_PI * 180.0);
+                if((angle < M_PI_2/2.0) || (angle > 1.5 * M_PI_2)) {
+                    printf("\tnot perpendicular to wall0!\n");
+                    continue;
+                }
 
-
-            // Check if the bounded box is close enough to the biggest plane (i.e. it is on the table)
-            double dist = (origin - biggestOrigin).dot(biggestNormal);
-            if(fabs(dist) > *tableDist_ || dist > 0) {
+                // Check if the bounded box is close enough to the biggest plane (i.e. it is on the table)
+                double dist = (origin - biggestOrigin).dot(biggestNormal);
                 pc(dist);
-                printf("\ttoo far from table, skipping\n");
-                continue;
+                if(fabs(dist) > *tableDist_ || dist > 0) {
+                    printf("\ttoo far from table, skipping\n");
+                    continue;
+
+                }
+
+                // Check if the bounded box is different than the first wall
+                double wallDist = (origin - wall0origin).length();
+                if(wallDist < 0.05) {
+                    printf("\ttoo close to the first wall, skipping\n");
+                    continue;
+                }
+
+                // Get the size of the plane and see if it can be the biggest IFCO plane
+                pc(size);
+                if((size < (biggestSize - 1e-3)) && (size > maxSize)) {
+
+                    // Update the size
+                    printf("\tbiggest now (vs. %lf)!\n", maxSize);
+                    maxSize = size;
+                    ifcoWall1It = *it;
+                    wall1normal = normal;
+                    wall1origin = origin;
+
+                    // Make sure that the normal axis is looking towards the middle of the ifco
+                    if(wall1normal.dot(wall0origin - wall1origin) < 0)
+                        wall1normal *= -1;
+
+                    // Update the transform for visualization
+                    third_axis = wall1normal.cross(principal_axis);
+                    Eigen::Matrix3f rotation;
+                    rotation << principal_axis.x(), third_axis.x(), wall1normal.x(),
+                            principal_axis.y(), third_axis.y(), wall1normal.y(),
+                            principal_axis.z(), third_axis.z(), wall1normal.z();
+                    UnalignedAffine3f transform = Eigen::Translation3f(origin[0], origin[1], origin[2]) * rotation;
+                    (*ifco_wall_1_transform_) = transform;
+                }
             }
 
-            // Get the size of the plane and see if it can be the biggest IFCO plane
-            //pc(size);
-            if((size < (biggestSize - 1e-3)) && (size > maxSize)) {
-
-                // Update the size
-                printf("\tbiggest now (vs. %lf)!\n", maxSize);
-                maxSize = size;
-                ifcoWall0It = *it;
-                wall0normal = normal;
-                wall0origin = origin;
-                wall0angle = angle2;
-
-                // Make sure that the normal axis is looking towards the middle of the ifco
-                if(wall0normal.dot(biggestOrigin - wall0origin) < 0)
-                    wall0normal *= -1;
-
-                // Update the transform for visualization
-                third_axis = wall0normal.cross(principal_axis);
-                Eigen::Matrix3f rotation;
-                rotation << principal_axis.x(), third_axis.x(), wall0normal.x(),
-                        principal_axis.y(), third_axis.y(), wall0normal.y(),
-                        principal_axis.z(), third_axis.z(), wall0normal.z();
-                UnalignedAffine3f transform = Eigen::Translation3f(origin[0], origin[1], origin[2]) * rotation;
-                (*ifco_wall_0_transform_) = transform;
+            if(maxSize < 0) {
+                ROS_ERROR("Could not find the second wall");
+                return QUIT;
             }
+
+            // Compute the origin and normal projections of the walls to the table surface
+
+            wall0originProj = wall0origin - ((wall0origin - biggestOrigin).dot(biggestNormal)) * biggestNormal;
+            wall0normalProj = (wall0normal - (wall0normal.dot(biggestNormal)) * biggestNormal).normalized();
+            wall1originProj = wall1origin - ((wall1origin - biggestOrigin).dot(biggestNormal)) * biggestNormal;
+            wall1normalProj = (wall1normal - (wall1normal.dot(biggestNormal)) * biggestNormal).normalized();
+
+            // Compute the center of the IFCO on the biggest plane (table) ...
+            // ... by projecting wall centers and normals to the table plane
+
+            if(0) {
+                ifcoCenter = (wall1originProj - wall0originProj).dot(wall0normalProj) * wall0normalProj + wall0originProj;
+            }
+
+            // ... or, first get the corner location, and then using ifco size and long wall information, estimate the center (this should be more stable!)
+            else {
+                tf::Vector3 wall0inDir = (wall0normalProj.cross(biggestNormal)).normalized();
+                double t = (wall0originProj - wall1originProj).dot(wall1normalProj) / (wall0inDir.dot(wall1normalProj));
+
+                // We are not sure of the normal directions so we check both translation of magnitude t
+                ifcoCenter = wall0originProj + wall0inDir * t;
+                static const double kProjLimit = 0.05;
+                if(((ifcoCenter-wall0originProj).dot(wall0normalProj) > kProjLimit) || ((ifcoCenter-wall1originProj).dot(wall1normalProj) > kProjLimit))
+                    ifcoCenter =  wall0originProj - wall0inDir * t;
+
+                // Move the ifco center from the corner to the actual center with hardcoded values
+                ifcoCenter += (0.19 * wall0normalProj) + (0.27 * wall1normalProj);
+            }
+
+            // Compute the orientation
+            Eigen::Matrix3f rotation;// = Eigen::Matrix3f::Identity();
+            third_axis = wall0normalProj.cross(-biggestNormal);
+            rotation << third_axis.x(), wall0normalProj.x(), -biggestNormal.x(),
+                    third_axis.y(), wall0normalProj.y(), -biggestNormal.y(),
+                    third_axis.z(), wall0normalProj.z(), -biggestNormal.z();
+
+            transform = Eigen::Translation3f(ifcoCenter[0], ifcoCenter[1], ifcoCenter[2]) * rotation;
+            (*ifco_transform_) = transform;
+
+
+
+            // Create the bounded models for the primitives
+            ifco_planes_->clear();
+            ifco_planes_biggest_->clear();
+
+
+            tf::Vector3 wall0originB = ifcoCenter - 0.5 * ((*ifco_width_) * wall0normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
+            tf::Vector3 wall2originB = ifcoCenter + 0.5 * ((*ifco_width_) * wall0normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
+            tf::Vector3 wall1originB = ifcoCenter - 0.5 * ((*ifco_length_) * wall1normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
+            tf::Vector3 wall3originB = ifcoCenter + 0.5 * ((*ifco_length_) * wall1normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
+
+            // Make sure that the normal axis is looking towards the middle of the ifco
+            //we use the center point of the ifco bottom to check the direction of the normal and
+            //we use the correct wall normal and the ifco bottom plain normal crossproduct to get the primary axis
+
+            //long width wall check if normal is pointing toward the middle of the ifco
+            if(wall0normal.dot(ifcoCenter - wall0originB) > 0)
+                ifco_planes_->push_back(createBounded(wall0originB, wall0normal, (wall0normal.cross(biggestNormal)).normalized(), (*ifco_height_)));
+            else //if not flip the direction of the normal
+                ifco_planes_->push_back(createBounded(wall0originB, -wall0normal, (-wall0normal.cross(biggestNormal)).normalized(), (*ifco_height_)));
+
+            //short width wall
+            if(third_axis.dot(ifcoCenter - wall1originB) > 0)
+                ifco_planes_->push_back(createBounded(wall1originB, third_axis, (third_axis.cross(biggestNormal)).normalized(), (*ifco_height_)));
+            else
+                ifco_planes_->push_back(createBounded(wall1originB, -third_axis, (-third_axis.cross(biggestNormal)).normalized(), (*ifco_height_)));
+
+            //long width wall
+            if(wall0normal.dot(ifcoCenter - wall2originB) > 0)
+                ifco_planes_->push_back(createBounded(wall2originB, wall0normal, (wall0normal.cross(biggestNormal)).normalized(), (*ifco_height_)));
+            else
+                ifco_planes_->push_back(createBounded(wall2originB, -wall0normal, (-wall0normal.cross(biggestNormal)).normalized(), (*ifco_height_)));
+
+            //short width wall
+            if(third_axis.dot(ifcoCenter - wall3originB) > 0)
+                ifco_planes_->push_back(createBounded(wall3originB, third_axis, (third_axis.cross(biggestNormal)).normalized(), (*ifco_height_)));
+            else
+                ifco_planes_->push_back(createBounded(wall3originB, -third_axis, (-third_axis.cross(biggestNormal)).normalized(), (*ifco_height_)));
+
+            ifco_planes_->push_back(createBounded(ifcoCenter,-biggestNormal, (*ifco_length_) *third_axis, (*ifco_width_)));
+            ifco_planes_biggest_->push_back(createBounded(ifcoCenter,-biggestNormal, (*ifco_length_) *third_axis, (*ifco_width_)));
+
+            // Create the polygons (for wall grasps)
+            ifco_polygons_->clear();
+            ifco_polygons_->push_back(
+                        createPolygon(wall0originB, wall1normalProj, biggestNormal, (*ifco_length_), (*ifco_height_)));
+            ifco_polygons_->push_back(
+                        createPolygon(wall1originB, wall0normalProj, biggestNormal, (*ifco_width_), (*ifco_height_)));
+            ifco_polygons_->push_back(
+                        createPolygon(wall2originB, -wall1normalProj, biggestNormal, (*ifco_length_), (*ifco_height_)));
+            ifco_polygons_->push_back(
+                        createPolygon(wall3originB, -wall0normalProj, biggestNormal, (*ifco_width_), (*ifco_height_)));
+            ifco_polygons_->push_back(
+                        createPolygon(ifcoCenter, wall1normalProj, wall0normalProj, (*ifco_length_), (*ifco_width_)));
+
         }
-
-        if(maxSize < 0) {
-            ROS_ERROR("Could not find the first wall");
-            return QUIT;
-        }
-        printf("maxSize: %lf\n", maxSize);
-
-        // ---- PART 2 ----------------------------------------------------------------------
-        // Find a second wall of the IFCO that is perpendicular to the first wall and the
-        // table surface of course
-        maxSize = -1;
-        ::pcl::ModelCoefficientsConstPtr ifcoWall1It;
-
-        printf("~~~ Looking for wall 2!\n");
-        for (std::vector< ::pcl::ModelCoefficientsConstPtr>::iterator it = bounded_planes_->begin(); it != bounded_planes_->end(); ++it) {
-
-            // Take the origin, normal, principle axis and plane size from the bounded plane
-            // The 9th index is the length of the minor axis of the bounding box
-            tf::Vector3 origin((*it)->values[0], (*it)->values[1], (*it)->values[2]);
-            tf::Vector3 normal((*it)->values[3], (*it)->values[4], (*it)->values[5]);
-            tf::Vector3 principal_axis((*it)->values[6], (*it)->values[7], (*it)->values[8]);
-            double size = principal_axis.length() * (*it)->values[9];
-            tf::Vector3 plane_size(principal_axis.length(), (*it)->values[9], 0.02);
-            normal.normalize();
-            principal_axis.normalize();
-
-            // Check if the bounded plane is perpendicular enough to the biggest plane
-            double angle = acos(normal.dot(biggestNormal));
-            pc(angle / M_PI * 180.0);
-            if((angle < M_PI_2/2.0) || (angle > 1.5 * M_PI_2)) {
-                printf("\tnot perpendicular to table!\n");
-                continue;
-            }
-
-            // Check if the bounded plane is perpendicular enough to the first wall
-            angle = acos(normal.dot(wall0normal));
-            pc(angle / M_PI * 180.0);
-            if((angle < M_PI_2/2.0) || (angle > 1.5 * M_PI_2)) {
-                printf("\tnot perpendicular to wall0!\n");
-                continue;
-            }
-
-            // Check if the bounded box is close enough to the biggest plane (i.e. it is on the table)
-            double dist = (origin - biggestOrigin).dot(biggestNormal);
-            pc(dist);
-            if(fabs(dist) > *tableDist_ || dist > 0) {
-                printf("\ttoo far from table, skipping\n");
-                continue;
-
-            }
-
-            // Check if the bounded box is different than the first wall
-            double wallDist = (origin - wall0origin).length();
-            if(wallDist < 0.05) {
-                printf("\ttoo close to the first wall, skipping\n");
-                continue;
-            }
-
-            // Get the size of the plane and see if it can be the biggest IFCO plane
-            pc(size);
-            if((size < (biggestSize - 1e-3)) && (size > maxSize)) {
-
-                // Update the size
-                printf("\tbiggest now (vs. %lf)!\n", maxSize);
-                maxSize = size;
-                ifcoWall1It = *it;
-                wall1normal = normal;
-                wall1origin = origin;
-
-                // Make sure that the normal axis is looking towards the middle of the ifco
-                if(wall1normal.dot(wall0origin - wall1origin) < 0)
-                    wall1normal *= -1;
-
-                // Update the transform for visualization
-                third_axis = wall1normal.cross(principal_axis);
-                Eigen::Matrix3f rotation;
-                rotation << principal_axis.x(), third_axis.x(), wall1normal.x(),
-                        principal_axis.y(), third_axis.y(), wall1normal.y(),
-                        principal_axis.z(), third_axis.z(), wall1normal.z();
-                UnalignedAffine3f transform = Eigen::Translation3f(origin[0], origin[1], origin[2]) * rotation;
-                (*ifco_wall_1_transform_) = transform;
-            }
-        }
-
-        if(maxSize < 0) {
-            ROS_ERROR("Could not find the second wall");
-            return QUIT;
-        }
-
-        // Compute the origin and normal projections of the walls to the table surface
-
-        wall0originProj = wall0origin - ((wall0origin - biggestOrigin).dot(biggestNormal)) * biggestNormal;
-        wall0normalProj = (wall0normal - (wall0normal.dot(biggestNormal)) * biggestNormal).normalized();
-        wall1originProj = wall1origin - ((wall1origin - biggestOrigin).dot(biggestNormal)) * biggestNormal;
-        wall1normalProj = (wall1normal - (wall1normal.dot(biggestNormal)) * biggestNormal).normalized();
-
-        // Compute the center of the IFCO on the biggest plane (table) ...
-        // ... by projecting wall centers and normals to the table plane
-
-        if(0) {
-            ifcoCenter = (wall1originProj - wall0originProj).dot(wall0normalProj) * wall0normalProj + wall0originProj;
-        }
-
-        // ... or, first get the corner location, and then using ifco size and long wall information, estimate the center (this should be more stable!)
-        else {
-            tf::Vector3 wall0inDir = (wall0normalProj.cross(biggestNormal)).normalized();
-            double t = (wall0originProj - wall1originProj).dot(wall1normalProj) / (wall0inDir.dot(wall1normalProj));
-
-            // We are not sure of the normal directions so we check both translation of magnitude t
-            ifcoCenter = wall0originProj + wall0inDir * t;
-            static const double kProjLimit = 0.05;
-            if(((ifcoCenter-wall0originProj).dot(wall0normalProj) > kProjLimit) || ((ifcoCenter-wall1originProj).dot(wall1normalProj) > kProjLimit))
-                ifcoCenter =  wall0originProj - wall0inDir * t;
-
-            // Move the ifco center from the corner to the actual center with hardcoded values
-            ifcoCenter += (0.19 * wall0normalProj) + (0.27 * wall1normalProj);
-        }
-
-        // Compute the orientation
-        Eigen::Matrix3f rotation;// = Eigen::Matrix3f::Identity();
-        third_axis = wall0normalProj.cross(-biggestNormal);
-        rotation << third_axis.x(), wall0normalProj.x(), -biggestNormal.x(),
-                third_axis.y(), wall0normalProj.y(), -biggestNormal.y(),
-                third_axis.z(), wall0normalProj.z(), -biggestNormal.z();
-
-        transform = Eigen::Translation3f(ifcoCenter[0], ifcoCenter[1], ifcoCenter[2]) * rotation;
-        (*ifco_transform_) = transform;
-
-
-
-        // Create the bounded models for the primitives
-        ifco_planes_->clear();
-        ifco_planes_biggest_->clear();
-
-
-        tf::Vector3 wall0originB = ifcoCenter - 0.5 * ((*ifco_width_) * wall0normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
-        tf::Vector3 wall2originB = ifcoCenter + 0.5 * ((*ifco_width_) * wall0normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
-        tf::Vector3 wall1originB = ifcoCenter - 0.5 * ((*ifco_length_) * wall1normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
-        tf::Vector3 wall3originB = ifcoCenter + 0.5 * ((*ifco_length_) * wall1normalProj) - 0.5 * ((*ifco_height_) * biggestNormal);
-
-        // Make sure that the normal axis is looking towards the middle of the ifco
-        //we use the center point of the ifco bottom to check the direction of the normal and
-        //we use the correct wall normal and the ifco bottom plain normal crossproduct to get the primary axis
-
-        //long width wall check if normal is pointing toward the middle of the ifco
-        if(wall0normal.dot(ifcoCenter - wall0originB) > 0)
-            ifco_planes_->push_back(createBounded(wall0originB, wall0normal, (wall0normal.cross(biggestNormal)).normalized(), (*ifco_height_)));
-        else //if not flip the direction of the normal
-            ifco_planes_->push_back(createBounded(wall0originB, -wall0normal, (-wall0normal.cross(biggestNormal)).normalized(), (*ifco_height_)));
-
-        //short width wall
-        if(third_axis.dot(ifcoCenter - wall1originB) > 0)
-            ifco_planes_->push_back(createBounded(wall1originB, third_axis, (third_axis.cross(biggestNormal)).normalized(), (*ifco_height_)));
-        else
-            ifco_planes_->push_back(createBounded(wall1originB, -third_axis, (-third_axis.cross(biggestNormal)).normalized(), (*ifco_height_)));
-
-        //long width wall
-        if(wall0normal.dot(ifcoCenter - wall2originB) > 0)
-            ifco_planes_->push_back(createBounded(wall2originB, wall0normal, (wall0normal.cross(biggestNormal)).normalized(), (*ifco_height_)));
-        else
-            ifco_planes_->push_back(createBounded(wall2originB, -wall0normal, (-wall0normal.cross(biggestNormal)).normalized(), (*ifco_height_)));
-
-        //short width wall
-        if(third_axis.dot(ifcoCenter - wall3originB) > 0)
-            ifco_planes_->push_back(createBounded(wall3originB, third_axis, (third_axis.cross(biggestNormal)).normalized(), (*ifco_height_)));
-        else
-            ifco_planes_->push_back(createBounded(wall3originB, -third_axis, (-third_axis.cross(biggestNormal)).normalized(), (*ifco_height_)));
-
-        ifco_planes_->push_back(createBounded(ifcoCenter,-biggestNormal, (*ifco_length_) *third_axis, (*ifco_width_)));
-        ifco_planes_biggest_->push_back(createBounded(ifcoCenter,-biggestNormal, (*ifco_length_) *third_axis, (*ifco_width_)));
-
-        // Create the polygons (for wall grasps)
-        ifco_polygons_->clear();
-        ifco_polygons_->push_back(
-                    createPolygon(wall0originB, wall1normalProj, biggestNormal, (*ifco_length_), (*ifco_height_)));
-        ifco_polygons_->push_back(
-                    createPolygon(wall1originB, wall0normalProj, biggestNormal, (*ifco_width_), (*ifco_height_)));
-        ifco_polygons_->push_back(
-                    createPolygon(wall2originB, -wall1normalProj, biggestNormal, (*ifco_length_), (*ifco_height_)));
-        ifco_polygons_->push_back(
-                    createPolygon(wall3originB, -wall0normalProj, biggestNormal, (*ifco_width_), (*ifco_height_)));
-        ifco_polygons_->push_back(
-                    createPolygon(ifcoCenter, wall1normalProj, wall0normalProj, (*ifco_length_), (*ifco_width_)));
 
     }
-
-}
 
 };
 
