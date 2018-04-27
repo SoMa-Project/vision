@@ -188,7 +188,7 @@ set(ECTO_CELL_SRCS
 #    src/ecto_rbo_grasping/BroadcastDiskGrasps.cpp
 #    src/ecto_rbo_grasping/BroadcastGrasps.cpp
     src/ecto_rbo_grasping/CreateGrasps.cpp
-    src/ecto_rbo_grasping/IfcoGrasp.cpp
+    src/ecto_rbo_grasping/IfcoGrasps.cpp
     src/ecto_rbo_grasping/PublishGrasps.cpp
     src/ecto_rbo_grasping/MergeGraspStrategies.cpp
 #    src/ecto_rbo_grasping/MergeManifolds.cpp

@@ -20,7 +20,7 @@
 # - Start vision: rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ecto_rbo_grasping`/..//data/ifco_sim.yaml --debug
 # - Visualize in Rviz: ifco, ifcoWall0, ifcoWall1 TFs and the ifco_planes under visual markers.
 
-# IFCO detection algorithm (What happens in the ifco_grasp cell below):
+# IFCO detection algorithm (What happens in the ifco_grasps cell below):
 # 1. Detect the planes in the world. Visualize them in Rviz with MarkerArray: table_fits/polygons.
 #
 # 2. Assume the biggest plane corresponds to the table surface: table_fits/polygon_biggest. This is 
@@ -29,14 +29,14 @@
 #
 # 3. Find the second biggest plane in the world such that it is perpendicular to the table plane 
 #    and close to the table center (tableDist parameter).
-#    Assume that it corresponds to the long face of the IFCO. MarkerArray: ifco_grasp/ifco_wall_0_transform
+#    Assume that it corresponds to the long face of the IFCO. MarkerArray: ifco_detection/ifco_wall_0_transform
 #    If such a plane is not found, an error message will be printed but the vision loop will continue.
 #  . Setup implication: It makes sense to setup the camera so that it sees both a long and short 
 #      face of the IFCO from outside. They can also be seen from inside but if the IFCO is full, 
 #      then occlusions might be problematic
 #
 # 4. Find the third biggest plane such that it is perpendicular to the table plane and the long IFCO.
-#    Assume that it corresponds to the long face of the IFCO. MarkerArray: ifco_grasp/ifco_wall_1_transform
+#    Assume that it corresponds to the long face of the IFCO. MarkerArray: ifco_detection/ifco_wall_1_transform
 #    If such a plane is not found, an error message will be printed but the vision loop will continue.
 #
 # 5. Using the pixel patches corresponding to the two planes, determine the location of the IFCO corner where
@@ -109,25 +109,44 @@ table_fits:
   polygon_approximation_epsilon: 40.0
 
 # ------------------------------------------------------------------------
-ifco_grasp:
-  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::IfcoGrasp>
+# Ifco (Publish Specifications +  Detection + Grasp)
+# ------------------------------------------------------------------------
+ifco_specifications:
+  type: ecto_rbo_pcl::BroadcastIfcoSpecifications
+  ifco_length: 0.56
+  ifco_width: 0.38
+  ifco_height: 0.16
+
+ifco_detection:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::IfcoDetection>
   inputs:
     input: crop_box/output
     normals: normal_estimation/output
     bounded_planes: table_fits/bounded_models
     bounded_planes_biggest: table_fits/bounded_model_biggest
+    ifco_length: ifco_specifications/ifco_length
+    ifco_width: ifco_specifications/ifco_width
+    ifco_height: ifco_specifications/ifco_height
   plane_id: -1
   tableDist: 0.2
-  ifco_length: 0.56
-  ifco_width: 0.38
-  ifco_height: 0.16
+
+
+ifco_grasps:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::IfcoGrasps>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+    ifco_planes: ifco_detection/ifco_planes
+    ifco_length: ifco_specifications/ifco_length
+    ifco_width: ifco_specifications/ifco_width
+    ifco_height: ifco_specifications/ifco_height
 
 # ------------------------------------------------------------------------
 # Clean up transform data for later use
 tf_to_vector_table:
   type: ecto_rbo_pcl::TF2Vector
   inputs:
-    transform: ifco_grasp/ifco_transform
+    transform: ifco_detection/ifco_transform
   column_index: 2
   negate: false
 wrap_in_vector_table:
@@ -140,7 +159,7 @@ inside_ifco:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::CropBox>
   inputs:
     input: crop_box/output
-    transform: ifco_grasp/ifco_transform
+    transform: ifco_detection/ifco_transform
   default_min: [-0.24,  -0.16, 0.02, 0]
   default_max: [0.24,  0.16,  0.20, 0]
   publish_rviz_markers: true
@@ -164,7 +183,7 @@ filter_closest_object:
   inputs:
     input: crop_box/output
     clusters: region_growing_rgb/output
-    transform: ifco_grasp/ifco_transform
+    transform: ifco_detection/ifco_transform
   size_weight: 0
 
 # ------------------------------------------------------------------------
@@ -227,20 +246,10 @@ planar_manifolds:
   inputs:
     input: crop_box/output
     normals: normal_estimation/output
-    bounded_planes: ifco_grasp/ifco_planes_biggest
+    bounded_planes: ifco_detection/ifco_planes_biggest
   all_in_plane_orientations: true 
   rotation: 0
  
-# ------------------------------------------------------------------------
-# Create wall grasp primitives
-wall_grasps:
-  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::WallGrasps>
-  inputs:
-    input: crop_box/output
-    normals: normal_estimation/output
-    polygons: ifco_grasp/ifco_polygons
-    bounded_planes: ifco_grasp/ifco_planes
-  min_points: 200
 
 # ------------------------------------------------------------------------
 # Initial approach primitive
@@ -260,8 +269,8 @@ planner:
     pushing_motion_manifolds: planar_manifolds/manifolds
     surface_pregrasp_messages: create_top_down_grasps/pregrasp_messages
     surface_grasp_manifolds: planar_manifolds/manifolds
-    wall_pregrasp_messages: ifco_grasp/wall_pregrasp_messages
-    wall_grasp_manifolds: ifco_grasp/wall_manifolds
+    wall_pregrasp_messages: ifco_grasps/wall_pregrasp_messages
+    wall_grasp_manifolds: ifco_grasps/wall_manifolds
   ignore_manifold_intersection: true
 publish_graph:
   type: ecto_rbo_grasping::PublishGeometryGraph
@@ -275,7 +284,7 @@ publish_graph:
 tf_send_wall0:
   type: ecto_rbo_pcl::BroadcastTF
   inputs:
-    transform: ifco_grasp/ifco_wall_0_transform
+    transform: ifco_detection/ifco_wall_0_transform
   source_frame: camera_rgb_optical_frame
   target_frame: ifcoWall0
 
@@ -283,7 +292,7 @@ tf_send_wall0:
 tf_send_wall0b:
   type: ecto_rbo_pcl::BroadcastTF
   inputs:
-    transform: ifco_grasp/ifco_wall_0_transform
+    transform: ifco_detection/ifco_wall_0_transform
   source_frame: camera_rgb_optical_frame
   target_frame: wall
 
@@ -292,7 +301,7 @@ tf_send_wall0b:
 tf_send_wall1:
   type: ecto_rbo_pcl::BroadcastTF
   inputs:
-    transform: ifco_grasp/ifco_wall_1_transform
+    transform: ifco_detection/ifco_wall_1_transform
   source_frame: camera_rgb_optical_frame
   target_frame: ifcoWall1 
 
@@ -300,12 +309,12 @@ tf_send_wall1:
 tf_send_ifco:
   type: ecto_rbo_pcl::BroadcastTF
   inputs:
-    transform: ifco_grasp/ifco_transform
+    transform: ifco_detection/ifco_transform
   source_frame: camera_rgb_optical_frame
   target_frame: ifco
 tf_send_table:
   type: ecto_rbo_pcl::BroadcastTF
   inputs:
-    transform: ifco_grasp/ifco_transform
+    transform: ifco_detection/ifco_transform
   source_frame: camera_rgb_optical_frame
   target_frame: table
