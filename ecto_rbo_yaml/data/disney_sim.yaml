@@ -167,17 +167,6 @@ send_objects:
     sizes: bbox_fits/sizes
   frame: camera_rgb_optical_frame
 
-# ------------------------------------------------------------------------
-# Create edge grasp primitive
-#create_edge_grasps:
-#  type: ecto_rbo_grasping::CreateGrasps
-#  inputs:
-#    header: msg_to_pcl/header
-#    positions: calculate_centroids/centroids
-#    approach_vectors: wrap_in_vector_table/vector
-#  strategy: 0  # PUSH
-#  pregrasp_configuration: 3 # HOOK
-
 planar_manifolds:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::ManifoldsPlanar>
   inputs:
@@ -186,6 +175,7 @@ planar_manifolds:
     bounded_planes: table_fits/bounded_model_biggest
   all_in_plane_orientations: true
   rotation: 0
+
 cliff_grasps:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::CliffGrasps>
   inputs:
@@ -195,17 +185,6 @@ cliff_grasps:
     bounded_planes: table_fits/bounded_model_biggest
   max_no_of_points: 100
   invert_y_axis: true
-
-#edge_grasp_planner:
-#  type: ecto_rbo_grasping::PlanGrasps
-#  inputs:
-#    pushing_pregrasp_messages: create_edge_grasps/pregrasp_messages
-#    pushing_motion_manifolds: planar_manifolds/manifolds
-#    edge_pregrasp_messages: cliff_grasps/cliff_pregrasp_messages
-#    edge_grasp_manifolds: cliff_grasps/cliff_manifolds
-#  angular_threshold: 0.3
-#  cartesian_threshold: 0.2
-
 
 
 # ------------------------------------------------------------------------
