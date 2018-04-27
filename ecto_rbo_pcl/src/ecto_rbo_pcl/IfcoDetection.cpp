@@ -91,7 +91,7 @@ struct IfcoDetection
     static void declare_params(ecto::tendrils& params)
     {
         params.declare<double>("tableDist", "Distance of a bounded plane to the biggest bounded plane (i.e. table)", 0.0);
-        params.declare<int>("plane_id", "afasdfof a bounded plane to the biggest bounded plane (i.e. table)", 0.0);
+        params.declare<int>("plane_id", "Id/Numerator of the plane that is considered as main plane out of all bounded_planes.", 0.0);
     }
 
     // ======================================================================================================================
