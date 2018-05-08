@@ -27,6 +27,7 @@ The views and conclusions contained in the software and documentation are those 
 
 #include <ros/ros.h>
 #include <ros/console.h>
+#include <ros/package.h>
 #include <tf_conversions/tf_eigen.h>
 #include <tf/transform_datatypes.h>
 #include <tf/transform_broadcaster.h>
@@ -35,6 +36,8 @@ The views and conclusions contained in the software and documentation are those 
 #include <visualization_msgs/Marker.h>
 #include <visualization_msgs/MarkerArray.h>
 #include "ifco_pose_estimator/ifco_pose.h"
+
+#include <fstream>
 
 using namespace ecto;
 using namespace ecto::pcl;
@@ -206,8 +209,12 @@ struct IfcoDetection
         enum DetectionMethod { backup=1, simplestatic=2, icp=3 };
         int detection_method_ = 1;
         nh_.param("detection_method", detection_method_, 1); // default is backup ifco detection: use ecto vision to compute it
-        DetectionMethod detection_method = (DetectionMethod) detection_method_;
+        const DetectionMethod detection_method = (DetectionMethod) detection_method_;
 
+        // get rosparam that decides if estimated ifco pose should be saved to file
+        int save_estimated_ifco_pose_ = 0;
+        nh_.param("save_estimated_ifco_pose", save_estimated_ifco_pose_, 0);
+        const bool save_estimated_ifco_pose = save_estimated_ifco_pose_ != 0;
 
 
         // use an external method to retrieve the ifco transform
@@ -278,6 +285,12 @@ struct IfcoDetection
                 ifcoCenter_eigen = Eigen::Translation3f(ifcoCenter.getX(), ifcoCenter.getY(), ifcoCenter.getZ());
                 transform = ifcoCenter_eigen * ifcoRotation;
                 (*ifco_transform_) = transform;
+
+                if(save_estimated_ifco_pose && detection_method == icp) {
+                    tf::Quaternion rotation_tf;
+                    tf::quaternionEigenToTF(Eigen::Quaterniond(ifcoRotation.cast<double>()),rotation_tf);
+                    writeEstimatedIfcoPose2File(ifcoCenter, rotation_tf);
+                }
             }
             catch (tf::TransformException ex)
             {
@@ -585,7 +598,11 @@ struct IfcoDetection
 
             transform = Eigen::Translation3f(ifcoCenter[0], ifcoCenter[1], ifcoCenter[2]) * rotation;
             (*ifco_transform_) = transform;
-
+            if(save_estimated_ifco_pose) {
+                tf::Quaternion rotation_tf;
+                tf::quaternionEigenToTF(Eigen::Quaterniond(rotation.cast<double>()),rotation_tf);
+                writeEstimatedIfcoPose2File(ifcoCenter, rotation_tf);
+            }
 
 
             // Create the bounded models for the primitives
@@ -643,6 +660,29 @@ struct IfcoDetection
                         createPolygon(ifcoCenter, wall1normalProj, wall0normalProj, (*ifco_length_), (*ifco_width_)));
 
         }
+
+    }
+
+
+    // ======================================================================================================================
+    void writeEstimatedIfcoPose2File(const tf::Vector3 &ifcoCenter, const tf::Quaternion &ifcoRotation) {
+        const std::string path = ros::package::getPath("planner_gui");
+        if(path == "") {
+            ROS_ERROR("Could not find planner_gui package => can't write launch file to correct location => abort");
+            return;
+        }
+
+        std::ofstream transformLaunchFile;
+        transformLaunchFile.open((path + "/launch/staticTFforIfco.launch").c_str());
+
+        transformLaunchFile << "<?xml version=\"1.0\"?>\n<launch>";
+        transformLaunchFile << "<node pkg=\"tf\" type=\"static_transform_publisher\" name=\"ifco_static\" args=\"";
+        transformLaunchFile << ifcoCenter.getX() << " " << ifcoCenter.getY() << " " << ifcoCenter.getZ() << " ";
+        transformLaunchFile << ifcoRotation.getX() << " " << ifcoRotation.getY() << " " << ifcoRotation.getZ() << " " << ifcoRotation.getW();
+        transformLaunchFile << " base_link ifco_static 100\" />";
+        transformLaunchFile << "</launch>";
+
+        transformLaunchFile.close();
 
     }
 
