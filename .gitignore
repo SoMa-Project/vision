@@ -1,4 +1,6 @@
 *.swo
 *.swp
 *.pyc
+*.*~
+.idea/
 thirdparty/
