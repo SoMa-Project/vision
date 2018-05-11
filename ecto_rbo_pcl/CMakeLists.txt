@@ -16,6 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   tf_conversions
   eigen_conversions
   rosbag
+  roslib
   pcl_msgs
   pcl_conversions
 )

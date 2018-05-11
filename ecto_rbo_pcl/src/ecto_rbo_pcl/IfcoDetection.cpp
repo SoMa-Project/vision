@@ -675,12 +675,12 @@ struct IfcoDetection
         std::ofstream transformLaunchFile;
         transformLaunchFile.open((path + "/launch/staticTFforIfco.launch").c_str());
 
-        transformLaunchFile << "<?xml version=\"1.0\"?>\n<launch>";
+        transformLaunchFile << "<?xml version=\"1.0\"?>\n<launch>\n";
         transformLaunchFile << "<node pkg=\"tf\" type=\"static_transform_publisher\" name=\"ifco_static\" args=\"";
         transformLaunchFile << ifcoCenter.getX() << " " << ifcoCenter.getY() << " " << ifcoCenter.getZ() << " ";
         transformLaunchFile << ifcoRotation.getX() << " " << ifcoRotation.getY() << " " << ifcoRotation.getZ() << " " << ifcoRotation.getW();
         transformLaunchFile << " base_link ifco_static 100\" />";
-        transformLaunchFile << "</launch>";
+        transformLaunchFile << "\n</launch>";
 
         transformLaunchFile.close();
 
