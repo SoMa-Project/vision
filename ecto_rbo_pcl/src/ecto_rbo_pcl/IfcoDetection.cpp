@@ -672,17 +672,36 @@ struct IfcoDetection
             return;
         }
 
+        // Since the ifco frame is expressed in the camera frame and not the base_link we first have to express the
+        // transform in the base frame before writing it to the launch file
+        tf::Transform ifco2camera(ifcoRotation, ifcoCenter);
+        tf::StampedTransform camera2base;
+        try {
+            tf_listener_.waitForTransform("base_link", "camera_rgb_optical_frame", ros::Time(0), ros::Duration(3.0));
+            tf_listener_.lookupTransform("base_link", "camera_rgb_optical_frame", ros::Time(0), camera2base);
+        } catch (tf::TransformException &ex) {
+            ROS_ERROR("%s (Did not write ifco pose)",ex.what());
+            return;
+        }
+
+        const tf::Transform ifco2base = camera2base * ifco2camera;
+        const tf::Vector3 center = ifco2base.getOrigin();
+        const tf::Quaternion rot = ifco2base.getRotation();
+
+        // start actually writing the file
         std::ofstream transformLaunchFile;
         transformLaunchFile.open((path + "/launch/staticTFforIfco.launch").c_str());
 
         transformLaunchFile << "<?xml version=\"1.0\"?>\n<launch>\n";
         transformLaunchFile << "<node pkg=\"tf\" type=\"static_transform_publisher\" name=\"ifco_static\" args=\"";
-        transformLaunchFile << ifcoCenter.getX() << " " << ifcoCenter.getY() << " " << ifcoCenter.getZ() << " ";
-        transformLaunchFile << ifcoRotation.getX() << " " << ifcoRotation.getY() << " " << ifcoRotation.getZ() << " " << ifcoRotation.getW();
+        transformLaunchFile << center.getX() << " " << center.getY() << " " << center.getZ() << " ";
+        transformLaunchFile << rot.getX() << " " << rot.getY() << " " << rot.getZ() << " " << rot.getW();
         transformLaunchFile << " base_link ifco_static 100\" />";
-        transformLaunchFile << "\n</launch>";
+        transformLaunchFile << "\n</launch>\n";
 
         transformLaunchFile.close();
+
+        ROS_INFO("Ifco pose saved to file.");
 
     }
 
