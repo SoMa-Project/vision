@@ -278,33 +278,6 @@ publish_graph:
     graph_message: planner/graph_message
 
 
-
-
-# ------------------------------------------------------------------------
-tf_send_wall0:
-  type: ecto_rbo_pcl::BroadcastTF
-  inputs:
-    transform: ifco_detection/ifco_wall_0_transform
-  source_frame: camera_rgb_optical_frame
-  target_frame: ifcoWall0
-
-# ------------------------------------------------------------------------
-tf_send_wall0b:
-  type: ecto_rbo_pcl::BroadcastTF
-  inputs:
-    transform: ifco_detection/ifco_wall_0_transform
-  source_frame: camera_rgb_optical_frame
-  target_frame: wall
-
-
-# ------------------------------------------------------------------------
-tf_send_wall1:
-  type: ecto_rbo_pcl::BroadcastTF
-  inputs:
-    transform: ifco_detection/ifco_wall_1_transform
-  source_frame: camera_rgb_optical_frame
-  target_frame: ifcoWall1 
-
 # ------------------------------------------------------------------------
 tf_send_ifco:
   type: ecto_rbo_pcl::BroadcastTF

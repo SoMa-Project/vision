@@ -190,14 +190,14 @@ tf_send_object:
   source_frame: camera_rgb_optical_frame
   target_frame: object
 
-
 # Broadcast object data
 send_objects:
   type: ecto_rbo_grasping::PublishObjectList
   inputs:
     transforms: bbox_fits/transforms
     sizes: bbox_fits/sizes
-
+  frame: camera_rgb_optical_frame
+  
 # ------------------------------------------------------------------------
 # Create top grasp primitive
 create_top_down_grasps:
@@ -251,31 +251,7 @@ publish_graph:
     graph_message: planner/graph_message
 
 # ------------------------------------------------------------------------
-tf_send_wall0:
-  type: ecto_rbo_pcl::BroadcastTF
-  inputs:
-    transform: ifco_detection/ifco_wall_0_transform
-  source_frame: camera_rgb_optical_frame
-  target_frame: ifcoWall0
 
-# ------------------------------------------------------------------------
-tf_send_wall0b:
-  type: ecto_rbo_pcl::BroadcastTF
-  inputs:
-    transform: ifco_detection/ifco_wall_0_transform
-  source_frame: camera_rgb_optical_frame
-  target_frame: wall
-
-
-# ------------------------------------------------------------------------
-tf_send_wall1:
-  type: ecto_rbo_pcl::BroadcastTF
-  inputs:
-    transform: ifco_detection/ifco_wall_1_transform
-  source_frame: camera_rgb_optical_frame
-  target_frame: ifcoWall1 
-
-# ------------------------------------------------------------------------
 tf_send_ifco:
   type: ecto_rbo_pcl::BroadcastTF
   inputs:

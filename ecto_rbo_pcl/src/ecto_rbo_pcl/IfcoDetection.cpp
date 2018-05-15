@@ -448,6 +448,7 @@ struct IfcoDetection
                     if(wall0normal.dot(biggestOrigin - wall0origin) < 0)
                         wall0normal *= -1;
 
+                    /*
                     // Update the transform for visualization
                     third_axis = wall0normal.cross(principal_axis);
                     Eigen::Matrix3f rotation;
@@ -455,7 +456,7 @@ struct IfcoDetection
                             principal_axis.y(), third_axis.y(), wall0normal.y(),
                             principal_axis.z(), third_axis.z(), wall0normal.z();
                     UnalignedAffine3f transform = Eigen::Translation3f(origin[0], origin[1], origin[2]) * rotation;
-                    (*ifco_wall_0_transform_) = transform;
+                    (*ifco_wall_0_transform_) = transform;*/
                 }
             }
 
@@ -531,6 +532,7 @@ struct IfcoDetection
                     if(wall1normal.dot(wall0origin - wall1origin) < 0)
                         wall1normal *= -1;
 
+                    /*
                     // Update the transform for visualization
                     third_axis = wall1normal.cross(principal_axis);
                     Eigen::Matrix3f rotation;
@@ -538,7 +540,7 @@ struct IfcoDetection
                             principal_axis.y(), third_axis.y(), wall1normal.y(),
                             principal_axis.z(), third_axis.z(), wall1normal.z();
                     UnalignedAffine3f transform = Eigen::Translation3f(origin[0], origin[1], origin[2]) * rotation;
-                    (*ifco_wall_1_transform_) = transform;
+                    (*ifco_wall_1_transform_) = transform;*/
                 }
             }
 
