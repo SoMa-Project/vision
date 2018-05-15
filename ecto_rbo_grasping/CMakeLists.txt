@@ -215,6 +215,7 @@ set(ECTO_CELL_SRCS
     src/ecto_rbo_grasping/PublishObjectList.cpp
     src/ecto_rbo_grasping/CreateGeometryGraph.cpp
     src/ecto_rbo_grasping/PublishGeometryGraph.cpp
+    src/ecto_rbo_grasping/SegmentObjects.cpp
 #    src/ecto_rbo_grasping/TransitionSlideEdgeGrasp.cpp
 #    src/ecto_rbo_grasping/TransitionPressSlide.cpp
 #    src/ecto_rbo_grasping/OrientationTest.cpp
