@@ -188,16 +188,16 @@ set(ECTO_CELL_SRCS
 #    src/ecto_rbo_grasping/BroadcastDiskGrasps.cpp
 #    src/ecto_rbo_grasping/BroadcastGrasps.cpp
     src/ecto_rbo_grasping/CreateGrasps.cpp
-    src/ecto_rbo_grasping/IfcoGrasp.cpp
-#    src/ecto_rbo_grasping/PublishGrasps.cpp
-#    src/ecto_rbo_grasping/MergeGraspStrategies.cpp
+    src/ecto_rbo_grasping/IfcoGrasps.cpp
+    src/ecto_rbo_grasping/PublishGrasps.cpp
+    src/ecto_rbo_grasping/MergeGraspStrategies.cpp
 #    src/ecto_rbo_grasping/MergeManifolds.cpp
 #    src/ecto_rbo_grasping/FilterPreGrasps.cpp
 #    src/ecto_rbo_grasping/EdgeExploitingGrasps.cpp
 #    src/ecto_rbo_grasping/PointFeatureHistogram.cpp
 #    src/ecto_rbo_grasping/GraspStrategyArraySubscriber.cpp
 #    src/ecto_rbo_grasping/ApproachBoxGrasp.cpp
-#    src/ecto_rbo_grasping/CliffGrasps.cpp
+    src/ecto_rbo_grasping/CliffGrasps.cpp
     src/ecto_rbo_grasping/WallGrasps.cpp
 #    src/ecto_rbo_grasping/WallGraspsFromModel.cpp
 #    src/ecto_rbo_grasping/PushingMotions.cpp
