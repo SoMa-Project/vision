@@ -154,76 +154,94 @@ wrap_in_vector_table:
   inputs:
     input: tf_to_vector_table/vector
 
-# ------------------------------------------------------------------------
-inside_ifco:
-  type: ecto::pcl::PclCell<ecto_rbo_pcl::CropBox>
-  inputs:
-    input: crop_box/output
-    transform: ifco_detection/ifco_transform
-  default_min: [-0.24,  -0.16, 0.02, 0]
-  default_max: [0.24,  0.16,  0.20, 0]
-  publish_rviz_markers: true
+ ------------------------------------------------------------------------
+ inside_ifco:
+   type: ecto::pcl::PclCell<ecto_rbo_pcl::CropBox>
+   inputs:
+     input: crop_box/output
+     transform: ifco_grasp/ifco_transform
+   default_min: [-0.24,  -0.16, 0.02, 0]
+   default_max: [0.24,  0.16,  0.20, 0]
+   publish_rviz_markers: true
 
-# ------------------------------------------------------------------------
-# Cluster the objects in the IFCO
-region_growing_rgb:
-  type: ecto::pcl::PclCell<ecto_rbo_pcl::RegionGrowingRGB>
-  inputs:
-    input: crop_box/output
-    indices: inside_ifco/indices2
-  min_cluster_size: 350
-  distance_threshold: 1000
-  point_color_threshold: 35.0
-  region_color_threshold: 50.0
+# # ------------------------------------------------------------------------
+# # Cluster the objects in the IFCO
+# region_growing_rgb:
+#   type: ecto::pcl::PclCell<ecto_rbo_pcl::RegionGrowingRGB>
+#   inputs:
+#     input: crop_box/output
+#     indices: inside_ifco/indices2
+#   min_cluster_size: 350
+#   distance_threshold: 1000
+#   point_color_threshold: 35.0
+#   region_color_threshold: 50.0
 
-# ------------------------------------------------------------------------
-# Pick one object - the closest to the camera
-filter_closest_object:
-  type: ecto::pcl::PclCell<ecto_rbo_pcl::ExtractClosestCluster>
-  inputs:
-    input: crop_box/output
-    clusters: region_growing_rgb/output
-    transform: ifco_detection/ifco_transform
-  size_weight: 0
+# # ------------------------------------------------------------------------
+# # Pick one object - the closest to the camera
+# filter_closest_object:
+#   type: ecto::pcl::PclCell<ecto_rbo_pcl::ExtractClosestCluster>
+#   inputs:
+#     input: crop_box/output
+#     clusters: region_growing_rgb/output
+#     transform: ifco_grasp/ifco_transform
+#   size_weight: 0
 
-# ------------------------------------------------------------------------
-# Calculate the centroid and the bounding box
-calculate_centroids:
-  type: ecto::pcl::PclCell<ecto_rbo_pcl::Centroid>
-  inputs:
-    input: crop_box/output
-    clusters: filter_closest_object/closest_cluster
-bbox_fits:
-  type: ecto::pcl::PclCell<ecto_rbo_pcl::PlaneFits2D>
-  inputs:
-    input: crop_box/output
-    clusters: filter_closest_object/closest_cluster
-    normal: tf_to_vector_table/vector
-bbox_to_axis:
-  type: ecto_rbo_pcl::TFs2Vectors
-  inputs:
-    transforms: bbox_fits/transforms
-  column_index: 0
-  negate: false
+# # ------------------------------------------------------------------------
+# # Calculate the centroid and the bounding box
+# calculate_centroids:
+#   type: ecto::pcl::PclCell<ecto_rbo_pcl::Centroid>
+#   inputs:
+#     input: crop_box/output
+#     clusters: filter_closest_object/closest_cluster
+# bbox_fits:
+#   type: ecto::pcl::PclCell<ecto_rbo_pcl::PlaneFits2D>
+#   inputs:
+#     input: crop_box/output
+#     clusters: filter_closest_object/closest_cluster
+#     normal: tf_to_vector_table/vector
+# bbox_to_axis:
+#   type: ecto_rbo_pcl::TFs2Vectors
+#   inputs:
+#     transforms: bbox_fits/transforms
+#   column_index: 0
+#   negate: false
 
-# Broadcast object location
-take_first_tf:
-  type: ecto_rbo_pcl::Vector2TF
+# # Broadcast object location
+# take_first_tf:
+#   type: ecto_rbo_pcl::Vector2TF
+#   inputs:
+#     input: bbox_fits/transforms
+# tf_send_object:
+#   type: ecto_rbo_pcl::BroadcastTF
+#   inputs:
+#     transform: take_first_tf/output
+#   source_frame: camera_rgb_optical_frame
+#   target_frame: object
+
+ros_PoseArray_subscriber:
+  type: ecto_geometry_msgs::Subscriber_PoseArray
+  queue_size: 1
+  topic_name: /object_poses
+
+ros_Float32MultiArray_subscriber:
+  type: ecto_std_msgs::Subscriber_Float32MultiArray
+  queue_size: 1
+  topic_name: /bounding_boxes
+
+# Ocado object segmentation
+segment_objects:
+  type: ecto_rbo_grasping::SegmentObjects
   inputs:
-    input: bbox_fits/transforms
-tf_send_object:
-  type: ecto_rbo_pcl::BroadcastTF
-  inputs:
-    transform: take_first_tf/output
-  source_frame: camera_rgb_optical_frame
-  target_frame: object
+    pose_array: ros_PoseArray_subscriber/output
+    bounding_box_array: ros_Float32MultiArray_subscriber/output
+
 
 # Broadcast object data
 send_objects:
   type: ecto_rbo_grasping::PublishObjectList
   inputs:
-    transforms: bbox_fits/transforms
-    sizes: bbox_fits/sizes
+    transforms: segment_objects/transforms
+    sizes: segment_objects/sizes
   frame: camera_rgb_optical_frame
 
 # ------------------------------------------------------------------------
@@ -232,9 +250,9 @@ create_top_down_grasps:
   type: ecto_rbo_grasping::CreateGrasps
   inputs:
     header: msg_to_pcl/header
-    positions: calculate_centroids/centroids
+    positions: segment_objects/centroids
     approach_vectors: wrap_in_vector_table/vector
-    roll_vectors: bbox_to_axis/vectors
+    roll_vectors: segment_objects/sizes
   strategy: 10  # SQUEEZE
   pregrasp_configuration: 2 # SPHERE
   roll_offset: 0 #-1.5707963267948966   #3.141592653589793
