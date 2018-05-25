@@ -19,6 +19,7 @@ find_package(catkin REQUIRED COMPONENTS
   roslib
   pcl_msgs
   pcl_conversions
+  ifco_pose_estimator
 )
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/Modules/")
