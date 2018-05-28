@@ -183,6 +183,7 @@ ectomodule(ecto_rbo_pcl INSTALL
     src/ecto_rbo_pcl/PCDReader.cpp
     src/ecto_rbo_pcl/IfcoDetection.cpp
     src/ecto_rbo_pcl/BroadcastIfcoSpecifications.cpp
+    src/ecto_rbo_pcl/MultiObjectDetection.cpp
 )
 
 link_ecto(ecto_rbo_pcl
