@@ -154,7 +154,7 @@ wrap_in_vector_table:
   inputs:
     input: tf_to_vector_table/vector
 
- ------------------------------------------------------------------------
+# ------------------------------------------------------------------------
  inside_ifco:
    type: ecto::pcl::PclCell<ecto_rbo_pcl::CropBox>
    inputs:
@@ -229,20 +229,10 @@ ros_Float32MultiArray_subscriber:
   topic_name: /bounding_boxes
 
 # Ocado object segmentation
-segment_objects:
-  type: ecto_rbo_grasping::SegmentObjects
-  inputs:
-    pose_array: ros_PoseArray_subscriber/output
-    bounding_box_array: ros_Float32MultiArray_subscriber/output
+detected_objects:
+  type: ecto_rbo_pcl::MultiObjectDetection
 
 
-# Broadcast object data
-send_objects:
-  type: ecto_rbo_grasping::PublishObjectList
-  inputs:
-    transforms: segment_objects/transforms
-    sizes: segment_objects/sizes
-  frame: camera_rgb_optical_frame
 
 # ------------------------------------------------------------------------
 # Create top grasp primitive
@@ -250,7 +240,7 @@ create_top_down_grasps:
   type: ecto_rbo_grasping::CreateGrasps
   inputs:
     header: msg_to_pcl/header
-    positions: segment_objects/centroids
+    positions: detected_objects/centroids
     approach_vectors: wrap_in_vector_table/vector
     roll_vectors: segment_objects/sizes
   strategy: 10  # SQUEEZE
