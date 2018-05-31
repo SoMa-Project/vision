@@ -20,6 +20,7 @@ find_package(catkin REQUIRED COMPONENTS
   pcl_msgs
   pcl_conversions
   ifco_pose_estimator
+  vision_client
 )
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/Modules/")
