@@ -25,12 +25,13 @@ The views and conclusions contained in the software and documentation are those 
 
 #include "tf/transform_broadcaster.h"
 #include "tf/transform_listener.h"
+#include <tf_conversions/tf_eigen.h>
 #include <tf/transform_datatypes.h>
 #include <geometry_msgs/PoseArray.h>
 #include <std_msgs/Float32MultiArray.h>
 #include <boost/thread/mutex.hpp>
 #include <visualization_msgs/MarkerArray.h>
-
+#include "ifco_pose_estimator/ifco_pose.h"
 
 using namespace ecto;
 using namespace ecto::pcl;
@@ -54,19 +55,25 @@ struct MultiObjectDetection
   tf::Transform cam_to_ifco_convention;
   visualization_msgs::MarkerArray bbox_markers;
 
+  ros::ServiceClient ifco_pose_client = nh_.serviceClient<ifco_pose_estimator::ifco_pose>("ifco_pose");
+  ifco_pose_estimator::ifco_pose ifco_srv;
+
   // needed for object detection
   tf::TransformBroadcaster br;
-  ros::ServiceClient client = nh_.serviceClient<object_segmentation::object_pose>("object_pose");
+  ros::ServiceClient object_pose_client = nh_.serviceClient<object_segmentation::object_pose>("object_pose");
   object_segmentation::object_pose object_srv;
+
+  // inputs
+  spore<UnalignedAffine3f> ifco_transform_;
 
 
   // outputs
-  ecto::spore<std::vector<UnalignedAffine3f> > object_poses_;
-  ecto::spore<std::vector<UnalignedVector3f> > object_sizes_;
+  spore<std::vector<UnalignedAffine3f> > object_poses_;
+  spore<std::vector<UnalignedVector3f> > object_sizes_;
 
 
   // ======================================================================================================================
-  static void declare_params(ecto::tendrils& params)
+  static void declare_params(tendrils& params)
   {
 
   }
@@ -74,13 +81,19 @@ struct MultiObjectDetection
   // ======================================================================================================================
   static void declare_io(const tendrils& params, tendrils& inputs, tendrils& outputs)
   {
-    outputs.declare<std::vector<UnalignedAffine3f> >(&MultiObjectDetection::object_poses_, "transforms", "A vector of 4x4 affine transformations for the objects.");
-    outputs.declare<std::vector<UnalignedVector3f> >(&MultiObjectDetection::object_sizes_, "sizes", "A vector of 3d sizes for the bounding boxes.");
+
+    inputs.declare<UnalignedAffine3f>("ifco_transform", "Transform of the IFCO.");
+
+
+    outputs.declare<std::vector<UnalignedAffine3f> >("transforms", "A vector of 4x4 affine transformations for the objects.");
+    outputs.declare<std::vector<UnalignedVector3f> >("sizes", "A vector of 3d sizes for the bounding boxes.");
   }
 
   // ======================================================================================================================
   void configure(const tendrils& params, const tendrils& inputs, const tendrils& outputs)
   {
+    // inputs
+    ifco_transform_ = inputs["ifco_transform"];
 
     // outputs
     object_poses_ = outputs["transforms"];
@@ -89,7 +102,8 @@ struct MultiObjectDetection
   }
 
 
-  void visualize_bboxes(){
+  void visualize_bboxes()
+  {
 
       visualization_msgs::MarkerArray markers;
 
@@ -121,7 +135,43 @@ struct MultiObjectDetection
   int process(const tendrils& inputs, const tendrils& outputs)
   {
 
-    if (client.call(object_srv))
+    geometry_msgs::Pose ifcoPose;
+    UnalignedVector3f trans;
+    trans = ifco_transform_->translation();
+    ifcoPose.position.x = trans(0);
+    ifcoPose.position.y = trans(1);
+    ifcoPose.position.z = trans(2);
+
+    Eigen::Matrix3f rot;
+    rot = ifco_transform_->linear();
+    Eigen::Quaternionf q(rot);
+    ifcoPose.orientation.x = q.x();
+    ifcoPose.orientation.y = q.y();
+    ifcoPose.orientation.z = q.z();
+    ifcoPose.orientation.w = q.w();
+    //object_srv.request.ifco_pose = ifcoPose;
+    std::cout << ifcoPose.position.x << ifcoPose.position.y << ifcoPose.position.z;
+
+
+
+    ifco_srv.request.max_tries = 10;
+    ifco_srv.request.max_fitness = 0.008;
+    ifco_srv.request.publish_ifco = false;
+
+    if (ifco_pose_client.call(ifco_srv))
+    {
+        ROS_INFO("Ifco service was called");
+        ROS_INFO("Fitness value was %f", ifco_srv.response.fitness);
+    }
+    else
+    {
+        ROS_ERROR("Failed to call ifco_pose service");
+        return false;
+    }
+    object_srv.request.ifco_pose = ifco_srv.response.pose;
+
+
+    if (object_pose_client.call(object_srv))
     {
         ROS_INFO("Object service was called");
         object_poses.poses = object_srv.response.object_poses;
@@ -136,6 +186,7 @@ struct MultiObjectDetection
             bounding_boxes_temp.data.push_back(object_srv.response.bounding_boxes[i].z);
 
         }
+
         bounding_boxes = bounding_boxes_temp;
 
 
@@ -163,6 +214,7 @@ struct MultiObjectDetection
         }
 
         visualize_bboxes();
+
 
     }
     else
