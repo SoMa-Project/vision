@@ -49,27 +49,25 @@ struct MultiObjectDetection
 {
   ros::NodeHandle nh_;
 
-  // TODO: check if those are required or can be deleted
   geometry_msgs::PoseArray object_poses;
   std_msgs::Float32MultiArray bounding_boxes;
   tf::Transform cam_to_ifco_convention;
   visualization_msgs::MarkerArray bbox_markers;
 
-  ros::ServiceClient ifco_pose_client = nh_.serviceClient<ifco_pose_estimator::ifco_pose>("ifco_pose");
-  ifco_pose_estimator::ifco_pose ifco_srv;
-
-  // needed for object detection
+  tf::TransformListener tf_listener_;
   tf::TransformBroadcaster br;
-  ros::ServiceClient object_pose_client = nh_.serviceClient<object_segmentation::object_pose>("object_pose");
-  object_segmentation::object_pose object_srv;
+
+
 
   // inputs
   spore<UnalignedAffine3f> ifco_transform_;
 
-
   // outputs
   spore<std::vector<UnalignedAffine3f> > object_poses_;
   spore<std::vector<UnalignedVector3f> > object_sizes_;
+
+
+  ::ros::Time last_marker_message_;
 
 
   // ======================================================================================================================
@@ -99,19 +97,22 @@ struct MultiObjectDetection
     object_poses_ = outputs["transforms"];
     object_sizes_ = outputs["sizes"];
 
+    ros::Time::init();
+    last_marker_message_ = ::ros::Time::now();
+
   }
 
 
-  void visualize_bboxes()
-  {
+  void visualize_bboxes(){
 
       visualization_msgs::MarkerArray markers;
 
       for(int i=0; i < bounding_boxes.data.size(); i+=3)
       {
+          ROS_INFO("Marker Box %i", i);
           visualization_msgs::Marker marker;
           marker.header.frame_id = "camera";
-          marker.header.stamp = ros::Time();
+          marker.header.stamp = ros::Time(0);
           marker.id = i;
           marker.type = visualization_msgs::Marker::CUBE;
           marker.action = visualization_msgs::Marker::ADD;
@@ -134,8 +135,10 @@ struct MultiObjectDetection
   // ==========================================================================================
   int process(const tendrils& inputs, const tendrils& outputs)
   {
+    //(*object_poses_)
+    //(*object_sizes_)
 
-    geometry_msgs::Pose ifcoPose;
+    geometry_msgs::Pose ifcoPose, ifcoPose_rotated;
     UnalignedVector3f trans;
     trans = ifco_transform_->translation();
     ifcoPose.position.x = trans(0);
@@ -149,32 +152,39 @@ struct MultiObjectDetection
     ifcoPose.orientation.y = q.y();
     ifcoPose.orientation.z = q.z();
     ifcoPose.orientation.w = q.w();
-    //object_srv.request.ifco_pose = ifcoPose;
-    std::cout << ifcoPose.position.x << ifcoPose.position.y << ifcoPose.position.z;
 
+    ros::ServiceClient object_pose_client = nh_.serviceClient<object_segmentation::object_pose>("object_pose");
 
+    object_segmentation::object_pose object_srv;
 
-    ifco_srv.request.max_tries = 10;
-    ifco_srv.request.max_fitness = 0.008;
-    ifco_srv.request.publish_ifco = false;
+    tf::Transform cam_to_ifco, correction;
+    tf::poseMsgToTF(ifcoPose, cam_to_ifco);
 
-    if (ifco_pose_client.call(ifco_srv))
-    {
-        ROS_INFO("Ifco service was called");
-        ROS_INFO("Fitness value was %f", ifco_srv.response.fitness);
-    }
-    else
-    {
-        ROS_ERROR("Failed to call ifco_pose service");
-        return false;
-    }
-    object_srv.request.ifco_pose = ifco_srv.response.pose;
+    correction.setRotation( tf::createQuaternionFromRPY(-M_PI,0,0));
+    cam_to_ifco_convention = cam_to_ifco * correction;
 
+    geometry_msgs::Transform ifcoPose_rot;
+
+    tf::transformTFToMsg (cam_to_ifco_convention, ifcoPose_rot);
+
+    ifcoPose_rotated.position.x = ifcoPose_rot.translation.x;
+    ifcoPose_rotated.position.y = ifcoPose_rot.translation.x;
+    ifcoPose_rotated.position.z = ifcoPose_rot.translation.x;
+
+    ifcoPose_rotated.orientation.x = ifcoPose_rot.rotation.x;
+    ifcoPose_rotated.orientation.y = ifcoPose_rot.rotation.y;
+    ifcoPose_rotated.orientation.z = ifcoPose_rot.rotation.z;
+    ifcoPose_rotated.orientation.w = ifcoPose_rot.rotation.w;
+
+    object_srv.request.ifco_pose = ifcoPose_rotated; //srv.response.pose;
 
     if (object_pose_client.call(object_srv))
     {
         ROS_INFO("Object service was called");
+
+
         object_poses.poses = object_srv.response.object_poses;
+
 
         std_msgs::Float32MultiArray bounding_boxes_temp;
         ROS_INFO("Detected %lu objects", object_srv.response.bounding_boxes.size());
@@ -185,10 +195,12 @@ struct MultiObjectDetection
             bounding_boxes_temp.data.push_back(object_srv.response.bounding_boxes[i].y);
             bounding_boxes_temp.data.push_back(object_srv.response.bounding_boxes[i].z);
 
+            ROS_INFO_STREAM("bounding boxes: " << object_srv.response.bounding_boxes[i].x << object_srv.response.bounding_boxes[i].y << object_srv.response.bounding_boxes[i].z);
+            ROS_INFO_STREAM("bounding boxes names: " << object_srv.response.object_names[i]);
         }
+        bounding_boxes= bounding_boxes_temp;
 
-        bounding_boxes = bounding_boxes_temp;
-
+        visualize_bboxes();
 
         for(int i=0; i < bounding_boxes.data.size(); i+=3)
         {
@@ -213,18 +225,31 @@ struct MultiObjectDetection
             object_sizes_->push_back(size);
         }
 
-        visualize_bboxes();
-
 
     }
     else
     {
         ROS_ERROR("Failed to call object_pose service");
-        return false;
+        return QUIT;
     }
 
 
 
+    //ros::Publisher pose_pub = nh_.advertise<geometry_msgs::PoseArray>("object_poses", 100);
+    //ros::Publisher bbox_pub = nh_.advertise<std_msgs::Float32MultiArray>("bounding_boxes", 100);
+    static ros::Publisher vis_pub = nh_.advertise<visualization_msgs::MarkerArray>("multiObjectBoxes", 1, true);
+
+    //object_poses.header.frame_id = "camera";
+
+    tf::Transform blub2;
+    tf::poseMsgToTF(ifcoPose_rotated, blub2);
+
+    br.sendTransform(tf::StampedTransform(blub2, ros::Time::now(), "camera", "ifco_ocadoStyle"));
+    //pose_pub.publish(object_poses);
+    //bbox_pub.publish(bounding_boxes);
+    vis_pub.publish(bbox_markers);
+
+    return ecto::OK;
   }
 
 };
