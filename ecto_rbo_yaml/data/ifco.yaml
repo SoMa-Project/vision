@@ -91,6 +91,7 @@ flood_fill:
   distance_threshold: 0.05
   min_inliers: 50
   normal_distance_threshold: 0.12
+
   rviz_prefix: flood_fill_segmentation
 
 # ------------------------------------------------------------------------
@@ -164,6 +165,7 @@ object_detection_filtered:
     transforms: object_detection/transforms
     sizes: object_detection/sizes
     centroids: object_detection/centroids
+
 
 
 # ------------------------------------------------------------------------
@@ -250,9 +252,7 @@ send_objects:
     transforms: object_detection/transforms
     sizes: object_detection/sizes
   frame: camera_rgb_optical_frame
-
-
-
+  
 # ------------------------------------------------------------------------
 # Create top grasp primitive
 create_top_down_grasps:
@@ -277,6 +277,7 @@ planar_manifolds:
   all_in_plane_orientations: true 
   rotation: 0
  
+
 
 # ------------------------------------------------------------------------
 # Initial approach primitive
