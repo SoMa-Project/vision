@@ -130,6 +130,7 @@ ifco_detection:
     ifco_height: ifco_specifications/ifco_height
   plane_id: -1
   tableDist: 0.2
+  icp_offset: 0.02
 
 
 ifco_grasps:

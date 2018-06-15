@@ -78,6 +78,7 @@ struct IfcoDetection
     // parameters
     spore<double> tableDist_;
     spore<int> plane_id_;
+    spore<float> icp_offset_;
 
     // outputs
     spore<UnalignedAffine3f> ifco_wall_0_transform_;
@@ -94,6 +95,7 @@ struct IfcoDetection
     {
         params.declare<double>("tableDist", "Distance of a bounded plane to the biggest bounded plane (i.e. table)", 0.0);
         params.declare<int>("plane_id", "Id/Numerator of the plane that is considered as main plane out of all bounded_planes.", 0.0);
+        params.declare<float>("icp_offset", "Offset to add on z-Axis of ICP detected IFCO frame", 0.0);
     }
 
     // ======================================================================================================================
@@ -104,6 +106,7 @@ struct IfcoDetection
         inputs.declare<double>("ifco_length", "Size of the long IFCO edge", 0.0);
         inputs.declare<double>("ifco_width", "Size of the short IFCO edge", 0.0);
         inputs.declare<double>("ifco_height", "Depth of the ifco", 0.0);
+
 
         outputs.declare<UnalignedAffine3f>("ifco_wall_0_transform", "Transform of the biggest IFCO wall.");
         outputs.declare<UnalignedAffine3f>("ifco_wall_1_transform", "Transform of the perpendicular IFCO wall.");
@@ -126,6 +129,7 @@ struct IfcoDetection
         // parameters
         tableDist_ = params["tableDist"];
         plane_id_ = params["plane_id"];
+        icp_offset_ = params["icp_offset"];
 
         // outputs
         ifco_wall_0_transform_ = outputs["ifco_wall_0_transform"];
@@ -281,7 +285,8 @@ struct IfcoDetection
                     ifcoRotation = ifcoRotation * ifco_rotation_icp;
                     ifcoRotation = ifcoRotation * ifco_rotation_wallconventions;
                 }
-                ifcoCenter_eigen = Eigen::Translation3f(ifcoCenter.getX(), ifcoCenter.getY(), ifcoCenter.getZ());
+                float offset = ifcoCenter.getZ() + (*icp_offset_);
+                ifcoCenter_eigen = Eigen::Translation3f(ifcoCenter.getX(), ifcoCenter.getY(), offset);
                 transform = ifcoCenter_eigen * ifcoRotation;
                 (*ifco_transform_) = transform;
 
