@@ -91,7 +91,6 @@ flood_fill:
   distance_threshold: 0.05
   min_inliers: 50
   normal_distance_threshold: 0.12
-
   rviz_prefix: flood_fill_segmentation
 
 # ------------------------------------------------------------------------
