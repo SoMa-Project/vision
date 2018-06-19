@@ -130,7 +130,7 @@ ifco_detection:
     ifco_height: ifco_specifications/ifco_height
   plane_id: -1
   tableDist: 0.2
-  icp_offset: 0.02
+  icp_offset: 0.02 # Ocado's ICP detection results in a slightly shifted ifco frame. This param is applied on the z-Axis of the ifco frame to correct the shift.
 
 
 ifco_grasps:
