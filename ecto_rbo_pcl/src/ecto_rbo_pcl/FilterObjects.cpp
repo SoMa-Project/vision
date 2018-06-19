@@ -73,11 +73,11 @@ struct FilterObjects
   {
     inputs.declare<std::vector<UnalignedAffine3f> >("transforms", "A vector of 4x4 affine transformations for the objects.");
     inputs.declare<std::vector<UnalignedVector3f> >("sizes", "A vector of 3d sizes for the bounding boxes.");
-    inputs.declare<std::vector<UnalignedVector4f> >("centroids", "Object centers");
+    inputs.declare<std::vector<UnalignedVector4f> >("centroids", "A vector of object centroids");
 
     outputs.declare<std::vector<UnalignedAffine3f> >("transforms", "A vector of 4x4 affine transformations for the objects.");
     outputs.declare<std::vector<UnalignedVector3f> >("sizes", "A vector of 3d sizes for the bounding boxes.");
-    outputs.declare<std::vector<UnalignedVector4f> >("centroids", "Object centers");
+    outputs.declare<std::vector<UnalignedVector4f> >("centroids", "A vector of object centroids");
   }
 
   // ======================================================================================================================
