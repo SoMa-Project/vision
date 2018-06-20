@@ -134,6 +134,10 @@ struct MultiObjectDetection
   {
     // the multi-object service needs the ifco transform but rotated by 90 degrees as provided originally by ocado ICP.
 
+    object_poses_->clear();
+    object_sizes_->clear();
+    centroids_->clear();
+
     // convert input tendril ifco transform to geometry_msg
     geometry_msgs::Pose ifcoPose_msg;
 

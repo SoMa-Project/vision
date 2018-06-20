@@ -129,7 +129,11 @@ ifco_detection:
     ifco_height: ifco_specifications/ifco_height
   plane_id: -1
   tableDist: 0.2
-  icp_offset: 0.02 # Ocado's ICP detection results in a slightly shifted ifco frame. This param is applied on the z-Axis of the ifco frame to correct the shift.
+  # SHOULD BE TUNED FOR EVERY EXPERIMENT SETUP (error was openCV fitEllipse not enough points)
+  # Ocado's ICP detection results in a slightly shifted ifco frame. 
+  # This param is applied on the z-Axis of the ifco frame to correct the shift. 
+  # 0.02 for camera on the robot arm 0.005 for the almost extended camera tripod in the lab
+  icp_offset: 0.005 
 
 
 ifco_grasps:

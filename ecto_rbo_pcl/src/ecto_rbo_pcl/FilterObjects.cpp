@@ -104,6 +104,10 @@ struct FilterObjects
 
     // here can be implemented any filter method that returns just one of the objects from the input tendrils
 
+    object_poses__->clear();
+    object_sizes__->clear();
+    centroids__->clear();
+
     object_poses__->push_back(object_poses_->front());
     object_sizes__->push_back(object_sizes_->front());
     centroids__->push_back(centroids_->front());
