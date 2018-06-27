@@ -129,6 +129,11 @@ ifco_detection:
     ifco_height: ifco_specifications/ifco_height
   plane_id: -1
   tableDist: 0.2
+  # SHOULD BE TUNED FOR EVERY EXPERIMENT SETUP (error was openCV fitEllipse not enough points)
+  # Ocado's ICP detection results in a slightly shifted ifco frame. 
+  # This param is applied on the z-Axis of the ifco frame to correct the shift. 
+  # 0.02 for camera on the robot arm 0.005 for the almost extended camera tripod in the lab
+  icp_offset: 0.005 
 
 
 ifco_grasps:
@@ -140,6 +145,32 @@ ifco_grasps:
     ifco_length: ifco_specifications/ifco_length
     ifco_width: ifco_specifications/ifco_width
     ifco_height: ifco_specifications/ifco_height
+
+
+tf_send_ifco:
+  type: ecto_rbo_pcl::BroadcastTF
+  inputs:
+    transform: ifco_detection/ifco_transform
+  source_frame: camera_rgb_optical_frame
+  target_frame: ifco
+
+
+# ------------------------------------------------------------------------
+# Object Detection - Ocados Multi Object Detection
+# ------------------------------------------------------------------------
+object_detection:
+  type: ecto_rbo_pcl::MultiObjectDetection
+  inputs: 
+    ifco_transform: ifco_detection/ifco_transform
+    
+object_detection_filtered:
+  type: ecto_rbo_pcl::FilterObjects
+  inputs:
+    transforms: object_detection/transforms
+    sizes: object_detection/sizes
+    centroids: object_detection/centroids
+
+
 
 # ------------------------------------------------------------------------
 # Clean up transform data for later use
@@ -202,7 +233,7 @@ bbox_fits:
 bbox_to_axis:
   type: ecto_rbo_pcl::TFs2Vectors
   inputs:
-    transforms: bbox_fits/transforms
+    transforms: object_detection_filtered/transforms
   column_index: 0
   negate: false
 
@@ -222,17 +253,17 @@ tf_send_object:
 send_objects:
   type: ecto_rbo_grasping::PublishObjectList
   inputs:
-    transforms: bbox_fits/transforms
-    sizes: bbox_fits/sizes
+    transforms: object_detection/transforms
+    sizes: object_detection/sizes
   frame: camera_rgb_optical_frame
-
+  
 # ------------------------------------------------------------------------
 # Create top grasp primitive
 create_top_down_grasps:
   type: ecto_rbo_grasping::CreateGrasps
   inputs:
     header: msg_to_pcl/header
-    positions: calculate_centroids/centroids
+    positions: object_detection_filtered/centroids
     approach_vectors: wrap_in_vector_table/vector
     roll_vectors: bbox_to_axis/vectors
   strategy: 10  # SQUEEZE
@@ -250,6 +281,7 @@ planar_manifolds:
   all_in_plane_orientations: true 
   rotation: 0
  
+
 
 # ------------------------------------------------------------------------
 # Initial approach primitive
@@ -277,17 +309,6 @@ publish_graph:
   inputs:
     graph_message: planner/graph_message
 
-
 # ------------------------------------------------------------------------
-tf_send_ifco:
-  type: ecto_rbo_pcl::BroadcastTF
-  inputs:
-    transform: ifco_detection/ifco_transform
-  source_frame: camera_rgb_optical_frame
-  target_frame: ifco
-tf_send_table:
-  type: ecto_rbo_pcl::BroadcastTF
-  inputs:
-    transform: ifco_detection/ifco_transform
-  source_frame: camera_rgb_optical_frame
-  target_frame: table
+
+
