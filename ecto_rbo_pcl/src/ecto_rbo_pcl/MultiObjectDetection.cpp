@@ -64,6 +64,9 @@ struct MultiObjectDetection
   // inputs
   spore<UnalignedAffine3f> ifco_transform_;
 
+  // parameters
+  spore<bool> ifco_alignment_;
+
   // outputs
   spore<std::vector<UnalignedAffine3f> > object_poses_;
   spore<std::vector<UnalignedVector3f> > object_sizes_;
@@ -74,6 +77,8 @@ struct MultiObjectDetection
   // ======================================================================================================================
   static void declare_params(tendrils& params)
   {
+
+    params.declare<bool>("ifco_alignment", "Use the z-Axis of the ifco transform also as object normal.", false);
 
   }
 
@@ -92,6 +97,9 @@ struct MultiObjectDetection
   {
     // inputs
     ifco_transform_ = inputs["ifco_transform"];
+
+    //params
+    ifco_alignment_ = params["ifco_alignment"];
 
     // outputs
     object_poses_ = outputs["transforms"];
@@ -213,26 +221,28 @@ struct MultiObjectDetection
         Eigen::Matrix3d objRotation_ = objRotation_eigen.toRotationMatrix();
         rotation = objRotation_.cast<float>();
 
-        
-        // ensure, that object normal is aligned with ifco normal (for ocado use case)
-        // we extract the normal of the ifco rotation (rot) and set it as the new object normal
-        Eigen::Matrix3f rotation_obj_ifco_normal;
-        tf::Vector3 obj_z = tf::Vector3(rot(0,2), rot(1,2), rot(2,2));
-        // project object x axis on ifco plane and use as new object x asis
-        tf::Vector3 obj_x = (tf::Vector3(rotation(0,0), rotation(1,0), rotation(2,0)) - ( tf::Vector3(rotation(0,0), rotation(1,0), rotation(2,0)).dot(obj_z)) * obj_z).normalized();
+        if (*ifco_alignment_)
+        {
+          // ensure, that object normal is aligned with ifco normal (for ocado use case)
+          // we extract the normal of the ifco rotation (rot) and set it as the new object normal
+          Eigen::Matrix3f rotation_obj_ifco_normal;
+          tf::Vector3 obj_z = tf::Vector3(rot(0,2), rot(1,2), rot(2,2));
+          // project object x axis on ifco plane and use as new object x asis
+          tf::Vector3 obj_x = (tf::Vector3(rotation(0,0), rotation(1,0), rotation(2,0)) - ( tf::Vector3(rotation(0,0), rotation(1,0), rotation(2,0)).dot(obj_z)) * obj_z).normalized();
 
-        // Compute the orientation
-        tf::Vector3 obj_y = obj_z.cross(obj_x);
-        rotation_obj_ifco_normal << obj_x.x(), obj_y.x(), obj_z.x(),
-                                    obj_x.y(), obj_y.y(), obj_z.y(),
-                                    obj_x.z(), obj_y.z(), obj_z.z();
+          // Compute the orientation
+          tf::Vector3 obj_y = obj_z.cross(obj_x);
+          rotation_obj_ifco_normal << obj_x.x(), obj_y.x(), obj_z.x(),
+                                      obj_x.y(), obj_y.y(), obj_z.y(),
+                                      obj_x.z(), obj_y.z(), obj_z.z();
 
+
+          rotation = rotation_obj_ifco_normal;
+        }
 
         UnalignedAffine3f transform = Eigen::Translation3f(pose.position.x,
                                                            pose.position.y,
-                                                           pose.position.z) * rotation_obj_ifco_normal;
-
-
+                                                           pose.position.z) * rotation;
 
         object_poses_->push_back(transform);
 

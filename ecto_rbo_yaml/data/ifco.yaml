@@ -162,6 +162,7 @@ object_detection:
   type: ecto_rbo_pcl::MultiObjectDetection
   inputs: 
     ifco_transform: ifco_detection/ifco_transform
+  ifco_alignment: true
     
 object_detection_filtered:
   type: ecto_rbo_pcl::FilterObjects
