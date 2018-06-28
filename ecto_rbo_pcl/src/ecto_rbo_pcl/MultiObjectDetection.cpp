@@ -155,6 +155,7 @@ struct MultiObjectDetection
     ifcoPose_msg.orientation.z = q.z();
     ifcoPose_msg.orientation.w = q.w();
 
+
     // convert ifco transform geometry_msg to tf and correct by -90 degree rotation around x.
     tf::Transform ifcoPose_tf, correction;
     tf::poseMsgToTF(ifcoPose_msg, ifcoPose_tf);
@@ -212,9 +213,27 @@ struct MultiObjectDetection
         Eigen::Matrix3d objRotation_ = objRotation_eigen.toRotationMatrix();
         rotation = objRotation_.cast<float>();
 
+        
+        // ensure, that object normal is aligned with ifco normal (for ocado use case)
+        // we extract the normal of the ifco rotation (rot) and set it as the new object normal
+        Eigen::Matrix3f rotation_obj_ifco_normal;
+        tf::Vector3 obj_z = tf::Vector3(rot(0,2), rot(1,2), rot(2,2));
+        // project object x axis on ifco plane and use as new object x asis
+        tf::Vector3 obj_x = (tf::Vector3(rotation(0,0), rotation(1,0), rotation(2,0)) - ( tf::Vector3(rotation(0,0), rotation(1,0), rotation(2,0)).dot(obj_z)) * obj_z).normalized();
+
+        // Compute the orientation
+        tf::Vector3 obj_y = obj_z.cross(obj_x);
+        rotation_obj_ifco_normal << obj_x.x(), obj_y.x(), obj_z.x(),
+                                    obj_x.y(), obj_y.y(), obj_z.y(),
+                                    obj_x.z(), obj_y.z(), obj_z.z();
+
+
         UnalignedAffine3f transform = Eigen::Translation3f(pose.position.x,
                                                            pose.position.y,
-                                                           pose.position.z) * rotation;
+                                                           pose.position.z) * rotation_obj_ifco_normal;
+
+
+
         object_poses_->push_back(transform);
 
         // add bounding box dimensions
