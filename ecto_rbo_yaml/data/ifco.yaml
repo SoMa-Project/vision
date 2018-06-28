@@ -247,7 +247,7 @@ tf_send_object:
   inputs:
     transform: take_first_tf/output
   source_frame: camera_rgb_optical_frame
-  target_frame: object
+  target_frame: object_old
 
 # Broadcast object data
 send_objects:
