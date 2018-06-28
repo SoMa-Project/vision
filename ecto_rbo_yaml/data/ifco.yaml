@@ -170,6 +170,7 @@ object_detection_filtered:
     transforms: object_detection/transforms
     sizes: object_detection/sizes
     centroids: object_detection/centroids
+  filter_method: 0
 
 
 
