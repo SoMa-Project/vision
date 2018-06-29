@@ -56,6 +56,9 @@ struct FilterObjects
   spore<std::vector<UnalignedVector3f> > object_sizes_;
   spore<std::vector<UnalignedVector4f> > centroids_;
 
+  // parameters
+  spore<bool> filter_method_;
+
   // outputs
   spore<std::vector<UnalignedAffine3f> > object_poses__;
   spore<std::vector<UnalignedVector3f> > object_sizes__;
@@ -65,6 +68,8 @@ struct FilterObjects
   // ======================================================================================================================
   static void declare_params(tendrils& params)
   {
+
+    params.declare<bool>("filter_method", "0: first object, 1: biggest object,...", 0);
 
   }
 
@@ -88,6 +93,9 @@ struct FilterObjects
     object_sizes_ = inputs["sizes"];
     centroids_ = inputs["centroids"];
 
+    //prams
+    filter_method_ = params["filter_method"];
+
     // outputs
     object_poses__ = outputs["transforms"];
     object_sizes__ = outputs["sizes"];
@@ -108,9 +116,39 @@ struct FilterObjects
     object_sizes__->clear();
     centroids__->clear();
 
-    object_poses__->push_back(object_poses_->front());
-    object_sizes__->push_back(object_sizes_->front());
-    centroids__->push_back(centroids_->front());
+    switch (*filter_method_)
+    {
+      case 0:
+      {
+        object_poses__->push_back(object_poses_->front());
+        object_sizes__->push_back(object_sizes_->front());
+        centroids__->push_back(centroids_->front());
+      }
+
+      case 1:
+      {
+        // compute object sizes
+        std::vector<float> volumes;
+        for(std::vector<UnalignedVector3f>::iterator it = object_sizes_->begin(); it != object_sizes_->end(); ++it) 
+        {
+          float size_x = (*it)(0);
+          float size_y = (*it)(1);
+          float size_z = (*it)(2);
+
+          float obj_volume = size_x * size_y * size_z;
+          volumes.push_back(obj_volume);
+        }
+
+        std::vector<float>::iterator result = std::max_element(volumes.begin(), volumes.end());
+        
+        object_poses__->push_back(object_poses_->at(std::distance(volumes.begin(), result)));
+        object_sizes__->push_back(object_sizes_->at(std::distance(volumes.begin(), result)));
+        centroids__->push_back(centroids_->at(std::distance(volumes.begin(), result)));
+
+      }
+    }
+
+    
 
 
     return ecto::OK;
