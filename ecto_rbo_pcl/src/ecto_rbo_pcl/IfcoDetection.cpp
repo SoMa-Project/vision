@@ -107,6 +107,7 @@ struct IfcoDetection
         inputs.declare<double>("ifco_width", "Size of the short IFCO edge", 0.0);
         inputs.declare<double>("ifco_height", "Depth of the ifco", 0.0);
 
+
         outputs.declare<UnalignedAffine3f>("ifco_wall_0_transform", "Transform of the biggest IFCO wall.");
         outputs.declare<UnalignedAffine3f>("ifco_wall_1_transform", "Transform of the perpendicular IFCO wall.");
         outputs.declare<std::vector< ::pcl::ModelCoefficientsConstPtr> >("ifco_polygons", "Polygons of the IFCO.");
@@ -175,8 +176,6 @@ struct IfcoDetection
         bounded_model->values[9] = width;
         return bounded_model;
     }
-
-
 
     // ==========================================================================================
     template<typename Point>

@@ -23,15 +23,12 @@ The views and conclusions contained in the software and documentation are those 
 #include <pcl/ModelCoefficients.h>
 
 
-
-
 using namespace ecto;
 
 namespace ecto_rbo_pcl
 {
 
 typedef Eigen::Transform<float,3,Eigen::Affine,Eigen::DontAlign> UnalignedAffine3f;
-typedef Eigen::Matrix<float, 4, 1, Eigen::DontAlign> UnalignedVector4f;
 
 struct BroadcastIfcoSpecifications
 {
@@ -44,15 +41,11 @@ struct BroadcastIfcoSpecifications
     spore<double> ifco_height_;
     spore< std::vector<double> > ec_wall_offset_;
 
-
     // outputs
     spore<double> ifco_length__;
     spore<double> ifco_width__;
     spore<double> ifco_height__;
     spore< std::vector<double> > ec_wall_offset__;
-
-
-
 
     static void declare_params(tendrils& params)
     {
@@ -64,7 +57,6 @@ struct BroadcastIfcoSpecifications
         params.declare<double>("ifco_width", "Size of the short IFCO edge", 0.0);
         params.declare<double>("ifco_height", "Depth of the ifco", 0.0);
         params.declare< std::vector<double> >("ec_wall_offset", "The space that is occupied by the ec.", ec_wall_offset_default);
-
     }
 
     static void declare_io(const tendrils& params, tendrils& inputs, tendrils& outputs)
@@ -73,7 +65,6 @@ struct BroadcastIfcoSpecifications
         outputs.declare<double>("ifco_width", "Size of the short IFCO edge", 0.0);
         outputs.declare<double>("ifco_height", "Depth of the ifco", 0.0);
         outputs.declare<std::vector<double> >("ec_wall_offset", "The space that is occupied by the ec.");
-
     }
 
     void configure(const tendrils& params, const tendrils& inputs, const tendrils& outputs)
@@ -89,7 +80,6 @@ struct BroadcastIfcoSpecifications
         ifco_width__            = outputs["ifco_width"];
         ifco_height__           = outputs["ifco_height"];
         ec_wall_offset__        = outputs["ec_wall_offset"];
-
     }
 
     int process(const tendrils& inputs, const tendrils& outputs)
