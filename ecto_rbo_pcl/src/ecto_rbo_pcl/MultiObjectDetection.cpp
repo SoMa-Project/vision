@@ -63,6 +63,10 @@ struct MultiObjectDetection
 
   // inputs
   spore<UnalignedAffine3f> ifco_transform_;
+  spore< std::vector<float> > ec_wall_offset_;
+  spore< std::vector<int> > ec_installed_on_wall_;
+  spore<double> ifco_length_;
+  spore<double> ifco_width_;
 
   // parameters
   spore<bool> ifco_alignment_;
@@ -86,6 +90,10 @@ struct MultiObjectDetection
   static void declare_io(const tendrils& params, tendrils& inputs, tendrils& outputs)
   {
     inputs.declare<UnalignedAffine3f>("ifco_transform", "Transform of the IFCO.");
+    inputs.declare< std::vector<float> >("ec_wall_offset", "The space that is occupied by the ec.");
+    inputs.declare< std::vector<int> >("ec_installed_on_wall", "The wall on which the ec is isntalled inside the ifco. 0 if no ec is installed. Walls defined counter-clockwise.");
+    inputs.declare<double>("ifco_length", "Size of the long IFCO edge", 0.0);
+    inputs.declare<double>("ifco_width", "Size of the short IFCO edge", 0.0);
 
     outputs.declare<std::vector<UnalignedAffine3f> >("transforms", "A vector of 4x4 affine transformations for the objects.");
     outputs.declare<std::vector<UnalignedVector3f> >("sizes", "A vector of 3d sizes for the bounding boxes.");
@@ -96,7 +104,12 @@ struct MultiObjectDetection
   void configure(const tendrils& params, const tendrils& inputs, const tendrils& outputs)
   {
     // inputs
-    ifco_transform_ = inputs["ifco_transform"];
+    ifco_transform_         = inputs["ifco_transform"];
+    ec_wall_offset_         = inputs["ec_wall_offset"];
+    ec_installed_on_wall_   = inputs["ec_installed_on_wall"];
+    ifco_length_ = inputs["ifco_length"];
+    ifco_width_ = inputs["ifco_width"];
+
 
     //params
     ifco_alignment_ = params["ifco_alignment"];
@@ -104,7 +117,7 @@ struct MultiObjectDetection
     // outputs
     object_poses_ = outputs["transforms"];
     object_sizes_ = outputs["sizes"];
-    centroids_ = outputs["centroids"];
+    centroids_    = outputs["centroids"];
   }
 
 
@@ -135,6 +148,54 @@ struct MultiObjectDetection
     bbox_markers = markers;
   }
 
+
+
+  void translateIFCO_ec(Eigen::Translation3f& ifco_pose)
+  {
+      float ifco_length_new = (*ifco_length_);
+      float ifco_width_new = (*ifco_width_);
+
+      for (std::vector< int >::iterator it = ec_installed_on_wall_->begin(); it != ec_installed_on_wall_->end(); ++it) 
+      {
+              int ec = std::distance(ec_installed_on_wall_->begin(), it);
+              float offset = ec_wall_offset_->at(ec); // needs to be removed from ifco free space
+              // in which dimension?
+              switch (*it) 
+              {
+                  case 0:
+                       break; // not installed
+                  case 1:
+                  {
+                      ifco_pose.x() -= offset;
+                      ifco_length_new -= offset;
+                      break;
+                  }
+                  case 2:
+                  {
+                      ifco_pose.y() -= offset;
+                      ifco_width_new -= offset;
+                      break;
+                  }
+                  case 3:
+                  {
+                      ifco_pose.x() += offset;
+                      ifco_length_new -= offset;
+                      break;
+                  }
+                  case 4:
+                  {
+                      ifco_pose.y() += offset;
+                      ifco_width_new -= offset;
+                      break;
+                  }
+
+              }
+
+              nh_.setParam("/ifco/length", ifco_length_new);
+              nh_.setParam("/ifco/width", ifco_width_new);
+      }
+      return;
+    }
 
 
   // ==========================================================================================
