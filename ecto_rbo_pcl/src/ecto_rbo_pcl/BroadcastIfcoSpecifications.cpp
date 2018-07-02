@@ -39,26 +39,24 @@ struct BroadcastIfcoSpecifications
     spore<double> ifco_length_;
     spore<double> ifco_width_;
     spore<double> ifco_height_;
-    spore<int> ec_installed_on_wall_;
-    spore<double> ec1_;
-    spore<double> ec2_;
+    spore< std::vector<float> > ec_wall_offset_;
+    spore< std::vector<int> > ec_installed_on_wall_;
+
 
     // outputs
     spore<double> ifco_length__;
     spore<double> ifco_width__;
     spore<double> ifco_height__;
-    spore<int> ec_installed_on_wall__;
-    spore<double> ec1__;
-    spore<double> ec2__;
+    spore< std::vector<float> > ec_wall_offset__;
+    spore< std::vector<int> > ec_installed_on_wall__;
 
     static void declare_params(tendrils& params)
     {
         params.declare<double>("ifco_length", "Size of the long IFCO edge", 0.0);
         params.declare<double>("ifco_width", "Size of the short IFCO edge", 0.0);
         params.declare<double>("ifco_height", "Depth of the ifco", 0.0);
-        params.declare<int>("ec_installed_on_wall", "The wall on which the ec is isntalled inside the ifco. 0 if no ec is installed. Walls defined counter-clockwise.");
-        params.declare<double>("ec1", "The space that is occupied by ec1 if installed inside the ifco.");
-        params.declare<double>("ec2", "The space that is occupied by ec2 if installed inside the ifco.");
+        params.declare< std::vector<float> >("ec_wall_offset", "The space that is occupied by the ec.");
+        params.declare< std::vector<int> >("ec_installed_on_wall", "The wall on which the ec is isntalled inside the ifco. 0 if no ec is installed. Walls defined counter-clockwise.");
 
     }
 
@@ -67,9 +65,9 @@ struct BroadcastIfcoSpecifications
         outputs.declare<double>("ifco_length", "Size of the long IFCO edge", 0.0);
         outputs.declare<double>("ifco_width", "Size of the short IFCO edge", 0.0);
         outputs.declare<double>("ifco_height", "Depth of the ifco", 0.0);
-        params.declare<int>("ec_installed_on_wall", "The wall on which the ec is isntalled inside the ifco. 0 if no ec is installed. Walls defined counter-clockwise.");
-        params.declare<double>("ec1", "The space that is occupied by ec1 if installed inside the ifco.");
-        params.declare<double>("ec2", "The space that is occupied by ec2 if installed inside the ifco.");
+        outputs.declare< std::vector<float> >("ec_wall_offset", "The space that is occupied by the ec.");
+        outputs.declare< std::vector<int> >("ec_installed_on_wall", "The wall on which the ec is isntalled inside the ifco. 0 if no ec is installed. Walls defined counter-clockwise.");
+
     }
 
     void configure(const tendrils& params, const tendrils& inputs, const tendrils& outputs)
@@ -78,17 +76,16 @@ struct BroadcastIfcoSpecifications
         ifco_length_            = params["ifco_length"];
         ifco_width_             = params["ifco_width"];
         ifco_height_            = params["ifco_height"];
+        ec_wall_offset_         = params["ec_wall_offset"];
         ec_installed_on_wall_   = params["ec_installed_on_wall"];
-        ec1_                    = params["ec1"];
-        ec2_                    = params["ec2"];
 
         // outputs
         ifco_length__           = outputs["ifco_length"];
         ifco_width__            = outputs["ifco_width"];
         ifco_height__           = outputs["ifco_height"];
-        ec_installed_on_wall__  = params["ec_installed_on_wall"];
-        ec1__                   = params["ec1"];
-        ec2__                   = params["ec2"];
+        ec_wall_offset__        = outputs["ec_wall_offset"];
+        ec_installed_on_wall__  = outputs["ec_installed_on_wall"];
+
     }
 
     int process(const tendrils& inputs, const tendrils& outputs)
@@ -97,10 +94,8 @@ struct BroadcastIfcoSpecifications
         (*ifco_width__)  = *ifco_width_;
         (*ifco_height__) = *ifco_height_;
 
-        *(ec_installed_on_wall__) = *ec_installed_on_wall_;
-        *(ec1__) = *ec1_;
-        *(ec2__) = *ec2_;
-
+        *(ec_wall_offset__)         = *ec_wall_offset_;
+        *(ec_installed_on_wall__)   = *ec_installed_on_wall_;
 
         return ecto::OK;
     }
