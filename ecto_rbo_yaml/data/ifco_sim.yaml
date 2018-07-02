@@ -88,6 +88,10 @@ ifco_specifications:
   ifco_length: 0.56
   ifco_width: 0.38
   ifco_height: 0.16
+  # [ec1, ec2]
+  ec_wall_offset: [0.10, 0.15] # this is the space an ec occludes inside the ifco 
+  ec_installed_on_wall: [3, 0] # 0: not installed, 1,2,3,4 for ifco walls (defined counter clockwise, starting short-left from robot)
+
 
 ifco_detection:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::IfcoDetection>
@@ -130,6 +134,10 @@ object_detection:
   type: ecto_rbo_pcl::MultiObjectDetection
   inputs: 
     ifco_transform: ifco_detection/ifco_transform
+    ec_wall_offset: ifco_specifications/ec_wall_offset
+    ec_installed_on_wall: ifco_specifications/ec_installed_on_wall
+    ifco_length: ifco_specifications/ifco_length
+    ifco_width: ifco_specifications/ifco_width
   ifco_alignment: true
     
 object_detection_filtered:

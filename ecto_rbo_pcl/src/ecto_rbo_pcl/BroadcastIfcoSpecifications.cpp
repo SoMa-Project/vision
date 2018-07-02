@@ -55,8 +55,8 @@ struct BroadcastIfcoSpecifications
         params.declare<double>("ifco_length", "Size of the long IFCO edge", 0.0);
         params.declare<double>("ifco_width", "Size of the short IFCO edge", 0.0);
         params.declare<double>("ifco_height", "Depth of the ifco", 0.0);
-        params.declare< std::vector<float> >("ec_wall_offset", "The space that is occupied by the ec.");
-        params.declare< std::vector<int> >("ec_installed_on_wall", "The wall on which the ec is isntalled inside the ifco. 0 if no ec is installed. Walls defined counter-clockwise.");
+        params.declare< std::vector<float> >("ec_wall_offset", "The space that is occupied by the ec.").required(false);
+        params.declare< std::vector<int> >("ec_installed_on_wall", "The wall on which the ec is isntalled inside the ifco. 0 if no ec is installed. Walls defined counter-clockwise.").required(false);
 
     }
 
@@ -65,8 +65,8 @@ struct BroadcastIfcoSpecifications
         outputs.declare<double>("ifco_length", "Size of the long IFCO edge", 0.0);
         outputs.declare<double>("ifco_width", "Size of the short IFCO edge", 0.0);
         outputs.declare<double>("ifco_height", "Depth of the ifco", 0.0);
-        outputs.declare< std::vector<float> >("ec_wall_offset", "The space that is occupied by the ec.");
-        outputs.declare< std::vector<int> >("ec_installed_on_wall", "The wall on which the ec is isntalled inside the ifco. 0 if no ec is installed. Walls defined counter-clockwise.");
+        outputs.declare< std::vector<float> >("ec_wall_offset", "The space that is occupied by the ec.").required(false);
+        outputs.declare< std::vector<int> >("ec_installed_on_wall", "The wall on which the ec is isntalled inside the ifco. 0 if no ec is installed. Walls defined counter-clockwise.").required(false);
 
     }
 
