@@ -23,7 +23,6 @@ The views and conclusions contained in the software and documentation are those 
 
 #include "object_segmentation/object_pose.h"
 
-
 #include <visualization_msgs/Marker.h>
 #include "tf/transform_broadcaster.h"
 #include "tf/transform_listener.h"
@@ -260,11 +259,9 @@ struct MultiObjectDetection
     UnalignedVector3f trans;
     trans = ifco_transform_->translation();
 
-
     Eigen::Matrix3f rot;
     rot = ifco_transform_->linear();
     Eigen::Quaternionf q(rot);
-
     ifcoPose_msg.orientation.x = q.x();
     ifcoPose_msg.orientation.y = q.y();
     ifcoPose_msg.orientation.z = q.z();
@@ -276,9 +273,6 @@ struct MultiObjectDetection
     ifcoPose_msg.position.x = ifco_center.x();
     ifcoPose_msg.position.y = ifco_center.y();
     ifcoPose_msg.position.z = ifco_center.z();
-
-
-
 
     // convert ifco transform geometry_msg to tf and correct by -90 degree rotation around x.
     tf::Transform ifcoPose_tf, correction;
