@@ -23,6 +23,8 @@ The views and conclusions contained in the software and documentation are those 
 
 #include "object_segmentation/object_pose.h"
 
+
+#include <visualization_msgs/Marker.h>
 #include "tf/transform_broadcaster.h"
 #include "tf/transform_listener.h"
 #include <tf_conversions/tf_eigen.h>
@@ -63,13 +65,14 @@ struct MultiObjectDetection
 
   // inputs
   spore<UnalignedAffine3f> ifco_transform_;
-  spore< std::vector<float> > ec_wall_offset_;
-  spore< std::vector<int> > ec_installed_on_wall_;
+  spore< std::vector<double> > ec_wall_offset_;
   spore<double> ifco_length_;
   spore<double> ifco_width_;
+  spore<double> ifco_height_;
 
   // parameters
   spore<bool> ifco_alignment_;
+  spore<bool> publish_rviz_markers_;
 
   // outputs
   spore<std::vector<UnalignedAffine3f> > object_poses_;
@@ -83,6 +86,7 @@ struct MultiObjectDetection
   {
 
     params.declare<bool>("ifco_alignment", "Use the z-Axis of the ifco transform also as object normal.", false);
+    params.declare<bool>("publish_rviz_markers", "Should the output be published for visualization?", false);
 
   }
 
@@ -90,10 +94,10 @@ struct MultiObjectDetection
   static void declare_io(const tendrils& params, tendrils& inputs, tendrils& outputs)
   {
     inputs.declare<UnalignedAffine3f>("ifco_transform", "Transform of the IFCO.");
-    inputs.declare< std::vector<float> >("ec_wall_offset", "The space that is occupied by the ec.");
-    inputs.declare< std::vector<int> >("ec_installed_on_wall", "The wall on which the ec is isntalled inside the ifco. 0 if no ec is installed. Walls defined counter-clockwise.");
+    inputs.declare< std::vector<double> >("ec_wall_offset", "The space that is occupied by the ec.");
     inputs.declare<double>("ifco_length", "Size of the long IFCO edge", 0.0);
     inputs.declare<double>("ifco_width", "Size of the short IFCO edge", 0.0);
+    inputs.declare<double>("ifco_height", "Height of the IFCO", 0.0);
 
     outputs.declare<std::vector<UnalignedAffine3f> >("transforms", "A vector of 4x4 affine transformations for the objects.");
     outputs.declare<std::vector<UnalignedVector3f> >("sizes", "A vector of 3d sizes for the bounding boxes.");
@@ -106,13 +110,13 @@ struct MultiObjectDetection
     // inputs
     ifco_transform_         = inputs["ifco_transform"];
     ec_wall_offset_         = inputs["ec_wall_offset"];
-    ec_installed_on_wall_   = inputs["ec_installed_on_wall"];
-    ifco_length_ = inputs["ifco_length"];
-    ifco_width_ = inputs["ifco_width"];
-
+    ifco_length_            = inputs["ifco_length"];
+    ifco_width_             = inputs["ifco_width"];
+    ifco_height_            = inputs["ifco_height"];
 
     //params
     ifco_alignment_ = params["ifco_alignment"];
+    publish_rviz_markers_ = params["publish_rviz_markers"];
 
     // outputs
     object_poses_ = outputs["transforms"];
@@ -150,52 +154,95 @@ struct MultiObjectDetection
 
 
 
-  void translateIFCO_ec(Eigen::Translation3f& ifco_pose)
+  void translateIFCO_ec(Eigen::Translation3f& ifco_pose, Eigen::Quaternionf& rot)
   {
-      float ifco_length_new = (*ifco_length_);
-      float ifco_width_new = (*ifco_width_);
+      double ifco_length_new = (*ifco_length_);
+      double ifco_width_new = (*ifco_width_);
+      int wall;
+      double offset;
 
-      for (std::vector< int >::iterator it = ec_installed_on_wall_->begin(); it != ec_installed_on_wall_->end(); ++it) 
+      for (std::vector< double >::iterator it = ec_wall_offset_->begin(); it != ec_wall_offset_->end(); ++it) 
       {
-              int ec = std::distance(ec_installed_on_wall_->begin(), it);
-              float offset = ec_wall_offset_->at(ec); // needs to be removed from ifco free space
-              // in which dimension?
-              switch (*it) 
+              wall = std::distance(ec_wall_offset_->begin(), it) +1;
+              offset = *it; // needs to be removed from ifco free space
+
+              switch (wall) 
               {
-                  case 0:
-                       break; // not installed
                   case 1:
                   {
-                      ifco_pose.x() -= offset;
-                      ifco_length_new -= offset;
+                      ifco_pose.x() -= offset/2; // update ifco pose that is sent to ocado's multi object vision
+                      ifco_length_new -= offset; // update actual ifco length that is free of obstacles (EC's)
                       break;
                   }
                   case 2:
                   {
-                      ifco_pose.y() -= offset;
+                      ifco_pose.y() -= offset/2;
                       ifco_width_new -= offset;
                       break;
                   }
                   case 3:
                   {
-                      ifco_pose.x() += offset;
+                      ifco_pose.x() += offset/2;
                       ifco_length_new -= offset;
                       break;
                   }
                   case 4:
                   {
-                      ifco_pose.y() += offset;
+                      ifco_pose.y() += offset/2;
                       ifco_width_new -= offset;
                       break;
                   }
-
               }
-
-              nh_.setParam("/ifco/length", ifco_length_new);
-              nh_.setParam("/ifco/width", ifco_width_new);
       }
+
+      // those parameters are taken into consideration by ocados multi object detection service
+      nh_.setParam("/ifco/length", ifco_length_new);
+      nh_.setParam("/ifco/width", ifco_width_new);
+
+
+      if (*publish_rviz_markers_)
+          publishRVizMarker("camera_rgb_optical_frame", ifco_pose, rot, ifco_length_new, ifco_width_new);
       return;
     }
+
+
+  // Publish rviz marker to visualize the actual ifco frame used for ocados multi object detection and the free space inside the ifco 
+  void publishRVizMarker(const std::string& frame_id, Eigen::Translation3f& ifco_pose, Eigen::Quaternionf& q, double ifco_length_new, double ifco_width_new)
+    {
+
+        // this frame is visualizing the frame provided for the Ocado multi object segmentation
+        visualization_msgs::Marker marker;
+        marker.header.frame_id = "/camera_rgb_optical_frame";
+        //marker.header.frame_id = "/base_link";
+        marker.header.stamp = ros::Time(0);
+        marker.id = 1;
+        marker.ns = "camera_rgb_optical_frame";
+        marker.type = visualization_msgs::Marker::CUBE;
+        marker.action = visualization_msgs::Marker::ADD;
+
+        // this marker visualizes the actual free space inside the ifco that is considered to contain objects
+        // after subtracting the space occupied by ec's
+        marker.pose.position.x = ifco_pose.x();
+        marker.pose.position.y = ifco_pose.y();
+        marker.pose.position.z = ifco_pose.z() - (*ifco_height_)/2;
+        marker.scale.x = ifco_length_new;
+        marker.scale.y = ifco_width_new;
+        marker.scale.z = (*ifco_height_);
+        
+        marker.pose.orientation.w = q.w();
+        marker.pose.orientation.x = q.x();
+        marker.pose.orientation.y = q.y();
+        marker.pose.orientation.z = q.z();
+
+        marker.color.r = 0.0;
+        marker.color.g = 1.0;
+        marker.color.b = 0.0;
+        marker.color.a = 0.3;
+        
+        static ros::NodeHandle nh;
+        static ros::Publisher marker_publisher = nh.advertise<visualization_msgs::Marker>("/ifco_free_space", 1, true);
+        marker_publisher.publish(marker);
+  }
 
 
   // ==========================================================================================
@@ -212,17 +259,25 @@ struct MultiObjectDetection
 
     UnalignedVector3f trans;
     trans = ifco_transform_->translation();
-    ifcoPose_msg.position.x = trans(0);
-    ifcoPose_msg.position.y = trans(1);
-    ifcoPose_msg.position.z = trans(2);
+
 
     Eigen::Matrix3f rot;
     rot = ifco_transform_->linear();
     Eigen::Quaternionf q(rot);
+
     ifcoPose_msg.orientation.x = q.x();
     ifcoPose_msg.orientation.y = q.y();
     ifcoPose_msg.orientation.z = q.z();
     ifcoPose_msg.orientation.w = q.w();
+
+    Eigen::Translation3f ifco_center (trans(0), trans(1), trans(2));
+    translateIFCO_ec(ifco_center, q);
+
+    ifcoPose_msg.position.x = ifco_center.x();
+    ifcoPose_msg.position.y = ifco_center.y();
+    ifcoPose_msg.position.z = ifco_center.z();
+
+
 
 
     // convert ifco transform geometry_msg to tf and correct by -90 degree rotation around x.
@@ -233,6 +288,15 @@ struct MultiObjectDetection
 
     geometry_msgs::Transform ifcoPose_corrected_msg;
     tf::transformTFToMsg (ifcoPose_corrected_tf, ifcoPose_corrected_msg);
+
+
+    static tf::TransformBroadcaster tf_broadcaster;
+    geometry_msgs::TransformStamped msg;
+    msg.header.stamp = ros::Time::now();
+    msg.header.frame_id = "camera_rgb_optical_frame";
+    msg.child_frame_id = "ifco_for_ICP";
+    msg.transform = ifcoPose_corrected_msg;
+    tf_broadcaster.sendTransform(msg);
 
     // the final ifco frame that gets handed over to the multi-object service
     geometry_msgs::Pose ifcoPose_final;
@@ -267,7 +331,9 @@ struct MultiObjectDetection
       }
       bounding_boxes = bounding_boxes_temp;
 
-      visualize_bboxes();
+      if (*publish_rviz_markers_)
+            visualize_bboxes();
+      
 
       // generate output tendrils
       for(int i=0; i < bounding_boxes.data.size(); i+=3)
