@@ -116,13 +116,9 @@ ifco_specifications:
   ifco_length: 0.56
   ifco_width: 0.38
   ifco_height: 0.16
-  ec1: 0.10 # this is the size of the ec that is taken away from ifco free space
-  ec2: 0.15
-  # on which wall is the ec installed inside the ifco? 
-  # Numbers defined clockwise 
-  # 0: no ec installed
-  # 1: short wall installed on wall left from robot 2: long wall away from robot 3: short wall right side of robot 4: long wall close and in front of robot
-  ec_installed_on_wall: 3
+  # [ec1, ec2]
+  ec_wall_offset: [0.10, 0.15] # this is the space an ec occludes inside the ifco 
+  ec_installed_on_wall: [3, 0] # 0: not installed, 1,2,3,4 for ifco walls (defined counter clockwise, starting short-left from robot)
 
 ifco_detection:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::IfcoDetection>
@@ -134,6 +130,9 @@ ifco_detection:
     ifco_length: ifco_specifications/ifco_length
     ifco_width: ifco_specifications/ifco_width
     ifco_height: ifco_specifications/ifco_height
+    ec_installed: ifco_specifications/ec_installed
+    ec_wall_offset: ifco_specifications/ec_wall_offset
+    ec_installed_on_wall: ifco_specifications/ec_installed_on_wall
   plane_id: -1
   tableDist: 0.2
   # SHOULD BE TUNED FOR EVERY EXPERIMENT SETUP (error was openCV fitEllipse not enough points)
