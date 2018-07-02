@@ -130,6 +130,7 @@ object_detection:
   type: ecto_rbo_pcl::MultiObjectDetection
   inputs: 
     ifco_transform: ifco_detection/ifco_transform
+  ifco_alignment: true
     
 object_detection_filtered:
   type: ecto_rbo_pcl::FilterObjects
@@ -137,7 +138,7 @@ object_detection_filtered:
     transforms: object_detection/transforms
     sizes: object_detection/sizes
     centroids: object_detection/centroids
-
+  filter_method: 0
 
 
 # ------------------------------------------------------------------------
