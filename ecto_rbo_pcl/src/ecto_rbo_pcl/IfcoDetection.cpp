@@ -74,6 +74,8 @@ struct IfcoDetection
     spore<double> ifco_length_;
     spore<double> ifco_width_;
     spore<double> ifco_height_;
+    spore< std::vector<float> > ec_wall_offset_;
+    spore< std::vector<int> > ec_installed_on_wall_;
 
     // parameters
     spore<double> tableDist_;
@@ -106,6 +108,8 @@ struct IfcoDetection
         inputs.declare<double>("ifco_length", "Size of the long IFCO edge", 0.0);
         inputs.declare<double>("ifco_width", "Size of the short IFCO edge", 0.0);
         inputs.declare<double>("ifco_height", "Depth of the ifco", 0.0);
+        inputs.declare< std::vector<float> >("ec_wall_offset", "The space that is occupied by the ec.");
+        inputs.declare< std::vector<int> >("ec_installed_on_wall", "The wall on which the ec is isntalled inside the ifco. 0 if no ec is installed. Walls defined counter-clockwise.");
 
 
         outputs.declare<UnalignedAffine3f>("ifco_wall_0_transform", "Transform of the biggest IFCO wall.");
@@ -125,6 +129,8 @@ struct IfcoDetection
         ifco_length_ = inputs["ifco_length"];
         ifco_width_ = inputs["ifco_width"];
         ifco_height_ = inputs["ifco_height"];
+        ec_wall_offset_         = inputs["ec_wall_offset"];
+        ec_installed_on_wall_   = inputs["ec_installed_on_wall"];
 
         // parameters
         tableDist_ = params["tableDist"];
@@ -176,6 +182,8 @@ struct IfcoDetection
         bounded_model->values[9] = width;
         return bounded_model;
     }
+
+
 
     // ==========================================================================================
     template<typename Point>
