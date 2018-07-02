@@ -88,10 +88,8 @@ ifco_specifications:
   ifco_length: 0.56
   ifco_width: 0.38
   ifco_height: 0.16
-  # [ec1, ec2]
-  ec_wall_offset: [0.10, 0.15] # this is the space an ec occludes inside the ifco 
-  ec_installed_on_wall: [3, 0] # 0: not installed, 1,2,3,4 for ifco walls (defined counter clockwise, starting short-left from robot)
-
+  # [wall 1, wall2, wall 3, wall 4] defined counterclockwise
+  ec_wall_offset: [0.0, 0.0, 0.0, 0.0] # this is the space an ec occludes inside the ifco at wall 1, wall2, etc..
 
 ifco_detection:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::IfcoDetection>
@@ -105,7 +103,11 @@ ifco_detection:
     ifco_height: ifco_specifications/ifco_height
   plane_id: -1
   tableDist: 0.2
-  icp_offset: 0.1 # Ocado's ICP detection results in a slightly shifted ifco frame. This param is applied on the z-Axis of the ifco frame to correct the shift.
+    # SHOULD BE TUNED FOR EVERY EXPERIMENT SETUP
+  # Ocado's ICP detection results in a slightly shifted ifco frame. 
+  # This param is applied on the z-Axis of the ifco frame to correct the shift. 
+  # 0.02 for camera on the robot arm 0.005 for the almost extended camera tripod in the lab
+  icp_offset: 0.004 
 
 
 ifco_grasps:
@@ -135,10 +137,11 @@ object_detection:
   inputs: 
     ifco_transform: ifco_detection/ifco_transform
     ec_wall_offset: ifco_specifications/ec_wall_offset
-    ec_installed_on_wall: ifco_specifications/ec_installed_on_wall
     ifco_length: ifco_specifications/ifco_length
     ifco_width: ifco_specifications/ifco_width
+    ifco_height: ifco_specifications/ifco_height
   ifco_alignment: true
+  publish_rviz_markers: true
     
 object_detection_filtered:
   type: ecto_rbo_pcl::FilterObjects
@@ -147,6 +150,7 @@ object_detection_filtered:
     sizes: object_detection/sizes
     centroids: object_detection/centroids
   filter_method: 0
+
 
 
 # ------------------------------------------------------------------------
@@ -224,7 +228,7 @@ tf_send_object:
   inputs:
     transform: take_first_tf/output
   source_frame: camera_rgb_optical_frame
-  target_frame: object
+  target_frame: object_old
 
 # Broadcast object data
 send_objects:
