@@ -118,14 +118,14 @@ struct FilterObjects
 
     switch (*filter_method_)
     {
-      case 0:
+      case 0: // keep only 1 object -> first in list
       {
         object_poses__->push_back(object_poses_->front());
         object_sizes__->push_back(object_sizes_->front());
         centroids__->push_back(centroids_->front());
       }
 
-      case 1:
+      case 1: // keep only 1 object -> biggest volume
       {
         // compute object sizes
         std::vector<float> volumes;

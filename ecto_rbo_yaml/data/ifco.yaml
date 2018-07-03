@@ -116,6 +116,8 @@ ifco_specifications:
   ifco_length: 0.56
   ifco_width: 0.38
   ifco_height: 0.16
+  # [wall 1, wall2, wall 3, wall 4] defined counterclockwise
+  ec_wall_offset: [0.0, 0.0, 0.1, 0.0] # this is the space an ec occludes inside the ifco at wall 1, wall2, etc..
 
 ifco_detection:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::IfcoDetection>
@@ -129,7 +131,7 @@ ifco_detection:
     ifco_height: ifco_specifications/ifco_height
   plane_id: -1
   tableDist: 0.2
-  # SHOULD BE TUNED FOR EVERY EXPERIMENT SETUP (error was openCV fitEllipse not enough points)
+  # SHOULD BE TUNED FOR EVERY EXPERIMENT SETUP
   # Ocado's ICP detection results in a slightly shifted ifco frame. 
   # This param is applied on the z-Axis of the ifco frame to correct the shift. 
   # 0.02 for camera on the robot arm 0.005 for the almost extended camera tripod in the lab
@@ -162,7 +164,12 @@ object_detection:
   type: ecto_rbo_pcl::MultiObjectDetection
   inputs: 
     ifco_transform: ifco_detection/ifco_transform
+    ec_wall_offset: ifco_specifications/ec_wall_offset
+    ifco_length: ifco_specifications/ifco_length
+    ifco_width: ifco_specifications/ifco_width
+    ifco_height: ifco_specifications/ifco_height
   ifco_alignment: true
+  publish_rviz_markers: true
     
 object_detection_filtered:
   type: ecto_rbo_pcl::FilterObjects
