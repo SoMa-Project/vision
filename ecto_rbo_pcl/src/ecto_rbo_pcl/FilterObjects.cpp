@@ -123,8 +123,8 @@ struct FilterObjects
         object_poses__->push_back(object_poses_->front());
         object_sizes__->push_back(object_sizes_->front());
         centroids__->push_back(centroids_->front());
+        break;
       }
-
       case 1: // keep only 1 object -> biggest volume
       {
         // compute object sizes
@@ -144,7 +144,7 @@ struct FilterObjects
         object_poses__->push_back(object_poses_->at(std::distance(volumes.begin(), result)));
         object_sizes__->push_back(object_sizes_->at(std::distance(volumes.begin(), result)));
         centroids__->push_back(centroids_->at(std::distance(volumes.begin(), result)));
-
+        break;
       }
     }
 
