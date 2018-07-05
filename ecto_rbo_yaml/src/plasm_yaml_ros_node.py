@@ -4,7 +4,6 @@ import os
 import rospkg
 import sys
 import threading
-import time
 
 import ecto
 import ecto_pcl
@@ -46,11 +45,13 @@ class VisionServer:
         """
         try:
             return self.run_vision(req)
+        except rospy.ServiceException as e:
+            rospy.logerr("Vision: %s" % e)
+            raise e
         except Exception as e:
             rospy.logerr("!!! vision crashed !!!")
             rospy.logerr(e)
-
-            return
+            raise rospy.ServiceException("Vision crashed: %s" % e)
 
     def callback_vision_result_graph(self, data):
         self.outputgraph = data
@@ -69,8 +70,13 @@ class VisionServer:
         # start scheduler; iterate exactly once over the ecto plasm
         self.ecto_scheduler.execute(niter=1)
 
-        while self.outputgraph == None or self.found_objects == None:
-            time.sleep(0.1)
+        start_time = rospy.now()
+        timeout = rospy.Duration(60.0) # Break if vision takes longer than 1min.
+        while self.outputgraph is None or self.found_objects is None:
+            if start_time < start_time + timeout:
+                rospy.sleep(0.1)
+            else:
+                raise rospy.ServiceException("Vision service call timeout (execution longer than {0}s)".format(timeout.secs))
 
         return srv.ComputeECGraphResponse(self.outputgraph, self.found_objects)
 
@@ -112,4 +118,4 @@ if __name__ == '__main__':
     else:
         server.ecto_scheduler.execute()
 
-    print server.ecto_scheduler.stats()
+    print(server.ecto_scheduler.stats())
