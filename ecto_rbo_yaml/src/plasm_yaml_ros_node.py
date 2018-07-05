@@ -70,7 +70,7 @@ class VisionServer:
         # start scheduler; iterate exactly once over the ecto plasm
         self.ecto_scheduler.execute(niter=1)
 
-        start_time = rospy.now()
+        start_time = rospy.Time.now()
         timeout = rospy.Duration(60.0) # Break if vision takes longer than 1min.
         while self.outputgraph is None or self.found_objects is None:
             if start_time < start_time + timeout:
