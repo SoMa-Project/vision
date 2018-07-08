@@ -82,7 +82,7 @@ wrap_in_vector_table:
 
 
 # ------------------------------------------------------------------------
-# Try to crop the table edges away (this cell was never tested / can it be trusted?)
+# Try to crop the table edges away because we had wrongly table edges as objects selected
 # ------------------------------------------------------------------------
 
 crop_box2:
@@ -96,7 +96,7 @@ crop_box2:
 
 
 # ------------------------------------------------------------------------
-# Object Detection new (IS NOT IN USE / no worries)
+# Object Detection new - Integration of the Ocado Multi object detection - tested! (IS NOT IN USE / no worries)
 # ------------------------------------------------------------------------
 
 
