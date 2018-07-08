@@ -72,6 +72,7 @@ struct MultiObjectDetection
   // parameters
   spore<bool> ifco_alignment_;
   spore<bool> publish_rviz_markers_;
+  spore<bool> disney_;
 
   // outputs
   spore<std::vector<UnalignedAffine3f> > object_poses_;
@@ -86,6 +87,7 @@ struct MultiObjectDetection
 
     params.declare<bool>("ifco_alignment", "Use the z-Axis of the ifco transform also as object normal.", false);
     params.declare<bool>("publish_rviz_markers", "Should the output be published for visualization?", false);
+    params.declare<bool>("disney", "In the disney use-case no ifco is present and the ifco_transform input is the table frame.", false);
 
   }
 
@@ -116,6 +118,7 @@ struct MultiObjectDetection
     //params
     ifco_alignment_ = params["ifco_alignment"];
     publish_rviz_markers_ = params["publish_rviz_markers"];
+    disney_ = params["disney"];
 
     // outputs
     object_poses_ = outputs["transforms"];
@@ -263,18 +266,23 @@ struct MultiObjectDetection
     rot = ifco_transform_->linear();
 
     // THIS IS JUST FOR DISNEY
-    Eigen::Matrix3f ifco_rotation_icp;
-    Eigen::Matrix3f ifco_rotation_wallconventions;
-    ifco_rotation_icp <<  1 , 0, 0,
-                            0 , -1, 0,
-                            0 ,0, -1;
+    // --------------------------------
+    if (*disney_)
+    {
+      Eigen::Matrix3f ifco_rotation_icp;
+      Eigen::Matrix3f ifco_rotation_wallconventions;
+      ifco_rotation_icp <<  1 , 0, 0,
+                              0 , -1, 0,
+                              0 ,0, -1;
 
-    ifco_rotation_wallconventions <<  -1 , 0, 0,
-                                    0 , -1, 0,
-                                    0 ,0, 1;
+      ifco_rotation_wallconventions <<  -1 , 0, 0,
+                                      0 , -1, 0,
+                                      0 ,0, 1;
 
-    rot = rot * ifco_rotation_icp;
-    rot = rot * ifco_rotation_wallconventions;
+      rot = rot * ifco_rotation_icp;
+      rot = rot * ifco_rotation_wallconventions;
+    }
+    // --------------------------------
 
     Eigen::Quaternionf q(rot);
     ifcoPose_msg.orientation.x = q.x();
