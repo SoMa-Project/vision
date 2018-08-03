@@ -70,10 +70,10 @@ class VisionServer:
         # start scheduler; iterate exactly once over the ecto plasm
         self.ecto_scheduler.execute(niter=1)
 
-        start_time = rospy.Time.now()
         timeout = rospy.Duration(60.0) # Break if vision takes longer than 1min.
+        end_time = rospy.Time.now() + timeout
         while self.outputgraph is None or self.found_objects is None:
-            if start_time < start_time + timeout:
+            if rospy.Time.now() < end_time:
                 rospy.sleep(0.1)
             else:
                 raise rospy.ServiceException("Vision service call timeout (execution longer than {0}s)".format(timeout.secs))
