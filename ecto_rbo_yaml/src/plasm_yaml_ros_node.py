@@ -43,6 +43,7 @@ class VisionServer:
         Returns:
             The response of the service defined in ComputeECGraph
         """
+        print("handle compute ec graph")
         try:
             return self.run_vision(req)
         except rospy.ServiceException as e:
