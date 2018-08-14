@@ -391,7 +391,7 @@ struct IfcoGrasp
 
       if(maxSize < 0) {
         ROS_ERROR("Could not find the first wall");
-        return QUIT;
+        // return QUIT;
       }
       printf("maxSize: %lf\n", maxSize);
 
