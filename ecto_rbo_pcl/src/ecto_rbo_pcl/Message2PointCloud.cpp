@@ -89,10 +89,12 @@ struct Message2PointCloud
         input_ = inputs["input"];
         output_ = outputs["output"];
         header_ = outputs["header"];
+
+        rgbd_snapshot_pub = n.advertise<sensor_msgs::PointCloud2>("rgbd_snapshot", 2, true); // latch=true
     }
 
     void publishPointCloudSnapshot() {
-        rgbd_snapshot_pub.publish(*input_)
+        rgbd_snapshot_pub.publish(*input_);
     }
 
     int process(const tendrils& /*inputs*/, const tendrils& outputs) {
@@ -126,7 +128,7 @@ struct Message2PointCloud
 
     // required for snapshot publisher
     ros::NodeHandle n;
-    ros::Publisher rgbd_snapshot_pub = n.advertise<sensor_msgs::PointCloud2>("rgbd", 2);
+    ros::Publisher rgbd_snapshot_pub;
 };
 
 struct PointCloud2Message
