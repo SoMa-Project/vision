@@ -27,6 +27,8 @@ class VisionServer:
         self.ecto_plasm = ecto_plasm
         self.ecto_cells = ecto_cells
         self.ecto_scheduler = ecto.Scheduler(self.ecto_plasm)
+        self.outputgraph = None
+        self.found_objects = None
 
         rospy.Subscriber('geometry_graph', Graph, self.callback_vision_result_graph)
         rospy.loginfo('Subscribed to the geometry_graph topic.')
@@ -71,7 +73,7 @@ class VisionServer:
         # start scheduler; iterate exactly once over the ecto plasm
         self.ecto_scheduler.execute(niter=1)
 
-        timeout = rospy.Duration(60.0) # Break if vision takes longer than 1min.
+        timeout = rospy.Duration(60) # Break if vision takes longer than 1min.
         end_time = rospy.Time.now() + timeout
         while self.outputgraph is None or self.found_objects is None:
             if rospy.Time.now() < end_time:
