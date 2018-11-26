@@ -153,8 +153,12 @@ filter_by_distance:
     input: crop_box2/output
     clusters: flood_fill/clusters
     transform: table_fits/transform_biggest
+  #max_volume: 0.004
+  #min_volume: 0.
   filter_criterion: 2
   max_distance: 0.2 #0.1
+  #min_size: 200
+  #max_size: 1000
 
 merge_clusters:
   type: ecto_rbo_pcl::MergeClusters
@@ -166,7 +170,10 @@ filter_object_by_size:
   inputs:
     input: crop_box2/output
     clusters: merge_clusters/merged_clusters
+  #max_volume: 0.004
+  #min_volume: 0.
   filter_criterion: 1
+  #max_distance: 0.2
   min_size: 120
   max_size: 5000
 filter_closest_object:
