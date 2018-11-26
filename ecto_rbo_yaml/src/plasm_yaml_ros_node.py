@@ -4,7 +4,6 @@ import os
 import rospkg
 import sys
 import threading
-import time
 
 import ecto
 import ecto_pcl
@@ -28,6 +27,8 @@ class VisionServer:
         self.ecto_plasm = ecto_plasm
         self.ecto_cells = ecto_cells
         self.ecto_scheduler = ecto.Scheduler(self.ecto_plasm)
+        self.outputgraph = None
+        self.found_objects = None
 
         rospy.Subscriber('geometry_graph', Graph, self.callback_vision_result_graph)
         rospy.loginfo('Subscribed to the geometry_graph topic.')
@@ -44,13 +45,16 @@ class VisionServer:
         Returns:
             The response of the service defined in ComputeECGraph
         """
+        print("handle compute ec graph")
         try:
             return self.run_vision(req)
+        except rospy.ServiceException as e:
+            rospy.logerr("Vision: %s" % e)
+            raise e
         except Exception as e:
             rospy.logerr("!!! vision crashed !!!")
             rospy.logerr(e)
-
-            return
+            raise rospy.ServiceException("Vision crashed: %s" % e)
 
     def callback_vision_result_graph(self, data):
         self.outputgraph = data
@@ -68,14 +72,14 @@ class VisionServer:
 
         # start scheduler; iterate exactly once over the ecto plasm
         self.ecto_scheduler.execute(niter=1)
-        
-        i=0
-        while self.outputgraph == None or self.found_objects == None:
-            if i % 50 == 0:
-                rospy.loginfo("waiting for vision reponse")
-            i = i+1
 
-            time.sleep(0.1)
+        timeout = rospy.Duration(60) # Break if vision takes longer than 1min.
+        end_time = rospy.Time.now() + timeout
+        while self.outputgraph is None or self.found_objects is None:
+            if rospy.Time.now() < end_time:
+                rospy.sleep(0.1)
+            else:
+                raise rospy.ServiceException("Vision service call timeout (execution longer than {0}s)".format(timeout.secs))
 
         return srv.ComputeECGraphResponse(self.outputgraph, self.found_objects)
 
@@ -117,4 +121,4 @@ if __name__ == '__main__':
     else:
         server.ecto_scheduler.execute()
 
-    print server.ecto_scheduler.stats()
+    print(server.ecto_scheduler.stats())
