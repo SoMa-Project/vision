@@ -89,6 +89,12 @@ struct Message2PointCloud
         input_ = inputs["input"];
         output_ = outputs["output"];
         header_ = outputs["header"];
+
+        rgbd_snapshot_pub = n.advertise<sensor_msgs::PointCloud2>("rgbd_snapshot", 2, true); // latch=true
+    }
+
+    void publishPointCloudSnapshot() {
+        rgbd_snapshot_pub.publish(*input_);
     }
 
     int process(const tendrils& /*inputs*/, const tendrils& outputs) {
@@ -109,12 +115,20 @@ struct Message2PointCloud
         default:
             throw std::runtime_error("Unsupported point cloud type.");
         }
+
+        // publish uses point cloud
+        publishPointCloudSnapshot();
+
         return ecto::OK;
     }
     ecto::spore<int> format_;
     ecto::spore<MsgT> input_;
     ecto::spore<ecto::pcl::PointCloud> output_;
     ecto::spore<std_msgs::Header> header_;
+
+    // required for snapshot publisher
+    ros::NodeHandle n;
+    ros::Publisher rgbd_snapshot_pub;
 };
 
 struct PointCloud2Message
