@@ -81,25 +81,84 @@ table_fits:
   polygon_approximation_epsilon: 40.0
 
 # ------------------------------------------------------------------------
-ifco_grasp:
-  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::IfcoGrasp>
+# Ifco (Publish Specifications +  Detection + Grasp)
+# ------------------------------------------------------------------------
+ifco_specifications:
+  type: ecto_rbo_pcl::BroadcastIfcoSpecifications
+  ifco_length: 0.56
+  ifco_width: 0.38
+  ifco_height: 0.16
+  # [wall 1, wall2, wall 3, wall 4] defined counterclockwise
+  ec_wall_offset: [0.0, 0.0, 0.0, 0.0] # this is the space an ec occludes inside the ifco at wall 1, wall2, etc..
+
+ifco_detection:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::IfcoDetection>
   inputs:
     input: crop_box/output
     normals: normal_estimation/output
     bounded_planes: table_fits/bounded_models
     bounded_planes_biggest: table_fits/bounded_model_biggest
+    ifco_length: ifco_specifications/ifco_length
+    ifco_width: ifco_specifications/ifco_width
+    ifco_height: ifco_specifications/ifco_height
   plane_id: -1
   tableDist: 0.2
-  ifco_length: 0.56
-  ifco_width: 0.38
-  ifco_height: 0.16
+    # SHOULD BE TUNED FOR EVERY EXPERIMENT SETUP
+  # Ocado's ICP detection results in a slightly shifted ifco frame. 
+  # This param is applied on the z-Axis of the ifco frame to correct the shift. 
+  # 0.02 for camera on the robot arm 0.005 for the almost extended camera tripod in the lab
+  icp_offset: 0.004 
+
+
+ifco_grasps:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::IfcoGrasps>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+    ifco_planes: ifco_detection/ifco_planes
+    ifco_length: ifco_specifications/ifco_length
+    ifco_width: ifco_specifications/ifco_width
+    ifco_height: ifco_specifications/ifco_height
+
+
+tf_send_ifco:
+  type: ecto_rbo_pcl::BroadcastTF
+  inputs:
+    transform: ifco_detection/ifco_transform
+  source_frame: camera_rgb_optical_frame
+  target_frame: ifco
+
+
+# ------------------------------------------------------------------------
+# Object Detection - Ocados Multi Object Detection
+# ------------------------------------------------------------------------
+object_detection:
+  type: ecto_rbo_pcl::MultiObjectDetection
+  inputs: 
+    ifco_transform: ifco_detection/ifco_transform
+    ec_wall_offset: ifco_specifications/ec_wall_offset
+    ifco_length: ifco_specifications/ifco_length
+    ifco_width: ifco_specifications/ifco_width
+    ifco_height: ifco_specifications/ifco_height
+  ifco_alignment: true
+  publish_rviz_markers: true
+    
+object_detection_filtered:
+  type: ecto_rbo_pcl::FilterObjects
+  inputs:
+    transforms: object_detection/transforms
+    sizes: object_detection/sizes
+    centroids: object_detection/centroids
+  filter_method: 0
+
+
 
 # ------------------------------------------------------------------------
 # Clean up transform data for later use
 tf_to_vector_table:
   type: ecto_rbo_pcl::TF2Vector
   inputs:
-    transform: ifco_grasp/ifco_transform
+    transform: ifco_detection/ifco_transform
   column_index: 2
   negate: false
 wrap_in_vector_table:
@@ -112,7 +171,7 @@ inside_ifco:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::CropBox>
   inputs:
     input: crop_box/output
-    transform: ifco_grasp/ifco_transform
+    transform: ifco_detection/ifco_transform
   default_min: [-0.24,  -0.16, 0.02, 0]
   default_max: [0.24,  0.16,  0.20, 0]
   publish_rviz_markers: true
@@ -136,7 +195,7 @@ filter_closest_object:
   inputs:
     input: crop_box/output
     clusters: region_growing_rgb/output
-    transform: ifco_grasp/ifco_transform
+    transform: ifco_detection/ifco_transform
   size_weight: 0
 
 # ------------------------------------------------------------------------
@@ -155,7 +214,7 @@ bbox_fits:
 bbox_to_axis:
   type: ecto_rbo_pcl::TFs2Vectors
   inputs:
-    transforms: bbox_fits/transforms
+    transforms: object_detection_filtered/transforms
   column_index: 0
   negate: false
 
@@ -169,23 +228,23 @@ tf_send_object:
   inputs:
     transform: take_first_tf/output
   source_frame: camera_rgb_optical_frame
-  target_frame: object
-
+  target_frame: object_old
 
 # Broadcast object data
 send_objects:
   type: ecto_rbo_grasping::PublishObjectList
   inputs:
-    transforms: bbox_fits/transforms
-    sizes: bbox_fits/sizes
-
+    transforms: object_detection/transforms
+    sizes: object_detection/sizes
+  frame: camera_rgb_optical_frame
+  
 # ------------------------------------------------------------------------
 # Create top grasp primitive
 create_top_down_grasps:
   type: ecto_rbo_grasping::CreateGrasps
   inputs:
     header: msg_to_pcl/header
-    positions: calculate_centroids/centroids
+    positions: object_detection_filtered/centroids
     approach_vectors: wrap_in_vector_table/vector
     roll_vectors: bbox_to_axis/vectors
   strategy: 10  # SQUEEZE
@@ -199,20 +258,11 @@ planar_manifolds:
   inputs:
     input: crop_box/output
     normals: normal_estimation/output
-    bounded_planes: ifco_grasp/ifco_planes_biggest
+    bounded_planes: ifco_detection/ifco_planes_biggest
   all_in_plane_orientations: true 
   rotation: 0
  
-# ------------------------------------------------------------------------
-# Create wall grasp primitives
-#wall_grasps:
-#  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::WallGrasps>
-#  inputs:
-#    input: crop_box/output
-#    normals: normal_estimation/output
-#    polygons: ifco_grasp/ifco_polygons
-#    bounded_planes: ifco_grasp/ifco_planes
-#  min_points: 400
+
 
 # ------------------------------------------------------------------------
 # Initial approach primitive
@@ -232,8 +282,8 @@ planner:
     pushing_motion_manifolds: planar_manifolds/manifolds
     surface_pregrasp_messages: create_top_down_grasps/pregrasp_messages
     surface_grasp_manifolds: planar_manifolds/manifolds
-    wall_pregrasp_messages: ifco_grasp/wall_pregrasp_messages
-    wall_grasp_manifolds: ifco_grasp/wall_manifolds
+    wall_pregrasp_messages: ifco_grasps/wall_pregrasp_messages
+    wall_grasp_manifolds: ifco_grasps/wall_manifolds
   ignore_manifold_intersection: true
 publish_graph:
   type: ecto_rbo_grasping::PublishGeometryGraph
@@ -241,40 +291,5 @@ publish_graph:
     graph_message: planner/graph_message
 
 # ------------------------------------------------------------------------
-tf_send_wall0:
-  type: ecto_rbo_pcl::BroadcastTF
-  inputs:
-    transform: ifco_grasp/ifco_wall_0_transform
-  source_frame: camera_rgb_optical_frame
-  target_frame: ifcoWall0
-
-# ------------------------------------------------------------------------
-tf_send_wall0b:
-  type: ecto_rbo_pcl::BroadcastTF
-  inputs:
-    transform: ifco_grasp/ifco_wall_0_transform
-  source_frame: camera_rgb_optical_frame
-  target_frame: wall
 
 
-# ------------------------------------------------------------------------
-tf_send_wall1:
-  type: ecto_rbo_pcl::BroadcastTF
-  inputs:
-    transform: ifco_grasp/ifco_wall_1_transform
-  source_frame: camera_rgb_optical_frame
-  target_frame: ifcoWall1 
-
-# ------------------------------------------------------------------------
-tf_send_ifco:
-  type: ecto_rbo_pcl::BroadcastTF
-  inputs:
-    transform: ifco_grasp/ifco_transform
-  source_frame: camera_rgb_optical_frame
-  target_frame: ifco
-tf_send_table:
-  type: ecto_rbo_pcl::BroadcastTF
-  inputs:
-    transform: ifco_grasp/ifco_transform
-  source_frame: camera_rgb_optical_frame
-  target_frame: table
