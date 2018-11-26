@@ -62,6 +62,8 @@ PlasmYamlFactory::PlasmYamlFactory(const ecto::plasm_ptr& plasm) :
     import_modules.push_back("ecto_ros");
     import_modules.push_back("ecto_ros.ecto_ros_main");
     import_modules.push_back("ecto_ros.ecto_sensor_msgs");
+    import_modules.push_back("ecto_ros.ecto_std_msgs");
+    import_modules.push_back("ecto_ros.ecto_geometry_msgs");
     import_modules.push_back("ecto_opencv");
     import_modules.push_back("ecto_opencv.imgproc");
     import_modules.push_back("ecto_opencv.highgui");
