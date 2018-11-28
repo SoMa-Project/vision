@@ -1,12 +1,15 @@
 # ecto_rbo
 
 ROS packages providing various ecto cells and plasms for perception.
+It can be used as standalone vision unit to serve various vision tasks or it can be used in combination with the SOMA project environment constraint planner (ec_grasp_planner).
 
 ## Install 
 
-* First compile the ec_grasp_planner repository: https://github.com/soma-project/ec_grasp_planner
+Before you go through the following installation instructions in this repository, please be aware that if you want to use the vision repository in combination with the SOMA planner that there is a script available to clone and install all related repositories automatically. The script is called soma_git_clone.sh. You can find it here: https://github.com/SoMa-Project/soma_utils/blob/master/scripts/soma_git_clone.sh **Important:** to check out the repositories, please set up an ssh key (https://docs.gitlab.com/ce/ssh/README.html).
 
-* Install all ROS packages that start with 'ros-indigo-ecto', as well as with 'openni2':
+* Only if you want to use the vision in combination with the SOMA planner: first compile the ec_grasp_planner repository: https://github.com/soma-project/ec_grasp_planner
+
+* In any case, install all ROS packages that start with 'ros-indigo-ecto', as well as with 'openni2':
 ```
 sudo apt-get install ros-indigo-ecto* ros-indigo-openni*
 ```
@@ -45,6 +48,8 @@ tar -xzf libgdiam-1.0.1.tar.gz
 copy the libgdiam.so lib from the build folder to /usr/local/lib where it is expected by the ecto_rbo package.
 
 
+* If this repository is used for running the SOMA Ocado use-case you need to clone and install the following two additional dependencies:
+  ifco_pose_estimator (https://github.com/SoMa-Project/object_segmentation.git object_segmentation) and vision_client (https://github.com/SoMa-Project/vision.git vision)
 
 ## Example
 
