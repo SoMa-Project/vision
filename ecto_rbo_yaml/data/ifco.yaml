@@ -135,7 +135,7 @@ ifco_detection:
   # Ocado's ICP detection results in a slightly shifted ifco frame. 
   # This param is applied on the z-Axis of the ifco frame to correct the shift. 
   # 0.02 for camera on the robot arm 0.005 for the almost extended camera tripod in the lab
-  icp_offset: 0.004 
+  icp_offset: 0.0 
 
 
 ifco_grasps:
