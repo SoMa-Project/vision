@@ -229,6 +229,12 @@ struct IfcoDetection
             // compute ifco transform and broadcast it
             if(detection_method == icp)
             {
+
+                // those parameters are taken into consideration by ocados icp ifco detection service
+                nh_.setParam("/ifco/length", ifco_length_);
+                nh_.setParam("/ifco/width", ifco_width_);
+                nh_.setParam("/ifco/height", ifco_height_);
+
                 srv.request.max_tries = 3;
                 srv.request.max_fitness = 0.008;
                 srv.request.publish_ifco = true;
