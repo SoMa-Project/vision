@@ -231,7 +231,7 @@ struct IfcoDetection
             {
                 srv.request.max_tries = 10;
                 srv.request.max_fitness = 0.008;
-                srv.request.publish_ifco = false;
+                srv.request.publish_ifco = true;
 
                 if (client.call(srv))
                 {
