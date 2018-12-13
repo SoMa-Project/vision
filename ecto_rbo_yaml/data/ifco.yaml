@@ -168,7 +168,7 @@ object_detection:
     ifco_length: ifco_specifications/ifco_length
     ifco_width: ifco_specifications/ifco_width
     ifco_height: ifco_specifications/ifco_height
-  ifco_alignment: true
+  ifco_alignment: false
   publish_rviz_markers: true
     
 object_detection_filtered:
