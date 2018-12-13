@@ -229,7 +229,7 @@ struct IfcoDetection
             // compute ifco transform and broadcast it
             if(detection_method == icp)
             {
-                srv.request.max_tries = 10;
+                srv.request.max_tries = 3;
                 srv.request.max_fitness = 0.008;
                 srv.request.publish_ifco = true;
 
