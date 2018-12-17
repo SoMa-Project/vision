@@ -197,7 +197,7 @@ struct MultiObjectDetection
       // those parameters are taken into consideration by ocados multi object detection service
       nh_.setParam("/ifco/length", ifco_length_new);
       nh_.setParam("/ifco/width", ifco_width_new);
-
+      nh_.setParam("/ifco/height", (*ifco_height_));
 
       if (*publish_rviz_markers_)
           publishRVizMarker("camera_rgb_optical_frame", ifco_pose, rot, ifco_length_new, ifco_width_new);
