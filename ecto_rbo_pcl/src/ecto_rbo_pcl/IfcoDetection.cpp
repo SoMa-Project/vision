@@ -261,6 +261,7 @@ struct IfcoDetection
 
                 if (detection_method == simplestatic)
                 {
+                    tf_listener_.waitForTransform("camera_rgb_optical_frame", "ifco_static", ros::Time(0), ros::Duration(2.0));
                     tf_listener_.lookupTransform("camera_rgb_optical_frame", "ifco_static", ros::Time(0), transform_stamped);
                 }
                 else
