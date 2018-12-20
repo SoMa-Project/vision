@@ -26,7 +26,7 @@ The views and conclusions contained in the software and documentation are those 
 #include <pcl/conversions.h>
 
 #include <visualization_msgs/Marker.h>
-#include <tf/transform_broadcaster.h>
+#include <tf2_ros/static_transform_broadcaster.h>
 #include <tf_conversions/tf_eigen.h>
 
 namespace ecto_rbo_pcl
@@ -117,7 +117,7 @@ struct CropBox
 
 	void publishRVizMarker(const std::string& frame_id)
     {
-        static tf::TransformBroadcaster tf_broadcaster;
+        tf2_ros::StaticTransformBroadcaster tf_broadcaster;
         tf::Transform bt;
         tf::transformEigenToTF((Eigen::Affine3d) transform_->cast<double>().inverse(), bt);
 //	        tf::TransformEigenToTF(transform_->cast<double>(), bt);
