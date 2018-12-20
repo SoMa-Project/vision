@@ -24,26 +24,22 @@ First install CGAL:
 sudo apt-get install libcgal-dev
 ```
 
-You will also have to install Wild Magic from this [link](https://tubcloud.tu-berlin.de/s/oCwzZnOAMSZN46c). Download and execute:
+You will also have to install Wild Magic 5 from the thirdparty folder. In `thirdparty/GeometricTools/WildMagic5` execute:
 ```
 make CFG=ReleaseDynamic -f makefile.wm5
 ```
 And export the respective WP5_PATH
 ```
-export WM5_PATH=/your_path/GeometricTools/WildMagic5/SDK
+export WM5_PATH=/your_path/vision/thirdparty/GeometricTools/WildMagic5/SDK
 ```
 
-You will also need to install GDIAM. Download the old version libgdiam-1.01.tar.gz from (https://tubcloud.tu-berlin.de/s/4I8Txq4dJ7653HC) and follow the building instructions:
+You will also need to install GDIAM 1.0.1 from the thirdparty folder. In `thirdparty/libgdiam` execute:
 ```
-tar -xzf libgdiam-1.0.1.tar.gz 
-~/$ cd libgdiam/
-~/libgdiam$ mkdir build
-~/libgdiam$ cd build/
-~/libgdiam/build$ cmake ..
-~/libgdiam/build$ make test
+mkdir build && cd build
+cmake ..
+make
 ```
-copy the libgdiam.so lib from the build folder to /usr/local/lib where it is expected by the ecto_rbo package.
-
+copy the `libgdiam.so` lib from the build folder to `/usr/local/lib` where it is expected by the ecto_rbo package by `sudo cp libgdiam.so /usr/local/lib`.
 
 
 ## Example
