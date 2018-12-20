@@ -15,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   pregrasp_msgs
   geometry_graph_msgs
   tf
+  tf2_ros
 )
 
 ## System dependencies are found with CMake's conventions

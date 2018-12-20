@@ -24,7 +24,7 @@ The views and conclusions contained in the software and documentation are those 
 #include "object_segmentation/object_pose.h"
 
 #include <visualization_msgs/Marker.h>
-#include "tf/transform_broadcaster.h"
+#include <tf2_ros/static_transform_broadcaster.h>
 #include "tf/transform_listener.h"
 #include <tf_conversions/tf_eigen.h>
 #include <tf/transform_datatypes.h>
@@ -58,7 +58,7 @@ struct MultiObjectDetection
   visualization_msgs::MarkerArray bbox_markers;
 
   tf::TransformListener tf_listener_;
-  tf::TransformBroadcaster br;
+  tf2_ros::StaticTransformBroadcaster br;
 
 
 
@@ -283,14 +283,12 @@ struct MultiObjectDetection
     geometry_msgs::Transform ifcoPose_corrected_msg;
     tf::transformTFToMsg (ifcoPose_corrected_tf, ifcoPose_corrected_msg);
 
-
-    static tf::TransformBroadcaster tf_broadcaster;
     geometry_msgs::TransformStamped msg;
     msg.header.stamp = ros::Time::now();
     msg.header.frame_id = "camera_rgb_optical_frame";
     msg.child_frame_id = "ifco_for_ICP";
     msg.transform = ifcoPose_corrected_msg;
-    tf_broadcaster.sendTransform(msg);
+    br.sendTransform(msg);
 
     // the final ifco frame that gets handed over to the multi-object service
     geometry_msgs::Pose ifcoPose_final;
