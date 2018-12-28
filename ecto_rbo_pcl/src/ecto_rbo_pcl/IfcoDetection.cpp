@@ -79,6 +79,7 @@ struct IfcoDetection
     spore<double> tableDist_;
     spore<int> plane_id_;
     spore<float> icp_offset_;
+    spore<bool> publish_ifco_;
 
     // outputs
     spore<UnalignedAffine3f> ifco_wall_0_transform_;
@@ -96,6 +97,7 @@ struct IfcoDetection
         params.declare<double>("tableDist", "Distance of a bounded plane to the biggest bounded plane (i.e. table)", 0.0);
         params.declare<int>("plane_id", "Id/Numerator of the plane that is considered as main plane out of all bounded_planes.", 0.0);
         params.declare<float>("icp_offset", "Offset to add on z-Axis of ICP detected IFCO frame", 0.0);
+        params.declare<bool>("publish_ifco", "Publish the ifco model to the Moveit! planning scene", false);
     }
 
     // ======================================================================================================================
@@ -130,6 +132,7 @@ struct IfcoDetection
         tableDist_ = params["tableDist"];
         plane_id_ = params["plane_id"];
         icp_offset_ = params["icp_offset"];
+        publish_ifco_ = params["publish_ifco"];
 
         // outputs
         ifco_wall_0_transform_ = outputs["ifco_wall_0_transform"];
@@ -237,7 +240,7 @@ struct IfcoDetection
 
                 srv.request.max_tries = 3;
                 srv.request.max_fitness = 0.008;
-                srv.request.publish_ifco = true;
+                srv.request.publish_ifco = (*publish_ifco_);
 
                 if (client.call(srv))
                 {
