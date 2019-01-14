@@ -67,6 +67,9 @@ struct IfcoGrasps
     // outputs
     ecto::spore<pregrasp_msgs::GraspStrategyArrayConstPtr> wall_pregrasp_messages_;
     ecto::spore< ::posesets::PoseSetArrayConstPtr> wall_manifolds_;
+    
+    ecto::spore<pregrasp_msgs::GraspStrategyArrayConstPtr> corner_pregrasp_messages_;
+    ecto::spore< ::posesets::PoseSetArrayConstPtr> corner_manifolds_;
 
 
 
@@ -84,6 +87,8 @@ struct IfcoGrasps
 
         outputs.declare<pregrasp_msgs::GraspStrategyArrayConstPtr>("wall_pregrasp_messages", "All the grasps that should be used.");
         outputs.declare< ::posesets::PoseSetArrayConstPtr>("wall_manifolds", "All the grasps that should be used.");
+        outputs.declare<pregrasp_msgs::GraspStrategyArrayConstPtr>("corner_pregrasp_messages", "All the grasps that should be used.");
+        outputs.declare< ::posesets::PoseSetArrayConstPtr>("corner_manifolds", "All the grasps that should be used.");
     }
 
 
@@ -111,8 +116,12 @@ struct IfcoGrasps
 
         // Initialize the pregrasp messages
         pregrasp_msgs::GraspStrategyArrayPtr wall_messages(new ::pregrasp_msgs::GraspStrategyArray());
+        pregrasp_msgs::GraspStrategyArrayPtr corner_messages(new ::pregrasp_msgs::GraspStrategyArray());
+        
         wall_messages->header = pcl_conversions::fromPCL(input->header);
+        corner_messages->header = pcl_conversions::fromPCL(input->header);
         ::posesets::PoseSetArrayPtr wall_manifolds(new ::posesets::PoseSetArray());
+        ::posesets::PoseSetArrayPtr corner_manifolds(new ::posesets::PoseSetArray());
 
         // If the IFCO is not detected, don't create any messages
         if(ifco_planes_->empty())
@@ -121,6 +130,73 @@ struct IfcoGrasps
           return QUIT;
         }
 
+        // create grasp for corners - hardcoded for IFCO 
+        // Get the plane model
+            ::pcl::ModelCoefficientsConstPtr wall = (*ifco_planes_)[0];
+
+            pregrasp_msgs::GraspStrategy g;
+            g.pregrasp_configuration = pregrasp_msgs::GraspStrategy::PREGRASP_CYLINDER;
+            g.strategy = pregrasp_msgs::GraspStrategy::STRATEGY_WALL_GRASP;
+
+            g.pregrasp_pose.pose.header = corner_messages->header;
+            g.pregrasp_pose.pose.pose.position.x = wall->values[0] + (*ifco_length_) * 0.5;
+            g.pregrasp_pose.pose.pose.position.y = wall->values[1];
+            g.pregrasp_pose.pose.pose.position.z = wall->values[2] - 0.5 * (*ifco_height_);
+
+            // Create the rotation for
+            tf::Vector3 normal(cos(M_PI/4.0)*wall->values[3] - sin(M_PI/4.0)*wall->values[4], sin(M_PI/4.0)*wall->values[4] +cos(M_PI/4.0) *wall->values[3], wall->values[5]);
+            normal /= normal.length();
+            
+            tf::Vector3 principal_axis(wall->values[6], wall->values[7], wall->values[8]);
+            principal_axis /= principal_axis.length();
+            tf::Vector3 third_axis = normal.cross(principal_axis);
+            third_axis /= third_axis.length();
+            Eigen::Matrix3f rotation;
+            rotation <<            principal_axis.x(),third_axis.x(), normal.x(),
+                    principal_axis.y(),third_axis.y(), normal.y(),
+                    principal_axis.z(),third_axis.z(), normal.z();
+            ::Eigen::Matrix3d final_rot = rotation.cast<double>();
+            ::Eigen::Quaterniond q_eigen(final_rot);
+            ::tf::Quaternion q_tf;
+            ::tf::quaternionEigenToTF(q_eigen, q_tf);
+            ::tf::quaternionTFToMsg(q_tf, g.pregrasp_pose.pose.pose.orientation);
+
+            tf::Quaternion rotated_around_x(tf::Vector3(1, 0, 0), 0);
+            // tf::Quaternion rotated_around_x(tf::Vector3(1, 0, 0), -M_PI);
+            // tf::Transform whole(q_tf*rotated_around_x, tf::Vector3(wall->values[0], wall->values[1], wall->values[2]));
+            tf::Transform whole(q_tf, tf::Vector3(wall->values[0], wall->values[1], wall->values[2]));
+            whole *= tf::Transform(tf::createIdentityQuaternion(), tf::Vector3(0, -0.5 * (*ifco_height_), 0.0));
+            ::tf::poseTFToMsg(whole, g.pregrasp_pose.pose.pose);
+            g.pregrasp_pose.center = g.pregrasp_pose.pose;
+
+            double edge_length = (0 == 0) ? (*ifco_length_) : (*ifco_width_);
+            g.pregrasp_pose.size.push_back(edge_length);
+            g.pregrasp_pose.size.push_back(0.15);
+            g.pregrasp_pose.size.push_back(0.05);
+            g.pregrasp_pose.image_size.push_back(0.1);
+            g.pregrasp_pose.image_size.push_back(0.4);
+            g.pregrasp_pose.image_size.push_back(0.02);
+
+            // Set object pose relative to hand
+            g.object.center.pose = g.object.pose.pose = g.pregrasp_pose.center.pose;
+            g.object.size.push_back(0.05);
+            g.object.size.push_back(0.05);
+            g.object.size.push_back(0.05);
+            g.object.size.push_back(4.0);
+            g.object.image_size.push_back(0.005);
+            g.object.image_size.push_back(0.005);
+            g.object.image_size.push_back(0.005);
+            g.object.image_size.push_back(0.1);
+
+            corner_messages->strategies.push_back(g);
+
+            // Add the corresponding manifold
+            ::posesets::PoseSet poseSet(tf::Transform(q_tf, tf::Vector3(wall->values[0], wall->values[1], wall->values[2])));
+            poseSet.setPositions(tf::Vector3(edge_length, 0.01, 0.02));
+            poseSet.getOrientations().addFuzzy(q_tf);
+            corner_manifolds->push_back(poseSet);
+        
+        
         // Create a grasp per wall
         for(int i = 0; i < 4; i++) {
 
@@ -191,7 +267,10 @@ struct IfcoGrasps
 
         (*wall_pregrasp_messages_) = wall_messages;   // delete all messages stuff here (and test!)
         (*wall_manifolds_) = wall_manifolds;
-
+    
+  
+        (*corner_pregrasp_messages_) = corner_messages;   // delete all messages stuff here (and test!)
+        (*corner_manifolds_) = corner_manifolds;
 
         return OK;
 
