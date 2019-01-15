@@ -148,7 +148,7 @@ struct CreateGeometryGraph
         else if (g.strategy == ::pregrasp_msgs::GraspStrategy::STRATEGY_WALL_GRASP)
             return "WallGrasp"; //"WallGrasps";
         else if (g.strategy == ::pregrasp_msgs::GraspStrategy::STRATEGY_CORNER_GRASP)
-            return "CornerGrasp"; //"WallGrasps";
+            return "CornerGrasp"; //"CornerGrasp";
 
         else if (g.strategy == ::pregrasp_msgs::GraspStrategy::STRATEGY_SLIDE_TO_EDGE)
             return "EdgeGrasp"; //"EdgeGrasps";

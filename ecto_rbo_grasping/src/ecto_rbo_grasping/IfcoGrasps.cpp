@@ -39,6 +39,10 @@ The views and conclusions contained in the software and documentation are those 
 using namespace ecto;
 using namespace ecto::pcl;
 
+#include <Eigen/Dense>
+#include <eigen_conversions/eigen_msg.h>
+
+
 #define pc(x) std::cout << #x << ": " << (x) << std::endl;
 #define ps(x) std::cout << #x << std::endl;
 #define pv(x) std::cout << #x << ": " << (x).transpose() << std::endl;
@@ -104,6 +108,10 @@ struct IfcoGrasps
         // outputs
         wall_pregrasp_messages_ = outputs["wall_pregrasp_messages"];
         wall_manifolds_ = outputs["wall_manifolds"];
+
+        // outputs
+        corner_pregrasp_messages_ = outputs["corner_pregrasp_messages"];
+        corner_manifolds_ = outputs["corner_manifolds"];
     }
 
 
@@ -130,73 +138,6 @@ struct IfcoGrasps
           return QUIT;
         }
 
-        // create grasp for corners - hardcoded for IFCO 
-        // Get the plane model
-            ::pcl::ModelCoefficientsConstPtr wall = (*ifco_planes_)[0];
-
-            pregrasp_msgs::GraspStrategy g;
-            g.pregrasp_configuration = pregrasp_msgs::GraspStrategy::PREGRASP_CYLINDER;
-            g.strategy = pregrasp_msgs::GraspStrategy::STRATEGY_WALL_GRASP;
-
-            g.pregrasp_pose.pose.header = corner_messages->header;
-            g.pregrasp_pose.pose.pose.position.x = wall->values[0] + (*ifco_length_) * 0.5;
-            g.pregrasp_pose.pose.pose.position.y = wall->values[1];
-            g.pregrasp_pose.pose.pose.position.z = wall->values[2] - 0.5 * (*ifco_height_);
-
-            // Create the rotation for
-            tf::Vector3 normal(cos(M_PI/4.0)*wall->values[3] - sin(M_PI/4.0)*wall->values[4], sin(M_PI/4.0)*wall->values[4] +cos(M_PI/4.0) *wall->values[3], wall->values[5]);
-            normal /= normal.length();
-            
-            tf::Vector3 principal_axis(wall->values[6], wall->values[7], wall->values[8]);
-            principal_axis /= principal_axis.length();
-            tf::Vector3 third_axis = normal.cross(principal_axis);
-            third_axis /= third_axis.length();
-            Eigen::Matrix3f rotation;
-            rotation <<            principal_axis.x(),third_axis.x(), normal.x(),
-                    principal_axis.y(),third_axis.y(), normal.y(),
-                    principal_axis.z(),third_axis.z(), normal.z();
-            ::Eigen::Matrix3d final_rot = rotation.cast<double>();
-            ::Eigen::Quaterniond q_eigen(final_rot);
-            ::tf::Quaternion q_tf;
-            ::tf::quaternionEigenToTF(q_eigen, q_tf);
-            ::tf::quaternionTFToMsg(q_tf, g.pregrasp_pose.pose.pose.orientation);
-
-            tf::Quaternion rotated_around_x(tf::Vector3(1, 0, 0), 0);
-            // tf::Quaternion rotated_around_x(tf::Vector3(1, 0, 0), -M_PI);
-            // tf::Transform whole(q_tf*rotated_around_x, tf::Vector3(wall->values[0], wall->values[1], wall->values[2]));
-            tf::Transform whole(q_tf, tf::Vector3(wall->values[0], wall->values[1], wall->values[2]));
-            whole *= tf::Transform(tf::createIdentityQuaternion(), tf::Vector3(0, -0.5 * (*ifco_height_), 0.0));
-            ::tf::poseTFToMsg(whole, g.pregrasp_pose.pose.pose);
-            g.pregrasp_pose.center = g.pregrasp_pose.pose;
-
-            double edge_length = (0 == 0) ? (*ifco_length_) : (*ifco_width_);
-            g.pregrasp_pose.size.push_back(edge_length);
-            g.pregrasp_pose.size.push_back(0.15);
-            g.pregrasp_pose.size.push_back(0.05);
-            g.pregrasp_pose.image_size.push_back(0.1);
-            g.pregrasp_pose.image_size.push_back(0.4);
-            g.pregrasp_pose.image_size.push_back(0.02);
-
-            // Set object pose relative to hand
-            g.object.center.pose = g.object.pose.pose = g.pregrasp_pose.center.pose;
-            g.object.size.push_back(0.05);
-            g.object.size.push_back(0.05);
-            g.object.size.push_back(0.05);
-            g.object.size.push_back(4.0);
-            g.object.image_size.push_back(0.005);
-            g.object.image_size.push_back(0.005);
-            g.object.image_size.push_back(0.005);
-            g.object.image_size.push_back(0.1);
-
-            corner_messages->strategies.push_back(g);
-
-            // Add the corresponding manifold
-            ::posesets::PoseSet poseSet(tf::Transform(q_tf, tf::Vector3(wall->values[0], wall->values[1], wall->values[2])));
-            poseSet.setPositions(tf::Vector3(edge_length, 0.01, 0.02));
-            poseSet.getOrientations().addFuzzy(q_tf);
-            corner_manifolds->push_back(poseSet);
-        
-        
         // Create a grasp per wall
         for(int i = 0; i < 4; i++) {
 
@@ -237,7 +178,7 @@ struct IfcoGrasps
             ::tf::poseTFToMsg(whole, g.pregrasp_pose.pose.pose);
             g.pregrasp_pose.center = g.pregrasp_pose.pose;
 
-            double edge_length = (i == 0) ? (*ifco_length_) : (*ifco_width_);
+            double edge_length = (i%2 == 0) ? (*ifco_length_) : (*ifco_width_);
             g.pregrasp_pose.size.push_back(edge_length);
             g.pregrasp_pose.size.push_back(0.15);
             g.pregrasp_pose.size.push_back(0.05);
@@ -259,7 +200,7 @@ struct IfcoGrasps
             wall_messages->strategies.push_back(g);
 
             // Add the corresponding manifold
-            ::posesets::PoseSet poseSet(tf::Transform(q_tf, tf::Vector3(wall->values[0], wall->values[1], wall->values[2])));
+            ::posesets::PoseSet poseSet(tf::Transform(q_tf, tf::Vector3(wall->values[0] + (*ifco_length_) * 0.5, wall->values[1], wall->values[2])));
             poseSet.setPositions(tf::Vector3(edge_length, 0.01, 0.02));
             poseSet.getOrientations().addFuzzy(q_tf);
             wall_manifolds->push_back(poseSet);
@@ -267,8 +208,79 @@ struct IfcoGrasps
 
         (*wall_pregrasp_messages_) = wall_messages;   // delete all messages stuff here (and test!)
         (*wall_manifolds_) = wall_manifolds;
-    
-  
+
+        // create CORNER GRASP - hardcoded for IFCO
+        // Get the plane model
+
+        for(int w_i = 0; w_i <  wall_messages->strategies.size(); w_i++)
+        {
+            // create consecutive wall pairs
+            int w_j = w_i + 1;
+            if (w_j == wall_messages->strategies.size() - 1)
+                w_j = 0;
+
+
+            // extract matrix from messages
+            Eigen::Affine3d r;
+            tf::poseMsgToEigen(wall_messages->strategies[w_i].pregrasp_pose.pose.pose, r);
+            Eigen::Matrix4d tf_wall_1 = (r).matrix();
+
+            tf::poseMsgToEigen(wall_messages->strategies[w_j].pregrasp_pose.pose.pose, r);
+            Eigen::Matrix4d tf_wall_2 = (r).matrix();
+
+            Eigen::Matrix4d T_corner =  calc_corner(tf_wall_1, tf_wall_2);
+
+            std::cout << w_i <<": " << tf_wall_1 << std::endl;
+        //    std::cout << w_j <<": " << tf_wall_2;
+            std::cout << "Tc: " << T_corner;
+
+            pregrasp_msgs::GraspStrategy g;
+            g.pregrasp_configuration = pregrasp_msgs::GraspStrategy::PREGRASP_CYLINDER;
+            g.strategy = pregrasp_msgs::GraspStrategy::STRATEGY_CORNER_GRASP;
+            g.pregrasp_pose.pose.header = corner_messages->header;
+            g.pregrasp_pose.pose.pose.position.x = T_corner(0,3);
+            g.pregrasp_pose.pose.pose.position.y = T_corner(1,3);
+            g.pregrasp_pose.pose.pose.position.z = T_corner(2,3);
+            Eigen::Matrix3d rotation;
+            rotation << T_corner(0,0), T_corner(0,1), T_corner(0,2),
+                    T_corner(1,0), T_corner(1,1), T_corner(1,2),
+                    T_corner(2,0), T_corner(2,1), T_corner(2,2);
+            Eigen::Quaterniond q_eigen(rotation);
+            ::tf::Quaternion q_tf;
+            ::tf::quaternionEigenToTF(q_eigen, q_tf);
+
+            ::tf::quaternionTFToMsg(q_tf, g.pregrasp_pose.pose.pose.orientation);
+
+            g.pregrasp_pose.center = g.pregrasp_pose.pose;
+
+            g.pregrasp_pose.size.push_back((*ifco_height_));
+            g.pregrasp_pose.size.push_back(0.15);
+            g.pregrasp_pose.size.push_back(0.05);
+            g.pregrasp_pose.image_size.push_back(0.1);
+            g.pregrasp_pose.image_size.push_back(0.4);
+            g.pregrasp_pose.image_size.push_back(0.02);
+            // Set object pose relative to hand
+
+            g.object.center.pose = g.object.pose.pose = g.pregrasp_pose.center.pose;
+            g.object.size.push_back(0.05);
+            g.object.size.push_back(0.05);
+            g.object.size.push_back(0.05);
+            g.object.size.push_back(4.0);
+            g.object.image_size.push_back(0.005);
+            g.object.image_size.push_back(0.005);
+            g.object.image_size.push_back(0.005);
+            g.object.image_size.push_back(0.1);
+
+            corner_messages->strategies.push_back(g);
+
+            // Add the corresponding manifold
+            ::posesets::PoseSet poseSet(tf::Transform(q_tf,
+                tf::Vector3(T_corner(0,3), T_corner(1,3), T_corner(2,3))));
+            poseSet.setPositions(tf::Vector3((*ifco_height_), 0.01, 0.02));
+            poseSet.getOrientations().addFuzzy(q_tf);
+            corner_manifolds->push_back(poseSet);
+
+        }
         (*corner_pregrasp_messages_) = corner_messages;   // delete all messages stuff here (and test!)
         (*corner_manifolds_) = corner_manifolds;
 
@@ -276,6 +288,83 @@ struct IfcoGrasps
 
     }
     // ======================================================================================================================
+
+
+    Eigen::Matrix4d calc_corner(Eigen::Matrix4d tf_wall_1, Eigen::Matrix4d tf_wall_2)
+    {
+	//define and init corner frame
+	Eigen::Matrix4d tf_corner;
+	tf_corner << 0.0, 0.0, 0.0, 0.0,
+			0.0, 0.0, 0.0, 0.0,
+				 0.0, 0.0, 0.0, 0.0,
+				 0.0, 0.0, 0.0, 1.0;
+
+	//add and normalize rotational parts of the frames
+	tf_corner.block<3,3>(0,0) = tf_wall_1.block<3,3>(0,0) + tf_wall_2.block<3,3>(0,0);
+	for (int r = 0; r < 3; ++r)
+	{
+		tf_corner.block<1,3>(r,0).normalize();
+	}
+
+	//get normal vectors (z-axis) of the wall frames
+	Eigen::Vector3d normal_wall_1 = tf_wall_1.block<1,3>(2,0);
+	Eigen::Vector3d normal_wall_2 = tf_wall_2.block<1,3>(2,0);
+//	normal_wall_1 = tf_wall_1.block<3,1>(0,2);
+//    normal_wall_2 = tf_wall_2.block<3,1>(0,2);
+	//calc normal vector of a plane parallel to the bottom surface and orthogonal to both walls
+	Eigen::Vector3d normal_bottom = normal_wall_1.cross(normal_wall_2);
+	//calculate d parameter (distance from plane to origin) for all planes
+	double d_wall_1 = normal_wall_1.transpose() * (tf_wall_1.block<3,3>(0,0) * tf_wall_1.block<3,1>(0,3));
+	double d_wall_2 = normal_wall_2.transpose() * (tf_wall_2.block<3,3>(0,0) * tf_wall_2.block<3,1>(0,3));
+	//the bottom frames origin is assumed in the middle of the two wall frames origins
+	double d_bottom = normal_bottom.transpose() * (0.5 * (tf_wall_1.block<3,3>(0,0) * tf_wall_1.block<3,1>(0,3) + tf_wall_2.block<3,3>(0,0) * tf_wall_2.block<3,1>(0,3)));
+
+	//calculate intersection point between the three planes
+	Eigen::Matrix3d normals_planes;
+	normals_planes << normal_wall_1, normal_wall_2, normal_bottom;
+	double det = normals_planes.determinant();
+	Eigen::Vector3d intersection_point;
+	if (det == 0.0)
+	{
+		std::cout << "ERROR: wall frames are parallel, no corner present\n";
+		Eigen::Matrix4d empty_frame = Eigen::MatrixXd::Zero(4,4);
+		return empty_frame;
+	}
+	else
+	{
+		//closed form solution from "Graphics Gems 1, pg 305"
+		intersection_point = ((normal_wall_2.cross(normal_bottom) * d_wall_1)
+							+ (normal_bottom.cross(normal_wall_1) * d_wall_2)
+							+ (normal_wall_1.cross(normal_wall_2) * d_bottom)) / det;
+	}
+
+	//calculate the translation part of the transformation
+//	tf_corner.block<3,1>(0,3) = tf_corner.block<3,3>(0,0).inverse() * intersection_point;
+
+    normal_wall_1 = tf_wall_1.block<3,1>(0,2);
+    normal_wall_1.normalize();
+    normal_wall_2 = tf_wall_2.block<3,1>(0,2);
+    normal_wall_2.normalize();
+
+    Eigen::Vector3d thirdAxis = normal_wall_1.cross(normal_wall_2);
+    thirdAxis.normalize();
+
+    Eigen::Vector3d normaAxis = normal_wall_1 + normal_wall_2;
+    normaAxis.normalize();
+
+    Eigen::Vector3d principalAxis = normaAxis.cross(thirdAxis);
+    principalAxis.normalize();
+
+    tf_corner.block<3,1>(0,0) = principalAxis;
+    tf_corner.block<3,1>(0,1) = thirdAxis;
+    tf_corner.block<3,1>(0,2) = normaAxis;
+
+    tf_corner.block<3,1>(0,3) = intersection_point;
+
+    tf_corner(2,3) = 0.5;
+
+	return tf_corner;
+   }
 
 };
 
