@@ -38,7 +38,7 @@ The views and conclusions contained in the software and documentation are those 
 
 using namespace ecto;
 using namespace ecto::pcl;
-
+using namespace Eigen;
 #include <Eigen/Dense>
 #include <eigen_conversions/eigen_msg.h>
 
@@ -228,7 +228,7 @@ struct IfcoGrasps
             tf::poseMsgToEigen(wall_messages->strategies[w_j].pregrasp_pose.pose.pose, r);
             Eigen::Matrix4d tf_wall_2 = (r).matrix();
 
-            Eigen::Matrix4d T_corner =  calc_corner(tf_wall_1, tf_wall_2);
+            Eigen::Matrix4d T_corner =  calc_corner2(tf_wall_1, tf_wall_2);
 
             pregrasp_msgs::GraspStrategy g;
             g.pregrasp_configuration = pregrasp_msgs::GraspStrategy::PREGRASP_CYLINDER;
@@ -289,6 +289,57 @@ struct IfcoGrasps
     }
     // ======================================================================================================================
 
+    Matrix4d calc_corner2(Matrix4d tf_wall_1, Matrix4d tf_wall_2)
+    {
+	//define and init corner frame
+	Matrix4d tf_corner;
+	tf_corner << 0.0, 0.0, 0.0, 0.0,
+				 0.0, 0.0, 0.0, 0.0,
+				 0.0, 0.0, 0.0, 0.0,
+				 0.0, 0.0, 0.0, 1.0;
+
+	//add and normalize rotational parts of the frames
+	tf_corner.block<3,3>(0,0) = tf_wall_1.block<3,3>(0,0) + tf_wall_2.block<3,3>(0,0);
+	for (int r = 0; r < 3; ++r)
+	{
+		tf_corner.block<1,3>(r,0).normalize();
+	}
+
+	//get normal vectors (z-axis) of the wall frames
+	Vector3d normal_wall_1 = tf_wall_1.block<3,1>(0,2);
+	Vector3d normal_wall_2 = tf_wall_2.block<3,1>(0,2);
+	//calc normal vector of a plane parallel to the bottom surface and orthogonal to both walls
+	Vector3d normal_bottom = normal_wall_1.cross(normal_wall_2);
+	//calculate d parameter (distance from plane to origin) for all planes
+	double d_wall_1 = normal_wall_1.transpose() * tf_wall_1.block<3,1>(0,3);
+	double d_wall_2 = normal_wall_2.transpose() * tf_wall_2.block<3,1>(0,3);
+	//the bottom frames origin is assumed in the middle of the two wall frames origins
+	double d_bottom = normal_bottom.transpose() * (0.5 * (tf_wall_1.block<3,1>(0,3) + tf_wall_2.block<3,1>(0,3)));
+
+	//calculate intersection point between the three planes
+	Matrix3d normals_planes;
+	normals_planes << normal_wall_1, normal_wall_2, normal_bottom;
+	double det = normals_planes.determinant();
+	Vector3d intersection_point;
+	if (det == 0.0)
+	{
+		std::cout << "ERROR: wall frames are parallel, no corner present\n";
+		Matrix4d empty_frame = MatrixXd::Zero(4,4);
+		return empty_frame;
+	}
+	else
+	{
+		//closed form solution from "Graphics Gems 1, pg 305"
+		intersection_point = ((normal_wall_2.cross(normal_bottom) * d_wall_1)
+							+ (normal_bottom.cross(normal_wall_1) * d_wall_2)
+							+ (normal_wall_1.cross(normal_wall_2) * d_bottom)) / det;
+	}
+
+	//calculate the translation part of the transformation
+	tf_corner.block<3,1>(0,3) = intersection_point;
+
+	return tf_corner;
+}
 
     Eigen::Matrix4d calc_corner(Eigen::Matrix4d tf_wall_1, Eigen::Matrix4d tf_wall_2)
     {
@@ -310,19 +361,27 @@ struct IfcoGrasps
     normal_bottom.normalize();
 
     // axis of the corner
-    Eigen::Vector3d thirdAxis = normal_wall_1.cross(normal_wall_2);
-    thirdAxis.normalize();
+//    Eigen::Vector3d thirdAxis = normal_wall_1.cross(normal_wall_2);
+//    thirdAxis.normalize();
+//
+//    Eigen::Vector3d normaAxis = normal_wall_1 + normal_wall_2;
+//    normaAxis.normalize();
+//
+//    Eigen::Vector3d principalAxis = normaAxis.cross(thirdAxis);
+//    principalAxis.normalize();
+//
+//    // inser axis into matrix
+//    tf_corner.block<3,1>(0,0) = principalAxis;
+//    tf_corner.block<3,1>(0,1) = thirdAxis;
+//    tf_corner.block<3,1>(0,2) = normaAxis;
 
-    Eigen::Vector3d normaAxis = normal_wall_1 + normal_wall_2;
-    normaAxis.normalize();
+    //add and normalize rotational parts of the frames by MAX
+	tf_corner.block<3,3>(0,0) = tf_wall_1.block<3,3>(0,0) + tf_wall_2.block<3,3>(0,0);
+	for (int r = 0; r < 3; ++r)
+	{
+		tf_corner.block<1,3>(r,0).normalize();
+	}
 
-    Eigen::Vector3d principalAxis = normaAxis.cross(thirdAxis);
-    principalAxis.normalize();
-
-    // inser axis into matrix
-    tf_corner.block<3,1>(0,0) = principalAxis;
-    tf_corner.block<3,1>(0,1) = thirdAxis;
-    tf_corner.block<3,1>(0,2) = normaAxis;
 
     //calculate intersection point between the three planes
 	Eigen::Matrix3d normals_planes;
@@ -348,7 +407,7 @@ struct IfcoGrasps
 							   p_wall_1.dot(normal_bottom)*normal_wall_1.cross(normal_wall_2)
 							  )/det;
 	}
-	    
+
     tf_corner.block<3,1>(0,3) = intersection_point;
 
 	return tf_corner;
