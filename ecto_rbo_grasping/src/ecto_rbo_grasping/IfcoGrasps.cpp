@@ -214,8 +214,6 @@ struct IfcoGrasps
 
         for(int w_i = 0; w_i <4; w_i++)
         {
-
-            std::cout << "size: " << wall_messages->strategies.size() << std::endl;
             // create consecutive wall pairs
             int w_j = w_i + 1;
             if (w_i == 3)
@@ -232,10 +230,6 @@ struct IfcoGrasps
 
             Eigen::Matrix4d T_corner =  calc_corner(tf_wall_1, tf_wall_2);
 
-            std::cout << w_i << "-" << w_j <<": " << tf_wall_1 << std::endl;
-        //    std::cout << w_j <<": " << tf_wall_2;
-            std::cout << "Tc: " << T_corner<< std::endl;
-
             pregrasp_msgs::GraspStrategy g;
             g.pregrasp_configuration = pregrasp_msgs::GraspStrategy::PREGRASP_CYLINDER;
             g.strategy = pregrasp_msgs::GraspStrategy::STRATEGY_CORNER_GRASP;
@@ -247,7 +241,7 @@ struct IfcoGrasps
             rotation << T_corner(0,0), T_corner(0,1), T_corner(0,2),
                     T_corner(1,0), T_corner(1,1), T_corner(1,2),
                     T_corner(2,0), T_corner(2,1), T_corner(2,2);
-            std::cout << "rot: " << rotation << std::endl;
+
 
             Eigen::Quaterniond q_eigen(rotation);
 
@@ -305,9 +299,6 @@ struct IfcoGrasps
 				 0.0, 0.0, 0.0, 0.0,
 				 0.0, 0.0, 0.0, 1.0;
 
-
-    std::cout << "w1: " << tf_wall_1 << std::endl;
-    std::cout << "w2: " << tf_wall_2 << std::endl;
     // wall 1 normal
     Eigen::Vector3d normal_wall_1 = tf_wall_1.block<3,1>(0,2);
     normal_wall_1.normalize();
@@ -333,10 +324,6 @@ struct IfcoGrasps
     tf_corner.block<3,1>(0,1) = thirdAxis;
     tf_corner.block<3,1>(0,2) = normaAxis;
 
-    std::cout << "x: " << principalAxis<< std::endl;
-    std::cout << "y: " << thirdAxis<< std::endl;
-    std::cout << "z: " << normaAxis<< std::endl;
-
     //calculate intersection point between the three planes
 	Eigen::Matrix3d normals_planes;
 	normals_planes << normal_wall_1, normal_wall_2, normal_bottom;
@@ -345,8 +332,6 @@ struct IfcoGrasps
 	// points on the wall planes
     Eigen::Vector3d p_wall_1 = tf_wall_1.block<3,1>(0,3);
     Eigen::Vector3d p_wall_2 = tf_wall_2.block<3,1>(0,3);
-
-    std::cout << "det: " << det<< std::endl;
 
     Eigen::Vector3d intersection_point;
     if (det == 0.0)
@@ -363,7 +348,7 @@ struct IfcoGrasps
 							   p_wall_1.dot(normal_bottom)*normal_wall_1.cross(normal_wall_2)
 							  )/det;
 	}
-    std::cout << "inter point: " << intersection_point << std::endl;
+	    
     tf_corner.block<3,1>(0,3) = intersection_point;
 
 	return tf_corner;
