@@ -212,11 +212,13 @@ struct IfcoGrasps
         // create CORNER GRASP - hardcoded for IFCO
         // Get the plane model
 
-        for(int w_i = 0; w_i <  wall_messages->strategies.size(); w_i++)
+        for(int w_i = 0; w_i <4; w_i++)
         {
+
+            std::cout << "size: " << wall_messages->strategies.size() << std::endl;
             // create consecutive wall pairs
             int w_j = w_i + 1;
-            if (w_j == wall_messages->strategies.size() - 1)
+            if (w_i == 3)
                 w_j = 0;
 
 
@@ -230,9 +232,9 @@ struct IfcoGrasps
 
             Eigen::Matrix4d T_corner =  calc_corner(tf_wall_1, tf_wall_2);
 
-            std::cout << w_i <<": " << tf_wall_1 << std::endl;
+            std::cout << w_i << "-" << w_j <<": " << tf_wall_1 << std::endl;
         //    std::cout << w_j <<": " << tf_wall_2;
-            std::cout << "Tc: " << T_corner;
+            std::cout << "Tc: " << T_corner<< std::endl;
 
             pregrasp_msgs::GraspStrategy g;
             g.pregrasp_configuration = pregrasp_msgs::GraspStrategy::PREGRASP_CYLINDER;
@@ -245,9 +247,12 @@ struct IfcoGrasps
             rotation << T_corner(0,0), T_corner(0,1), T_corner(0,2),
                     T_corner(1,0), T_corner(1,1), T_corner(1,2),
                     T_corner(2,0), T_corner(2,1), T_corner(2,2);
+            std::cout << "rot: " << rotation << std::endl;
+
             Eigen::Quaterniond q_eigen(rotation);
+
             ::tf::Quaternion q_tf;
-            ::tf::quaternionEigenToTF(q_eigen, q_tf);
+            ::tf::quaternionEigenToTF(q_eigen.normalized(), q_tf);
 
             ::tf::quaternionTFToMsg(q_tf, g.pregrasp_pose.pose.pose.orientation);
 
@@ -262,6 +267,7 @@ struct IfcoGrasps
             // Set object pose relative to hand
 
             g.object.center.pose = g.object.pose.pose = g.pregrasp_pose.center.pose;
+
             g.object.size.push_back(0.05);
             g.object.size.push_back(0.05);
             g.object.size.push_back(0.05);
@@ -299,53 +305,20 @@ struct IfcoGrasps
 				 0.0, 0.0, 0.0, 0.0,
 				 0.0, 0.0, 0.0, 1.0;
 
-	//add and normalize rotational parts of the frames
-	tf_corner.block<3,3>(0,0) = tf_wall_1.block<3,3>(0,0) + tf_wall_2.block<3,3>(0,0);
-	for (int r = 0; r < 3; ++r)
-	{
-		tf_corner.block<1,3>(r,0).normalize();
-	}
 
-	//get normal vectors (z-axis) of the wall frames
-	Eigen::Vector3d normal_wall_1 = tf_wall_1.block<1,3>(2,0);
-	Eigen::Vector3d normal_wall_2 = tf_wall_2.block<1,3>(2,0);
-//	normal_wall_1 = tf_wall_1.block<3,1>(0,2);
-//    normal_wall_2 = tf_wall_2.block<3,1>(0,2);
-	//calc normal vector of a plane parallel to the bottom surface and orthogonal to both walls
-	Eigen::Vector3d normal_bottom = normal_wall_1.cross(normal_wall_2);
-	//calculate d parameter (distance from plane to origin) for all planes
-	double d_wall_1 = normal_wall_1.transpose() * (tf_wall_1.block<3,3>(0,0) * tf_wall_1.block<3,1>(0,3));
-	double d_wall_2 = normal_wall_2.transpose() * (tf_wall_2.block<3,3>(0,0) * tf_wall_2.block<3,1>(0,3));
-	//the bottom frames origin is assumed in the middle of the two wall frames origins
-	double d_bottom = normal_bottom.transpose() * (0.5 * (tf_wall_1.block<3,3>(0,0) * tf_wall_1.block<3,1>(0,3) + tf_wall_2.block<3,3>(0,0) * tf_wall_2.block<3,1>(0,3)));
-
-	//calculate intersection point between the three planes
-	Eigen::Matrix3d normals_planes;
-	normals_planes << normal_wall_1, normal_wall_2, normal_bottom;
-	double det = normals_planes.determinant();
-	Eigen::Vector3d intersection_point;
-	if (det == 0.0)
-	{
-		std::cout << "ERROR: wall frames are parallel, no corner present\n";
-		Eigen::Matrix4d empty_frame = Eigen::MatrixXd::Zero(4,4);
-		return empty_frame;
-	}
-	else
-	{
-		//closed form solution from "Graphics Gems 1, pg 305"
-		intersection_point = ((normal_wall_2.cross(normal_bottom) * d_wall_1)
-							+ (normal_bottom.cross(normal_wall_1) * d_wall_2)
-							+ (normal_wall_1.cross(normal_wall_2) * d_bottom)) / det;
-	}
-
-	//calculate the translation part of the transformation
-//	tf_corner.block<3,1>(0,3) = tf_corner.block<3,3>(0,0).inverse() * intersection_point;
-
-    normal_wall_1 = tf_wall_1.block<3,1>(0,2);
+    std::cout << "w1: " << tf_wall_1 << std::endl;
+    std::cout << "w2: " << tf_wall_2 << std::endl;
+    // wall 1 normal
+    Eigen::Vector3d normal_wall_1 = tf_wall_1.block<3,1>(0,2);
     normal_wall_1.normalize();
-    normal_wall_2 = tf_wall_2.block<3,1>(0,2);
+    // wall 2 normal
+    Eigen::Vector3d normal_wall_2 = tf_wall_2.block<3,1>(0,2);
     normal_wall_2.normalize();
+    // ifco bottom normal
+    Eigen::Vector3d normal_bottom = tf_wall_1.block<3,1>(0,1);
+    normal_bottom.normalize();
 
+    // axis of the corner
     Eigen::Vector3d thirdAxis = normal_wall_1.cross(normal_wall_2);
     thirdAxis.normalize();
 
@@ -355,13 +328,43 @@ struct IfcoGrasps
     Eigen::Vector3d principalAxis = normaAxis.cross(thirdAxis);
     principalAxis.normalize();
 
+    // inser axis into matrix
     tf_corner.block<3,1>(0,0) = principalAxis;
     tf_corner.block<3,1>(0,1) = thirdAxis;
     tf_corner.block<3,1>(0,2) = normaAxis;
 
-    tf_corner.block<3,1>(0,3) = intersection_point;
+    std::cout << "x: " << principalAxis<< std::endl;
+    std::cout << "y: " << thirdAxis<< std::endl;
+    std::cout << "z: " << normaAxis<< std::endl;
 
-    tf_corner(2,3) = 0.5;
+    //calculate intersection point between the three planes
+	Eigen::Matrix3d normals_planes;
+	normals_planes << normal_wall_1, normal_wall_2, normal_bottom;
+	double det = normals_planes.determinant();
+
+	// points on the wall planes
+    Eigen::Vector3d p_wall_1 = tf_wall_1.block<3,1>(0,3);
+    Eigen::Vector3d p_wall_2 = tf_wall_2.block<3,1>(0,3);
+
+    std::cout << "det: " << det<< std::endl;
+
+    Eigen::Vector3d intersection_point;
+    if (det == 0.0)
+	{
+		std::cout << "ERROR: wall frames are parallel, no corner present\n";
+		Eigen::Matrix4d empty_frame = Eigen::MatrixXd::Zero(4,4);
+		return empty_frame;
+	}
+	else
+	{
+		//closed form solution from "Graphics Gems 1, pg 305"
+		intersection_point = ( p_wall_1.dot(normal_wall_1)*normal_wall_2.cross(normal_bottom) +
+		                       p_wall_2.dot(normal_wall_2)*normal_bottom.cross(normal_wall_1)+
+							   p_wall_1.dot(normal_bottom)*normal_wall_1.cross(normal_wall_2)
+							  )/det;
+	}
+    std::cout << "inter point: " << intersection_point << std::endl;
+    tf_corner.block<3,1>(0,3) = intersection_point;
 
 	return tf_corner;
    }
