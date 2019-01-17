@@ -242,7 +242,6 @@ struct IfcoDetection
                 nh_.setParam("/ifco/width", *ifco_width_);
                 nh_.setParam("/ifco/height", *ifco_height_);
 
-                srv.request.ICP_repetitions = 5;
                 srv.request.publish_ifco = (*publish_ifco_);
 
                 if (client.call(srv))
