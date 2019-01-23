@@ -298,12 +298,17 @@ struct IfcoGrasps
 				 0.0, 0.0, 0.0, 0.0,
 				 0.0, 0.0, 0.0, 1.0;
 
-	//add and normalize rotational parts of the frames
-	tf_corner.block<3,3>(0,0) = tf_wall_1.block<3,3>(0,0) + tf_wall_2.block<3,3>(0,0);
-	for (int r = 0; r < 3; ++r)
-	{
-		tf_corner.block<1,3>(r,0).normalize();
-	}
+    //calculate z-axis by appending and norming z-axes of the two walls
+    tf_corner.block<3,1>(0,2) = tf_wall_1.block<3,1>(0,2) + tf_wall_2.block<3,1>(0,2);
+    tf_corner.block<3,1>(0,2).normalize();
+    //calculate y-axis by appending the y-axes of the two walls, subtract the part that is perpendicular to the z-plane and norm it
+    tf_corner.block<3,1>(0,1) = tf_wall_1.block<3,1>(0,1) + tf_wall_2.block<3,1>(0,1);
+    tf_corner.block<3,1>(0,1) = tf_corner.block<3,1>(0,1) - (tf_corner.block<3,1>(0,1).dot(tf_corner.block<3,1>(0,2)) * tf_corner.block<3,1>(0,2));
+    tf_corner.block<3,1>(0,1).normalize();
+    //x-axis is perpendicular to y- and z-axis, again normed to go sure
+    tf_corner.block<3,1>(0,0) = tf_corner.block<3,1>(0,1).cross(tf_corner.block<3,1>(0,2));
+    tf_corner.block<3,1>(0,0).normalize();
+
 
 	//get normal vectors (z-axis) of the wall frames
 	Vector3d normal_wall_1 = tf_wall_1.block<3,1>(0,2);
