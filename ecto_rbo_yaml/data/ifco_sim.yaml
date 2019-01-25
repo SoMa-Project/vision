@@ -219,16 +219,16 @@ bbox_to_axis:
   negate: false
 
 # Broadcast object location
-take_first_tf:
-  type: ecto_rbo_pcl::Vector2TF
-  inputs:
-    input: bbox_fits/transforms
-tf_send_object:
-  type: ecto_rbo_pcl::BroadcastTF
-  inputs:
-    transform: take_first_tf/output
-  source_frame: camera_rgb_optical_frame
-  target_frame: object_old
+# take_first_tf:
+#   type: ecto_rbo_pcl::Vector2TF
+#   inputs:
+#     input: bbox_fits/transforms
+# tf_send_object:
+#   type: ecto_rbo_pcl::BroadcastTF
+#   inputs:
+#     transform: take_first_tf/output
+#   source_frame: camera_rgb_optical_frame
+#   target_frame: object_old
 
 # Broadcast object data
 send_objects:
