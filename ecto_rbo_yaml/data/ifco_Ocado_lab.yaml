@@ -170,7 +170,7 @@ object_detection:
     ifco_length: ifco_specifications/ifco_length
     ifco_width: ifco_specifications/ifco_width
     ifco_height: ifco_specifications/ifco_height
-  ifco_alignment: false
+  ifco_alignment: true
   publish_rviz_markers: true
   camera_frame: camera
     
@@ -320,6 +320,7 @@ publish_graph:
   type: ecto_rbo_grasping::PublishGeometryGraph
   inputs:
     graph_message: planner/graph_message
+  camera_frame: camera
 
 # ------------------------------------------------------------------------
 
