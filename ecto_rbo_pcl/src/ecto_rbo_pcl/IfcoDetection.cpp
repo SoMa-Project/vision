@@ -251,7 +251,7 @@ struct IfcoDetection
             {
                 tf::StampedTransform transform_stamped;
                 Eigen::Matrix3f ifco_rotation_icp;
-                Eigen::Matrix3f ifco_rotation_wallconventions;
+                //Eigen::Matrix3f ifco_rotation_wallconventions;
 
                 if (detection_method == simplestatic)
                 {
@@ -266,9 +266,9 @@ struct IfcoDetection
                             0 , -1, 0,
                             0 ,0, -1;
 
-                    ifco_rotation_wallconventions <<  -1 , 0, 0,
-                            0 , -1, 0,
-                            0 ,0, 1;
+                    //ifco_rotation_wallconventions <<  -1 , 0, 0,
+                    //        0 , -1, 0,
+                    //        0 ,0, 1;
                 }
                 // get ifco center
                 ifcoCenter = transform_stamped.getOrigin();
@@ -283,7 +283,7 @@ struct IfcoDetection
                 {
                     // ifco rotation axis needs to be flipped to satisfy our conventions
                     ifcoRotation = ifcoRotation * ifco_rotation_icp;
-                    ifcoRotation = ifcoRotation * ifco_rotation_wallconventions;
+                    //ifcoRotation = ifcoRotation * ifco_rotation_wallconventions;
                 }
                 float offset = ifcoCenter.getZ() + (*icp_offset_);
                 ifcoCenter_eigen = Eigen::Translation3f(ifcoCenter.getX(), ifcoCenter.getY(), offset);
