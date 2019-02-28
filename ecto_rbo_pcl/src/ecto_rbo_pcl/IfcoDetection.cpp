@@ -30,7 +30,7 @@ The views and conclusions contained in the software and documentation are those 
 #include <ros/package.h>
 #include <tf_conversions/tf_eigen.h>
 #include <tf/transform_datatypes.h>
-#include <tf/transform_broadcaster.h>
+// #include <tf/transform_broadcaster.h>
 #include <tf/transform_listener.h>
 #include <visualization_msgs/Marker.h>
 #include <visualization_msgs/MarkerArray.h>
@@ -61,7 +61,7 @@ struct IfcoDetection
     ros::NodeHandle nh_;
 
     // needed for icp detection
-    tf::TransformBroadcaster br;
+    // tf::TransformBroadcaster br;
     ros::ServiceClient client = nh_.serviceClient<ifco_pose_estimator::ifco_pose>("ifco_pose");
     ifco_pose_estimator::ifco_pose srv;
 
@@ -237,7 +237,7 @@ struct IfcoDetection
             if(detection_method == icp)
             {
 
-
+                // those parameters are taken into consideration by ocados icp ifco detection service
                 nh_.setParam("/ifco/length", *ifco_length_);
                 nh_.setParam("/ifco/width", *ifco_width_);
                 nh_.setParam("/ifco/height", *ifco_height_);
@@ -262,25 +262,25 @@ struct IfcoDetection
             {
                 tf::StampedTransform transform_stamped;
                 Eigen::Matrix3f ifco_rotation_icp;
-                //Eigen::Matrix3f ifco_rotation_wallconventions;
+                // Eigen::Matrix3f ifco_rotation_wallconventions;
 
                 if (detection_method == simplestatic)
                 {
-                  tf_listener_.waitForTransform(*camera_frame_, "ifco_static", ros::Time(0), ros::Duration(2.0));
-                  tf_listener_.lookupTransform(*camera_frame_, "ifco_static", ros::Time(0), transform_stamped);
+                    tf_listener_.waitForTransform(*camera_frame_, "ifco_static", ros::Time(0), ros::Duration(2.0));
+                    tf_listener_.lookupTransform(*camera_frame_, "ifco_static", ros::Time(0), transform_stamped);
                 }
                 else
                 {
                     transform_stamped = tf::StampedTransform(cam_to_ifco, ros::Time::now(), *camera_frame_, "ifco_icp");
-                    //br.sendTransform(transform_stamped);
+                    // br.sendTransform(transform_stamped);
                     // this transform needs to be applied on the original icp to meet our conventions
                     ifco_rotation_icp <<  1 , 0, 0,
                             0 , -1, 0,
                             0 ,0, -1;
 
-                    //ifco_rotation_wallconventions <<  -1 , 0, 0,
-                    //        0 , -1, 0,
-                    //        0 ,0, 1;
+                    // ifco_rotation_wallconventions <<  -1 , 0, 0,
+                    //         0 , -1, 0,
+                    //         0 ,0, 1;
                 }
                 // get ifco center
                 ifcoCenter = transform_stamped.getOrigin();
@@ -295,7 +295,7 @@ struct IfcoDetection
                 {
                     // ifco rotation axis needs to be flipped to satisfy our conventions
                     ifcoRotation = ifcoRotation * ifco_rotation_icp;
-                    //ifcoRotation = ifcoRotation * ifco_rotation_wallconventions;
+                    // ifcoRotation = ifcoRotation * ifco_rotation_wallconventions;
                 }
                 float offset = ifcoCenter.getZ() + (*icp_offset_);
                 ifcoCenter_eigen = Eigen::Translation3f(ifcoCenter.getX(), ifcoCenter.getY(), offset);

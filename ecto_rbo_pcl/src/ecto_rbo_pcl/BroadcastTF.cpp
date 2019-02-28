@@ -16,7 +16,7 @@ The views and conclusions contained in the software and documentation are those 
 #include <ros/ros.h>
 #include <ros/console.h>
 
-#include <tf/transform_broadcaster.h>
+#include <tf2_ros/static_transform_broadcaster.h>
 #include <tf_conversions/tf_eigen.h>
 #include <eigen_conversions/eigen_msg.h>
 
@@ -58,7 +58,7 @@ struct BroadcastTF
 
     int process(const tendrils& inputs, const tendrils& outputs)
     {
-        static tf::TransformBroadcaster tf_broadcaster;
+        tf2_ros::StaticTransformBroadcaster tf_broadcaster;
 
         geometry_msgs::TransformStamped msg;
         msg.header.stamp = ros::Time::now();
