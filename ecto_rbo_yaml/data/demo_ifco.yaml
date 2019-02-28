@@ -1,0 +1,341 @@
+# Copyright 2016-2017 Robotics and Biology Lab, TU Berlin. All rights reserved.
+# 
+# Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+# 
+#     Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+#     Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+# 
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+# 
+# The views and conclusions contained in the software and documentation are those of the authors and should not be interpreted as representing official policies, either expressed or implied, of the FreeBSD Project.
+# 
+
+# @author Jessica Abele
+# @date 2019-02-28
+# @brief Generates the ECE graph plan for an environment with an IFCO. 
+
+# Instructions:
+# - Start environment: roslaunch hybrid_automaton_manager_kuka launchGazebo.launch world:=iiwa_ifco OR
+#                    : roslaunch openni2_launch openni2.launch depth_registration:=true (remember to reconfigure driver modes to 8)
+# - Start vision: rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ecto_rbo_grasping`/..//data/ifco_sim.yaml --debug
+# - Visualize in Rviz: ifco, ifcoWall0, ifcoWall1 TFs and the ifco_planes under visual markers.
+
+# IFCO detection algorithm (What happens in the ifco_grasps cell below):
+# 1. Detect the planes in the world. Visualize them in Rviz with MarkerArray: table_fits/polygons.
+#
+# 2. Assume the biggest plane corresponds to the table surface: table_fits/polygon_biggest. This is 
+#      important to establish the Z+ axis of the world (normal of the plane). 
+#  . Setup implication: Need to make sure there is a sufficiently big plane under the IFCO. 
+#
+# 3. Find the second biggest plane in the world such that it is perpendicular to the table plane 
+#    and close to the table center (tableDist parameter).
+#    Assume that it corresponds to the long face of the IFCO. MarkerArray: ifco_detection/ifco_wall_0_transform
+#    If such a plane is not found, an error message will be printed but the vision loop will continue.
+#  . Setup implication: It makes sense to setup the camera so that it sees both a long and short 
+#      face of the IFCO from outside. They can also be seen from inside but if the IFCO is full, 
+#      then occlusions might be problematic
+#
+# 4. Find the third biggest plane such that it is perpendicular to the table plane and the long IFCO.
+#    Assume that it corresponds to the long face of the IFCO. MarkerArray: ifco_detection/ifco_wall_1_transform
+#    If such a plane is not found, an error message will be printed but the vision loop will continue.
+#
+# 5. Using the pixel patches corresponding to the two planes, determine the location of the IFCO corner where
+#      the two planes intersect. Using this intersection point, compute the center of the IFCO assuming
+#      that we know its dimensions.
+#  . Setup implications: Provide the dimensions of your IFCO as parameters. Note that these dimensions are right
+#    now hardcoded in the testKinect2Collision and probably should be set as ros environment variables somehow.
+
+
+# ------------------------------------------------------------------------
+# Pointcloud pre-processing
+# ------------------------------------------------------------------------
+
+ros_pc_subscriber:
+  type: ecto_sensor_msgs::Subscriber_PointCloud2
+  queue_size: 2
+  topic_name: /camera/depth_registered/points
+msg_to_pcl:
+  type: ecto_rbo_pcl::Message2PointCloud
+  inputs:
+    input: ros_pc_subscriber/output
+create_tf:
+  type: ecto_rbo_pcl::CreateTF
+  position: [0, 0, 0]
+  rotation_xyzw: [0, 0, 0, 1]
+tf_send_camera:
+  type: ecto_rbo_pcl::BroadcastTF
+  inputs:
+    transform: create_tf/transform
+  source_frame: camera_rgb_optical_frame
+  target_frame: base_frame
+
+# crops off the camera far point cloud parts
+crop_box:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::PassThroughOrganized>
+  inputs:
+    input: msg_to_pcl/output
+  filter_field_name: z
+  filter_limit_max: 1.0
+  filter_limit_min: 0
+  filter_limit_negative: false
+
+
+# ------------------------------------------------------------------------
+# Table detection
+# ------------------------------------------------------------------------
+
+normal_estimation:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::NormalEstimationIntegral>
+  inputs:
+    input: crop_box/output
+  estimation_method: 0
+  max_depth_change_factor: 0.05
+  smoothing_size: 30
+
+flood_fill:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::FloodFill>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+  angular_threshold: 0.1859879
+  curvature_distance_threshold: 0.15
+  curvature_threshold: 0.017
+  distance_threshold: 0.05
+  min_inliers: 50
+  normal_distance_threshold: 0.12
+  rviz_prefix: flood_fill_segmentation
+
+table_fits:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::PlaneFits>
+  inputs:
+    clusters: flood_fill/clusters
+    input: crop_box/output
+    normals: normal_estimation/output
+  distance_threshold: 45.05
+  max_size: 10.24
+  min_boxness: 0.0
+  min_inlier_ratio: 0.0
+  min_size: 0.00
+  weight_contour: 0.0
+  polygon_approximation_epsilon: 40.0
+
+# ------------------------------------------------------------------------
+# Ifco (Publish Specifications +  Detection)
+# ------------------------------------------------------------------------
+
+ifco_specifications:
+  type: ecto_rbo_pcl::BroadcastIfcoSpecifications
+  ifco_length: 0.56
+  ifco_width: 0.38
+  ifco_height: 0.16
+  # [wall 1, wall2, wall 3, wall 4] defined counterclockwise
+  ec_wall_offset: [0.0, 0.0, 0.0, 0.0] # this is the space an ec occludes inside the ifco at wall 1, wall2, etc..
+
+ifco_detection:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::IfcoDetection>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+    bounded_planes: table_fits/bounded_models
+    bounded_planes_biggest: table_fits/bounded_model_biggest
+    ifco_length: ifco_specifications/ifco_length
+    ifco_width: ifco_specifications/ifco_width
+    ifco_height: ifco_specifications/ifco_height
+  plane_id: -1
+  tableDist: 0.2
+  # SHOULD BE TUNED FOR EVERY EXPERIMENT SETUP
+  # Ocado's ICP detection results in a slightly shifted ifco frame. 
+  # This param is applied on the z-Axis of the ifco frame to correct the shift. 
+  # 0.02 for camera on the robot arm 0.005 for the almost extended camera tripod in the lab
+  icp_offset: 0.004 
+
+tf_send_ifco:
+  type: ecto_rbo_pcl::BroadcastTF
+  inputs:
+    transform: ifco_detection/ifco_transform
+  source_frame: camera_rgb_optical_frame
+  target_frame: ifco
+
+
+# Clean up transform data for later use
+tf_to_vector_table:
+  type: ecto_rbo_pcl::TF2Vector
+  inputs:
+    transform: ifco_detection/ifco_transform
+  column_index: 2
+  negate: false
+wrap_in_vector_table:
+  type: ecto_rbo_pcl::WrapVector3fInVector
+  inputs:
+    input: tf_to_vector_table/vector
+
+
+# ------------------------------------------------------------------------
+# Crop the inside of the Ifco box
+# ------------------------------------------------------------------------
+
+inside_ifco:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::CropBox>
+  inputs:
+    input: crop_box/output
+    transform: ifco_detection/ifco_transform
+  default_min: [-0.24,  -0.16, 0.02, 0]
+  default_max: [0.24,  0.16,  0.20, 0]
+  publish_rviz_markers: true
+
+
+# ------------------------------------------------------------------------
+# Object Detection (consider only pointcloud inside the ifco)
+# ------------------------------------------------------------------------
+
+# Cluster the objects in the IFCO
+region_growing_rgb:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::RegionGrowingRGB>
+  inputs:
+    input: inside_ifco/output
+    indices: inside_ifco/indices2
+  min_cluster_size: 350
+  distance_threshold: 1000
+  point_color_threshold: 35.0
+  region_color_threshold: 50.0
+
+
+# filter object by distance to table
+filter_by_distance:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::FilterClustersBySize>
+  inputs:
+    input: crop_box/output
+    clusters: flood_fill/clusters
+    transform: table_fits/transform_biggest
+  max_volume: 0.004
+  min_volume: 0.
+  filter_criterion: 2
+  max_distance: 0.3
+  min_size: 200
+  max_size: 1000
+
+
+merge_clusters:
+  type: ecto_rbo_pcl::MergeClusters
+  inputs:
+    cluster_0: region_growing_rgb/output
+    cluster_1: filter_by_distance/filtered_clusters
+filter_object_by_size:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::FilterClustersBySize>
+  inputs:
+    input: inside_ifco/output
+    clusters: merge_clusters/merged_clusters
+  max_volume: 0.004
+  min_volume: 0.
+  filter_criterion: 1
+  max_distance: 0.2
+  min_size: 120
+  max_size: 2000
+
+# Pick one object - the closest to the camera
+filter_closest_object:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::ExtractClosestCluster>
+  inputs:
+    input: inside_ifco/output
+    clusters: region_growing_rgb/output
+    transform: ifco_detection/ifco_transform
+  size_weight: 0
+calculate_centroids:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::Centroid>
+  inputs:
+    input: crop_box/output
+    clusters: filter_closest_object/closest_cluster
+bbox_fits:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::PlaneFits2D>
+  inputs:
+    input: inside_ifco/output
+    clusters: filter_closest_object/closest_cluster
+    normal: tf_to_vector_table/vector
+  #min_aspect_ratio: 1.9
+  #max_aspect_ratio: 1.0
+bbox_to_axis:
+  type: ecto_rbo_pcl::TFs2Vectors
+  inputs:
+    transforms: bbox_fits/transforms
+  column_index: 0
+  negate: false
+
+take_first_tf:
+  type: ecto_rbo_pcl::Vector2TF
+  inputs:
+    input: bbox_fits/transforms
+tf_send_object:
+  type: ecto_rbo_pcl::BroadcastTF
+  inputs:
+    transform: take_first_tf/output
+  source_frame: camera_rgb_optical_frame
+  target_frame: object
+
+
+
+
+
+
+# ------------------------------------------------------------------------
+#  Environmental Constraint Exploitation (ECE) Graph Generation
+# ------------------------------------------------------------------------
+
+# Initial approach primitive
+positioning_motions:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::PositioningMotions>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+
+# Create top grasp primitive
+create_top_down_grasps:
+  type: ecto_rbo_grasping::CreateGrasps
+  inputs:
+    header: msg_to_pcl/header
+    positions: calculate_centroids/centroids
+    approach_vectors: wrap_in_vector_table/vector
+    roll_vectors: bbox_to_axis/vectors
+  strategy: 10  # SQUEEZE
+  pregrasp_configuration: 2 # SPHERE
+  roll_offset: 0 #-1.5707963267948966   #3.141592653589793
+
+# Create slide primitives
+planar_manifolds:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::ManifoldsPlanar>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+    bounded_planes: ifco_detection/ifco_planes_biggest
+  all_in_plane_orientations: true 
+  rotation: 0
+
+# wall grasps inside the ifco
+ifco_grasps:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::IfcoGrasps>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+    ifco_planes: ifco_detection/ifco_planes
+    ifco_length: ifco_specifications/ifco_length
+    ifco_width: ifco_specifications/ifco_width
+    ifco_height: ifco_specifications/ifco_height
+
+# combine all grasping primitives into one final ECE graph
+planner:
+  type: ecto_rbo_grasping::CreateGeometryGraph
+  inputs:
+    positioning_pregrasp_messages: positioning_motions/positioning_pregrasp_messages
+    positioning_motion_manifolds: positioning_motions/positioning_manifolds
+    pushing_pregrasp_messages: planar_manifolds/pushing_pregrasp_messages
+    pushing_motion_manifolds: planar_manifolds/manifolds
+    surface_pregrasp_messages: create_top_down_grasps/pregrasp_messages
+    surface_grasp_manifolds: planar_manifolds/manifolds
+    wall_pregrasp_messages: ifco_grasps/wall_pregrasp_messages
+    wall_grasp_manifolds: ifco_grasps/wall_manifolds
+  ignore_manifold_intersection: true
+
+publish_graph:
+  type: ecto_rbo_grasping::PublishGeometryGraph
+  inputs:
+    graph_message: planner/graph_message
+
