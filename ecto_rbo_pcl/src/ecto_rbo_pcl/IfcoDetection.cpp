@@ -79,6 +79,7 @@ struct IfcoDetection
     spore<double> tableDist_;
     spore<int> plane_id_;
     spore<float> icp_offset_;
+    spore<std::string> camera_frame_;
 
     // outputs
     spore<UnalignedAffine3f> ifco_wall_0_transform_;
@@ -96,6 +97,8 @@ struct IfcoDetection
         params.declare<double>("tableDist", "Distance of a bounded plane to the biggest bounded plane (i.e. table)", 0.0);
         params.declare<int>("plane_id", "Id/Numerator of the plane that is considered as main plane out of all bounded_planes.", 0.0);
         params.declare<float>("icp_offset", "Offset to add on z-Axis of ICP detected IFCO frame", 0.0);
+        params.declare<std::string>("camera_frame", "The frame in which the ifco tf is expressed", "camera_rgb_optical_frame");
+
     }
 
     // ======================================================================================================================
@@ -130,6 +133,7 @@ struct IfcoDetection
         tableDist_ = params["tableDist"];
         plane_id_ = params["plane_id"];
         icp_offset_ = params["icp_offset"];
+        camera_frame_ = params["camera_frame"];
 
         // outputs
         ifco_wall_0_transform_ = outputs["ifco_wall_0_transform"];
@@ -229,6 +233,12 @@ struct IfcoDetection
             // compute ifco transform and broadcast it
             if(detection_method == icp)
             {
+
+
+                nh_.setParam("/ifco/length", *ifco_length_);
+                nh_.setParam("/ifco/width", *ifco_width_);
+                nh_.setParam("/ifco/height", *ifco_height_);
+
                 srv.request.max_tries = 10;
                 srv.request.max_fitness = 0.008;
                 srv.request.publish_ifco = false;
@@ -255,12 +265,13 @@ struct IfcoDetection
 
                 if (detection_method == simplestatic)
                 {
-                    tf_listener_.lookupTransform("camera_rgb_optical_frame", "ifco_static", ros::Time(0), transform_stamped);
+                  tf_listener_.waitForTransform(*camera_frame_, "ifco_static", ros::Time(0), ros::Duration(2.0));
+                  tf_listener_.lookupTransform(*camera_frame_, "ifco_static", ros::Time(0), transform_stamped);
                 }
                 else
                 {
-                    transform_stamped = tf::StampedTransform(cam_to_ifco, ros::Time::now(), "camera_rgb_optical_frame", "ifco_icp");
-                    br.sendTransform(transform_stamped);
+                    transform_stamped = tf::StampedTransform(cam_to_ifco, ros::Time::now(), *camera_frame_, "ifco_icp");
+                    //br.sendTransform(transform_stamped);
                     // this transform needs to be applied on the original icp to meet our conventions
                     ifco_rotation_icp <<  1 , 0, 0,
                             0 , -1, 0,
@@ -683,8 +694,8 @@ struct IfcoDetection
         tf::Transform ifco2camera(ifcoRotation, ifcoCenter);
         tf::StampedTransform camera2base;
         try {
-            tf_listener_.waitForTransform("base_link", "camera_rgb_optical_frame", ros::Time(0), ros::Duration(3.0));
-            tf_listener_.lookupTransform("base_link", "camera_rgb_optical_frame", ros::Time(0), camera2base);
+            tf_listener_.waitForTransform("base_link", *camera_frame_, ros::Time(0), ros::Duration(3.0));
+            tf_listener_.lookupTransform("base_link", *camera_frame_, ros::Time(0), camera2base);
         } catch (tf::TransformException &ex) {
             ROS_ERROR("%s (Did not write ifco pose)",ex.what());
             return;
