@@ -47,6 +47,8 @@ struct PublishGeometryGraph
     ecto::spore<UnalignedVector3f> marker_offset_position_;
     ecto::spore<UnalignedVector4f> marker_offset_rotation_xyzw_;
     
+    ecto::spore<std::string> camera_frame_;
+
     ros::Time last_broadcast_;
 
     static void declare_params(ecto::tendrils& params)
@@ -56,6 +58,7 @@ struct PublishGeometryGraph
         params.declare<UnalignedVector4f>("marker_color", "Color vector.").required(false);
         params.declare<UnalignedVector3f>("marker_offset_position", "Position vector.").required(false);
         params.declare<UnalignedVector4f>("marker_offset_rotation_xyzw", "Quaternion.").required(false);
+        params.declare<std::string>("camera_frame", "The frame in which the ifco tf is expressed", "camera_rgb_optical_frame");
     }
 
     static void declare_io(const ecto::tendrils& params, ecto::tendrils& inputs, ecto::tendrils& outputs)
@@ -71,6 +74,7 @@ struct PublishGeometryGraph
         marker_color_ = params["marker_color"];
         marker_offset_position_ = params["marker_offset_position"];
         marker_offset_rotation_xyzw_ = params["marker_offset_rotation_xyzw"];
+        camera_frame_ = params["camera_frame"];
 
         last_broadcast_ = ros::Time::now();
         graph_publisher_ = nh_.advertise<geometry_graph_msgs::Graph>(params["topic_name"]->get<std::string>(), 10);
@@ -167,7 +171,7 @@ struct PublishGeometryGraph
         ::visualization_msgs::Marker msg;
         msg.id = 0;
         msg.header = default_header;
-        msg.header.frame_id = "/camera_rgb_optical_frame";
+        msg.header.frame_id = *camera_frame_;;
         msg.header.stamp = timestamp;
         msg.action = ::visualization_msgs::Marker::ADD;
         msg.lifetime = timestamp - last_broadcast_;
