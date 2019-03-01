@@ -192,7 +192,7 @@ inside_ifco:
 region_growing_rgb:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::RegionGrowingRGB>
   inputs:
-    input: inside_ifco/output
+    input: crop_box/output
     indices: inside_ifco/indices2
   min_cluster_size: 350
   distance_threshold: 1000
@@ -236,10 +236,11 @@ filter_object_by_size:
 filter_closest_object:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::ExtractClosestCluster>
   inputs:
-    input: inside_ifco/output
+    input: crop_box/output
     clusters: region_growing_rgb/output
     transform: ifco_detection/ifco_transform
   size_weight: 0
+# Calculate the centroid and the bounding box
 calculate_centroids:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::Centroid>
   inputs:
@@ -248,11 +249,9 @@ calculate_centroids:
 bbox_fits:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::PlaneFits2D>
   inputs:
-    input: inside_ifco/output
+    input: crop_box/output
     clusters: filter_closest_object/closest_cluster
     normal: tf_to_vector_table/vector
-  #min_aspect_ratio: 1.9
-  #max_aspect_ratio: 1.0
 bbox_to_axis:
   type: ecto_rbo_pcl::TFs2Vectors
   inputs:
@@ -260,6 +259,7 @@ bbox_to_axis:
   column_index: 0
   negate: false
 
+# Broadcast object location
 take_first_tf:
   type: ecto_rbo_pcl::Vector2TF
   inputs:
@@ -271,6 +271,13 @@ tf_send_object:
   source_frame: camera_rgb_optical_frame
   target_frame: object
 
+# Broadcast object data
+send_objects:
+  type: ecto_rbo_grasping::PublishObjectList
+  inputs:
+    transforms: bbox_fits/transforms
+    sizes: bbox_fits/sizes
+  frame: camera_rgb_optical_frame
 
 
 
