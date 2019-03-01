@@ -76,7 +76,9 @@ rosbag play -l xxx.bag  (or any other bag)
 ```
 
 Execute vision
+```
 rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ecto_rbo_yaml`/data/demo_vision.yaml --debug
+```
 
 ## Example 2: Ifco Scene
 
@@ -121,7 +123,9 @@ rosbag play -l Ifco_vision_test.bag  (or any other bag)
 ```
 
 Execute vision
+```
 rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ecto_rbo_yaml`/data/demo_ifco.yaml --debug
+```
 
 
 ## Documentation 
