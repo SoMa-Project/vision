@@ -47,7 +47,7 @@ copy the `libgdiam.so` lib from the build folder to `/usr/local/lib` where it is
 ## Examples
 In the following you can try the vision repository on two szenarios shown underneath:
 
-## Example 1: General Scene = Table + Ifco container + object(s)
+## Example 1: General Scene (Table + Wall + object)
 Prepare scene:
 * Clear a table, place an apple on it, and a wall (a rectangular prism object with height > 15 cm).Table + wall + object
 
@@ -76,9 +76,11 @@ rosbag play -l xxx.bag  (or any other bag)
 ```
 
 Execute vision
+```
 rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ecto_rbo_yaml`/data/demo_vision.yaml --debug
+```
 
-## Example 2: Ifco Scene
+## Example 2: Ifco Scene (Table + Ifco Container + Object(s))
 
 Prepare scene:
 * Clear a table, place an ifco tote (57.5 x 37.5 x 17.5 cm) on it with horizontal alignment (57.5 cm side of ifco) towards the camera. Place an apple inside the tote.
@@ -121,7 +123,9 @@ rosbag play -l Ifco_vision_test.bag  (or any other bag)
 ```
 
 Execute vision
+```
 rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ecto_rbo_yaml`/data/demo_ifco.yaml --debug
+```
 
 
 ## Documentation 
