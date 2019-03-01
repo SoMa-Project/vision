@@ -47,10 +47,43 @@ copy the `libgdiam.so` lib from the build folder to `/usr/local/lib` where it is
 ## Examples
 In the following you can try the vision repository on two szenarios shown underneath:
 
-### Table + wall + object
+### Example 1: General Scene = Table + Ifco container + object(s)
+Prepare scene:
+* Clear a table, place an apple on it, and a wall (a rectangular prism object with height > 15 cm).Table + wall + object
+
+
 TODO: table top + wall
 
-### Table + Ifco container + object(s)
+
+### Launch camera or play bag file
+* Plug in a rgb-d camera or download and launch the example .bag file.
+
+```
+# with kinect: plug the camera into your computer
+roslaunch openni2_launch openni2.launch depth_registration:=true
+# set camera resolution to QVGA
+rosrun dynamic_reconfigure dynparam set /camera/driver ir_mode 7
+rosrun dynamic_reconfigure dynparam set /camera/driver color_mode 7
+rosrun dynamic_reconfigure dynparam set /camera/driver depth_mode 7
+
+
+# with .bag file: 
+# example of table top scenario (link follows)
+# use ros sim time
+rosparam set use_sim_time true
+roslaunch openni2_launch openni2.launch depth_registration:=false
+rosbag play -l xxx.bag  (or any other bag)
+```
+
+### Execute vision
+rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ecto_rbo_yaml`/data/demo_vision.yaml --debug
+
+## Example 2: Ifco Scene
+
+Prepare scene:
+* Clear a table, place an ifco tote (57.5 x 37.5 x 17.5 cm) on it with horizontal alignment (57.5 cm side of ifco) towards the camera. Place an apple inside the tote.
+
+
 ![Alt text](/readme_/IfcoContainerScene.png?raw=true "Title")
 
 ### Choose IFCO detection method 
@@ -87,58 +120,9 @@ roslaunch openni2_launch openni2.launch depth_registration:=false
 rosbag play -l Ifco_vision_test.bag  (or any other bag)
 ```
 
+### Execute vision
+rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ecto_rbo_yaml`/data/demo_ifco.yaml --debug
 
-## Example 1: General Scene
-
-Prepare scene:
-* Clear a table, place an apple on it, and a wall (a rectangular prism object with height > 15 cm).
-
-TODO: add picture
-
-Execute:
-```
-roslaunch openni2_launch openni2.launch depth_registration:=true
-# [go to camera, driver, and choose 8]
-rosrun rqt_reconfigure rqt_reconfigure
-rviz -d demo.rviz
-rosrun ecto_rbo_yaml plasm_yaml_ros_node.py demo_vision.yaml --debug
-#(not necessary for test but can help understanding)
-rosrun ecto_rbo_yaml ecto_yaml_to_pdf ecto_rbo_yaml/data/demo_vision.yaml 
-#(in some cases the above one is not working, then try this) 
-rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ec_grasp_planner`/data/geometry_graph_example3.yaml --show 
-
-```
-
-Expected outcome:
-* You should see frames in the centroids of the table, wall, and the object.
-
-TODO: add picture
-
-## Example 2: Ifco Scene
-
-Prepare scene:
-* Clear a table, place an ifco tote (57.5 x 37.5 x 17.5 cm) on it with horizontal alignment (57.5 cm side of ifco) towards the camera. Place an apple inside the tote.
-
-TODO: add picture
-
-Execute:
-```
-roslaunch openni2_launch openni2.launch depth_registration:=true
-# [go to camera, driver, and choose 8]
-rosrun rqt_reconfigure rqt_reconfigure
-rviz -d demo_ifco.rviz
-rosrun ecto_rbo_yaml plasm_yaml_ros_node.py demo_ifco.yaml --debug
-#(not necessary for test but can help understanding)
-rosrun ecto_rbo_yaml ecto_yaml_to_pdf ecto_rbo_yaml/data/demo_ifco.yaml 
-#(in some cases the above one is not working, then try this) 
-rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ec_grasp_planner`/data/geometry_graph_example3.yaml --show 
-
-```
-
-Expected outcome:
-* You should see the ifco center frame.
-
-TODO: add picture
 
 ## Documentation 
 
