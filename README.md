@@ -55,7 +55,7 @@ Prepare scene:
 TODO: table top + wall
 
 
-### Launch camera or play bag file
+Launch camera or play bag file
 * Plug in a rgb-d camera or download and launch the example .bag file.
 
 ```
@@ -75,7 +75,7 @@ roslaunch openni2_launch openni2.launch depth_registration:=false
 rosbag play -l xxx.bag  (or any other bag)
 ```
 
-### Execute vision
+Execute vision
 rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ecto_rbo_yaml`/data/demo_vision.yaml --debug
 
 ## Example 2: Ifco Scene
@@ -86,7 +86,7 @@ Prepare scene:
 
 ![Alt text](/readme_/IfcoContainerScene.png?raw=true "Title")
 
-### Choose IFCO detection method 
+Choose IFCO detection method 
 * Choose one of the IFCO detection methods by setting the rosparam to one of 1/2/3,  default is 1
 
 ```
@@ -99,7 +99,7 @@ roslaunch ecto_rbo_pcl staticTFforIfco.launch
 rosparam set detection_method 3
 ```
 
-### Launch camera or play bag file
+Launch camera or play bag file
 * Plug in a rgb-d camera or download and launch the example .bag file.
 
 ```
@@ -120,7 +120,7 @@ roslaunch openni2_launch openni2.launch depth_registration:=false
 rosbag play -l Ifco_vision_test.bag  (or any other bag)
 ```
 
-### Execute vision
+Execute vision
 rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ecto_rbo_yaml`/data/demo_ifco.yaml --debug
 
 
