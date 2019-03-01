@@ -47,7 +47,7 @@ copy the `libgdiam.so` lib from the build folder to `/usr/local/lib` where it is
 ## Examples
 In the following you can try the vision repository on two szenarios shown underneath:
 
-## Example 1: General Scene (Table + Wall + object)
+## Example 1: General Scene (Table + Wall + object) 
 Prepare scene:
 * Clear a table, place an apple on it, and a wall (a rectangular prism object with height > 15 cm).Table + wall + object
 
