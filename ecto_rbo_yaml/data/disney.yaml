@@ -102,42 +102,6 @@ crop_box2:
   default_max: [0.25, 0.3, 0.3, 0.0]
   publish_rviz_markers: true
 
-
-# ------------------------------------------------------------------------
-# Object Detection new - Integration of the Ocado Multi object detection - tested! (IS NOT IN USE / no worries)
-# ------------------------------------------------------------------------
-
-
-#ifco_specifications:
-#  type: ecto_rbo_pcl::BroadcastIfcoSpecifications
-#  ifco_length: 0.40
-#  ifco_width: 0.70
-#  ifco_height: 0.16
-  # [wall 1, wall2, wall 3, wall 4] defined counterclockwise
-#  ec_wall_offset: [0.0, 0.0, 0.0, 0.0] # this is the space an ec occludes inside the ifco at wall 1, wall2, etc..
-
-
-#object_detection:
-#  type: ecto_rbo_pcl::MultiObjectDetection
-#  inputs: 
-#    ifco_transform: table_fits/transform_biggest
-#    ec_wall_offset: ifco_specifications/ec_wall_offset
-#    ifco_length: ifco_specifications/ifco_length
-#    ifco_width: ifco_specifications/ifco_width
-#    ifco_height: ifco_specifications/ifco_height
-#  ifco_alignment: true
-#  disney: true
-#  publish_rviz_markers: true
-
-#object_detection_filtered:
-#  type: ecto_rbo_pcl::FilterObjects
-#  inputs:
-#    transforms: object_detection/transforms
-#    sizes: object_detection/sizes
-#    centroids: object_detection/centroids
-#  filter_method: 1 # by size, only biggest
-
-
 # ------------------------------------------------------------------------
 # Object detection
 # ---------------------------------- check if that's needed or not -------
