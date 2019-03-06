@@ -226,6 +226,13 @@ planar_manifolds:
   all_in_plane_orientations: true
   rotation: 0
 
+# Initial approach primitive
+positioning_motions:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::PositioningMotions>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+    
 cliff_grasps:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::CliffGrasps>
   inputs:
@@ -250,15 +257,6 @@ create_top_down_grasps:
   pregrasp_configuration: 2 # SPHERE
   roll_offset: 0 #-1.5707963267948966   #3.141592653589793
 
-  
-# ------------------------------------------------------------------------
-# Initial approach primitive
-positioning_motions:
-  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::PositioningMotions>
-  inputs:
-    input: crop_box/output
-    normals: normal_estimation/output
-    
 # ------------------------------------------------------------------------
 planner:
   type: ecto_rbo_grasping::CreateGeometryGraph
