@@ -35,6 +35,8 @@ crop_box:
   filter_limit_max: 1.0
   filter_limit_min: -10.0
   filter_limit_negative: false
+
+
 # ------------------------------------------------------------------------
 # Table detection - main plane
 # ------------------------------------------------------------------------
@@ -105,10 +107,12 @@ crop_box2:
 # ------------------------------------------------------------------------
 # Object detection
 # ---------------------------------- check if that's needed or not -------
+
 help_remove_nans:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::RemoveNaNFromPointCloud>
   inputs:
     input: crop_box2/output
+    
 region_growing_rgb:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::RegionGrowingRGB>
   inputs:
@@ -152,18 +156,22 @@ filter_closest_object:
     transform: table_fits/transform_biggest
   #size_weight: -0.0001
   size_weight: -0.0005
+  
+  
 # Calculate the centroid and the bounding box
 calculate_centroids:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::Centroid>
   inputs:
     input: crop_box2/output
     clusters: filter_closest_object/closest_cluster
+    
 bbox_fits:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::PlaneFits2D>
   inputs:
     input: crop_box2/output
     clusters: filter_closest_object/closest_cluster
     normal: tf_to_vector_table/vector
+    
 bbox_to_axis:
   type: ecto_rbo_pcl::TFs2Vectors
   inputs:
