@@ -133,6 +133,7 @@ filter_by_distance:
   filter_criterion: 2  # distance of cluster mean to inputs "transform".
   max_distance: 0.5 # 0.2 original
 
+
 merge_clusters:
   type: ecto_rbo_pcl::MergeClusters
   inputs:
@@ -144,7 +145,10 @@ filter_object_by_size:
   inputs:
     input: crop_box2/output
     clusters: merge_clusters/merged_clusters
+  #max_volume: 0.004
+  #min_volume: 0.
   filter_criterion: 1
+  #max_distance: 0.2
   min_size: 120
   max_size: 5000
   
