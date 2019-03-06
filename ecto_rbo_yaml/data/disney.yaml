@@ -118,8 +118,8 @@ region_growing_rgb:
   inputs:
     input: crop_box2/output
     indices: help_remove_nans/indices
-  min_cluster_size: 5 #40 #80
-  distance_threshold: 1000
+  min_cluster_size: 10 #40 #80
+  distance_threshold: 10000
   point_color_threshold: 7.0
   region_color_threshold: 30.0
   
