@@ -32,8 +32,8 @@ crop_box:
   inputs:
     input: msg_to_pcl/output
   filter_field_name: z
-  filter_limit_max: 1.0
-  filter_limit_min: -10.0
+  filter_limit_max: 0.50 # this value is tuned for the vision position at disney
+  filter_limit_min: -1.0 # this value is tuned for the vision position at disney
   filter_limit_negative: false
 
 
@@ -100,8 +100,8 @@ crop_box2:
   inputs:
     input: crop_box/output
     transform: table_fits/transform_biggest
-  default_min: [-0.10, -0.3, -0.3, 0.0]
-  default_max: [0.25, 0.3, 0.3, 0.0]
+  default_min: [-0.25, -0.25, -0.2, 0.0] # this value is tuned for the vision position at disney
+  default_max: [0.25, 0.25, 0.06, 0.0] # this value is tuned for the vision position at disney
   publish_rviz_markers: true
 
 # ------------------------------------------------------------------------
