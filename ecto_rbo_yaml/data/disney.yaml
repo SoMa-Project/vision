@@ -53,12 +53,12 @@ flood_fill:
   inputs:
     input: crop_box/output
     normals: normal_estimation/output
-  angular_threshold: 0.1359879
-  curvature_distance_threshold: 0.07
-  curvature_threshold: 0.037
+  angular_threshold:  0.1359879 # 0.1359879 (original) # 0.2 for teddy
+  curvature_distance_threshold:  0.07
+  curvature_threshold:  0.037
   distance_threshold: 0.05
   min_inliers: 50
-  normal_distance_threshold: 0.12
+  normal_distance_threshold:  0.12
   #rviz_prefix: flood_fill_segmentation
   
 
