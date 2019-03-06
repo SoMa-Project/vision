@@ -20,6 +20,13 @@ tf_send_camera:
   source_frame: camera_rgb_optical_frame
   target_frame: base_frame
 
+
+# ------------------------------------------------------------------------
+# Cropping of the scene relative to the camera frame. 
+# - The remaining point cloud will be used for the table detection
+# ------------------------------------------------------------------------
+
+
 crop_box:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::PassThroughOrganized>
   inputs:
@@ -29,6 +36,9 @@ crop_box:
   filter_limit_min: -10.0
   filter_limit_negative: false
 # ------------------------------------------------------------------------
+# Table detection - main plane
+# ------------------------------------------------------------------------
+
 normal_estimation:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::NormalEstimationIntegral>
   inputs:
@@ -49,9 +59,6 @@ flood_fill:
   normal_distance_threshold: 0.12
   #rviz_prefix: flood_fill_segmentation
   
-# ------------------------------------------------------------------------
-# Table - main plane
-# ------------------------------------------------------------------------
 
 # -- table_fits -- params taken from geometriy_graph_example2.yaml
 table_fits:
@@ -82,7 +89,8 @@ wrap_in_vector_table:
 
 
 # ------------------------------------------------------------------------
-# Try to crop the table edges away because we had wrongly table edges as objects selected
+# Cropping of the scene based on the table frame. 
+# - The remaining point cloud will be used for the object segmentation
 # ------------------------------------------------------------------------
 
 crop_box2:
@@ -146,7 +154,8 @@ region_growing_rgb:
   distance_threshold: 1000
   point_color_threshold: 7.0
   region_color_threshold: 30.0
-# ------------------------------------------------------------------------
+  
+# filter by distance to table center
 filter_by_distance:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::FilterClustersBySize>
   inputs:
@@ -161,6 +170,7 @@ merge_clusters:
   inputs:
     cluster_0: region_growing_rgb/output
     cluster_1: filter_by_distance/filtered_clusters  
+    
 filter_object_by_size:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::FilterClustersBySize>
   inputs:
@@ -169,6 +179,7 @@ filter_object_by_size:
   filter_criterion: 1
   min_size: 120
   max_size: 5000
+  
 filter_closest_object:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::ExtractClosestCluster>
   inputs:
@@ -177,7 +188,6 @@ filter_closest_object:
     transform: table_fits/transform_biggest
   #size_weight: -0.0001
   size_weight: -0.0005
-# ------------------------------------------------------------------------
 # Calculate the centroid and the bounding box
 calculate_centroids:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::Centroid>
@@ -208,14 +218,18 @@ tf_send_object:
     transform: take_first_tf/output
   source_frame: camera_rgb_optical_frame
   target_frame: object
-
-# Broadcast object data
 send_objects:
   type: ecto_rbo_grasping::PublishObjectList
   inputs:
     transforms: bbox_fits/transforms
     sizes: bbox_fits/sizes
   frame: camera_rgb_optical_frame
+
+
+
+# ------------------------------------------------------------------------
+# Generate Environmental Constraint Graph (ECE-Graph)
+# ------------------------------------------------------------------------
 
 planar_manifolds:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::ManifoldsPlanar>
@@ -233,6 +247,7 @@ positioning_motions:
     input: crop_box/output
     normals: normal_estimation/output
     
+# Edge Grasps
 cliff_grasps:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::CliffGrasps>
   inputs:
@@ -243,9 +258,7 @@ cliff_grasps:
   max_no_of_points: 100
   invert_y_axis: true
 
-
-# ------------------------------------------------------------------------
-# Create top grasp primitive
+# Surface Grasp
 create_top_down_grasps:
   type: ecto_rbo_grasping::CreateGrasps
   inputs:
