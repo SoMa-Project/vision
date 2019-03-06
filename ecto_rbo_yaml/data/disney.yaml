@@ -155,7 +155,7 @@ filter_closest_object:
     clusters: filter_object_by_size/filtered_clusters
     transform: table_fits/transform_biggest
   #size_weight: -0.0001
-  size_weight: -0.0005
+  size_weight:  -0.9 # -0.0005 original
   
   
 # Calculate the centroid and the bounding box
