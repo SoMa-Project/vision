@@ -313,6 +313,8 @@ planner:
     pushing_motion_manifolds: planar_manifolds/manifolds
     surface_pregrasp_messages: create_top_down_grasps/pregrasp_messages
     surface_grasp_manifolds: planar_manifolds/manifolds
+    corner_pregrasp_messages: ifco_grasps/corner_pregrasp_messages
+    corner_grasp_manifolds: ifco_grasps/corner_manifolds
     wall_pregrasp_messages: ifco_grasps/wall_pregrasp_messages
     wall_grasp_manifolds: ifco_grasps/wall_manifolds
   ignore_manifold_intersection: true
