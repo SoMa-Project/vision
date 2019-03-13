@@ -27,6 +27,8 @@ The views and conclusions contained in the software and documentation are those 
 #include <geometry_graph_msgs/Object.h>
 #include <geometry_graph_msgs/ObjectList.h>
 
+#include "object_segmentation/Segment.h"
+
 namespace ecto_rbo_grasping
 {
 
@@ -42,6 +44,7 @@ struct PublishObjectList
 
     ecto::spore<std::vector<UnalignedAffine3f> > object_poses_;
     ecto::spore<std::vector<UnalignedVector3f> > object_sizes_;
+    ecto::spore<std::vector<object_segmentation::Segment> > segments_;
 
     std::string frame_;
 
@@ -56,12 +59,14 @@ struct PublishObjectList
     {
         inputs.declare<std::vector<UnalignedAffine3f> >(&PublishObjectList::object_poses_, "transforms", "A vector of 4x4 affine transformations for the objects.");
         inputs.declare<std::vector<UnalignedVector3f> >(&PublishObjectList::object_sizes_, "sizes", "A vector of 3d sizes for the bounding boxes.");
+        inputs.declare<std::vector<object_segmentation::Segment> >(&PublishObjectList::segments_, "segments", "A vector of segments.");
     }
 
     void configure(const ecto::tendrils& params, const ecto::tendrils& inputs, const ecto::tendrils& outputs)
     {
         object_poses_ = inputs["transforms"];
         object_sizes_ = inputs["sizes"];
+        segments_ = inputs["segments"];
         object_publisher_ = nh_.advertise< ::geometry_graph_msgs::ObjectList>(params["topic_name"]->get<std::string>(), 10);
         frame_ = params["frame"]->get<std::string>();
     }
@@ -70,7 +75,7 @@ struct PublishObjectList
     {
         std::vector<UnalignedAffine3f> poses = *object_poses_;
         std::vector<UnalignedVector3f> sizes = *object_sizes_;
-
+        std::vector<object_segmentation::Segment> segments = *segments_;
 
 
         geometry_graph_msgs::ObjectList obj_list;
@@ -95,10 +100,15 @@ struct PublishObjectList
             bbvec.y = sizes[i][1];
             bbvec.z = sizes[i][2];
             obj.boundingbox = bbvec;
+            for(int j=0; j<segments[i].segment_points.size();j++){
+                obj.segment_points.push_back(segments[i].segment_points[j]);
+            }
+            
             obj_list.objects.push_back(obj);
         }
 
         object_publisher_.publish(obj_list);
+        ROS_INFO("PublishObjectList exited with OK");
         return ecto::OK;
     }
 };

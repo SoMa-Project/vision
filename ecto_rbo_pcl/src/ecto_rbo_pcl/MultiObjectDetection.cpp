@@ -22,6 +22,7 @@ The views and conclusions contained in the software and documentation are those 
 #include <pcl/ModelCoefficients.h>
 
 #include "object_segmentation/object_pose.h"
+#include "object_segmentation/Segment.h"
 
 #include <visualization_msgs/Marker.h>
 #include <tf2_ros/static_transform_broadcaster.h>
@@ -53,6 +54,8 @@ struct MultiObjectDetection
   ros::NodeHandle nh_;
 
   geometry_msgs::PoseArray object_poses;
+  geometry_msgs::PoseArray unaligned_object_poses;
+  std::vector<object_segmentation::Segment> segments;
   std_msgs::Float32MultiArray bounding_boxes;
   tf::Transform ifcoPose_corrected_tf;
   visualization_msgs::MarkerArray bbox_markers;
@@ -77,6 +80,7 @@ struct MultiObjectDetection
   // outputs
   spore<std::vector<UnalignedAffine3f> > object_poses_;
   spore<std::vector<UnalignedVector3f> > object_sizes_;
+  spore<std::vector<object_segmentation::Segment> >segments_;
   spore<std::vector<UnalignedVector4f> > centroids_;
 
 
@@ -103,6 +107,8 @@ struct MultiObjectDetection
     outputs.declare<std::vector<UnalignedAffine3f> >("transforms", "A vector of 4x4 affine transformations for the objects.");
     outputs.declare<std::vector<UnalignedVector3f> >("sizes", "A vector of 3d sizes for the bounding boxes.");
     outputs.declare<std::vector<UnalignedVector4f> >("centroids", "Object centers");
+    outputs.declare<std::vector<object_segmentation::Segment> >("segments", "A vector of segments.");
+
   }
 
   // ======================================================================================================================
@@ -123,6 +129,7 @@ struct MultiObjectDetection
     // outputs
     object_poses_ = outputs["transforms"];
     object_sizes_ = outputs["sizes"];
+    segments_ = outputs["segments"];
     centroids_    = outputs["centroids"];
   }
 
@@ -254,6 +261,7 @@ struct MultiObjectDetection
 
     object_poses_->clear();
     object_sizes_->clear();
+    segments_->clear();
     centroids_->clear();
 
     // convert input tendril ifco transform to geometry_msg
@@ -308,12 +316,14 @@ struct MultiObjectDetection
     object_segmentation::object_pose object_srv;
 
     object_srv.request.ifco_pose = ifcoPose_final;
-
     if (object_pose_client.call(object_srv))
     {
       ROS_INFO("Object service was called");
 
       object_poses.poses = object_srv.response.object_poses;
+      unaligned_object_poses.poses = object_srv.response.unaligned_object_poses;
+      segments = object_srv.response.segments;
+
 
       std_msgs::Float32MultiArray bounding_boxes_temp;
       ROS_INFO("Detected %lu objects", object_srv.response.bounding_boxes.size());
@@ -334,7 +344,7 @@ struct MultiObjectDetection
       for(int i=0; i < bounding_boxes.data.size(); i+=3)
       {
         // object poses
-        geometry_msgs::Pose pose = object_poses.poses[i/3];
+        geometry_msgs::Pose pose = unaligned_object_poses.poses[i/3];
 
         Eigen::Matrix3f rotation;
         Eigen::Quaterniond objRotation_eigen;
@@ -374,6 +384,8 @@ struct MultiObjectDetection
 
         UnalignedVector4f center(pose.position.x, pose.position.y, pose.position.z, 0);
         centroids_->push_back(center);
+
+        segments_->push_back(segments[i/3]);
       }
     }
     else
@@ -386,12 +398,12 @@ struct MultiObjectDetection
     static ros::Publisher pose_pub = nh_.advertise<geometry_msgs::PoseArray>("object_poses", 1, true);
     static ros::Publisher vis_pub = nh_.advertise<visualization_msgs::MarkerArray>("multiObjectBoxes", 1, true);
     object_poses.header.frame_id = *camera_frame_;
-    pose_pub.publish(object_poses);
+    pose_pub.publish(unaligned_object_poses);
     vis_pub.publish(bbox_markers);
 
     // un-comment to see which pose is used for the multi-object detection:
     //br.sendTransform(tf::StampedTransform(ifcoPose_corrected_tf, ros::Time::now(), "camera", "ifco_multiObject"));
-
+    ROS_INFO("MultiObjectDetection exited with OK");
     return ecto::OK;
   }
 

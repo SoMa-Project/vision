@@ -117,7 +117,7 @@ ifco_specifications:
   ifco_width: 0.375
   ifco_height: 0.2
   # [wall 1, wall2, wall 3, wall 4] defined counterclockwise
-  ec_wall_offset: [0.0, 0.0, 0.0, 0.02] # this is the space an ec occludes inside the ifco at wall 1, wall2, etc..
+  ec_wall_offset: [0.0, 0.0, 0.0, 0.0] # this is the space an ec occludes inside the ifco at wall 1, wall2, etc..
 
 ifco_detection:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::IfcoDetection>
@@ -170,7 +170,7 @@ object_detection:
     ifco_length: ifco_specifications/ifco_length
     ifco_width: ifco_specifications/ifco_width
     ifco_height: ifco_specifications/ifco_height
-  ifco_alignment: true
+  ifco_alignment: false
   publish_rviz_markers: true
   camera_frame: camera
     
@@ -267,6 +267,7 @@ send_objects:
   inputs:
     transforms: object_detection/transforms
     sizes: object_detection/sizes
+    segments: object_detection/segments
   frame: camera
   
 # ------------------------------------------------------------------------

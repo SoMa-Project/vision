@@ -264,6 +264,7 @@ send_objects:
   inputs:
     transforms: object_detection/transforms
     sizes: object_detection/sizes
+    segments: object_detection/segments
   frame: camera_rgb_optical_frame
   
 # ------------------------------------------------------------------------
