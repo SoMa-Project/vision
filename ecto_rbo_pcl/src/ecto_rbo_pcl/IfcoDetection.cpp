@@ -246,13 +246,13 @@ struct IfcoDetection
 
                 if (client.call(srv))
                 {
-                    ROS_INFO("Service was called");
+                    ROS_INFO("Service was called (ifco detection)");
                     ROS_INFO("Fitness value was %f", srv.response.fitness);
                     tf::poseMsgToTF(srv.response.pose, cam_to_ifco);
                 }
                 else
                 {
-                    ROS_ERROR("Failed to call service");
+                    ROS_ERROR("Failed to call ifco detection service");
                 }
 
             }
