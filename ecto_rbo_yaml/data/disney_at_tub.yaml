@@ -1,0 +1,276 @@
+# @brief Generates the ECE graph plan for an Disney use-case environment, which contains only surface and edges
+
+# ------------------------------------------------------------------------
+ros_pc_subscriber:
+  type: ecto_sensor_msgs::Subscriber_PointCloud2
+  queue_size: 2
+  topic_name: /camera/depth_registered/points
+msg_to_pcl:
+  type: ecto_rbo_pcl::Message2PointCloud
+  inputs:
+    input: ros_pc_subscriber/output
+create_tf:
+  type: ecto_rbo_pcl::CreateTF
+  position: [0, 0, 0]
+  rotation_xyzw: [0, 0, 0, 1]
+tf_send_camera:
+  type: ecto_rbo_pcl::BroadcastTF
+  inputs:
+    transform: create_tf/transform
+  source_frame: camera_rgb_optical_frame
+  target_frame: base_frame
+
+
+# ------------------------------------------------------------------------
+# Cropping of the scene relative to the camera frame. 
+# - The remaining point cloud will be used for the table detection
+# ------------------------------------------------------------------------
+
+
+crop_box:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::PassThroughOrganized>
+  inputs:
+    input: msg_to_pcl/output
+  filter_field_name: z
+  filter_limit_max: 1 # this value is tuned for the vision position at disney
+  filter_limit_min: -10 # this value is tuned for the vision position at disney
+  filter_limit_negative: false
+
+
+# ------------------------------------------------------------------------
+# Table detection - main plane
+# ------------------------------------------------------------------------
+
+normal_estimation:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::NormalEstimationIntegral>
+  inputs:
+    input: crop_box/output
+  estimation_method: 0
+  max_depth_change_factor: 0.05
+  smoothing_size: 30
+flood_fill:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::FloodFill>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+  angular_threshold:  0.1359879 # 0.1359879 (original) # 0.2 for teddy
+  curvature_distance_threshold:  0.07
+  curvature_threshold:  0.037
+  distance_threshold: 0.05
+  min_inliers: 50
+  normal_distance_threshold:  0.12
+  #rviz_prefix: flood_fill_segmentation
+  
+
+# -- table_fits -- params taken from geometriy_graph_example2.yaml
+table_fits:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::PlaneFits>
+  inputs:
+    clusters: flood_fill/clusters
+    input: crop_box/output
+    normals: normal_estimation/output
+  distance_threshold: 10.05
+  max_size: 10.24
+  min_boxness: 0.0
+  min_inlier_ratio: 0.0
+  min_size: 0.00
+  weight_contour: 0.0
+  polygon_approximation_epsilon: 30.0
+ 
+tf_to_vector_table:
+  type: ecto_rbo_pcl::TF2Vector
+  inputs:
+    transform: table_fits/transform_biggest
+  column_index: 2
+  negate: false
+  
+wrap_in_vector_table:
+  type: ecto_rbo_pcl::WrapVector3fInVector
+  inputs:
+    input: tf_to_vector_table/vector
+
+
+# ------------------------------------------------------------------------
+# Cropping of the scene based on the table frame. 
+# - The remaining point cloud will be used for the object segmentation
+# ------------------------------------------------------------------------
+
+crop_box2:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::CropBox>
+  inputs:
+    input: crop_box/output
+    transform: table_fits/transform_biggest
+  default_min: [-0.42, -0.42, -0.2, 0.0] # this value is tuned for the vision position at disney
+  default_max: [0.42, 0.42, 0.06, 0.0] # this value is tuned for the vision position at disney
+  publish_rviz_markers: true
+
+# ------------------------------------------------------------------------
+# Object detection
+# ---------------------------------- check if that's needed or not -------
+
+help_remove_nans:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::RemoveNaNFromPointCloud>
+  inputs:
+    input: crop_box2/output
+    
+region_growing_rgb:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::RegionGrowingRGB>
+  inputs:
+    input: crop_box2/output
+    indices: help_remove_nans/indices
+  min_cluster_size: 10 #40 #80
+  distance_threshold: 10000
+  point_color_threshold: 7.0
+  region_color_threshold: 30.0
+  
+# filter by distance to table center
+filter_by_distance:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::FilterClustersBySize>
+  inputs:
+    input: crop_box2/output
+    clusters: flood_fill/clusters
+    transform: table_fits/transform_biggest
+  filter_criterion: 2  # distance of cluster mean to inputs "transform".
+  max_distance: 0.5 # 0.2 original
+
+
+merge_clusters:
+  type: ecto_rbo_pcl::MergeClusters
+  inputs:
+    cluster_0: region_growing_rgb/output
+    cluster_1: filter_by_distance/filtered_clusters  
+    
+filter_object_by_size:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::FilterClustersBySize>
+  inputs:
+    input: crop_box2/output
+    clusters: merge_clusters/merged_clusters
+  #max_volume: 0.004
+  #min_volume: 0.
+  filter_criterion: 1
+  #max_distance: 0.2
+  min_size: 120
+  max_size: 5000
+  
+filter_closest_object:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::ExtractClosestCluster>
+  inputs:
+    input: crop_box2/output
+    clusters: filter_object_by_size/filtered_clusters
+    transform: table_fits/transform_biggest
+  #size_weight: -0.0001
+  size_weight:  -0.9 # -0.0005 original
+  
+  
+# Calculate the centroid and the bounding box
+calculate_centroids:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::Centroid>
+  inputs:
+    input: crop_box2/output
+    clusters: filter_closest_object/closest_cluster
+    
+bbox_fits:
+  type: ecto::pcl::PclCell<ecto_rbo_pcl::PlaneFits2D>
+  inputs:
+    input: crop_box2/output
+    clusters: filter_closest_object/closest_cluster
+    normal: tf_to_vector_table/vector
+    
+bbox_to_axis:
+  type: ecto_rbo_pcl::TFs2Vectors
+  inputs:
+    transforms: bbox_fits/transforms
+  column_index: 0
+  negate: false
+
+# Broadcast object location
+take_first_tf:
+  type: ecto_rbo_pcl::Vector2TF
+  inputs:
+    input: bbox_fits/transforms
+tf_send_object:
+  type: ecto_rbo_pcl::BroadcastTF
+  inputs:
+    transform: take_first_tf/output
+  source_frame: camera_rgb_optical_frame
+  target_frame: object
+send_objects:
+  type: ecto_rbo_grasping::PublishObjectList
+  inputs:
+    transforms: bbox_fits/transforms
+    sizes: bbox_fits/sizes
+  frame: camera_rgb_optical_frame
+
+
+
+# ------------------------------------------------------------------------
+# Generate Environmental Constraint Graph (ECE-Graph)
+# ------------------------------------------------------------------------
+
+planar_manifolds:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::ManifoldsPlanar>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+    bounded_planes: table_fits/bounded_model_biggest
+  all_in_plane_orientations: true
+  rotation: 0
+
+# Initial approach primitive
+positioning_motions:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::PositioningMotions>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+    
+# Edge Grasps
+cliff_grasps:
+  type: ecto::pcl::PclCellWithNormals<ecto_rbo_grasping::CliffGrasps>
+  inputs:
+    input: crop_box/output
+    normals: normal_estimation/output
+    polygons: table_fits/polygon_biggest
+    bounded_planes: table_fits/bounded_model_biggest
+  max_no_of_points: 100
+  invert_y_axis: true
+
+# Surface Grasp
+create_top_down_grasps:
+  type: ecto_rbo_grasping::CreateGrasps
+  inputs:
+    header: msg_to_pcl/header
+    positions: calculate_centroids/centroids
+    approach_vectors: wrap_in_vector_table/vector
+    roll_vectors: bbox_to_axis/vectors
+  strategy: 10  # SQUEEZE
+  pregrasp_configuration: 2 # SPHERE
+  roll_offset: 0 #-1.5707963267948966   #3.141592653589793
+
+# ------------------------------------------------------------------------
+planner:
+  type: ecto_rbo_grasping::CreateGeometryGraph
+  inputs:
+    positioning_pregrasp_messages: positioning_motions/positioning_pregrasp_messages
+    positioning_motion_manifolds: positioning_motions/positioning_manifolds
+    pushing_pregrasp_messages: planar_manifolds/pushing_pregrasp_messages
+    pushing_motion_manifolds: planar_manifolds/manifolds
+    surface_pregrasp_messages: create_top_down_grasps/pregrasp_messages
+    surface_grasp_manifolds: planar_manifolds/manifolds
+    edge_pregrasp_messages: cliff_grasps/cliff_pregrasp_messages
+    edge_grasp_manifolds: cliff_grasps/cliff_manifolds
+  ignore_manifold_intersection: false
+publish_graph:
+  type: ecto_rbo_grasping::PublishGeometryGraph
+  inputs:
+    graph_message: planner/graph_message
+
+
+# ------------------------------------------------------------------------
+# BROADCASTING STUFF (dead end ecto cell)
+# ------------------------------------------------------------------------
+tf_send_table:
+  type: ecto_rbo_pcl::BroadcastTF
+  inputs:
+    transform: table_fits/transform_biggest
+  source_frame: camera_rgb_optical_frame
+  target_frame: table
