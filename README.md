@@ -132,6 +132,7 @@ Result
 You should be able to see in rviz the environment exploitation graph under the topic /geometry_graph_marker
 
 ![Alt text](/readme_/cucumber_experiment_result.png?raw=true "Title")
+
 Or check out the results for the example sceen here: https://tubcloud.tu-berlin.de/f/1635929622
 
 
