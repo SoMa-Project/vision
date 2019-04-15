@@ -1,6 +1,7 @@
 # ecto_rbo
 
 ROS packages providing various ecto cells and plasms for perception.
+Important: if you have no access to the private repository object_segmentation, please check out branch vision4public.
 
 ## Install 
 
@@ -83,7 +84,7 @@ rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ecto_rbo_yaml`/data/de
 ## Example 2: Ifco Scene (Table + Ifco Container + Object(s))
 
 Prepare scene:
-* Clear a table, place an ifco tote (57.5 x 37.5 x 17.5 cm) on it with horizontal alignment (57.5 cm side of ifco) towards the camera. Place an apple inside the tote.
+* Clear a table, place an ifco tote (57.5 x 37.5 x 17.5 cm) on it with horizontal alignment (57.5 cm side of ifco) towards the camera. Place an object inside the tote.
 
 
 ![Alt text](/readme_/IfcoContainerScene.png?raw=true "Title")
@@ -114,8 +115,7 @@ rosrun dynamic_reconfigure dynparam set /camera/driver depth_mode 7
 
 
 # with .bag file: 
-# example of ifco bag https://tubcloud.tu-berlin.de/s/yKQrraTdSsb54TC
-# example of table top scenario (link follows)
+# example of ifco bag https://tubcloud.tu-berlin.de/s/yKQrraTdSsb54TC or https://tubcloud.tu-berlin.de/f/1635926139
 # use ros sim time
 rosparam set use_sim_time true
 roslaunch openni2_launch openni2.launch depth_registration:=false
@@ -126,6 +126,14 @@ Execute vision
 ```
 rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ecto_rbo_yaml`/data/demo_ifco.yaml --debug
 ```
+
+Result
+
+You should be able to see in rviz the environment exploitation graph under the topic /geometry_graph_marker
+
+![Alt text](/readme_/cucumber_experiment_result.png?raw=true "Title")
+
+Or check out the results for the example scene here: https://tubcloud.tu-berlin.de/f/1635929622
 
 
 ## Documentation 
