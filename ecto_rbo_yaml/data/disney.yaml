@@ -32,7 +32,7 @@ crop_box:
   inputs:
     input: msg_to_pcl/output
   filter_field_name: z
-  filter_limit_max: 0.50 # this value is tuned for the vision position at disney
+  filter_limit_max: 1.50 # this value is tuned for the vision position at disney
   filter_limit_min: -1.0 # this value is tuned for the vision position at disney
   filter_limit_negative: false
 
