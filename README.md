@@ -19,6 +19,9 @@ catkin build ecto_rbo
 
 * To compile the package ecto_rbo_grasping you will have to solve a list of dependencies:
 
+You also need to build geometry_graph_msgs from https://github.com/SoMa-Project/ec_grasp_planner.git:
+`catkin build build geometry_graph_msgs`
+
 First install CGAL:
 ```
 sudo apt-get install libcgal-dev
