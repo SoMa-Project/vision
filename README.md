@@ -66,7 +66,10 @@ $ grep -r 'tr1'
 ./src/lib/util.cpp:#include <boost/tr1/unordered_map.hpp>
 ./src/lib/plasm/impl.hpp:#include <boost/tr1/unordered_map.hpp>
 ```
-
+Install `opencv` v3.2.0 and `opencv_contrib` v3.2.0:
+```
+$ cmake -D CMAKE_BUILD_TYPE=RELEASE \-D CMAKE_INSTALL_PREFIX=/usr/local \-D INSTALL_C_EXAMPLES=ON \-D INSTALL_PYTHON_EXAMPLES=ON \-D WITH_TBB=ON \-D WITH_V4L=ON \-D WITH_QT=ON \-D WITH_OPENGL=ON \-D WITH_CUDA=ON \-D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \-D BUILD_EXAMPLES=ON ..
+```
 
 
 
