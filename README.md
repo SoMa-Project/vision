@@ -49,7 +49,7 @@ copy the `libgdiam.so` lib from the build folder to `/usr/local/lib` where it is
 ### Compile in Ubuntu 18.04 and ROS Melodic
 
 Build `ecto`, `ecto_ros`, `ecto_pcl` from source and install dependencies (http://github.com/plasmodic/ecto.git),
-use fork of ecto_opencv that is already migrated to 18.04: https://github.com/zweistein/ecto_opencv/tree/migration_To_Ubunt18.04
+use fork of `ecto_opencv` that is already migrated to 18.04: https://github.com/zweistein/ecto_opencv/tree/migration_To_Ubunt18.04
 
 ```
 $ sudo apt-get install libboost-python-dev libboost-filesystem-dev libboost-system-dev \
