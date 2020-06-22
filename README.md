@@ -2,6 +2,64 @@
 
 ROS packages providing various ecto cells and plasms for perception.
 
+### Compile in Ubuntu 18.04 and ROS Melodic
+
+* First, install some dependencies. Start with installing CGAL:
+```
+sudo apt-get install libcgal-dev
+```
+
+You will also have to install Wild Magic 5 from the thirdparty folder. In `vision/thirdparty/GeometricTools/WildMagic5` execute:
+```
+make CFG=ReleaseDynamic -f makefile.wm5
+```
+And export the respective WP5_PATH
+```
+export WM5_PATH=/your_path/vision/thirdparty/GeometricTools/WildMagic5/SDK
+```
+
+You will also need to install GDIAM 1.0.1 from the thirdparty folder. In `vision/thirdparty/libgdiam` execute:
+```
+mkdir build && cd build
+cmake ..
+make
+```
+copy the `libgdiam.so` lib from the build folder to `/usr/local/lib` where it is expected by the ecto_rbo package by `sudo cp libgdiam.so /usr/local/lib`.
+
+* Then, compile the ec_grasp_planner repository: https://github.com/soma-project/ec_grasp_planner
+Build the geometry_graph_msgs from https://github.com/SoMa-Project/ec_grasp_planner.git:
+`catkin build geometry_graph_msgs`
+* Install `opencv_candidate`(https://github.com/wg-perception/opencv_candidate).
+
+* Install `opencv` v3.2.0 and `opencv_contrib` v3.2.0:
+```
+$ cmake -D CMAKE_BUILD_TYPE=RELEASE \-D CMAKE_INSTALL_PREFIX=/usr/local \-D INSTALL_C_EXAMPLES=ON \-D INSTALL_PYTHON_EXAMPLES=ON \-D WITH_TBB=ON \-D WITH_V4L=ON \-D WITH_QT=ON \-D WITH_OPENGL=ON \-D WITH_CUDA=ON \-D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \-D BUILD_EXAMPLES=ON ..
+```
+
+* Build `ecto`, `ecto_ros`, `ecto_pcl` from source and install dependencies (http://github.com/plasmodic/ecto.git),
+use fork of `ecto_opencv` that is already migrated to 18.04: https://github.com/zweistein/ecto_opencv/tree/migration_To_Ubunt18.04
+
+```
+$ sudo apt-get install libboost-python-dev libboost-filesystem-dev libboost-system-dev \
+        libboost-thread-dev python-setuptools python-gobject python-gtk2 graphviz doxygen \
+        python-sphinx
+# remove flag if it is not required to istall it
+$ catkin build -j 4 -DCMAKE_INSTALL_PREFIX=/usr/local
+````
+If compilation failes due to `tr1`:
+`": fatal error: boost/tr1/unordered_map.hpp: No such file or directory #include <boost/tr1/unordered_map.hpp>"`
+
+Remove `tr1` and replace `std::tr1::unordered_map` with `boost::unordered_map` in each files:
+1, entered to find these two files using the following command ecto directory
+```
+$ grep -r 'tr1'
+./src/lib/util.cpp:#include <boost/tr1/unordered_map.hpp>
+./src/lib/util.cpp:typedef std::tr1::unordered_map<std::string, std::string> dict_t;
+./src/lib/plasm/impl.hpp:#include <boost/tr1/unordered_map.hpp>
+```
+
+* Build the remaining packages of this repository.
+
 ## Install (Ubunut 14.04)
 
 * First compile the ec_grasp_planner repository: https://github.com/soma-project/ec_grasp_planner
@@ -45,34 +103,6 @@ copy the `libgdiam.so` lib from the build folder to `/usr/local/lib` where it is
 
 
 * For a particular grasping scenery (grasping out of an ifco) the vision depends on another repository ifco_pose_estimator: https://github.com/SoMa-Project/ifco_pose_estimator.git
-
-### Compile in Ubuntu 18.04 and ROS Melodic
-
-Build `ecto`, `ecto_ros`, `ecto_pcl` from source and install dependencies (http://github.com/plasmodic/ecto.git),
-use fork of `ecto_opencv` that is already migrated to 18.04: https://github.com/zweistein/ecto_opencv/tree/migration_To_Ubunt18.04
-
-```
-$ sudo apt-get install libboost-python-dev libboost-filesystem-dev libboost-system-dev \
-        libboost-thread-dev python-setuptools python-gobject python-gtk2 graphviz doxygen \
-        python-sphinx
-# remove flag if it is not required to istall it
-$ catkin build -j 4 -DCMAKE_INSTALL_PREFIX=/usr/local
-````
-If compilation failes due to `tr1`:
-`": fatal error: boost/tr1/unordered_map.hpp: No such file or directory #include <boost/tr1/unordered_map.hpp>"`
-
-Remove `tr1` and replace `std::tr1::unordered_map` with `boost::unordered_map` in each files:
-1, entered to find these two files using the following command ecto directory
-```
-$ grep -r 'tr1'
-./src/lib/util.cpp:#include <boost/tr1/unordered_map.hpp>
-./src/lib/plasm/impl.hpp:#include <boost/tr1/unordered_map.hpp>
-```
-Install `opencv` v3.2.0 and `opencv_contrib` v3.2.0:
-```
-$ cmake -D CMAKE_BUILD_TYPE=RELEASE \-D CMAKE_INSTALL_PREFIX=/usr/local \-D INSTALL_C_EXAMPLES=ON \-D INSTALL_PYTHON_EXAMPLES=ON \-D WITH_TBB=ON \-D WITH_V4L=ON \-D WITH_QT=ON \-D WITH_OPENGL=ON \-D WITH_CUDA=ON \-D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \-D BUILD_EXAMPLES=ON ..
-```
-
 
 
 ## Examples
