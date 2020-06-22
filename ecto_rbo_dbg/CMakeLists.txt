@@ -20,6 +20,7 @@ find_package(catkin REQUIRED COMPONENTS
   ecto_pcl
   ecto_rbo_yaml
   eigen_conversions
+  pregrasp_msgs
 )
 
 ## System dependencies are found with CMake's conventions
