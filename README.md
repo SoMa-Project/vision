@@ -26,8 +26,8 @@ make
 ```
 copy the `libgdiam.so` lib from the build folder to `/usr/local/lib` where it is expected by the ecto_rbo package by `sudo cp libgdiam.so /usr/local/lib`.
 
-* Then, compile the ec_grasp_planner repository: https://github.com/soma-project/ec_grasp_planner
-Build the geometry_graph_msgs from https://github.com/SoMa-Project/ec_grasp_planner.git:
+* Then, compile the ec_grasp_planner repository: https://github.com/soma-project/ec_grasp_planner, build the geometry_graph_msgs:
+
 `catkin build geometry_graph_msgs`
 * Install `opencv_candidate`(https://github.com/wg-perception/opencv_candidate).
 
