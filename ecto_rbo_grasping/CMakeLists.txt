@@ -15,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   pregrasp_msgs
   geometry_graph_msgs
   tf
+  tf2_ros
 )
 
 ## System dependencies are found with CMake's conventions
@@ -23,7 +24,7 @@ find_package(catkin REQUIRED COMPONENTS
 #find_package(PCL 1.7 REQUIRED)
 find_package(PCL REQUIRED)
 find_package(Eigen 3 REQUIRED)
-find_package(CGAL REQUIRED COMPONENTS Core )
+find_package(CGAL 4.11 REQUIRED COMPONENTS Core )
 
 find_package(TinyXML REQUIRED)
 
