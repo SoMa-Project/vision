@@ -21,7 +21,6 @@ The views and conclusions contained in the software and documentation are those 
 #include <pcl/common/eigen.h>
 #include <pcl/ModelCoefficients.h>
 
-#include "object_segmentation/object_pose.h"
 
 #include "tf/transform_broadcaster.h"
 #include "tf/transform_listener.h"
@@ -31,7 +30,7 @@ The views and conclusions contained in the software and documentation are those 
 #include <std_msgs/Float32MultiArray.h>
 #include <boost/thread/mutex.hpp>
 #include <visualization_msgs/MarkerArray.h>
-#include "ifco_pose_estimator/ifco_pose.h"
+
 
 
 using namespace ecto;
