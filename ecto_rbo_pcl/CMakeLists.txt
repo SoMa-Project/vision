@@ -184,7 +184,7 @@ ectomodule(ecto_rbo_pcl INSTALL
     src/ecto_rbo_pcl/WrapInVector.cpp
     src/ecto_rbo_pcl/CreateTF.cpp
     src/ecto_rbo_pcl/PCDReader.cpp
-#    src/ecto_rbo_pcl/IfcoDetection.cpp
+    src/ecto_rbo_pcl/IfcoDetection.cpp
     src/ecto_rbo_pcl/BroadcastIfcoSpecifications.cpp
 #    src/ecto_rbo_pcl/MultiObjectDetection.cpp
 #    src/ecto_rbo_pcl/FilterObjects.cpp

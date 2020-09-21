@@ -12,6 +12,7 @@ The views and conclusions contained in the software and documentation are those 
 */ 
 
 #include <ecto_pcl/ecto_pcl.hpp>
+#include <ecto/ecto.hpp>
 #include <ecto_pcl/pcl_cell.hpp>
 #include <ecto_pcl/pcl_cell_with_normals.hpp>
 

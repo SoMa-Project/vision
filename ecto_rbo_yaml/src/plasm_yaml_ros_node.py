@@ -92,7 +92,7 @@ if __name__ == '__main__':
     myargv = rospy.myargv(argv=sys.argv)[1:]
     args = parser.parse_args(myargv)
 
-    rospy.init_node('plasm_yaml_ros_service')
+    #rospy.init_node('plasm_yaml_ros_service')
     
     ecto_ros.init(myargv, 'plasm_yaml_ros_service', anonymous = False)
 
