@@ -118,6 +118,7 @@ TODO: table top + wall
 <img src="readme_/Example1_rgb.png?raw=true" height="300" /> <img src="readme_/Example1_Rviz.png?raw=true" height="300" />
 
 The image on the right shows the depth point cloud, the detected wall/table polygons and the detected closest object centroid in RVIZ. 
+The bag file of this scene can be found here: /nas/Videos/Vision/vision_example.bag.
 
 Launch camera or play bag file
 * Plug in a rgb-d camera or download and launch the example .bag file.
@@ -155,6 +156,7 @@ Prepare scene:
 <img src="readme_/IfcoContainerRGB.png?raw=true" height="300" /> <img src="readme_/IfcoContainerRviz.png?raw=true" height="300" />
 
 The image on the right shows the depth point cloud, the detected ifco frame and the detected object centroids in RVIZ. 
+The bag file of this scene can be found here: /nas/Videos/Vision/ifco_example.bag.
 
 Choose IFCO detection method 
 * Choose one of the IFCO detection methods by setting the rosparam to one of 1/2/3,  default is 1
