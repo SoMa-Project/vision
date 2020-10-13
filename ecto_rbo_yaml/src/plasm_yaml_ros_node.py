@@ -116,6 +116,7 @@ if __name__ == '__main__':
     server = VisionServer(ecto_plasm, ecto_cells)
 
     if args.service:
+        rospy.init_node('ec_graph_service')
         run_sub = rospy.Service('compute_ec_graph', ComputeECGraph, server.handle_compute_ec_graph)
         rospy.spin()
     else:

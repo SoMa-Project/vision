@@ -69,7 +69,7 @@ tf_send_camera:
   source_frame: camera_rgb_optical_frame
   target_frame: base_frame
 
-# crops off the camera far point cloud parts
+# crops off the camera far point cloud parts 
 crop_box:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::PassThroughOrganized>
   inputs:
@@ -125,8 +125,8 @@ table_fits:
 
 ifco_specifications:
   type: ecto_rbo_pcl::BroadcastIfcoSpecifications
-  ifco_length: 0.56
-  ifco_width: 0.38
+  ifco_length: 0.53 #0.56
+  ifco_width: 0.35 #0.38
   ifco_height: 0.16
   # [wall 1, wall2, wall 3, wall 4] defined counterclockwise
   ec_wall_offset: [0.0, 0.0, 0.0, 0.0] # this is the space an ec occludes inside the ifco at wall 1, wall2, etc..
@@ -147,7 +147,7 @@ ifco_detection:
   # Ocado's ICP detection results in a slightly shifted ifco frame. 
   # This param is applied on the z-Axis of the ifco frame to correct the shift. 
   # 0.02 for camera on the robot arm 0.005 for the almost extended camera tripod in the lab
-  icp_offset: 0.004 
+  icp_offset: 0.0 #0.004 
 
 tf_send_ifco:
   type: ecto_rbo_pcl::BroadcastTF
@@ -179,10 +179,9 @@ inside_ifco:
   inputs:
     input: crop_box/output
     transform: ifco_detection/ifco_transform
-  default_min: [-0.24,  -0.16, 0.02, 0]
-  default_max: [0.24,  0.16,  0.20, 0]
-  publish_rviz_markers: true
-
+  default_min: [-0.24,  -0.13, 0.02, 0] #[-0.24,  -0.16, 0.02, 0]
+  default_max: [0.24,  0.13,  0.20, 0] #[0.24,  0.16,  0.20, 0]
+  publish_rviz_markers: true 
 
 # ------------------------------------------------------------------------
 # Object Detection (consider only pointcloud inside the ifco)
@@ -231,26 +230,29 @@ filter_object_by_size:
   max_distance: 0.2
   min_size: 120
   max_size: 2000
+# Commented out for Multi Object Detection 
+# # Pick one object - the closest to the camera
+# filter_closest_object:
+#   type: ecto::pcl::PclCell<ecto_rbo_pcl::ExtractClosestCluster>
+#   inputs:
+#     input: crop_box/output
+#     clusters: region_growing_rgb/output
+#     transform: ifco_detection/ifco_transform
+#   size_weight: 0
 
-# Pick one object - the closest to the camera
-filter_closest_object:
-  type: ecto::pcl::PclCell<ecto_rbo_pcl::ExtractClosestCluster>
-  inputs:
-    input: crop_box/output
-    clusters: region_growing_rgb/output
-    transform: ifco_detection/ifco_transform
-  size_weight: 0
 # Calculate the centroid and the bounding box
 calculate_centroids:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::Centroid>
   inputs:
     input: crop_box/output
-    clusters: filter_closest_object/closest_cluster
+    clusters: region_growing_rgb/output
+    #clusters: filter_closest_object/closest_cluster # For Single Object Detection 
 bbox_fits:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::PlaneFits2D>
   inputs:
     input: crop_box/output
-    clusters: filter_closest_object/closest_cluster
+    clusters: region_growing_rgb/output
+    #clusters: filter_closest_object/closest_cluster # For Single Object Detection 
     normal: tf_to_vector_table/vector
 bbox_to_axis:
   type: ecto_rbo_pcl::TFs2Vectors
