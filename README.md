@@ -115,6 +115,9 @@ Prepare scene:
 
 TODO: table top + wall
 
+<img src="readme_/Example1_rgb.png?raw=true" height="300" /> <img src="readme_/Example1_Rviz.png?raw=true" height="300" />
+
+The image on the right shows the depth point cloud, the detected wall/table polygons and the detected closest object centroid in RVIZ. 
 
 Launch camera or play bag file
 * Plug in a rgb-d camera or download and launch the example .bag file.
