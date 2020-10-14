@@ -115,7 +115,7 @@ Prepare scene:
 
 TODO: table top + wall
 
-<img src="readme_/Example1_rgb.png?raw=true" height="300" /> <img src="readme_/Example1_Rviz.png?raw=true" height="300" />
+<img src="readme_/Example1_rgb.png?raw=true" height="250" /> <img src="readme_/Example1_Rviz.png?raw=true" height="250" />
 
 The image on the right shows the depth point cloud, the detected wall/table polygons and the detected closest object centroid in RVIZ. 
 The bag file of this scene can be found here: /nas/Videos/Vision/vision_example.bag.
@@ -153,7 +153,7 @@ Prepare scene:
 * Clear a table, place an ifco tote (57.5 x 37.5 x 17.5 cm) on it with horizontal alignment (57.5 cm side of ifco) towards the camera. Place objects inside the tote.
 
 
-<img src="readme_/IfcoContainerRGB.png?raw=true" height="300" /> <img src="readme_/IfcoContainerRviz.png?raw=true" height="300" />
+<img src="readme_/IfcoContainerRGB.png?raw=true" height="250" /> <img src="readme_/IfcoContainerRviz.png?raw=true" height="250" />
 
 The image on the right shows the depth point cloud, the detected ifco frame and the detected object centroids in RVIZ. 
 The bag file of this scene can be found here: /nas/Videos/Vision/ifco_example.bag.
