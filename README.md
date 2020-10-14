@@ -175,13 +175,13 @@ Launch camera or play bag file
 * Plug in a rgb-d camera or download and launch the example .bag file.
 
 ```
+
 # with kinect: plug the camera into your computer
 roslaunch openni2_launch openni2.launch depth_registration:=true
 # set camera resolution to QVGA
 rosrun dynamic_reconfigure dynparam set /camera/driver ir_mode 7
 rosrun dynamic_reconfigure dynparam set /camera/driver color_mode 7
 rosrun dynamic_reconfigure dynparam set /camera/driver depth_mode 7
-
 
 # with .bag file: 
 # example of ifco bag https://tubcloud.tu-berlin.de/s/yKQrraTdSsb54TC
@@ -192,6 +192,7 @@ roslaunch openni2_launch openni2.launch depth_registration:=false
 rosbag play -l ifco_example.bag  (or any other bag)
 # visualize in rviz:
 rosrun rviz rviz -d `rospack find ecto_rbo_yaml`/cfg/ifco_example.rviz
+
 ```
 
 Execute vision
@@ -199,9 +200,6 @@ Execute vision
 rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ecto_rbo_yaml`/data/demo_ifco.yaml --debug
 ```
 
-Expected outcome:
-* Clear a table, place an apple on it, and a wall (a rectangular prism object with height > 15 cm).
-* You should see frames in the centroids of the table, wall, and the object.
 
 ## Documentation 
 

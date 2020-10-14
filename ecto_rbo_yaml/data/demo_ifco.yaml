@@ -70,6 +70,7 @@ tf_send_camera:
   target_frame: base_frame
 
 # crops off the camera far point cloud parts 
+
 crop_box:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::PassThroughOrganized>
   inputs:
@@ -147,7 +148,9 @@ ifco_detection:
   # Ocado's ICP detection results in a slightly shifted ifco frame. 
   # This param is applied on the z-Axis of the ifco frame to correct the shift. 
   # 0.02 for camera on the robot arm 0.005 for the almost extended camera tripod in the lab
-  icp_offset: 0.0 #0.004 
+
+  icp_offset: 0.004 
+
 
 tf_send_ifco:
   type: ecto_rbo_pcl::BroadcastTF
@@ -230,6 +233,7 @@ filter_object_by_size:
   max_distance: 0.2
   min_size: 120
   max_size: 2000
+
 # Commented out for Multi Object Detection 
 # # Pick one object - the closest to the camera
 # filter_closest_object:
@@ -239,6 +243,7 @@ filter_object_by_size:
 #     clusters: region_growing_rgb/output
 #     transform: ifco_detection/ifco_transform
 #   size_weight: 0
+
 
 # Calculate the centroid and the bounding box
 calculate_centroids:

@@ -24,7 +24,7 @@ The views and conclusions contained in the software and documentation are those 
 #include "object_segmentation/object_pose.h"
 
 #include <visualization_msgs/Marker.h>
-#include "tf/transform_broadcaster.h"
+#include <tf2_ros/static_transform_broadcaster.h>
 #include "tf/transform_listener.h"
 #include <tf_conversions/tf_eigen.h>
 #include <tf/transform_datatypes.h>
@@ -58,7 +58,7 @@ struct MultiObjectDetection
   visualization_msgs::MarkerArray bbox_markers;
 
   tf::TransformListener tf_listener_;
-  tf::TransformBroadcaster br;
+  tf2_ros::StaticTransformBroadcaster br;
 
 
 
@@ -72,6 +72,7 @@ struct MultiObjectDetection
   // parameters
   spore<bool> ifco_alignment_;
   spore<bool> publish_rviz_markers_;
+  spore<std::string> camera_frame_;
 
   // outputs
   spore<std::vector<UnalignedAffine3f> > object_poses_;
@@ -86,6 +87,7 @@ struct MultiObjectDetection
 
     params.declare<bool>("ifco_alignment", "Use the z-Axis of the ifco transform also as object normal.", false);
     params.declare<bool>("publish_rviz_markers", "Should the output be published for visualization?", false);
+    params.declare<std::string>("camera_frame", "The frame in which the various tfs are expressed", "camera_rgb_optical_frame");
 
   }
 
@@ -116,6 +118,7 @@ struct MultiObjectDetection
     //params
     ifco_alignment_ = params["ifco_alignment"];
     publish_rviz_markers_ = params["publish_rviz_markers"];
+    camera_frame_ = params["camera_frame"];
 
     // outputs
     object_poses_ = outputs["transforms"];
@@ -132,7 +135,7 @@ struct MultiObjectDetection
     {
       ROS_INFO("Marker Box %i", i);
       visualization_msgs::Marker marker;
-      marker.header.frame_id = "camera";
+      marker.header.frame_id = *camera_frame_;
       marker.header.stamp = ros::Time(0);
       marker.id = i;
       marker.type = visualization_msgs::Marker::CUBE;
@@ -197,10 +200,10 @@ struct MultiObjectDetection
       // those parameters are taken into consideration by ocados multi object detection service
       nh_.setParam("/ifco/length", ifco_length_new);
       nh_.setParam("/ifco/width", ifco_width_new);
-
+      nh_.setParam("/ifco/height", (*ifco_height_));
 
       if (*publish_rviz_markers_)
-          publishRVizMarker("camera_rgb_optical_frame", ifco_pose, rot, ifco_length_new, ifco_width_new);
+          publishRVizMarker(*camera_frame_, ifco_pose, rot, ifco_length_new, ifco_width_new);
       return;
     }
 
@@ -211,11 +214,11 @@ struct MultiObjectDetection
 
         // this frame is visualizing the frame provided for the Ocado multi object segmentation
         visualization_msgs::Marker marker;
-        marker.header.frame_id = "/camera_rgb_optical_frame";
+        marker.header.frame_id = *camera_frame_;
         //marker.header.frame_id = "/base_link";
         marker.header.stamp = ros::Time(0);
         marker.id = 1;
-        marker.ns = "camera_rgb_optical_frame";
+        marker.ns = *camera_frame_;
         marker.type = visualization_msgs::Marker::CUBE;
         marker.action = visualization_msgs::Marker::ADD;
 
@@ -283,14 +286,12 @@ struct MultiObjectDetection
     geometry_msgs::Transform ifcoPose_corrected_msg;
     tf::transformTFToMsg (ifcoPose_corrected_tf, ifcoPose_corrected_msg);
 
-
-    static tf::TransformBroadcaster tf_broadcaster;
     geometry_msgs::TransformStamped msg;
     msg.header.stamp = ros::Time::now();
-    msg.header.frame_id = "camera_rgb_optical_frame";
+    msg.header.frame_id = *camera_frame_;
     msg.child_frame_id = "ifco_for_ICP";
     msg.transform = ifcoPose_corrected_msg;
-    tf_broadcaster.sendTransform(msg);
+    br.sendTransform(msg);
 
     // the final ifco frame that gets handed over to the multi-object service
     geometry_msgs::Pose ifcoPose_final;
@@ -384,7 +385,7 @@ struct MultiObjectDetection
     // visualize object detection result as boxes and poses
     static ros::Publisher pose_pub = nh_.advertise<geometry_msgs::PoseArray>("object_poses", 1, true);
     static ros::Publisher vis_pub = nh_.advertise<visualization_msgs::MarkerArray>("multiObjectBoxes", 1, true);
-    object_poses.header.frame_id = "camera";
+    object_poses.header.frame_id = *camera_frame_;
     pose_pub.publish(object_poses);
     vis_pub.publish(bbox_markers);
 

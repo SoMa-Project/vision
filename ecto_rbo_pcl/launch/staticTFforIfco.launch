@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+<node pkg="tf" type="static_transform_publisher" name="ifco_static" args="-0.0567942 0.632849 0.90971 0.0132599 0.0273798 0.994917 -0.0959967 base_link ifco_static 100" />
+</launch>
