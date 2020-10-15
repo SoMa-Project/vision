@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+        <arg name="A_high" default="115"/> <!--the maximum value for the A channel in the region of the IFCO-->
+        <arg name="A_low" default="95"/> <!--the minimum value for the A channel in the region of the IFCO-->
+        <arg name="ifco_length" default="0.575"/> 
+        <arg name="ifco_width" default="0.375"/>
+        <arg name="ifco_height" default="0.175"/>
+        <arg name="icp_iterations" default="50"/> <!--the maximum number of iterations of ICP-->
+        <arg name="rgb_topic" default="/camera/rgb/image_rect_color"/>
+        <arg name="pcl_topic" default="/camera/depth_registered/points"/>
+
+        <!--<arg name="rgb_topic" default="/kinect2_1/sd/image_color_rect"/>
+        <arg name="pcl_topic" default="/kinect2_1/sd/points"/>-->
+
+        <node name="ifco_pose_estimator" pkg="ifco_pose_estimator" type="ifco_pose_server" output="screen" respawn="false" args="$(arg A_high) $(arg A_low) $(arg ifco_width) $(arg ifco_length) $(arg ifco_height) $(arg icp_iterations) $(arg rgb_topic) $(arg pcl_topic)">
+
+        </node>
+    
+</launch>

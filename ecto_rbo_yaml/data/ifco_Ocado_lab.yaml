@@ -10,11 +10,40 @@
 # The views and conclusions contained in the software and documentation are those of the authors and should not be interpreted as representing official policies, either expressed or implied, of the FreeBSD Project.
 # 
 
-#@author Can Erdogan
-#@date 2017-10-17
-#@brief Generates the ECE graph plan for an environment with an IFCO. 
+# @author Can Erdogan
+# @date 2017-10-17
+# @brief Generates the ECE graph plan for an environment with an IFCO. 
 
-# Instructions: See ifco.yaml.
+# Instructions:
+# - Start environment: roslaunch hybrid_automaton_manager_kuka launchGazebo.launch world:=iiwa_ifco OR
+#                    : roslaunch openni2_launch openni2.launch depth_registration:=true (remember to reconfigure driver modes to 8)
+# - Start vision: rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ecto_rbo_grasping`/..//data/ifco_sim.yaml --debug
+# - Visualize in Rviz: ifco, ifcoWall0, ifcoWall1 TFs and the ifco_planes under visual markers.
+
+# IFCO detection algorithm (What happens in the ifco_grasps cell below):
+# 1. Detect the planes in the world. Visualize them in Rviz with MarkerArray: table_fits/polygons.
+#
+# 2. Assume the biggest plane corresponds to the table surface: table_fits/polygon_biggest. This is 
+#      important to establish the Z+ axis of the world (normal of the plane). 
+#  . Setup implication: Need to make sure there is a sufficiently big plane under the IFCO. 
+#
+# 3. Find the second biggest plane in the world such that it is perpendicular to the table plane 
+#    and close to the table center (tableDist parameter).
+#    Assume that it corresponds to the long face of the IFCO. MarkerArray: ifco_detection/ifco_wall_0_transform
+#    If such a plane is not found, an error message will be printed but the vision loop will continue.
+#  . Setup implication: It makes sense to setup the camera so that it sees both a long and short 
+#      face of the IFCO from outside. They can also be seen from inside but if the IFCO is full, 
+#      then occlusions might be problematic
+#
+# 4. Find the third biggest plane such that it is perpendicular to the table plane and the long IFCO.
+#    Assume that it corresponds to the long face of the IFCO. MarkerArray: ifco_detection/ifco_wall_1_transform
+#    If such a plane is not found, an error message will be printed but the vision loop will continue.
+#
+# 5. Using the pixel patches corresponding to the two planes, determine the location of the IFCO corner where
+#      the two planes intersect. Using this intersection point, compute the center of the IFCO assuming
+#      that we know its dimensions.
+#  . Setup implications: Provide the dimensions of your IFCO as parameters. Note that these dimensions are right
+#    now hardcoded in the testKinect2Collision and probably should be set as ros environment variables somehow.
 
 ros_pc_subscriber:
   type: ecto_sensor_msgs::Subscriber_PointCloud2
@@ -40,7 +69,7 @@ crop_box:
   inputs:
     input: msg_to_pcl/output
   filter_field_name: z
-  filter_limit_max: 1.6
+  filter_limit_max: 2.0
   filter_limit_min: 0
   filter_limit_negative: false
 
@@ -49,20 +78,19 @@ normal_estimation:
   inputs:
     input: crop_box/output
   estimation_method: 0
-  max_depth_change_factor: 0.00999999977648258
-  smoothing_size: 15
+  max_depth_change_factor: 0.05
+  smoothing_size: 30
 flood_fill:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::FloodFill>
   inputs:
     input: crop_box/output
     normals: normal_estimation/output
-  angular_threshold: 0.1359879
-  curvature_distance_threshold: 0.07
-  curvature_threshold: 0.037
+  angular_threshold: 0.1859879
+  curvature_distance_threshold: 0.15
+  curvature_threshold: 0.017
   distance_threshold: 0.05
   min_inliers: 50
   normal_distance_threshold: 0.12
-
   rviz_prefix: flood_fill_segmentation
 
 # ------------------------------------------------------------------------
@@ -85,11 +113,11 @@ table_fits:
 # ------------------------------------------------------------------------
 ifco_specifications:
   type: ecto_rbo_pcl::BroadcastIfcoSpecifications
-  ifco_length: 0.56
-  ifco_width: 0.38
-  ifco_height: 0.16
+  ifco_length: 0.575
+  ifco_width: 0.375
+  ifco_height: 0.2
   # [wall 1, wall2, wall 3, wall 4] defined counterclockwise
-  ec_wall_offset: [0.0, 0.0, 0.0, 0.0] # this is the space an ec occludes inside the ifco at wall 1, wall2, etc..
+  ec_wall_offset: [0.0, 0.0, 0.0, 0.02] # this is the space an ec occludes inside the ifco at wall 1, wall2, etc..
 
 ifco_detection:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::IfcoDetection>
@@ -103,11 +131,13 @@ ifco_detection:
     ifco_height: ifco_specifications/ifco_height
   plane_id: -1
   tableDist: 0.2
-    # SHOULD BE TUNED FOR EVERY EXPERIMENT SETUP
+  # SHOULD BE TUNED FOR EVERY EXPERIMENT SETUP
   # Ocado's ICP detection results in a slightly shifted ifco frame. 
   # This param is applied on the z-Axis of the ifco frame to correct the shift. 
   # 0.02 for camera on the robot arm 0.005 for the almost extended camera tripod in the lab
-  icp_offset: 0.004 
+  icp_offset: 0.0
+  publish_ifco: true
+  camera_frame: camera
 
 
 ifco_grasps:
@@ -125,7 +155,7 @@ tf_send_ifco:
   type: ecto_rbo_pcl::BroadcastTF
   inputs:
     transform: ifco_detection/ifco_transform
-  source_frame: camera_rgb_optical_frame
+  source_frame: camera
   target_frame: ifco
 
 
@@ -142,6 +172,7 @@ object_detection:
     ifco_height: ifco_specifications/ifco_height
   ifco_alignment: true
   publish_rviz_markers: true
+  camera_frame: camera
     
 object_detection_filtered:
   type: ecto_rbo_pcl::FilterObjects
@@ -218,7 +249,7 @@ bbox_to_axis:
   column_index: 0
   negate: false
 
-# Broadcast object location
+# # Broadcast object location
 # take_first_tf:
 #   type: ecto_rbo_pcl::Vector2TF
 #   inputs:
@@ -227,7 +258,7 @@ bbox_to_axis:
 #   type: ecto_rbo_pcl::BroadcastTF
 #   inputs:
 #     transform: take_first_tf/output
-#   source_frame: camera_rgb_optical_frame
+#   source_frame: camera
 #   target_frame: object_old
 
 # Broadcast object data
@@ -236,7 +267,7 @@ send_objects:
   inputs:
     transforms: object_detection/transforms
     sizes: object_detection/sizes
-  frame: camera_rgb_optical_frame
+  frame: camera
   
 # ------------------------------------------------------------------------
 # Create top grasp primitive
@@ -284,13 +315,12 @@ planner:
     surface_grasp_manifolds: planar_manifolds/manifolds
     wall_pregrasp_messages: ifco_grasps/wall_pregrasp_messages
     wall_grasp_manifolds: ifco_grasps/wall_manifolds
-    corner_pregrasp_messages: ifco_grasps/corner_pregrasp_messages
-    corner_grasp_manifolds: ifco_grasps/corner_manifolds
   ignore_manifold_intersection: true
 publish_graph:
   type: ecto_rbo_grasping::PublishGeometryGraph
   inputs:
     graph_message: planner/graph_message
+  camera_frame: camera
 
 # ------------------------------------------------------------------------
 
