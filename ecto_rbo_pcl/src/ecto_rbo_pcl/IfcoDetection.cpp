@@ -64,6 +64,11 @@ struct IfcoDetection
     // needed for icp detection
     tf::TransformBroadcaster br;
 /* removing Ocado stuff
+<<<<<<< HEAD
+=======
+    // tf::TransformBroadcaster br;
+
+>>>>>>> f77ace8972b4cac356c3244c98916eb2beb8a71a
     ros::ServiceClient client = nh_.serviceClient<ifco_pose_estimator::ifco_pose>("ifco_pose");
     ifco_pose_estimator::ifco_pose srv;
 */

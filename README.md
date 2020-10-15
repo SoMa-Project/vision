@@ -175,13 +175,13 @@ Launch camera or play bag file
 * Plug in a rgb-d camera or download and launch the example .bag file.
 
 ```
+
 # with kinect: plug the camera into your computer
 roslaunch openni2_launch openni2.launch depth_registration:=true
 # set camera resolution to QVGA
 rosrun dynamic_reconfigure dynparam set /camera/driver ir_mode 7
 rosrun dynamic_reconfigure dynparam set /camera/driver color_mode 7
 rosrun dynamic_reconfigure dynparam set /camera/driver depth_mode 7
-
 
 # with .bag file: 
 # example of ifco bag https://tubcloud.tu-berlin.de/s/yKQrraTdSsb54TC
