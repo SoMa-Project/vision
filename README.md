@@ -115,6 +115,10 @@ Prepare scene:
 
 TODO: table top + wall
 
+<img src="readme_/Example1_rgb.png?raw=true" height="250" /> <img src="readme_/Example1_Rviz.png?raw=true" height="250" />
+
+The image on the right shows the depth point cloud, the detected wall/table polygons and the detected closest object centroid in RVIZ. 
+The bag file of this scene can be found here: /nas/Videos/Vision/vision_example.bag.
 
 Launch camera or play bag file
 * Plug in a rgb-d camera or download and launch the example .bag file.
@@ -133,7 +137,9 @@ rosrun dynamic_reconfigure dynparam set /camera/driver depth_mode 7
 # use ros sim time
 rosparam set use_sim_time true
 roslaunch openni2_launch openni2.launch depth_registration:=false
-rosbag play -l xxx.bag  (or any other bag)
+rosbag play -l vision_example.bag  (or any other bag)
+# visualize in rviz:
+rosrun rviz rviz -d `rospack find ecto_rbo_yaml`/cfg/vision_example.rviz
 ```
 
 Execute vision
@@ -144,10 +150,13 @@ rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ecto_rbo_yaml`/data/de
 ## Example 2: Ifco Scene (Table + Ifco Container + Object(s))
 
 Prepare scene:
-* Clear a table, place an ifco tote (57.5 x 37.5 x 17.5 cm) on it with horizontal alignment (57.5 cm side of ifco) towards the camera. Place an apple inside the tote.
+* Clear a table, place an ifco tote (57.5 x 37.5 x 17.5 cm) on it with horizontal alignment (57.5 cm side of ifco) towards the camera. Place objects inside the tote.
 
 
-![Alt text](/readme_/IfcoContainerScene.png?raw=true "Title")
+<img src="readme_/IfcoContainerRGB.png?raw=true" height="250" /> <img src="readme_/IfcoContainerRviz.png?raw=true" height="250" />
+
+The image on the right shows the depth point cloud, the detected ifco frame and the detected object centroids in RVIZ. 
+The bag file of this scene can be found here: /nas/Videos/Vision/ifco_example.bag.
 
 Choose IFCO detection method 
 * Choose one of the IFCO detection methods by setting the rosparam to one of 1/2/3,  default is 1
@@ -180,7 +189,9 @@ rosrun dynamic_reconfigure dynparam set /camera/driver depth_mode 7
 # use ros sim time
 rosparam set use_sim_time true
 roslaunch openni2_launch openni2.launch depth_registration:=false
-rosbag play -l Ifco_vision_test.bag  (or any other bag)
+rosbag play -l ifco_example.bag  (or any other bag)
+# visualize in rviz:
+rosrun rviz rviz -d `rospack find ecto_rbo_yaml`/cfg/ifco_example.rviz
 ```
 
 Execute vision
