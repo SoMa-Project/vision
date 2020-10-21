@@ -133,7 +133,7 @@ rosrun dynamic_reconfigure dynparam set /camera/driver depth_mode 7
 
 
 # with .bag file: 
-# example of table top scenario (link follows)
+# The example bag file is saved on the tub-NAS (as stated above), for access contact a tub-member. 
 # use ros sim time
 rosparam set use_sim_time true
 roslaunch openni2_launch openni2.launch depth_registration:=false
@@ -184,8 +184,7 @@ rosrun dynamic_reconfigure dynparam set /camera/driver color_mode 7
 rosrun dynamic_reconfigure dynparam set /camera/driver depth_mode 7
 
 # with .bag file: 
-# example of ifco bag https://tubcloud.tu-berlin.de/s/yKQrraTdSsb54TC
-# example of table top scenario (link follows)
+# The example bag file is saved on the tub-NAS (as stated above), for access contact a tub-member. 
 # use ros sim time
 rosparam set use_sim_time true
 roslaunch openni2_launch openni2.launch depth_registration:=false
