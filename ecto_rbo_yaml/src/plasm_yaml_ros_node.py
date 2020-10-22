@@ -29,6 +29,7 @@ class VisionServer:
         self.ecto_scheduler = ecto.Scheduler(self.ecto_plasm)
         self.outputgraph = None
         self.found_objects = None
+        rospy.loginfo("Initializing server (2)")
 
         rospy.Subscriber('geometry_graph', Graph, self.callback_vision_result_graph)
         rospy.loginfo('Subscribed to the geometry_graph topic.')
@@ -72,7 +73,7 @@ class VisionServer:
 
         # start scheduler; iterate exactly once over the ecto plasm
         self.ecto_scheduler.execute(niter=1)
-
+        print("ecto_scheduler executed ... ")
         timeout = rospy.Duration(60) # Break if vision takes longer than 1min.
         end_time = rospy.Time.now() + timeout
         while self.outputgraph is None or self.found_objects is None:
@@ -80,7 +81,8 @@ class VisionServer:
                 rospy.sleep(0.1)
             else:
                 raise rospy.ServiceException("Vision service call timeout (execution longer than {0}s)".format(timeout.secs))
-
+        print(self.found_objects)
+        print("computing EC graph response ... ")
         return srv.ComputeECGraphResponse(self.outputgraph, self.found_objects)
 
 if __name__ == '__main__':
@@ -91,10 +93,11 @@ if __name__ == '__main__':
     parser.add_argument('--service', action='store_true', default=False)
     myargv = rospy.myargv(argv=sys.argv)[1:]
     args = parser.parse_args(myargv)
-
-    #rospy.init_node('plasm_yaml_ros_service')
     
-    ecto_ros.init(myargv, 'plasm_yaml_ros_service', anonymous = False)
+    # same node shouldn't be initialized twice 
+    # rospy.init_node('plasm_yaml_ros_service')
+    
+    #ecto_ros.init(myargv, 'plasm_yaml_ros_service', anonymous = False)
 
     rospack = rospkg.RosPack()
     if any([args.yaml_file.startswith(x) for x in [".", "/"]]):
@@ -111,15 +114,17 @@ if __name__ == '__main__':
     if args.showgraph:
         ecto.view_plasm(ecto_plasm, yml_file if type(yml_file) == str else " ".join(yml_file))
 
-    #while not rospy.is_shutdown():
-
-    server = VisionServer(ecto_plasm, ecto_cells)
 
     if args.service:
         rospy.init_node('ec_graph_service')
+        ecto_ros.init(myargv, 'ec_graph_ros_service', anonymous = False)
+        server = VisionServer(ecto_plasm, ecto_cells)
         run_sub = rospy.Service('compute_ec_graph', ComputeECGraph, server.handle_compute_ec_graph)
         rospy.spin()
     else:
+        ecto_ros.init(myargv, 'plasm_yaml_ros_service', anonymous = False)
+        rospy.init_node('plasm_yaml_service')
+        server = VisionServer(ecto_plasm, ecto_cells)
         server.ecto_scheduler.execute()
 
     print(server.ecto_scheduler.stats())
