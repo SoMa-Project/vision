@@ -147,6 +147,22 @@ Execute vision
 rosrun ecto_rbo_yaml plasm_yaml_ros_node.py `rospack find ecto_rbo_yaml`/data/demo_vision.yaml --debug
 ```
 
+---
+If you want to create your own bag file, follow these steps:
+1. prepare the scene 
+2. start the openni2_camera drivers 
+```
+roscore
+roslaunch openni2_launch openni2.launch depth_registration:=true
+```
+3. adjust your camera (you can use RVIZ for visualization), then run
+```
+rosbag record -O recorded_file /camera/depth_registered/points
+```
+The `-O` argument tells rosbag record to log to a file named recorded_file.bag, and the topic argument causes rosbag record to only subscribe to the topic `/camera/depth_registered/points`. When all topics are recorded it fails sometimes leaving an empty bag file. 
+
+---
+
 ## Example 2: Ifco Scene (Table + Ifco Container + Object(s))
 
 Prepare scene:
