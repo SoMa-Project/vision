@@ -6,40 +6,42 @@ ROS packages providing various ecto cells and plasms for perception.
 
 * First, install some dependencies. Start with `pip install requirements.txt` (those include the required packages for all SOMA repos).
 
-* Then, install CGAL:
-```
-sudo apt-get install libcgal-dev
-```
+* Install CGAL with `sudo apt-get install libcgal-dev`
+* Install Wild Magic 5  and GDIAM from the thirdparty folder:
+   * Wild Magic 5:
+   ```
+   cd vision/thirdparty/GeometricTools/WildMagic5
+   make CFG=ReleaseDynamic -f makefile.wm5
+   export WM5_PATH=/your_path/vision/thirdparty/GeometricTools/WildMagic5/SDK
+   ```
+   * GDIAM 1.0.1:
+   ```
+   cd vision/thirdparty/libgdiam
+   mkdir build && cd build
+   cmake ..
+   make
+   ```
+   * copy the `libgdiam.so` lib from the build folder to `/usr/local/lib` where it is expected by the ecto_rbo package by `sudo cp libgdiam.so /usr/local/lib`.
 
-You will also have to install Wild Magic 5 from the thirdparty folder. In `vision/thirdparty/GeometricTools/WildMagic5` execute:
-```
-make CFG=ReleaseDynamic -f makefile.wm5
-```
-And export the respective WP5_PATH
-```
-export WM5_PATH=/your_path/vision/thirdparty/GeometricTools/WildMagic5/SDK
-```
+* Then, clone the ec_grasp_planner repository: https://github.com/soma-project/ec_grasp_planner and build the geometry_graph_msgs: `catkin build geometry_graph_msgs`
 
-You will also need to install GDIAM 1.0.1 from the thirdparty folder. In `vision/thirdparty/libgdiam` execute:
-```
-mkdir build && cd build
-cmake ..
-make
-```
-copy the `libgdiam.so` lib from the build folder to `/usr/local/lib` where it is expected by the ecto_rbo package by `sudo cp libgdiam.so /usr/local/lib`.
-
-* Then, compile the ec_grasp_planner repository: https://github.com/soma-project/ec_grasp_planner, build the geometry_graph_msgs:
-
-`catkin build geometry_graph_msgs`
 * Install `opencv_candidate`(https://github.com/wg-perception/opencv_candidate).
 
-* Install `opencv` v3.2.0 and `opencv_contrib` v3.2.0:
-```
-$ cmake -D CMAKE_BUILD_TYPE=RELEASE \-D CMAKE_INSTALL_PREFIX=/usr/local \-D INSTALL_C_EXAMPLES=ON \-D INSTALL_PYTHON_EXAMPLES=ON \-D WITH_TBB=ON \-D WITH_V4L=ON \-D WITH_QT=ON \-D WITH_OPENGL=ON \-D WITH_CUDA=ON \-D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \-D BUILD_EXAMPLES=ON ..
-```
+* Install opencv version 3.2. using the following steps:
+    * clone `opencv` from version Tag 3.2.0 (https://github.com/opencv/opencv/tree/3.2.0)
+    * clone `opencv_contrib` from version Tag 3.2.0 (https://github.com/opencv/opencv_contrib/tree/3.2.0)
+    * build and install using:
+    ```
+    cd opencv
+    mkdir build && cd build
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \-D CMAKE_INSTALL_PREFIX=/usr/local \-D INSTALL_C_EXAMPLES=ON \-D INSTALL_PYTHON_EXAMPLES=ON \-D WITH_TBB=ON \-D WITH_V4L=ON \-D WITH_QT=ON \-D WITH_OPENGL=ON \-D WITH_CUDA=ON \-D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \-D BUILD_EXAMPLES=ON ..
+    make -j4
+    sudo make install
+    ```
 
 * Build `ecto`, `ecto_ros`, `ecto_pcl` from source and install dependencies (http://github.com/plasmodic/ecto.git),
-use fork of `ecto_opencv` that is already migrated to 18.04: https://github.com/zweistein/ecto_opencv/tree/migration_To_Ubunt18.04
+
+* Build `ecto_opencv` using the fork of that is already migrated to 18.04: https://github.com/zweistein/ecto_opencv/tree/migration_To_Ubunt18.04
 
 ```
 $ sudo apt-get install libboost-python-dev libboost-filesystem-dev libboost-system-dev \
