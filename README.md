@@ -4,7 +4,9 @@ ROS packages providing various ecto cells and plasms for perception.
 
 ### Compile in Ubuntu 18.04 and ROS Melodic
 
-* First, install some dependencies. Start with installing CGAL:
+* First, install some dependencies. Start with `pip install requirements.txt` (those include the required packages for all SOMA repos).
+
+* Then, install CGAL:
 ```
 sudo apt-get install libcgal-dev
 ```
