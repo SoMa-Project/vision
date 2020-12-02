@@ -22,6 +22,8 @@ ROS packages providing various ecto cells and plasms for perception.
    make
    ```
    * copy the `libgdiam.so` lib from the build folder to `/usr/local/lib` where it is expected by the ecto_rbo package by `sudo cp libgdiam.so /usr/local/lib`.
+   
+* Install openni2_launch: `sudo apt install ros-melodic-openni2-launch`
 
 * Then, clone the ec_grasp_planner repository: https://github.com/soma-project/ec_grasp_planner and build the geometry_graph_msgs: `catkin build geometry_graph_msgs`
 
