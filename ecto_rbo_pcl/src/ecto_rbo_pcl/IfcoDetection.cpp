@@ -31,7 +31,7 @@ The views and conclusions contained in the software and documentation are those 
 #include <ros/package.h>
 #include <tf_conversions/tf_eigen.h>
 #include <tf/transform_datatypes.h>
-// #include <tf/transform_broadcaster.h>
+#include <tf/transform_broadcaster.h>
 #include <tf/transform_listener.h>
 #include <visualization_msgs/Marker.h>
 #include <visualization_msgs/MarkerArray.h>
