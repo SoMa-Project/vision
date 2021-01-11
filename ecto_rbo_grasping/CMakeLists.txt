@@ -24,7 +24,7 @@ find_package(catkin REQUIRED COMPONENTS
 #find_package(PCL 1.7 REQUIRED)
 find_package(PCL REQUIRED)
 find_package(Eigen 3 REQUIRED)
-find_package(CGAL REQUIRED COMPONENTS Core )
+find_package(CGAL 4.11 REQUIRED COMPONENTS Core )
 
 find_package(TinyXML REQUIRED)
 

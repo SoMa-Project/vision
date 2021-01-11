@@ -44,10 +44,10 @@ region_growing_rgb:
   inputs:
     input: crop_box/output
     indices: help_remove_nans/indices
-  min_cluster_size: 80
+  min_cluster_size: 180
   distance_threshold: 1000
-  point_color_threshold: 7.0
-  region_color_threshold: 30.0
+  point_color_threshold: 3.0
+  region_color_threshold: 50.0
 
 table_fits:
   type: ecto::pcl::PclCellWithNormals<ecto_rbo_pcl::PlaneFits>
@@ -134,11 +134,11 @@ filter_object_by_size:
     input: crop_box/output
     clusters: merge_clusters/merged_clusters
   max_volume: 0.004
-  min_volume: 0.
+  min_volume: 0.0
   filter_criterion: 1
   max_distance: 0.2
-  min_size: 120
-  max_size: 2000
+  min_size: 180 #500 #380 
+  max_size: 2000 #2000
 filter_closest_object:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::ExtractClosestCluster>
   inputs:
@@ -152,7 +152,7 @@ calculate_centroids:
   type: ecto::pcl::PclCell<ecto_rbo_pcl::Centroid>
   inputs:
     input: crop_box/output
-    clusters: filter_closest_object/closest_cluster
+    clusters: filter_closest_object/closest_cluster # for multiple objects: filter_object_by_size/filtered_clusters 
 tf_to_vector_table_negated:
   type: ecto_rbo_pcl::TF2Vector
   inputs:

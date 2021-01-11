@@ -12,6 +12,7 @@ The views and conclusions contained in the software and documentation are those 
 */ 
 
 #include <ecto_pcl/ecto_pcl.hpp>
+#include <ecto/ecto.hpp>
 #include <ecto_pcl/pcl_cell.hpp>
 #include <ecto_pcl/pcl_cell_with_normals.hpp>
 
@@ -30,11 +31,11 @@ The views and conclusions contained in the software and documentation are those 
 #include <ros/package.h>
 #include <tf_conversions/tf_eigen.h>
 #include <tf/transform_datatypes.h>
-// #include <tf/transform_broadcaster.h>
+#include <tf/transform_broadcaster.h>
 #include <tf/transform_listener.h>
 #include <visualization_msgs/Marker.h>
 #include <visualization_msgs/MarkerArray.h>
-#include "ifco_pose_estimator/ifco_pose.h"
+//#include "ifco_pose_estimator/ifco_pose.h"
 
 #include <fstream>
 
@@ -61,10 +62,11 @@ struct IfcoDetection
     ros::NodeHandle nh_;
 
     // needed for icp detection
-    // tf::TransformBroadcaster br;
+    tf::TransformBroadcaster br;
+/* removing Ocado stuff
     ros::ServiceClient client = nh_.serviceClient<ifco_pose_estimator::ifco_pose>("ifco_pose");
     ifco_pose_estimator::ifco_pose srv;
-
+*/
     // needed to read static transform
     tf::TransformListener tf_listener_;
 
@@ -228,13 +230,16 @@ struct IfcoDetection
 
 
         // use an external method to retrieve the ifco transform
-        if(detection_method == simplestatic || detection_method == icp)
+// removeing Ocado IFCO detection from code
+        if(detection_method == simplestatic) // || detection_method == icp)
         {
             tf::Transform cam_to_ifco;
 
             // icp method is selected
             // compute ifco transform and broadcast it
-            if(detection_method == icp)
+
+/* removeing Ocado IFCO detection from code           
+	    if(detection_method == icp )
             {
 
                 // those parameters are taken into consideration by ocados icp ifco detection service
@@ -256,7 +261,7 @@ struct IfcoDetection
                 }
 
             }
-
+*/
             // access static transform (which comes either from the service call above or is sent otherwise)
             try
             {
@@ -290,23 +295,23 @@ struct IfcoDetection
                 tf::quaternionTFToEigen (ifcoRotation_tf, ifcoRotation_eigen);
                 Eigen::Matrix3d ifcoRotation_ = ifcoRotation_eigen.toRotationMatrix();
                 ifcoRotation = ifcoRotation_.cast<float>();
-
+/* removeing Ocado IFCO detection from code 
                 if (detection_method == icp)
                 {
                     // ifco rotation axis needs to be flipped to satisfy our conventions
                     ifcoRotation = ifcoRotation * ifco_rotation_icp;
-                    // ifcoRotation = ifcoRotation * ifco_rotation_wallconventions;
-                }
+                    ifcoRotation = ifcoRotation * ifco_rotation_wallconventions;
+                } */
                 float offset = ifcoCenter.getZ() + (*icp_offset_);
                 ifcoCenter_eigen = Eigen::Translation3f(ifcoCenter.getX(), ifcoCenter.getY(), offset);
                 transform = ifcoCenter_eigen * ifcoRotation;
                 (*ifco_transform_) = transform;
-
+/* removeing Ocado IFCO detection from code 
                 if(save_estimated_ifco_pose && detection_method == icp) {
                     tf::Quaternion rotation_tf;
                     tf::quaternionEigenToTF(Eigen::Quaterniond(ifcoRotation.cast<double>()),rotation_tf);
                     writeEstimatedIfcoPose2File(ifcoCenter, rotation_tf);
-                }
+                } */
             }
             catch (tf::TransformException ex)
             {

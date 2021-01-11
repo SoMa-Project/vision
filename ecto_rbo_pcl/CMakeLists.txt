@@ -19,7 +19,8 @@ find_package(catkin REQUIRED COMPONENTS
   roslib
   pcl_msgs
   pcl_conversions
-  ifco_pose_estimator
+#  ifco_pose_estimator
+#  vision_client
 )
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/Modules/")
@@ -185,8 +186,8 @@ ectomodule(ecto_rbo_pcl INSTALL
     src/ecto_rbo_pcl/PCDReader.cpp
     src/ecto_rbo_pcl/IfcoDetection.cpp
     src/ecto_rbo_pcl/BroadcastIfcoSpecifications.cpp
-    src/ecto_rbo_pcl/MultiObjectDetection.cpp
-    src/ecto_rbo_pcl/FilterObjects.cpp
+#    src/ecto_rbo_pcl/MultiObjectDetection.cpp
+#    src/ecto_rbo_pcl/FilterObjects.cpp
 )
 
 link_ecto(ecto_rbo_pcl
