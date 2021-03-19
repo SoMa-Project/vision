@@ -58,7 +58,7 @@ packaging==20.0
 pathlib2==2.3.5
 pexpect==4.7.0
 pickleshare==0.7.5
-Pillow==6.2.2
+Pillow==8.1.1
 pluggy==0.13.1
 prompt-toolkit==1.0.18
 protobuf==3.11.2
